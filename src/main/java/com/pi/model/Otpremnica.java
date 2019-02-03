@@ -42,14 +42,14 @@ public class Otpremnica {
 
 
 	public Otpremnica(int idOtpremnice, Long brojOtpremnice, Date datumOtpremnice, boolean primljenaRoba,
-			Date datumIsporuke, List<StavkaOtpremnice> stavkaOtpremnice) {
+			Date datumIsporuke, List<StavkaOtpremnice> stavkeOtpremnice) {
 		super();
 		this.idOtpremnice = idOtpremnice;
 		this.brojOtpremnice = brojOtpremnice;
 		this.datumOtpremnice = datumOtpremnice;
 		this.primljenaRoba = primljenaRoba;
 		this.datumIsporuke = datumIsporuke;
-		this.stavkeOtpremnice = stavkaOtpremnice;
+		this.stavkeOtpremnice = stavkeOtpremnice;
 	}
 
 
@@ -108,7 +108,7 @@ public class Otpremnica {
 	}
 
 
-	public void setStavkaOtpremnice(List<StavkaOtpremnice> stavkaOtpremnice) {
+	public void setStavkeOtpremnice(List<StavkaOtpremnice> stavkaOtpremnice) {
 		this.stavkeOtpremnice = stavkaOtpremnice;
 	}
 	

@@ -5,8 +5,8 @@ import java.sql.Date;
 public class NarudzbenicaDTO {
 
 	
-private int idStavkeNarudzbenice;
-	
+
+	private int idNarudzbenice;	
 	private Long brojNarudzbenice;
 	private Date datumIzrade;
 	private Date datumIsporuke;
@@ -14,21 +14,21 @@ private int idStavkeNarudzbenice;
 	
 	public NarudzbenicaDTO() {}
 	
-	public NarudzbenicaDTO(int idStavkeNarudzbenice, Long brojNarudzbenice, Date datumIzrade, Date datumIsporuke,
+	public NarudzbenicaDTO(int idNarudzbenice, Long brojNarudzbenice, Date datumIzrade, Date datumIsporuke,
 			boolean placena) {
 		super();
-		this.idStavkeNarudzbenice = idStavkeNarudzbenice;
+		this.idNarudzbenice = idNarudzbenice;
 		this.brojNarudzbenice = brojNarudzbenice;
 		this.datumIzrade = datumIzrade;
 		this.datumIsporuke = datumIsporuke;
 		this.placena = placena;
 
 	}
-	public int getIdStavkeNarudzbenice() {
-		return idStavkeNarudzbenice;
+	public int getIdNarudzbenice() {
+		return idNarudzbenice;
 	}
-	public void setIdStavkeNarudzbenice(int idStavkeNarudzbenice) {
-		this.idStavkeNarudzbenice = idStavkeNarudzbenice;
+	public void setIdNarudzbenice(int idNarudzbenice) {
+		this.idNarudzbenice = idNarudzbenice;
 	}
 	public Long getBrojNarudzbenice() {
 		return brojNarudzbenice;

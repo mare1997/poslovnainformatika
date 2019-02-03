@@ -4,9 +4,8 @@ import java.sql.Date;
 
 public class FakturaDTO {
 
-private int idFakture;
-	
-	
+
+	private int idFakture;
 	private Long brojFakture;
 	private Date datumValute;
 	private Date datumFakture;

@@ -18,7 +18,7 @@ public class Narudzbenica {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int idStavkeNarudzbenice;
+	private int idNarudzbenice;
 	
 	@Column(name="Broj_narudzbenice", columnDefinition="NUMBER")
 	private Long brojNarudzbenice;
@@ -38,10 +38,10 @@ public class Narudzbenica {
 	
 	public Narudzbenica () {}
 
-	public Narudzbenica(int idStavkeNarudzbenice, Long brojNarudzbenice, Date datumIzrade, Date datumIsporuke,
+	public Narudzbenica(int idNarudzbenice, Long brojNarudzbenice, Date datumIzrade, Date datumIsporuke,
 			boolean placena, List<StavkaNarudzbenice> stavkeNarudzbenice) {
 		super();
-		this.idStavkeNarudzbenice = idStavkeNarudzbenice;
+		this.idNarudzbenice = idNarudzbenice;
 		this.brojNarudzbenice = brojNarudzbenice;
 		this.datumIzrade = datumIzrade;
 		this.datumIsporuke = datumIsporuke;
@@ -49,12 +49,12 @@ public class Narudzbenica {
 		this.stavkeNarudzbenice = stavkeNarudzbenice;
 	}
 
-	public int getIdStavkeNarudzbenice() {
-		return idStavkeNarudzbenice;
+	public int getIdNarudzbenice() {
+		return idNarudzbenice;
 	}
 
-	public void setIdStavkeNarudzbenice(int idStavkeNarudzbenice) {
-		this.idStavkeNarudzbenice = idStavkeNarudzbenice;
+	public void setIdNarudzbenice(int idNarudzbenice) {
+		this.idNarudzbenice = idNarudzbenice;
 	}
 
 	public Long getBrojNarudzbenice() {
