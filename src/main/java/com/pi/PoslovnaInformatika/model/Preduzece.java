@@ -61,5 +61,8 @@ public class Preduzece implements Serializable {
 	@OneToMany(cascade = { ALL }, fetch = LAZY, mappedBy = "preduzece")
 	private Set<Cenovnik> cenovnik=new HashSet<Cenovnik>();
 	
+	@OneToMany(cascade = { ALL }, fetch = LAZY, mappedBy = "preduzece")
+	private Set<User> users=new HashSet<User>();
+	
 	
 }

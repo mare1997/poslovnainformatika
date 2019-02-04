@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -35,6 +37,10 @@ public class Narudzbenica {
 	@JsonIgnore
 	@OneToMany(mappedBy="narudzbenica", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private List<StavkaNarudzbenice> stavkeNarudzbenice;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = true)
+	private User user;
 	
 	public Narudzbenica () {}
 

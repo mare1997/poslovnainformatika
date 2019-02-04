@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -46,6 +48,10 @@ public class Faktura {
 	@JsonIgnore
 	@OneToMany(mappedBy="faktura", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private List<StavkaFakture> stavkeFakture;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = true)
+	private User user;
 	
 	public Faktura() {}
 

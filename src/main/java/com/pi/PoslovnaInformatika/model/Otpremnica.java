@@ -47,6 +47,10 @@ public class Otpremnica {
 	@JoinColumn(name = "kupac_id", referencedColumnName = "kupac_id", nullable = true)
 	private Kupac kupac;
 	
+	@ManyToOne
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = true)
+	private User user;
+	
 	public Otpremnica() {}
 
 
