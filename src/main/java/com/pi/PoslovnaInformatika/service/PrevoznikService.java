@@ -6,36 +6,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pi.PoslovnaInformatika.model.Preduzece;
+import com.pi.PoslovnaInformatika.model.Prevoznik;
 import com.pi.PoslovnaInformatika.repository.PreduzeceRepository;
 import com.pi.PoslovnaInformatika.service.interfaces.PreduzeceServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.PrevoznikServiceInterface;
 @Service
-public class PrevoznikService implements PreduzeceServiceInterface {
+public class PrevoznikService implements PrevoznikServiceInterface {
 
-	@Autowired
-	PreduzeceRepository pr;
-	
 	@Override
-	public List<Preduzece> getAll() {
+	public List<Prevoznik> getAll() {
 		// TODO Auto-generated method stub
-		return pr.findAll();
+		return null;
 	}
 
 	@Override
-	public Preduzece getOne(Integer Preduzece) {
+	public Prevoznik getOne(Integer Prevoznik) {
 		// TODO Auto-generated method stub
-		return pr.getOne(Preduzece);
+		return null;
 	}
 
 	@Override
-	public Preduzece save(Preduzece Preduzece) {
+	public Prevoznik save(Prevoznik Prevoznik) {
 		// TODO Auto-generated method stub
-		return pr.save(Preduzece);
+		return null;
 	}
 
 	@Override
 	public void remove(Integer id) {
 		// TODO Auto-generated method stub
-		pr.deleteById(id);
+		
 	}
+
+	
 
 }
