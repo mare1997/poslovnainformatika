@@ -3,11 +3,12 @@ package com.pi.PoslovnaInformatika.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.pi.PoslovnaInformatika.model.Roba;
 import com.pi.PoslovnaInformatika.repository.RobaRepository;
 import com.pi.PoslovnaInformatika.service.interfaces.RobaServiceInterface;
-
+@Service
 public class RobaService implements RobaServiceInterface {
 
 	@Autowired

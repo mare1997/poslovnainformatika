@@ -3,11 +3,12 @@ package com.pi.PoslovnaInformatika.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.pi.PoslovnaInformatika.model.StopaPDV;
 import com.pi.PoslovnaInformatika.repository.StopaPDVRepository;
 import com.pi.PoslovnaInformatika.service.interfaces.StopaPDVServiceInterface;
-
+@Service
 public class StopaPDVService implements StopaPDVServiceInterface {
 	
 	@Autowired

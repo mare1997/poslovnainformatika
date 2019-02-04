@@ -3,11 +3,12 @@ package com.pi.PoslovnaInformatika.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.pi.PoslovnaInformatika.model.Kupac;
 import com.pi.PoslovnaInformatika.repository.KupacRepository;
 import com.pi.PoslovnaInformatika.service.interfaces.KupacServiceInterface;
-
+@Service
 public class KupacService  implements KupacServiceInterface{
 
 	@Autowired

@@ -3,11 +3,12 @@ package com.pi.PoslovnaInformatika.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.pi.PoslovnaInformatika.model.StavkaCenovnika;
 import com.pi.PoslovnaInformatika.repository.StavkeCenovnikaRepository;
 import com.pi.PoslovnaInformatika.service.interfaces.StavkeCenovnikaServiceInterface;
-
+@Service
 public class StavkeCenovnikaService implements StavkeCenovnikaServiceInterface {
 
 	
