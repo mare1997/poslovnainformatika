@@ -3,11 +3,12 @@ package com.pi.PoslovnaInformatika.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.pi.PoslovnaInformatika.model.PDV;
 import com.pi.PoslovnaInformatika.repository.PDVRepository;
 import com.pi.PoslovnaInformatika.service.interfaces.PDVServiceInterface;
-
+@Service
 public class PDVService implements PDVServiceInterface{
 
 	@Autowired

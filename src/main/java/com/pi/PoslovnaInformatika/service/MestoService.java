@@ -3,11 +3,12 @@ package com.pi.PoslovnaInformatika.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.pi.PoslovnaInformatika.model.Mesto;
 import com.pi.PoslovnaInformatika.repository.MestoRepository;
 import com.pi.PoslovnaInformatika.service.interfaces.MestoServiceInterface;
-
+@Service
 public class MestoService implements MestoServiceInterface{
 
 	@Autowired

@@ -3,12 +3,12 @@ package com.pi.PoslovnaInformatika.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
 
 import com.pi.PoslovnaInformatika.model.User;
 import com.pi.PoslovnaInformatika.repository.UserRepository;
 import com.pi.PoslovnaInformatika.service.interfaces.UserServiceInterface;
-
+@Service
 public class UserService implements UserServiceInterface {
 
 	@Autowired
