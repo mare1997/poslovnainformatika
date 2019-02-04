@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity                 
-@Table(name="poslovnaGodina")
+@Table(name="poslovna_godina")
 public class PoslovnaGodina implements Serializable{
 
 	/**

@@ -9,12 +9,13 @@ import org.springframework.core.convert.converter.Converter;
 import com.pi.PoslovnaInformatika.dto.StavkaNarudzbeniceDTO;
 import com.pi.PoslovnaInformatika.model.Narudzbenica;
 import com.pi.PoslovnaInformatika.model.StavkaNarudzbenice;
-import com.pi.PoslovnaInformatika.service.NarudzbenicaService;
+import com.pi.PoslovnaInformatika.service.interfaces.NarudzbenicaServiceInterface;
+
 
 public class StavkaNarudzbeniceDTOtoStavkaNarudzbenice implements Converter<StavkaNarudzbeniceDTO, StavkaNarudzbenice>{
 
 	@Autowired
-	private NarudzbenicaService narudzbenicaService;
+	private NarudzbenicaServiceInterface narudzbenicaService;
 	
 	@Override
 	public StavkaNarudzbenice convert(StavkaNarudzbeniceDTO source){
