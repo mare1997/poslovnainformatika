@@ -10,26 +10,33 @@ import org.springframework.stereotype.Component;
 import com.pi.PoslovnaInformatika.dto.FakturaDTO;
 import com.pi.PoslovnaInformatika.model.Faktura;
 import com.pi.PoslovnaInformatika.model.StavkaFakture;
-import com.pi.PoslovnaInformatika.service.FakturaService;
+import com.pi.PoslovnaInformatika.service.KupacService;
 import com.pi.PoslovnaInformatika.service.NarudzbenicaService;
 import com.pi.PoslovnaInformatika.service.OtpremnicaService;
+import com.pi.PoslovnaInformatika.service.StavkaFaktureService;
+import com.pi.PoslovnaInformatika.service.UserService;
+
+
 
 
 
 @Component
 public class FakturaDTOtoFaktura implements Converter<FakturaDTO, Faktura>{
-	/*
+	
 	@Autowired
-	private StavkeFakturaService stavkeFaktureService;
-	*/
+	private StavkaFaktureService stavkeFaktureService;
+	
 	@Autowired
 	private NarudzbenicaService narudzbenicaService;
 	
 	@Autowired
 	private OtpremnicaService otpremnicaService;
 	
-	/*@Autowired
-	private KupacService kupacService;*/
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private KupacService kupacService;
 	
 	@Override
 	public Faktura convert(FakturaDTO source){
@@ -50,8 +57,9 @@ public class FakturaDTOtoFaktura implements Converter<FakturaDTO, Faktura>{
 		faktura.setStatusFakture(source.getStatusFakture());
 		faktura.setNarudzbenicaRel(narudzbenicaService.findOne(Long.valueOf(source.getNarudzbeniceRel())));
 		faktura.setOtpremnicaRel(otpremnicaService.findOne(Long.valueOf(source.getOtpremnicaRel())));
+		faktura.setUser(userService.getOne(source.getUser()));
 		
-		/*faktura.setKupac(kupacService.findOne(Long.valueOf(source.getKupac())));
+		faktura.setKupac(kupacService.getOne(source.getKupac()));
 		List<StavkaFakture> sveStavke = new ArrayList<StavkaFakture>();
 		sveStavke = stavkeFaktureService.findAll();
 		for(StavkaFakture stavkaFakture: sveStavke){
@@ -59,7 +67,7 @@ public class FakturaDTOtoFaktura implements Converter<FakturaDTO, Faktura>{
 				sveStavke.add(stavkaFakture);
 			}
 		}
-		faktura.setStavkeFakture(sveStavke);*/
+		faktura.setStavkeFakture(sveStavke);
 		
 		return faktura;
 	}

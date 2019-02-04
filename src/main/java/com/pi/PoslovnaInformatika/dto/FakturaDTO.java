@@ -16,6 +16,7 @@ public class FakturaDTO {
 	private int narudzbeniceRel;
 	private int otpremnicaRel;
 	private int kupac;
+	private int user;
 	
 	
 	public FakturaDTO () {}
@@ -24,7 +25,7 @@ public class FakturaDTO {
 
 	public FakturaDTO(int idFakture, Long brojFakture, Date datumValute, Date datumFakture, Long osnovica,
 			Long ukupanPDV, Long iznosZaPlacanje, String statusFakture, int narudzbeniceRel, int otpremnicaRel,
-			int kupac) {
+			int kupac,int user) {
 		super();
 		this.idFakture = idFakture;
 		this.brojFakture = brojFakture;
@@ -37,6 +38,19 @@ public class FakturaDTO {
 		this.narudzbeniceRel = narudzbeniceRel;
 		this.otpremnicaRel = otpremnicaRel;
 		this.kupac = kupac;
+		this.user=user;
+	}
+
+
+
+	public int getUser() {
+		return user;
+	}
+
+
+
+	public void setUser(int user) {
+		this.user = user;
 	}
 
 

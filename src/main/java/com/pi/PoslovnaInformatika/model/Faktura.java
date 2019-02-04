@@ -67,6 +67,9 @@ public class Faktura implements Serializable{
 	@JoinColumn(name="kupac_id")
 	private Kupac kupac;
 	
+	@ManyToOne
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = true)
+	private User user;
 	
 	public Faktura() {}
 
@@ -76,7 +79,7 @@ public class Faktura implements Serializable{
 			Date datumFakture, Long osnovica, Long ukupanPDV,
 			Long iznosZaPlacanje, String statusFakture,
 			List<StavkaFakture> stavkeFakture, Narudzbenica narudzbenicaRel,
-			Otpremnica otpremnicaRel,Kupac kupac) {
+			Otpremnica otpremnicaRel,Kupac kupac, User user) {
 		super();
 		this.idFakture = id;
 		this.brojFakture = brojFakture;
@@ -90,6 +93,7 @@ public class Faktura implements Serializable{
 		this.narudzbenicaRel=narudzbenicaRel;
 		this.otpremnicaRel=otpremnicaRel;
 		this.kupac=kupac;
+		this.user=user;
 	}
 
 
@@ -169,6 +173,18 @@ public class Faktura implements Serializable{
 
 	public void setOtpremnicaRel(Otpremnica otpremnicaRel) {
 		this.otpremnicaRel = otpremnicaRel;
+	}
+
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 

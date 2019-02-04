@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -44,13 +46,19 @@ public class Narudzbenica implements Serializable{
 	@OneToMany(mappedBy="narudzbenica", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private List<StavkaNarudzbenice> stavkeNarudzbenice;
 	
+
 	@OneToOne(mappedBy="narudzbenicaRel")
 	private Faktura fakturaRel;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = true)
+	private User user;
+
 	
 	public Narudzbenica () {}
 
 	public Narudzbenica(int idNarudzbenice, Long brojNarudzbenice, Date datumIzrade, Date datumIsporuke,
-			boolean placena, List<StavkaNarudzbenice> stavkeNarudzbenice,Faktura fakturaRel) {
+			boolean placena, List<StavkaNarudzbenice> stavkeNarudzbenice,Faktura fakturaRel,User user) {
 		super();
 		this.idNarudzbenice = idNarudzbenice;
 		this.brojNarudzbenice = brojNarudzbenice;
@@ -59,6 +67,7 @@ public class Narudzbenica implements Serializable{
 		this.placena = placena;
 		this.stavkeNarudzbenice = stavkeNarudzbenice;
 		this.fakturaRel = fakturaRel;
+		this.user=user;
 	}
 
 	public int getIdNarudzbenice() {
@@ -117,6 +126,15 @@ public class Narudzbenica implements Serializable{
 		this.fakturaRel = fakturaRel;
 	}
 	
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public void addStavkaNarudzbenice(StavkaNarudzbenice stavkaNarudzbenice){
 		if(stavkeNarudzbenice.contains(stavkaNarudzbenice)){
 			return;

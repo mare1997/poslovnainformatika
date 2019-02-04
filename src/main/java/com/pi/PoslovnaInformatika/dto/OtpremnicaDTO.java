@@ -11,7 +11,7 @@ public class OtpremnicaDTO {
 	private Date datumIsporuke;
 	private int prevoznikId;
 	private int kupacId;
-	private int radnikId;
+	private int user;
 	private int preduzeceId;
 	private int fakturaRel;
 	
@@ -19,7 +19,7 @@ public class OtpremnicaDTO {
 	
 	
 	public OtpremnicaDTO(int idOtpremnice, Long brojOtpremnice, Date datumOtpremnice, boolean primljenaRoba,
-			Date datumIsporuke, int prevoznikId, int kupacId, int radnikId, int preduzeceId, int fakturaRel) {
+			Date datumIsporuke, int prevoznikId, int kupacId, int user, int preduzeceId, int fakturaRel) {
 		super();
 		this.idOtpremnice = idOtpremnice;
 		this.brojOtpremnice = brojOtpremnice;
@@ -28,7 +28,7 @@ public class OtpremnicaDTO {
 		this.datumIsporuke = datumIsporuke;
 		this.prevoznikId = prevoznikId;
 		this.kupacId = kupacId;
-		this.radnikId = radnikId;
+		this.user = user;
 		this.preduzeceId = preduzeceId;
 		this.fakturaRel = fakturaRel;
 	}
@@ -107,13 +107,13 @@ public class OtpremnicaDTO {
 	}
 
 
-	public int getRadnikId() {
-		return radnikId;
+	public int getUser() {
+		return user;
 	}
 
 
-	public void setRadnikId(int radnikId) {
-		this.radnikId = radnikId;
+	public void setUser(int user) {
+		this.user = user;
 	}
 
 

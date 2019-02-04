@@ -9,7 +9,9 @@ import org.springframework.core.convert.converter.Converter;
 import com.pi.PoslovnaInformatika.dto.StavkaFaktureDTO;
 import com.pi.PoslovnaInformatika.model.Faktura;
 import com.pi.PoslovnaInformatika.model.StavkaFakture;
+import com.pi.PoslovnaInformatika.service.RobaService;
 import com.pi.PoslovnaInformatika.service.interfaces.FakturaServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.RobaServiceInterface;
 
 
 public class StavkaFaktureDTOtoStavkaFakture implements Converter<StavkaFaktureDTO, StavkaFakture>{
@@ -37,7 +39,7 @@ public class StavkaFaktureDTOtoStavkaFakture implements Converter<StavkaFaktureD
 		stavkaFakture.setProcenatPDV(source.getProcenatPDV());
 		stavkaFakture.setIznosPDV(source.getIznosPDV());
 		stavkaFakture.setIznosStavke(source.getIznosStavke());
-		stavkaFakture.setRoba(robaService.findOne(Long.valueOf(source.getRobaUslugaId())));
+		stavkaFakture.setRoba(robaService.getOne(source.getRobaUslugaId()));
 		stavkaFakture.setJedinicaMere(source.getJedinicaMere());
 		
 		if(source.getIdFakture() != 0){

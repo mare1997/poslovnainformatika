@@ -55,10 +55,6 @@ public class Otpremnica implements Serializable{
 	private Kupac kupac;
 	
 	@ManyToOne
-	@JoinColumn(name = "radnik_id", referencedColumnName = "radnik_id", nullable = true)
-	private Radnik radnik;
-	
-	@ManyToOne
 	@JoinColumn(name = "preduzece_id", referencedColumnName = "preduzece_id", nullable = true)
 	private Preduzece preduzece;
 	
@@ -66,12 +62,16 @@ public class Otpremnica implements Serializable{
 	@JoinColumn(name="fakturaRel")
 	private Faktura fakturaRel;
 	
+	@ManyToOne
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = true)
+	private User user;
+	
 	public Otpremnica() {}
 	
 
 	public Otpremnica(int idOtpremnice, Long brojOtpremnice, Date datumOtpremnice, boolean primljenaRoba,
 			Date datumIsporuke, List<StavkaOtpremnice> stavkeOtpremnice, Prevoznik prevoznik, Kupac kupac,
-			Radnik radnik, Preduzece preduzece, Faktura fakturaRel) {
+			User user, Preduzece preduzece, Faktura fakturaRel) {
 		super();
 		this.idOtpremnice = idOtpremnice;
 		this.brojOtpremnice = brojOtpremnice;
@@ -81,7 +81,7 @@ public class Otpremnica implements Serializable{
 		this.stavkeOtpremnice = stavkeOtpremnice;
 		this.prevoznik = prevoznik;
 		this.kupac = kupac;
-		this.radnik = radnik;
+		this.user = user;
 		this.preduzece = preduzece;
 		this.fakturaRel = fakturaRel;
 	}
@@ -158,13 +158,13 @@ public class Otpremnica implements Serializable{
 	}
 
 
-	public Radnik getRadnik() {
-		return radnik;
+	public User getUser() {
+		return user;
 	}
 
 
-	public void setRadnik(Radnik radnik) {
-		this.radnik = radnik;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 

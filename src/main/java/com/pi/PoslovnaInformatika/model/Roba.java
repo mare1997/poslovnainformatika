@@ -50,6 +50,81 @@ public class Roba implements Serializable {
 	
 	@OneToMany(mappedBy="roba_usluga_id", cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<StavkaFakture> stavkeFakture;
+
+
+	public Roba() {}
+	
+	
+	public Roba(Integer id, String name, String jedninica_mere, GrupaRobe grupa, Set<StavkaCenovnika> cene,
+			List<StavkaFakture> stavkeFakture) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.jedninica_mere = jedninica_mere;
+		this.grupa = grupa;
+		this.cene = cene;
+		this.stavkeFakture = stavkeFakture;
+	}
+
+
+	public Integer getId() {
+		return id;
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public String getJedninica_mere() {
+		return jedninica_mere;
+	}
+
+
+	public void setJedninica_mere(String jedninica_mere) {
+		this.jedninica_mere = jedninica_mere;
+	}
+
+
+	public GrupaRobe getGrupa() {
+		return grupa;
+	}
+
+
+	public void setGrupa(GrupaRobe grupa) {
+		this.grupa = grupa;
+	}
+
+
+	public Set<StavkaCenovnika> getCene() {
+		return cene;
+	}
+
+
+	public void setCene(Set<StavkaCenovnika> cene) {
+		this.cene = cene;
+	}
+
+
+	public List<StavkaFakture> getStavkeFakture() {
+		return stavkeFakture;
+	}
+
+
+	public void setStavkeFakture(List<StavkaFakture> stavkeFakture) {
+		this.stavkeFakture = stavkeFakture;
+	}
 	
 	
 }

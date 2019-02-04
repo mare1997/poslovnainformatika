@@ -12,11 +12,12 @@ public class NarudzbenicaDTO {
 	private Date datumIsporuke;
 	private boolean placena;
 	private int fakturaRel;
+	private int user;
 	
 	public NarudzbenicaDTO() {}
 	
 	public NarudzbenicaDTO(int idNarudzbenice, Long brojNarudzbenice, Date datumIzrade, Date datumIsporuke,
-			boolean placena, int fakturaRel) {
+			boolean placena, int fakturaRel, int user) {
 		super();
 		this.idNarudzbenice = idNarudzbenice;
 		this.brojNarudzbenice = brojNarudzbenice;
@@ -24,8 +25,17 @@ public class NarudzbenicaDTO {
 		this.datumIsporuke = datumIsporuke;
 		this.placena = placena;
 		this.fakturaRel=fakturaRel;
+		this.user=user;
 
 	}
+	public int getUser() {
+		return user;
+	}
+
+	public void setUser(int user) {
+		this.user = user;
+	}
+
 	public int getIdNarudzbenice() {
 		return idNarudzbenice;
 	}
