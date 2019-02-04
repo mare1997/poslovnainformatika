@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import com.pi.PoslovnaInformatika.dto.FakturaDTO;
 import com.pi.PoslovnaInformatika.model.Faktura;
 import com.pi.PoslovnaInformatika.model.StavkaFakture;
-import com.pi.PoslovnaInformatika.service.FakturaService;
+
 
 
 

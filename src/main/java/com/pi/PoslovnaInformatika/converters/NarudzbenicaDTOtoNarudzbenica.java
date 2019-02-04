@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import com.pi.PoslovnaInformatika.dto.NarudzbenicaDTO;
 import com.pi.PoslovnaInformatika.model.Narudzbenica;
 import com.pi.PoslovnaInformatika.model.StavkaNarudzbenice;
-import com.pi.PoslovnaInformatika.service.NarudzbenicaService;
+
 
 @Component
 public class NarudzbenicaDTOtoNarudzbenica implements Converter<NarudzbenicaDTO, Narudzbenica>{

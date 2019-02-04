@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import com.pi.PoslovnaInformatika.dto.OtpremnicaDTO;
 import com.pi.PoslovnaInformatika.model.Otpremnica;
 import com.pi.PoslovnaInformatika.model.StavkaOtpremnice;
-import com.pi.PoslovnaInformatika.service.OtpremnicaService;
+
 
 @Component
 public class OtpremnicaDTOtoOtpremnica implements Converter<OtpremnicaDTO, Otpremnica>{

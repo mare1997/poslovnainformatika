@@ -9,12 +9,13 @@ import org.springframework.core.convert.converter.Converter;
 import com.pi.PoslovnaInformatika.dto.StavkaOtpremniceDTO;
 import com.pi.PoslovnaInformatika.model.Otpremnica;
 import com.pi.PoslovnaInformatika.model.StavkaOtpremnice;
-import com.pi.PoslovnaInformatika.service.OtpremnicaService;
+import com.pi.PoslovnaInformatika.service.interfaces.OtpremnicaServiceInterface;
+
 
 public class StavkaOtpremniceDTOtoStavkaOtpremnice implements Converter<StavkaOtpremniceDTO, StavkaOtpremnice>{
 
 	@Autowired
-	private OtpremnicaService otpremnicaService;
+	private OtpremnicaServiceInterface otpremnicaService;
 	
 	@Override
 	public StavkaOtpremnice convert(StavkaOtpremniceDTO source){
