@@ -1,5 +1,6 @@
 package com.pi.PoslovnaInformatika.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -13,11 +14,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name="Otpremnica")
-public class Otpremnica {
+@Table(name="Otpremnica")
+public class Otpremnica implements Serializable{
+
+	
+	private static final long serialVersionUID = -3516694711224808432L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -47,11 +54,24 @@ public class Otpremnica {
 	@JoinColumn(name = "kupac_id", referencedColumnName = "kupac_id", nullable = true)
 	private Kupac kupac;
 	
+	@ManyToOne
+	@JoinColumn(name = "radnik_id", referencedColumnName = "radnik_id", nullable = true)
+	private Radnik radnik;
+	
+	@ManyToOne
+	@JoinColumn(name = "preduzece_id", referencedColumnName = "preduzece_id", nullable = true)
+	private Preduzece preduzece;
+	
+	@OneToOne
+	@JoinColumn(name="fakturaRel")
+	private Faktura fakturaRel;
+	
 	public Otpremnica() {}
-
+	
 
 	public Otpremnica(int idOtpremnice, Long brojOtpremnice, Date datumOtpremnice, boolean primljenaRoba,
-			Date datumIsporuke, List<StavkaOtpremnice> stavkeOtpremnice) {
+			Date datumIsporuke, List<StavkaOtpremnice> stavkeOtpremnice, Prevoznik prevoznik, Kupac kupac,
+			Radnik radnik, Preduzece preduzece, Faktura fakturaRel) {
 		super();
 		this.idOtpremnice = idOtpremnice;
 		this.brojOtpremnice = brojOtpremnice;
@@ -59,6 +79,11 @@ public class Otpremnica {
 		this.primljenaRoba = primljenaRoba;
 		this.datumIsporuke = datumIsporuke;
 		this.stavkeOtpremnice = stavkeOtpremnice;
+		this.prevoznik = prevoznik;
+		this.kupac = kupac;
+		this.radnik = radnik;
+		this.preduzece = preduzece;
+		this.fakturaRel = fakturaRel;
 	}
 
 
@@ -109,6 +134,57 @@ public class Otpremnica {
 
 	public void setDatumIsporuke(Date datumIsporuke) {
 		this.datumIsporuke = datumIsporuke;
+	}
+
+	
+
+	public Prevoznik getPrevoznik() {
+		return prevoznik;
+	}
+
+
+	public void setPrevoznik(Prevoznik prevoznik) {
+		this.prevoznik = prevoznik;
+	}
+
+
+	public Kupac getKupac() {
+		return kupac;
+	}
+
+
+	public void setKupac(Kupac kupac) {
+		this.kupac = kupac;
+	}
+
+
+	public Radnik getRadnik() {
+		return radnik;
+	}
+
+
+	public void setRadnik(Radnik radnik) {
+		this.radnik = radnik;
+	}
+
+
+	public Preduzece getPreduzece() {
+		return preduzece;
+	}
+
+
+	public void setPreduzece(Preduzece preduzece) {
+		this.preduzece = preduzece;
+	}
+
+
+	public Faktura getFakturaRel() {
+		return fakturaRel;
+	}
+
+
+	public void setFakturaRel(Faktura fakturaRel) {
+		this.fakturaRel = fakturaRel;
 	}
 
 

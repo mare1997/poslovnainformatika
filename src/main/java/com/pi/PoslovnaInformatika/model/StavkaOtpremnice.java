@@ -1,5 +1,7 @@
 package com.pi.PoslovnaInformatika.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,9 +10,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity(name="Stavka_otpremnice")
-public class StavkaOtpremnice {
+@Table(name="Stavka_Otpremnice")
+public class StavkaOtpremnice implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8918560754970461476L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -31,6 +40,9 @@ public class StavkaOtpremnice {
 	@Column(name="Napomena", columnDefinition="VARCHAR(150)")
 	private String napomena;
 	
+	@Column(name="Jedinica_mere",columnDefinition="VARCHAR(20)")
+	private String jedinicaMere;
+	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idOtpremnice")
 	private Otpremnica otpremnica;
@@ -38,7 +50,7 @@ public class StavkaOtpremnice {
 	public StavkaOtpremnice() {}
 
 	public StavkaOtpremnice(int idStavkeOtpremnice, Long redniBroj, String naziv, Long cena, Long isporucenaKolicina,
-			String napomena, Otpremnica otpremnica) {
+			String napomena, Otpremnica otpremnica,String jedinicaMere) {
 		super();
 		this.idStavkeOtpremnice = idStavkeOtpremnice;
 		this.redniBroj = redniBroj;
@@ -47,8 +59,11 @@ public class StavkaOtpremnice {
 		this.isporucenaKolicina = isporucenaKolicina;
 		this.napomena = napomena;
 		this.otpremnica = otpremnica;
+		this.jedinicaMere=jedinicaMere;
 	}
 
+	
+	
 	public int getIdStavkeOtpremnice() {
 		return idStavkeOtpremnice;
 	}
@@ -95,6 +110,16 @@ public class StavkaOtpremnice {
 
 	public void setNapomena(String napomena) {
 		this.napomena = napomena;
+	}
+
+	public String getJedinicaMere() {
+		return jedinicaMere;
+	}
+
+
+
+	public void setJedinicaMere(String jedinicaMere) {
+		this.jedinicaMere = jedinicaMere;
 	}
 
 	public Otpremnica getOtpremnica() {

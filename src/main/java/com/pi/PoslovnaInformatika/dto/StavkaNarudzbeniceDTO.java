@@ -8,15 +8,17 @@ public class StavkaNarudzbeniceDTO {
 	private String naziv;
 	private Long kolicina;
 	private int idNarudzbenice;
+	private String jedinicaMere;
 	
 	public StavkaNarudzbeniceDTO() {}
 
-	public StavkaNarudzbeniceDTO(int idStavkeNarudzbenice, String naziv, Long kolicina, int idNarudzbenice) {
+	public StavkaNarudzbeniceDTO(int idStavkeNarudzbenice, String naziv, Long kolicina, int idNarudzbenice, String jedinicaMere) {
 		super();
 		this.idStavkeNarudzbenice = idStavkeNarudzbenice;
 		this.naziv = naziv;
 		this.kolicina = kolicina;
 		this.idNarudzbenice = idNarudzbenice;
+		this.jedinicaMere=jedinicaMere;
 	}
 
 	public int getIdStavkeNarudzbenice() {
@@ -49,6 +51,14 @@ public class StavkaNarudzbeniceDTO {
 
 	public void setIdNarudzbenice(int idNarudzbenice) {
 		this.idNarudzbenice = idNarudzbenice;
+	}
+
+	public String getJedinicaMere() {
+		return jedinicaMere;
+	}
+
+	public void setJedinicaMere(String jedinicaMere) {
+		this.jedinicaMere = jedinicaMere;
 	}
 	
 	

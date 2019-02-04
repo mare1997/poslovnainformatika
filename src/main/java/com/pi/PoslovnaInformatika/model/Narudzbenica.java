@@ -1,21 +1,29 @@
 package com.pi.PoslovnaInformatika.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class Narudzbenica {
+@Entity(name="Narudzbenica")
+@Table(name="Narudzbenica")
+public class Narudzbenica implements Serializable{
 
-	
+
+	private static final long serialVersionUID = -9025140794203656828L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idNarudzbenice;
@@ -36,10 +44,13 @@ public class Narudzbenica {
 	@OneToMany(mappedBy="narudzbenica", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private List<StavkaNarudzbenice> stavkeNarudzbenice;
 	
+	@OneToOne(mappedBy="narudzbenicaRel")
+	private Faktura fakturaRel;
+	
 	public Narudzbenica () {}
 
 	public Narudzbenica(int idNarudzbenice, Long brojNarudzbenice, Date datumIzrade, Date datumIsporuke,
-			boolean placena, List<StavkaNarudzbenice> stavkeNarudzbenice) {
+			boolean placena, List<StavkaNarudzbenice> stavkeNarudzbenice,Faktura fakturaRel) {
 		super();
 		this.idNarudzbenice = idNarudzbenice;
 		this.brojNarudzbenice = brojNarudzbenice;
@@ -47,6 +58,7 @@ public class Narudzbenica {
 		this.datumIsporuke = datumIsporuke;
 		this.placena = placena;
 		this.stavkeNarudzbenice = stavkeNarudzbenice;
+		this.fakturaRel = fakturaRel;
 	}
 
 	public int getIdNarudzbenice() {
@@ -97,6 +109,13 @@ public class Narudzbenica {
 		this.stavkeNarudzbenice = stavkeNarudzbenice;
 	}
 	
+	public Faktura getFakturaRel() {
+		return fakturaRel;
+	}
+
+	public void setFakturaRel(Faktura fakturaRel) {
+		this.fakturaRel = fakturaRel;
+	}
 	
 	public void addStavkaNarudzbenice(StavkaNarudzbenice stavkaNarudzbenice){
 		if(stavkeNarudzbenice.contains(stavkaNarudzbenice)){
@@ -117,4 +136,6 @@ public class Narudzbenica {
 			stavkaNarudzbenice.setNarudzbenica(null);
 		}
 	}
+
+	
 }

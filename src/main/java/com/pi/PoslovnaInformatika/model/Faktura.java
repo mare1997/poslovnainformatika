@@ -1,5 +1,6 @@
 package com.pi.PoslovnaInformatika.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -10,13 +11,21 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity(name="Faktura")
-public class Faktura {
+@Table(name="Faktura")
+public class Faktura implements Serializable{
+
+	
+	private static final long serialVersionUID = 4156764521915772558L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -47,12 +56,27 @@ public class Faktura {
 	@OneToMany(mappedBy="faktura", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private List<StavkaFakture> stavkeFakture;
 	
+	@OneToOne
+	@JoinColumn(name="narudzbenicaRel")
+	private Narudzbenica narudzbenicaRel;
+	
+	@OneToOne(mappedBy="fakturaRel")
+	private Otpremnica otpremnicaRel;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="kupac_id")
+	private Kupac kupac;
+	
+	
 	public Faktura() {}
 
 	
 	
-	public Faktura(int id, Long brojFakture, Date datumValute, Date datumFakture, Long osnovica, Long ukupanPDV,
-			Long iznosZaPlacanje, String statusFakture, List<StavkaFakture> stavkeFakture) {
+	public Faktura(int id, Long brojFakture, Date datumValute,
+			Date datumFakture, Long osnovica, Long ukupanPDV,
+			Long iznosZaPlacanje, String statusFakture,
+			List<StavkaFakture> stavkeFakture, Narudzbenica narudzbenicaRel,
+			Otpremnica otpremnicaRel,Kupac kupac) {
 		super();
 		this.idFakture = id;
 		this.brojFakture = brojFakture;
@@ -63,10 +87,14 @@ public class Faktura {
 		this.iznosZaPlacanje = iznosZaPlacanje;
 		this.statusFakture = statusFakture;
 		this.stavkeFakture = stavkeFakture;
+		this.narudzbenicaRel=narudzbenicaRel;
+		this.otpremnicaRel=otpremnicaRel;
+		this.kupac=kupac;
 	}
 
 
 
+	
 	public int getId() {
 		return idFakture;
 	}
@@ -122,6 +150,40 @@ public class Faktura {
 	public void setIznosZaPlacanje(Long iznosZaPlacanje) {
 		this.iznosZaPlacanje = iznosZaPlacanje;
 	}
+
+	public Narudzbenica getNarudzbenicaRel() {
+		return narudzbenicaRel;
+	}
+
+	public void setNarudzbenicaRel(Narudzbenica narudzbenicaRel) {
+		this.narudzbenicaRel = narudzbenicaRel;
+	}
+	
+	
+
+	public Otpremnica getOtpremnicaRel() {
+		return otpremnicaRel;
+	}
+
+
+
+	public void setOtpremnicaRel(Otpremnica otpremnicaRel) {
+		this.otpremnicaRel = otpremnicaRel;
+	}
+
+
+
+	public Kupac getKupac() {
+		return kupac;
+	}
+
+
+
+	public void setKupac(Kupac kupac) {
+		this.kupac = kupac;
+	}
+
+
 
 	public String getStatusFakture() {
 		return statusFakture;

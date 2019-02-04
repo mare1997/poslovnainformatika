@@ -6,10 +6,13 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -51,12 +54,15 @@ public class Kupac implements Serializable {
 	@OneToMany(cascade = { ALL }, fetch = LAZY, mappedBy = "kupac")
 	private Set<Otpremnica> otpremnice=new HashSet<Otpremnica>();
 
+	@OneToMany(mappedBy="kupac",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	private List<Faktura> fakture;
+	
 	public Kupac() {
 		super();
 	}
 
 	public Kupac(Integer id, String name, String adresa, long pib_jmbg, Mesto mesto, Preduzece preduzece,
-			Set<Otpremnica> otpremnice) {
+			Set<Otpremnica> otpremnice,List<Faktura> fakture) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -65,6 +71,7 @@ public class Kupac implements Serializable {
 		this.mesto = mesto;
 		this.preduzece = preduzece;
 		this.otpremnice = otpremnice;
+		this.fakture=fakture;
 	}
 
 	public Integer getId() {
@@ -121,6 +128,14 @@ public class Kupac implements Serializable {
 
 	public void setOtpremnice(Set<Otpremnica> otpremnice) {
 		this.otpremnice = otpremnice;
+	}
+
+	public List<Faktura> getFakture() {
+		return fakture;
+	}
+
+	public void setFakture(List<Faktura> fakture) {
+		this.fakture = fakture;
 	}
 	
 	

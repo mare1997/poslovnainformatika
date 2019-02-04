@@ -16,6 +16,9 @@ public class StavkaFaktureDTOtoStavkaFakture implements Converter<StavkaFaktureD
 	@Autowired
 	private FakturaService fakturaService;
 	
+	@Autowired
+	private RobaService robaService;
+	
 	@Override
 	public StavkaFakture convert(StavkaFaktureDTO source){
 		
@@ -33,6 +36,8 @@ public class StavkaFaktureDTOtoStavkaFakture implements Converter<StavkaFaktureD
 		stavkaFakture.setProcenatPDV(source.getProcenatPDV());
 		stavkaFakture.setIznosPDV(source.getIznosPDV());
 		stavkaFakture.setIznosStavke(source.getIznosStavke());
+		stavkaFakture.setRoba(robaService.findOne(Long.valueOf(source.getRobaUslugaId())));
+		stavkaFakture.setJedinicaMere(source.getJedinicaMere());
 		
 		if(source.getIdFakture() != 0){
 			Faktura faktura = fakturaService.findOne(Long.valueOf(source.getIdFakture()));

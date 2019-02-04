@@ -25,7 +25,11 @@ public class OtpremnicaToOtpremnicaDTO implements Converter<Otpremnica, Otpremni
 		otpremnicaDTO.setDatumOtpremnice(source.getDatumOtpremnice());
 		otpremnicaDTO.setDatumIsporuke(source.getDatumIsporuke());
 		otpremnicaDTO.setPrimljenaRoba(source.isPrimljenaRoba());
-		
+		otpremnicaDTO.setPrevoznikId(source.getPrevoznik().getId());
+		otpremnicaDTO.setKupacId(source.getKupac().getId());
+		otpremnicaDTO.setRadnikId(source.getRadnik().getId());
+		otpremnicaDTO.setPreduzeceId(source.getPreduzece().getId());
+		otpremnicaDTO.setFakturaRel(source.getFakturaRel().getId());
 		
 		return otpremnicaDTO;
 	}

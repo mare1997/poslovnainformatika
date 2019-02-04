@@ -25,6 +25,7 @@ public class NarudzbenicaToNarudzbenicaDTO implements Converter<Narudzbenica, Na
 		narudzbenicaDTO.setDatumIzrade(source.getDatumIzrade());
 		narudzbenicaDTO.setDatumIsporuke(source.getDatumIsporuke());
 		narudzbenicaDTO.setPlacena(source.isPlacena());
+		narudzbenicaDTO.setFakturaRel(source.getFakturaRel().getId());
 				
 		return narudzbenicaDTO;
 	}

@@ -11,10 +11,10 @@ public class StavkaOtpremniceDTO {
 	private Long isporucenaKolicina;
 	private String napomena;
 	private int idOtpremnice;
-	
+	private String jedinicaMere;
 
 	public StavkaOtpremniceDTO(int idStavkeOtpremnice, Long redniBroj, String naziv, Long cena, Long isporucenaKolicina,
-			String napomena, int idOtpremnice) {
+			String napomena, int idOtpremnice, String jedinicaMere) {
 		super();
 		this.idStavkeOtpremnice = idStavkeOtpremnice;
 		this.redniBroj = redniBroj;
@@ -23,6 +23,7 @@ public class StavkaOtpremniceDTO {
 		this.isporucenaKolicina = isporucenaKolicina;
 		this.napomena = napomena;
 		this.idOtpremnice = idOtpremnice;
+		this.jedinicaMere=jedinicaMere;
 	}
 
 	public StavkaOtpremniceDTO() {}
@@ -81,6 +82,14 @@ public class StavkaOtpremniceDTO {
 
 	public void setIdOtpremnice(int idOtpremnice) {
 		this.idOtpremnice = idOtpremnice;
+	}
+
+	public String getJedinicaMere() {
+		return jedinicaMere;
+	}
+
+	public void setJedinicaMere(String jedinicaMere) {
+		this.jedinicaMere = jedinicaMere;
 	}
 
 	

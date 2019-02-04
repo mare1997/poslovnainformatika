@@ -1,5 +1,7 @@
 package com.pi.PoslovnaInformatika.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,10 +10,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 
 @Entity(name="Stavka_fakture")
-public class StavkaFakture {
+@Table(name="Stavka_fakture")
+public class StavkaFakture implements Serializable{
+
+
+	private static final long serialVersionUID = 4408445101814871459L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -38,14 +45,24 @@ public class StavkaFakture {
 	@Column(name="Iznos_stavke", columnDefinition="NUMBER")
 	private Long iznosStavke;
 	
+	@Column(name="Jedinica_mere",columnDefinition="VARCHAR(20)")
+	private String jedinicaMere;
+	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idFakture")
 	private Faktura faktura;
 	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="roba_usluga_id")
+	private Roba roba_usluga_id;
+	
 	public StavkaFakture () {}
 
+	
+
 	public StavkaFakture(int idStavkeFakture, Long kolicina, Long jedinicnaCena, Long rabat, Long osnovicaZaPDV,
-			Long procenatPDV, Long iznosPDV, Long iznosStavke, Faktura faktura) {
+			Long procenatPDV, Long iznosPDV, Long iznosStavke, String jedinicaMere, Faktura faktura,
+			Roba roba_usluga_id) {
 		super();
 		this.idStavkeFakture = idStavkeFakture;
 		this.kolicina = kolicina;
@@ -55,8 +72,12 @@ public class StavkaFakture {
 		this.procenatPDV = procenatPDV;
 		this.iznosPDV = iznosPDV;
 		this.iznosStavke = iznosStavke;
+		this.jedinicaMere = jedinicaMere;
 		this.faktura = faktura;
+		this.roba_usluga_id = roba_usluga_id;
 	}
+
+
 
 	public int getIdStavkeFakture() {
 		return idStavkeFakture;
@@ -112,6 +133,25 @@ public class StavkaFakture {
 
 	public void setIznosPDV(Long iznosPDV) {
 		this.iznosPDV = iznosPDV;
+	}
+	
+
+	public String getJedinicaMere() {
+		return jedinicaMere;
+	}
+
+
+
+	public void setJedinicaMere(String jedinicaMere) {
+		this.jedinicaMere = jedinicaMere;
+	}
+	
+	public Roba getRoba() {
+		return roba_usluga_id;
+	}
+
+	public void setRoba(Roba roba) {
+		this.roba_usluga_id = roba;
 	}
 
 	public Long getIznosStavke() {

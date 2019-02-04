@@ -13,11 +13,13 @@ public class StavkaFaktureDTO {
 	private Long iznosPDV;
 	private Long iznosStavke;
 	private int idFakture;
+	private int robaUslugaId;
+	private String jedinicaMere;
 	
 	public StavkaFaktureDTO() {}
 
 	public StavkaFaktureDTO(int idStavkeFakture, Long kolicina, Long jedinicnaCena, Long rabat, Long osnovicaZaPDV,
-			Long procenatPDV, Long iznosPDV, Long iznosStavke, int idFakture) {
+			Long procenatPDV, Long iznosPDV, Long iznosStavke, int idFakture, int robaUslugaId, String jedinicaMere) {
 		super();
 		this.idStavkeFakture = idStavkeFakture;
 		this.kolicina = kolicina;
@@ -28,6 +30,8 @@ public class StavkaFaktureDTO {
 		this.iznosPDV = iznosPDV;
 		this.iznosStavke = iznosStavke;
 		this.idFakture = idFakture;
+		this.robaUslugaId=robaUslugaId;
+		this.jedinicaMere=jedinicaMere;
 	}
 
 	public int getIdStavkeFakture() {
@@ -100,6 +104,22 @@ public class StavkaFaktureDTO {
 
 	public void setIdFakture(int idFakture) {
 		this.idFakture = idFakture;
+	}
+
+	public int getRobaUslugaId() {
+		return robaUslugaId;
+	}
+
+	public void setRobaUslugaId(int robaUslugaId) {
+		this.robaUslugaId = robaUslugaId;
+	}
+
+	public String getJedinicaMere() {
+		return jedinicaMere;
+	}
+
+	public void setJedinicaMere(String jedinicaMere) {
+		this.jedinicaMere = jedinicaMere;
 	}
 	
 	

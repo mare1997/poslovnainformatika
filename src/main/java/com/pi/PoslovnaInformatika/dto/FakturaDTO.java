@@ -13,11 +13,18 @@ public class FakturaDTO {
 	private Long ukupanPDV;
 	private Long iznosZaPlacanje;
 	private String statusFakture;
+	private int narudzbeniceRel;
+	private int otpremnicaRel;
+	private int kupac;
+	
 	
 	public FakturaDTO () {}
 
+	
+
 	public FakturaDTO(int idFakture, Long brojFakture, Date datumValute, Date datumFakture, Long osnovica,
-			Long ukupanPDV, Long iznosZaPlacanje, String statusFakture) {
+			Long ukupanPDV, Long iznosZaPlacanje, String statusFakture, int narudzbeniceRel, int otpremnicaRel,
+			int kupac) {
 		super();
 		this.idFakture = idFakture;
 		this.brojFakture = brojFakture;
@@ -27,7 +34,12 @@ public class FakturaDTO {
 		this.ukupanPDV = ukupanPDV;
 		this.iznosZaPlacanje = iznosZaPlacanje;
 		this.statusFakture = statusFakture;
+		this.narudzbeniceRel = narudzbeniceRel;
+		this.otpremnicaRel = otpremnicaRel;
+		this.kupac = kupac;
 	}
+
+
 
 	public int getIdFakture() {
 		return idFakture;
@@ -91,6 +103,42 @@ public class FakturaDTO {
 
 	public void setStatusFakture(String statusFakture) {
 		this.statusFakture = statusFakture;
+	}
+
+
+
+	public int getNarudzbeniceRel() {
+		return narudzbeniceRel;
+	}
+
+
+
+	public void setNarudzbeniceRel(int narudzbeniceRel) {
+		this.narudzbeniceRel = narudzbeniceRel;
+	}
+
+
+
+	public int getOtpremnicaRel() {
+		return otpremnicaRel;
+	}
+
+
+
+	public void setOtpremnicaRel(int otpremnicaRel) {
+		this.otpremnicaRel = otpremnicaRel;
+	}
+
+
+
+	public int getKupac() {
+		return kupac;
+	}
+
+
+
+	public void setKupac(int kupac) {
+		this.kupac = kupac;
 	}
 	
 	

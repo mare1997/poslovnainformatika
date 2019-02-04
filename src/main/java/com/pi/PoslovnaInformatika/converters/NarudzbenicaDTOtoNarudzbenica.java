@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.pi.PoslovnaInformatika.dto.NarudzbenicaDTO;
 import com.pi.PoslovnaInformatika.model.Narudzbenica;
 import com.pi.PoslovnaInformatika.model.StavkaNarudzbenice;
+import com.pi.PoslovnaInformatika.service.FakturaService;
 import com.pi.PoslovnaInformatika.service.NarudzbenicaService;
 
 @Component
@@ -18,6 +19,10 @@ public class NarudzbenicaDTOtoNarudzbenica implements Converter<NarudzbenicaDTO,
 	/*@Autowired
 	private StavkeNarudzbenicaService stavkeNarudzbeniceService;
 	*/
+	
+	@Autowired
+	private FakturaService fakturaService;
+	
 	@Override
 	public Narudzbenica convert(NarudzbenicaDTO source){
 		
@@ -32,6 +37,7 @@ public class NarudzbenicaDTOtoNarudzbenica implements Converter<NarudzbenicaDTO,
 		narudzbenica.setDatumIzrade(source.getDatumIzrade());
 		narudzbenica.setDatumIsporuke(source.getDatumIsporuke());
 		narudzbenica.setPlacena(source.isPlacena());
+		narudzbenica.setFakturaRel(fakturaService.findOne(Long.valueOf(source.getFakturaRel())));
 			
 		/*List<StavkaNarudzbenice> sveStavke = new ArrayList<StavkaNarudzbenice>();
 		sveStavke = stavkeNarudzbeniceService.findAll();

@@ -1,5 +1,7 @@
 package com.pi.PoslovnaInformatika.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,9 +10,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity(name="Stavka_narudzbenice")
-public class StavkaNarudzbenice {
+@Table(name="Stavka_narudzbenice")
+public class StavkaNarudzbenice implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1229066187100033139L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -22,6 +31,9 @@ public class StavkaNarudzbenice {
 	@Column(name="Kolicina", columnDefinition="NUMBER")
 	private Long kolicina;
 	
+	@Column(name="Jedinica_mere",columnDefinition="VARCHAR(20)")
+	private String jedinicaMere;
+	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idNarudzbenice")
 	private Narudzbenica narudzbenica;
@@ -30,12 +42,25 @@ public class StavkaNarudzbenice {
 
 	
 
-	public StavkaNarudzbenice(int idStavkeNarudzbenice, String naziv, Long kolicina, Narudzbenica narudzbenica) {
+	public StavkaNarudzbenice(int idStavkeNarudzbenice, String naziv, Long kolicina, Narudzbenica narudzbenica,String jedinicaMere) {
 		super();
 		this.idStavkeNarudzbenice = idStavkeNarudzbenice;
 		this.naziv = naziv;
 		this.kolicina = kolicina;
 		this.narudzbenica = narudzbenica;
+		this.jedinicaMere=jedinicaMere;
+	}
+
+
+
+	public String getJedinicaMere() {
+		return jedinicaMere;
+	}
+
+
+
+	public void setJedinicaMere(String jedinicaMere) {
+		this.jedinicaMere = jedinicaMere;
 	}
 
 

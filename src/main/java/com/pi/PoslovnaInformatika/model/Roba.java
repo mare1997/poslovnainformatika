@@ -5,11 +5,15 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -44,8 +48,8 @@ public class Roba implements Serializable {
 	@OneToMany(cascade = { ALL }, fetch = LAZY, mappedBy = "preduzece")
 	private Set<StavkaCenovnika> cene=new HashSet<StavkaCenovnika>();
 	
-	
-	
+	@OneToMany(mappedBy="roba_usluga_id", cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	private List<StavkaFakture> stavkeFakture;
 	
 	
 }

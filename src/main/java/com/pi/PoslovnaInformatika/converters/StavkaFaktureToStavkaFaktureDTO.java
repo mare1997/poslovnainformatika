@@ -29,6 +29,8 @@ public class StavkaFaktureToStavkaFaktureDTO implements Converter<StavkaFakture,
 		stavkaFaktureDTO.setProcenatPDV(source.getProcenatPDV());
 		stavkaFaktureDTO.setIznosPDV(source.getIznosPDV());
 		stavkaFaktureDTO.setIznosStavke(source.getIznosStavke());
+		stavkaFaktureDTO.setJedinicaMere(source.getJedinicaMere());
+		stavkaFaktureDTO.setRobaUslugaId(source.getRoba().getId());
 		
 		if(source.getFaktura() !=null){
 			stavkaFaktureDTO.setIdFakture(source.getFaktura().getId());
