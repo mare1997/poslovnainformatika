@@ -1,7 +1,23 @@
+body, html {
+  height: 100%;
+  margin: 0;
+}
 
+.bg {
+  /* The image used */
+  background-image: url("../img/business.jpg");
+
+  /* Full height */
+  height: 95%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
 nav {
-	height:7%;
+	height:5%;
 	width:100%;
     padding:0;
     background-color: #d3d3d3;
