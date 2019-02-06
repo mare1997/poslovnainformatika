@@ -63,11 +63,11 @@ public class Faktura implements Serializable{
 	@OneToOne(mappedBy="fakturaRel")
 	private Otpremnica otpremnicaRel;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="kupac_id")
 	private Kupac kupac;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="preduzece")
 	private Preduzece preduzece;
 	

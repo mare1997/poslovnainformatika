@@ -65,13 +65,13 @@ public class Preduzece implements Serializable {
 	private Set<Cenovnik> cenovnik=new HashSet<Cenovnik>();
 	
 
-	@OneToMany(mappedBy="preduzece",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="preduzece",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private List<Otpremnica> otpremnice;
 	
-	@OneToMany(mappedBy="preduzece",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="preduzece",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private List<Faktura> fakture;
 	
-	@OneToMany(mappedBy="preduzece",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="preduzece",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private List<Narudzbenica> narudzbenice;
 	
 	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")

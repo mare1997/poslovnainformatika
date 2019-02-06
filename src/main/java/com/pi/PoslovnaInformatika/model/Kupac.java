@@ -54,10 +54,10 @@ public class Kupac implements Serializable {
 	@OneToMany(cascade = { ALL }, fetch = LAZY, mappedBy = "kupac")
 	private Set<Otpremnica> otpremnice=new HashSet<Otpremnica>();
 	
-	@OneToMany(mappedBy="kupac",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="kupac",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private List<Narudzbenica> narudzbenice;
 
-	@OneToMany(mappedBy="kupac",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="kupac",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private List<Faktura> fakture;
 	
 	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.pi.PoslovnaInformatika.model.Cenovnik;
 
-@Repository
 public interface CenovnikRepository extends JpaRepository<Cenovnik, Integer> {
 
 }

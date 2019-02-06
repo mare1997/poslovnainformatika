@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pi.PoslovnaInformatika.model.Preduzece;
 
-@Repository
+
 public interface PreduzeceRepository extends JpaRepository<Preduzece, Integer> {
 
 }

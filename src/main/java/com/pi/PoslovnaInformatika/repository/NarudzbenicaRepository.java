@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pi.PoslovnaInformatika.model.Narudzbenica;
 
-@Repository
+
 public interface NarudzbenicaRepository extends JpaRepository<Narudzbenica, Long> {
 
 }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pi.PoslovnaInformatika.model.Prevoznik;
 
-@Repository
+
 public interface PrevoznikRepository extends JpaRepository<Prevoznik, Integer> {
 
 }

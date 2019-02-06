@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pi.PoslovnaInformatika.model.StopaPDV;
 
-@Repository
+
 public interface StopaPDVRepository extends JpaRepository<StopaPDV, Integer> {
 
 }

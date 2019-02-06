@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pi.PoslovnaInformatika.model.Roba;
 
-@Repository
+
 public interface RobaRepository extends JpaRepository<Roba, Integer>{
 
 }

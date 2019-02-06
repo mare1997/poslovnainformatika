@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pi.PoslovnaInformatika.model.GrupaRobe;
 
-@Repository
+
 public interface GrupaRobeRepository extends JpaRepository<GrupaRobe , Integer> {
 
 }

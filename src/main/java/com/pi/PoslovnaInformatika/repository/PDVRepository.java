@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pi.PoslovnaInformatika.model.PDV;
 
-@Repository
+
 public interface PDVRepository extends JpaRepository<PDV, Integer> {
 
 }

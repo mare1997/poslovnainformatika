@@ -46,14 +46,14 @@ public class Narudzbenica implements Serializable{
 	@OneToMany(mappedBy="narudzbenica", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private List<StavkaNarudzbenice> stavkeNarudzbenice;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="preduzece")
 	private Preduzece preduzece;
 
 	@OneToOne(mappedBy="narudzbenicaRel")
 	private Faktura fakturaRel;
 
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="kupac_id")
 	private Kupac kupac;
 	

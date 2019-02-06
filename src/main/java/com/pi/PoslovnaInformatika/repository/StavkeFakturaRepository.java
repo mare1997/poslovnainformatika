@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pi.PoslovnaInformatika.model.StavkaFakture;
 
-@Repository
+
 public interface StavkeFakturaRepository extends JpaRepository<StavkaFakture, Long> {
 
 }

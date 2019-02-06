@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pi.PoslovnaInformatika.model.PoslovnaGodina;
 
-@Repository
+
 public interface PoslovnaGodinaRepository extends JpaRepository<PoslovnaGodina, Integer> {
 
 }
