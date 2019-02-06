@@ -46,13 +46,17 @@ public class Mesto implements Serializable  {
 	@OneToMany(cascade = { ALL }, fetch = LAZY, mappedBy = "mesto")
 	private Set<Kupac> kupci=new HashSet<Kupac>();
 
-	public Mesto(Integer id, String grad, long postanski_broj, Set<Preduzece> preduzeca, Set<Kupac> kupci) {
+	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")
+	private boolean obrisano;
+	
+	public Mesto(Integer id, String grad, long postanski_broj, Set<Preduzece> preduzeca, Set<Kupac> kupci,boolean obrisano) {
 		super();
 		this.id = id;
 		this.grad = grad;
 		this.postanski_broj = postanski_broj;
 		this.preduzeca = preduzeca;
 		this.kupci = kupci;
+		this.obrisano = obrisano;
 	}
 
 	public Mesto() {
@@ -97,6 +101,14 @@ public class Mesto implements Serializable  {
 
 	public void setKupci(Set<Kupac> kupci) {
 		this.kupci = kupci;
+	}
+
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 	
 	

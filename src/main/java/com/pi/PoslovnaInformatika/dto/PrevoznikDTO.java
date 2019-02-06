@@ -13,19 +13,21 @@ public class PrevoznikDTO implements Serializable{
 
 	private Integer id;
 	private String name;
+	private boolean obrisano;
 	
 	public PrevoznikDTO() {
 		super();
 	}
 
-	public PrevoznikDTO(Integer id, String name) {
+	public PrevoznikDTO(Integer id, String name,boolean obrisano) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.obrisano = obrisano;
 	}
 
 	public PrevoznikDTO(Prevoznik p) {
-		this(p.getId(),p.getName());
+		this(p.getId(),p.getName(),p.isObrisano());
 	}
 
 	public Integer getId() {
@@ -42,6 +44,14 @@ public class PrevoznikDTO implements Serializable{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 	
 	

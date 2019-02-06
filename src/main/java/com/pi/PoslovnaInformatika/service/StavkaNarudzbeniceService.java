@@ -2,9 +2,12 @@ package com.pi.PoslovnaInformatika.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.pi.PoslovnaInformatika.model.StavkaNarudzbenice;
 import com.pi.PoslovnaInformatika.service.interfaces.StavkaNarudzbeniceServiceInterface;
 
+@Service
 public class StavkaNarudzbeniceService implements StavkaNarudzbeniceServiceInterface {
 
 	@Override

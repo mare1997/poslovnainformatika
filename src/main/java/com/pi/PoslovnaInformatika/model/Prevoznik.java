@@ -34,16 +34,20 @@ public class Prevoznik implements Serializable {
 	
 	@OneToMany(cascade = { ALL }, fetch = LAZY, mappedBy = "prevoznik")
 	private Set<Otpremnica> otpremnice=new HashSet<Otpremnica>();
+	
+	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")
+	private boolean obrisano;
 
 	public Prevoznik() {
 		super();
 	}
 
-	public Prevoznik(Integer id, String name, Set<Otpremnica> otpremnice) {
+	public Prevoznik(Integer id, String name, Set<Otpremnica> otpremnice,boolean obrisano) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.otpremnice = otpremnice;
+		this.obrisano = obrisano;
 	}
 
 	public Integer getId() {
@@ -68,6 +72,14 @@ public class Prevoznik implements Serializable {
 
 	public void setOtpremnice(Set<Otpremnica> otpremnice) {
 		this.otpremnice = otpremnice;
+	}
+
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 	
 	

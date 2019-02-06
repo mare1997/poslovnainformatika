@@ -37,17 +37,21 @@ public class StavkaCenovnika implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "cenovnik_id", referencedColumnName = "cenovnik_id", nullable = true)
 	private Cenovnik cenovnik;
+	
+	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")
+	private boolean obrisano;
 
 	public StavkaCenovnika() {
 		super();
 	}
 
-	public StavkaCenovnika(Integer id, long cena, Roba roba, Cenovnik cenovnik) {
+	public StavkaCenovnika(Integer id, long cena, Roba roba, Cenovnik cenovnik,boolean obrisano) {
 		super();
 		this.id = id;
 		this.cena = cena;
 		this.roba = roba;
 		this.cenovnik = cenovnik;
+		this.obrisano = obrisano;
 	}
 
 	public Integer getId() {
@@ -80,6 +84,14 @@ public class StavkaCenovnika implements Serializable {
 
 	public void setCenovnik(Cenovnik cenovnik) {
 		this.cenovnik = cenovnik;
+	}
+
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 	
 	

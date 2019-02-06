@@ -42,6 +42,8 @@ public class Cenovnik implements Serializable {
 	@OneToMany(cascade = { ALL }, fetch = LAZY, mappedBy = "cenovnik")
 	private Set<StavkaCenovnika> cene=new HashSet<StavkaCenovnika>();
 
+	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")
+	private boolean obrisano;
 	
 	
 	public Cenovnik() {
@@ -50,12 +52,13 @@ public class Cenovnik implements Serializable {
 
 
 
-	public Cenovnik(Integer id, Date datum_vazenja, Preduzece preduzece, Set<StavkaCenovnika> cene) {
+	public Cenovnik(Integer id, Date datum_vazenja, Preduzece preduzece, Set<StavkaCenovnika> cene,boolean obrisano) {
 		super();
 		this.id = id;
 		this.datum_vazenja = datum_vazenja;
 		this.preduzece = preduzece;
 		this.cene = cene;
+		this.obrisano=obrisano;
 	}
 
 
@@ -104,6 +107,18 @@ public class Cenovnik implements Serializable {
 
 	public void setCene(Set<StavkaCenovnika> cene) {
 		this.cene = cene;
+	}
+
+
+
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 	
 	

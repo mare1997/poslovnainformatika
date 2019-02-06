@@ -3,7 +3,7 @@ package com.pi.PoslovnaInformatika.dto;
 import java.io.Serializable;
 import java.sql.Date;
 
-import com.pi.PoslovnaInformatika.model.PDV;
+
 import com.pi.PoslovnaInformatika.model.StopaPDV;
 
 public class StopaPDVDTO implements Serializable {
@@ -16,18 +16,20 @@ public class StopaPDVDTO implements Serializable {
 	private int procenat;
 	private Date datum_vazenja;
 	private PDVDTO pdv;
+	private boolean obrisano;
 	public StopaPDVDTO() {
 		super();
 	}
-	public StopaPDVDTO(Integer id, int procenat, Date datum_vazenja, PDVDTO pdv) {
+	public StopaPDVDTO(Integer id, int procenat, Date datum_vazenja, PDVDTO pdv,boolean obrisano) {
 		super();
 		this.id = id;
 		this.procenat = procenat;
 		this.datum_vazenja = datum_vazenja;
 		this.pdv = pdv;
+		this.obrisano = obrisano;
 	}
 	public StopaPDVDTO(StopaPDV s) {
-		this(s.getId(),s.getProcenat(),s.getDatum_vazenja(),new PDVDTO(s.getPdv()));
+		this(s.getId(),s.getProcenat(),s.getDatum_vazenja(),new PDVDTO(s.getPdv()),s.isObrisano());
 	}
 	public Integer getId() {
 		return id;
@@ -52,6 +54,12 @@ public class StopaPDVDTO implements Serializable {
 	}
 	public void setPdv(PDVDTO pdv) {
 		this.pdv = pdv;
+	}
+	public boolean isObrisano() {
+		return obrisano;
+	}
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 	
 	

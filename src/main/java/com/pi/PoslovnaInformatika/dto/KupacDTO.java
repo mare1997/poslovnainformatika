@@ -3,8 +3,6 @@ package com.pi.PoslovnaInformatika.dto;
 import java.io.Serializable;
 
 import com.pi.PoslovnaInformatika.model.Kupac;
-import com.pi.PoslovnaInformatika.model.Mesto;
-import com.pi.PoslovnaInformatika.model.Preduzece;
 
 public class KupacDTO implements Serializable {
 
@@ -18,10 +16,11 @@ public class KupacDTO implements Serializable {
 	private long pib_jmbg;
 	private MestoDTO mesto;
 	private PreduzeceDTO preduzece;
+	private boolean obrisano;
 	public KupacDTO() {
 		super();
 	}
-	public KupacDTO(Integer id, String name, String adresa, long pib_jmbg, MestoDTO mesto, PreduzeceDTO preduzece) {
+	public KupacDTO(Integer id, String name, String adresa, long pib_jmbg, MestoDTO mesto, PreduzeceDTO preduzece,boolean obrisano) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -29,9 +28,10 @@ public class KupacDTO implements Serializable {
 		this.pib_jmbg = pib_jmbg;
 		this.mesto = mesto;
 		this.preduzece = preduzece;
+		this.obrisano=obrisano;
 	}
 	public KupacDTO(Kupac k) {
-		this(k.getId(),k.getName(),k.getAdresa(),k.getPib_jmbg(),new MestoDTO(k.getMesto()),new PreduzeceDTO(k.getPreduzece()));
+		this(k.getId(),k.getName(),k.getAdresa(),k.getPib_jmbg(),new MestoDTO(k.getMesto()),new PreduzeceDTO(k.getPreduzece()),k.isObrisano());
 	}
 	public Integer getId() {
 		return id;
@@ -68,6 +68,12 @@ public class KupacDTO implements Serializable {
 	}
 	public void setPreduzece(PreduzeceDTO preduzece) {
 		this.preduzece = preduzece;
+	}
+	public boolean isObrisano() {
+		return obrisano;
+	}
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 
 	

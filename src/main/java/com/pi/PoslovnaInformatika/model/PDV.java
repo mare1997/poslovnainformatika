@@ -38,7 +38,8 @@ public class PDV implements Serializable{
 	@OneToMany(cascade = { ALL }, fetch = LAZY, mappedBy = "pdv")
 	private Set<GrupaRobe> grupe=new HashSet<GrupaRobe>();
 
-	
+	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")
+	private boolean obrisano;
 	
 	public PDV() {
 		super();
@@ -46,12 +47,13 @@ public class PDV implements Serializable{
 
 
 
-	public PDV(Integer id, String name, Set<StopaPDV> stope, Set<GrupaRobe> grupe) {
+	public PDV(Integer id, String name, Set<StopaPDV> stope, Set<GrupaRobe> grupe,boolean obrisano) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.stope = stope;
 		this.grupe = grupe;
+		this.obrisano = obrisano;
 	}
 
 
@@ -102,6 +104,12 @@ public class PDV implements Serializable{
 		this.grupe = grupe;
 	}
 	
-	
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
+	}
 	
 }

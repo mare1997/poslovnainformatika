@@ -2,9 +2,12 @@ package com.pi.PoslovnaInformatika.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.pi.PoslovnaInformatika.model.StavkaOtpremnice;
 import com.pi.PoslovnaInformatika.service.interfaces.StavkeOtpremniceServiceInterface;
 
+@Service
 public class StavkaOtpremniceService implements StavkeOtpremniceServiceInterface {
 
 	@Override

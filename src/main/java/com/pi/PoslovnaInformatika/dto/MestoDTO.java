@@ -14,19 +14,20 @@ public class MestoDTO implements Serializable {
 	private Integer id;
 	private String grad;
 	private long postanski_broj;
-	
+	private boolean obrisano;
 	public MestoDTO() {
 		super();
 	}
-	public MestoDTO(Integer id, String grad, long postanski_broj) {
+	public MestoDTO(Integer id, String grad, long postanski_broj,boolean obrisano) {
 		super();
 		this.id = id;
 		this.grad = grad;
 		this.postanski_broj = postanski_broj;
+		this.obrisano = obrisano;
 	}
 	
 	public MestoDTO(Mesto m) {
-		this(m.getId(),m.getGrad(),m.getPostanski_broj());
+		this(m.getId(),m.getGrad(),m.getPostanski_broj(),m.isObrisano());
 	}
 	
 	public Integer getId() {
@@ -46,6 +47,12 @@ public class MestoDTO implements Serializable {
 	}
 	public void setPostanski_broj(long postanski_broj) {
 		this.postanski_broj = postanski_broj;
+	}
+	public boolean isObrisano() {
+		return obrisano;
+	}
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 	
 	

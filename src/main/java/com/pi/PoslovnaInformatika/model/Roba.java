@@ -5,7 +5,7 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,18 +45,20 @@ public class Roba implements Serializable {
 	@JoinColumn(name = "grupa_robe_id", referencedColumnName = "grupa_robe_id", nullable = true)
 	private GrupaRobe grupa;
 	
-	@OneToMany(cascade = { ALL }, fetch = LAZY, mappedBy = "preduzece")
+	@OneToMany(cascade = { ALL }, fetch = LAZY, mappedBy = "roba")
 	private Set<StavkaCenovnika> cene=new HashSet<StavkaCenovnika>();
 	
 	@OneToMany(mappedBy="roba_usluga_id", cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<StavkaFakture> stavkeFakture;
 
-
+	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")
+	private boolean obrisano;
+	
 	public Roba() {}
 	
 	
 	public Roba(Integer id, String name, String jedninica_mere, GrupaRobe grupa, Set<StavkaCenovnika> cene,
-			List<StavkaFakture> stavkeFakture) {
+			List<StavkaFakture> stavkeFakture,boolean obrisano) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -64,6 +66,7 @@ public class Roba implements Serializable {
 		this.grupa = grupa;
 		this.cene = cene;
 		this.stavkeFakture = stavkeFakture;
+		this.obrisano = obrisano;
 	}
 
 
@@ -124,6 +127,16 @@ public class Roba implements Serializable {
 
 	public void setStavkeFakture(List<StavkaFakture> stavkeFakture) {
 		this.stavkeFakture = stavkeFakture;
+	}
+
+
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 	
 	
