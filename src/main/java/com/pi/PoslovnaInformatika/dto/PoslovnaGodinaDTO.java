@@ -2,7 +2,7 @@ package com.pi.PoslovnaInformatika.dto;
 
 import java.io.Serializable;
 
-import com.pi.PoslovnaInformatika.model.PoslovnaGodina;
+import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
 
 public class PoslovnaGodinaDTO implements Serializable {
 
@@ -22,7 +22,7 @@ public class PoslovnaGodinaDTO implements Serializable {
 		this.godina = godina;
 		this.zavrsena = zavrsena;
 	}
-	public PoslovnaGodinaDTO(PoslovnaGodina p) {
+	public PoslovnaGodinaDTO(PoslovnaGodinaPreduzeca p) {
 		this(p.getId(),p.getGodina(),p.getZavrsena());
 	}
 	public Integer getId() {

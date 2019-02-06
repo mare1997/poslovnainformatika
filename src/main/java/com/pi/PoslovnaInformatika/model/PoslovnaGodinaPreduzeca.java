@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity                 
 @Table(name="poslovna_godina")
-public class PoslovnaGodina implements Serializable{
+public class PoslovnaGodinaPreduzeca implements Serializable{
 
 	/**
 	 * 
@@ -30,12 +30,12 @@ public class PoslovnaGodina implements Serializable{
 	@Column(name="zavrsena", unique=false, nullable=false)
 	private Boolean zavrsena;
 
-	public PoslovnaGodina() {
+	public PoslovnaGodinaPreduzeca() {
 		super();
 		
 	}
 	
-	public PoslovnaGodina(Integer id, String godina, Boolean zavrsena) {
+	public PoslovnaGodinaPreduzeca(Integer id, String godina, Boolean zavrsena) {
 		super();
 		this.id = id;
 		this.godina = godina;
