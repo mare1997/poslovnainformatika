@@ -6,12 +6,12 @@
 		content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="js/jquery-ui.js"></script>
-	<link rel="stylesheet" type="text/css" href="./css/createNarudzbenica.css">
+	<link rel="stylesheet" type="text/css" href="./css/dodajRobu.css">
 	<link rel="stylesheet" type="text/css"href="./css/mainPage.css">
 	<script src="./bootstrap/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="./bootstrap/css/jquery-ui.css">
-	<title>Kreiranje narudzbenice</title>
+	<title>Dodavanje robe</title>
 </head>
 
 <body>
@@ -56,30 +56,26 @@
 	<table id="tableCreate" class="table">
 
 		<thead>
-			<th> Nova narudzbenica: </th>
+			<th> Dodaj robu: </th>
 		</thead>
 		<tbody>
+			
 			<tr>
-				<td>Broj narudzbenice:&nbsp; <input id='brOtpr' type="text"
-					id="brNarudzbenice" name="brNarudzbenice" style="width: 50px">
-				</td>
-			</tr>
-			<tr>
-				<td>Datum izrade:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="date" name="datumIzradeNarudzbenice"
+				<td>Naziv robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="text" name="CreateNazivRobe"
 					style="width: 150px">
 				</td>
 
 			</tr>
 			<tr>
-				<td>Datum isporuke:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="date"
-					name="datumIzradeNarudzbenice" style="width: 150px">
+				<td>Grupa robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select id="pickGrupu" style="width: 150px"><option>Namirnice</option><option>Alkohol</option><option>Alat</option></select>
 				</td>
 
 			</tr>
 			<tr>
-				<td>Placena &nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox"
-					name="placena" value="placena">
+				<td>Jedinica mere:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="text" name="CreateJedMere"
+					style="width: 150px">
 				</td>
 
 			</tr>

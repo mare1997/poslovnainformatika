@@ -5,12 +5,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="js/jquery-ui.js"></script>
-	<link rel="stylesheet" type="text/css" href="./css/listaNarudzbenica.css">
+	<link rel="stylesheet" type="text/css" href="./css/listaRoba.css">
 	<link rel="stylesheet" type="text/css" href="./css/mainPage.css">
 	<script src="./bootstrap/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="./bootstrap/css/jquery-ui.css">
-	<title>Lista narudzbenica</title>
+	<title>Lista roba</title>
 </head>
 
 <body>
@@ -57,10 +57,10 @@
 		<div class="btn-group">
 			<button class="btn btn-default"> <span class="glyphicon glyphicon-search"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></button>
-			<button class="btn btn-default" onClick="addNarudzbenica()"data-toggle="modal" data-target="#addNarudzbenica">
+			<button class="btn btn-default" onClick="addRoba()"data-toggle="modal" data-target="#addRoba">
 				<span class="glyphicon glyphicon-plus"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
-			<button class="btn btn-default" onClick="editNarudzbenica()"data-toggle="modal" data-target="#editNarudzbenica">
+			<button class="btn btn-default" onClick="editNarudzbenica()"data-toggle="modal" data-target="#editRoba">
 				<span class="glyphicon glyphicon-chevron-down"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-step-backward"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button>
@@ -74,60 +74,49 @@
 	<table id="tableId" class="table">
 		<thead>
 			<tr>
-				<th>Br. narudzbenice</th>
-				<th>Datum izrade</th>
-				<th>Datum isporuke</th>
-				<th>Placena</th>
+				<th>Naziv robe</th>
+				<th>Grupa robe</th>
+				<th>Jedinica mere</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td>Forddsfsdfd</td>
-				<td>Escort</td>
-				<td>Blue</td>
-				<td><input type="checkbox"></td>
+				<td>Brasno</td>
+				<td>Namirnice</td>
+				<td>kg</td>
 			</tr>
 			<tr>
-				<td>Ford</td>
-				<td>Escort</td>
-				<td>Blue</td>
-				<td><input type="checkbox"></td>
+				<td>Leba</td>
+				<td>Namirnice</td>
+				<td>kg</td>
 			</tr>
 			<tr>
-				<td>Ford</td>
-				<td>Escort</td>
-				<td>Blue</td>
-				<td><input type="checkbox"></td>
-			</tr>
-			<tr>
-				<td>Ford</td>
-				<td>Escort</td>
-				<td>Blue</td>
-				<td><input type="checkbox"></td>
+				<td>Pivo</td>
+				<td>Alkohol</td>
+				<td>l</td>
 			</tr>
 		</tbody>
 	</table>
 
 <!-- Modal dodavanja narudzbenice -->
 
-	<div id="addNarudzbenica" class="modal fade" role="dialog">
+	<div id="addRoba" class="modal fade" role="dialog">
 		<div class="modal-dialog modal-sm">
 
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Kreiraj narudzbenicu</h4>
+					<h4 class="modal-title">Dodaj robu</h4>
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
-						<label class="control-label">Broj narudzbenice: <input type="text" id="addBrojNarudzbenice" style="width: 50px"></label>
-						<label class="control-label" id="addDatumIzrade">Datum izrade:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="date" style="width: 150px">
-						</label> <label class="control-label" id="addDatumIsporuke">Datum isporuke: <input type="date" style="width: 150px">
-						</label> <label type="text"> Placena&nbsp;&nbsp;&nbsp; <input type="checkbox" name="placena" value="placena"></label>
+						<label class="control-label">Naziv robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addNazivRobe" style="width: 150px"></label>
+						<label class="control-label" id="pickGrupaRobe">Grupa robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select style="width: 150px"><option>Namirnice</option><option>Alkohol</option><option>Alat</option></select>
+						</label> <label class="control-label" id="addJedinicaMere">Jedinica mere: <input type="text" style="width: 150px">
 					</div>
 					<div class="modal-footer">
-						<button onClick="createN()" name="createN" class="btn btn-success">Create</button>
+						<button onClick="createR()" name="createR" class="btn btn-success">Create</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 					</div>
 				</div>
@@ -138,25 +127,23 @@
 
 <!-- Modal izmene narudzbenice -->
 
-	<div id="editNarudzbenica" class="modal fade" role="dialog">
+	<div id="addRoba" class="modal fade" role="dialog">
 		<div class="modal-dialog modal-sm">
 
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Izmeni narudzbenicu</h4>
+					<h4 class="modal-title">Dodaj robu</h4>
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
-						<label class="control-label">Broj narudzbenice: <input type="text" id="addBrojNarudzbenice" style="width: 50px"></label>
-						<label class="control-label" id="addDatumIzrade">Datum izrade:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="date" style="width: 150px">
-						</label> <label class="control-label" id="addDatumIsporuke">Datum isporuke: <input type="date" style="width: 150px">
-						</label> <label type="text">Placena &nbsp;&nbsp;&nbsp; <input type="checkbox" name="placena" value="placena"></label>
+						<label class="control-label">Naziv robe: <input type="text" id="addNazivRobe" style="width: 50px"></label>
+						<label class="control-label" id="pickGrupaRobe">Grupa robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select style="width: 150px"><option>Namirnice</option><option>Alkohol</option><option>Alat</option></select>
+						</label> <label class="control-label" id="addJedinicaMere">Jedinica mere: <input type="text" style="width: 150px">
 					</div>
 					<div class="modal-footer">
-						<button onClick="editN()" name="editN"
-							class="btn btn-success">Save</button>
+						<button onClick="createR()" name="createR" class="btn btn-success">Create</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 					</div>
 				</div>
@@ -167,18 +154,12 @@
 
 <!--Prikaz selektovane narudzbenice  -->
 	
-		<div id="prikazNarudzbenice">
-			<p><label>Broj narudzbenice:</label> <label class="text-muted"></label></p>
-			<p><label>Datum izrade:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><label class="text-muted"></label></p>
-			<p><label>Datum isporuke:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><label class="text-muted"></label></p>
-			<p><label>Placena &nbsp;&nbsp;</label><input type="checkbox" name="placena" value="placena"></p>
+		<div id="prikazRobe">
+			<p><label>Naziv robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <label class="text-muted"></label></p>
+			<p><label>Grupa robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><label class="text-muted"></label></p>
+			<p><label>Jedinica mere:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><label class="text-muted"></label></p>
 		</div>
-		<div id="buttonsFaktura">
-			<button class="btn btn-lg" id="btnFaktura">
-				<span class="glyphicon glyphicon-align-justify"></span>Faktura</button>
-			<br/>
-			<button class="btn btn-lg"><span class="glyphicon glyphicon-remove"></span></button>
-		</div>
+		
 
 </body>
 
