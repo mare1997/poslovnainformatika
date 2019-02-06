@@ -69,12 +69,15 @@ public class User implements Serializable {
 	@OneToMany(cascade = { ALL }, fetch = LAZY, mappedBy = "user")
 	private Set<Otpremnica> otpremnica=new HashSet<Otpremnica>();
 	
+	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")
+	private boolean obrisano;
+	
 	public User() {
 		super();
 	}
 	
 	public User(Integer id, String firstname, String lastname, String username, String password, UserType userType,
-			Preduzece preduzece, Set<Narudzbenica> narudzbenice, Set<Faktura> fakture, Set<Otpremnica> otpremnica) {
+			Preduzece preduzece, Set<Narudzbenica> narudzbenice, Set<Faktura> fakture, Set<Otpremnica> otpremnica,boolean obrisano) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -86,6 +89,7 @@ public class User implements Serializable {
 		this.narudzbenice = narudzbenice;
 		this.fakture = fakture;
 		this.otpremnica = otpremnica;
+		this.obrisano = obrisano;
 	}
 
 	
@@ -182,7 +186,15 @@ public class User implements Serializable {
 		this.otpremnica = otpremnica;
 	}
 
+	public boolean isObrisano() {
+		return obrisano;
+	}
 
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
+	}
+
+	
 	
 	
 	

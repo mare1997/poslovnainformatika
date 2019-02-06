@@ -2,8 +2,7 @@ package com.pi.PoslovnaInformatika.dto;
 
 import java.io.Serializable;
 
-import com.pi.PoslovnaInformatika.model.Cenovnik;
-import com.pi.PoslovnaInformatika.model.Roba;
+
 import com.pi.PoslovnaInformatika.model.StavkaCenovnika;
 
 public class StavkaCenovnikaDTO implements Serializable {
@@ -16,18 +15,20 @@ public class StavkaCenovnikaDTO implements Serializable {
 	private long cena;
 	private RobaDTO roba;
 	private CenovnikDTO cenovnik;
+	private boolean obrisano;
 	public StavkaCenovnikaDTO() {
 		super();
 	}
-	public StavkaCenovnikaDTO(Integer id, long cena, RobaDTO roba, CenovnikDTO cenovnik) {
+	public StavkaCenovnikaDTO(Integer id, long cena, RobaDTO roba, CenovnikDTO cenovnik,boolean obrisano) {
 		super();
 		this.id = id;
 		this.cena = cena;
 		this.roba = roba;
 		this.cenovnik = cenovnik;
+		this.obrisano = obrisano;
 	}
 	public StavkaCenovnikaDTO(StavkaCenovnika s) {
-		//this(s.getId(),s.getCena(),new RobaDTO(s.getRoba()), new CenovnikDTO(s.getCenovnik()));
+		this(s.getId(),s.getCena(),new RobaDTO(s.getRoba()), new CenovnikDTO(s.getCenovnik()),s.isObrisano());
 	}
 	public Integer getId() {
 		return id;
@@ -52,6 +53,12 @@ public class StavkaCenovnikaDTO implements Serializable {
 	}
 	public void setCenovnik(CenovnikDTO cenovnik) {
 		this.cenovnik = cenovnik;
+	}
+	public boolean isObrisano() {
+		return obrisano;
+	}
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 	
 	

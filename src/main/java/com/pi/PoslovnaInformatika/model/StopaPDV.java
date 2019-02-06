@@ -36,7 +36,9 @@ public class StopaPDV implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "pdv_id", referencedColumnName = "pdv_id", nullable = true)
 	private PDV pdv;
-
+	
+	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")
+	private boolean obrisano;
 	
 	
 	public StopaPDV() {
@@ -45,12 +47,13 @@ public class StopaPDV implements Serializable {
 
 
 
-	public StopaPDV(Integer id, int procenat, Date datum_vazenja, PDV pdv) {
+	public StopaPDV(Integer id, int procenat, Date datum_vazenja, PDV pdv,boolean obrisano) {
 		super();
 		this.id = id;
 		this.procenat = procenat;
 		this.datum_vazenja = datum_vazenja;
 		this.pdv = pdv;
+		this.obrisano = obrisano;
 	}
 
 
@@ -99,6 +102,18 @@ public class StopaPDV implements Serializable {
 
 	public void setPdv(PDV pdv) {
 		this.pdv = pdv;
+	}
+
+
+
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 	
 	

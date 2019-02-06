@@ -2,7 +2,7 @@ package com.pi.PoslovnaInformatika.dto;
 
 import java.io.Serializable;
 
-import com.pi.PoslovnaInformatika.model.Mesto;
+
 import com.pi.PoslovnaInformatika.model.Preduzece;
 
 public class PreduzeceDTO implements Serializable {
@@ -19,11 +19,12 @@ public class PreduzeceDTO implements Serializable {
 	private String telefon;
 	private long pib;
 	private MestoDTO mesto;
+	private boolean obrisano;
 	public PreduzeceDTO() {
 		super();
 	}
 	public PreduzeceDTO(Integer id, String name, String adresa, String email, String telefon, long pib,
-			MestoDTO mesto) {
+			MestoDTO mesto,boolean obrisano) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -32,10 +33,12 @@ public class PreduzeceDTO implements Serializable {
 		this.telefon = telefon;
 		this.pib = pib;
 		this.mesto = mesto;
+		this.obrisano = obrisano;
 	}
 	
+	
 	public PreduzeceDTO(Preduzece p) {
-		this();
+		this(p.getId(),p.getName(),p.getAdresa(),p.getEmail(),p.getTelefon(),p.getPib(),new MestoDTO(p.getMesto()),p.isObrisano());
 	}
 	public Integer getId() {
 		return id;
@@ -78,6 +81,12 @@ public class PreduzeceDTO implements Serializable {
 	}
 	public void setMesto(MestoDTO mesto) {
 		this.mesto = mesto;
+	}
+	public boolean isObrisano() {
+		return obrisano;
+	}
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 	
 	

@@ -2,16 +2,9 @@ package com.pi.PoslovnaInformatika.dto;
 
 import java.io.Serializable;
 
-import com.pi.PoslovnaInformatika.model.Preduzece;
+
 import com.pi.PoslovnaInformatika.model.User;
 import com.pi.PoslovnaInformatika.model.User.UserType;
-
-
-
-
-
-
-
 
 public class UserDTO implements Serializable {
 
@@ -26,7 +19,7 @@ public class UserDTO implements Serializable {
     private String password;
     private UserType userType;
     private PreduzeceDTO preduzece;
-	
+	private boolean obrisano;
 	
 	
 	
@@ -36,7 +29,7 @@ public class UserDTO implements Serializable {
 	
 	
 	public UserDTO(Integer id, String firstname, String lastname, String username, String password, UserType userType,
-			PreduzeceDTO preduzece) {
+			PreduzeceDTO preduzece,boolean obrisano) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -45,11 +38,12 @@ public class UserDTO implements Serializable {
 		this.password = password;
 		this.userType = userType;
 		this.preduzece = preduzece;
+		this.obrisano=  obrisano;
 	}
 
 
 	public UserDTO(User user) {
-        this(user.getId(),user.getFirstname(),user.getLastname(),user.getUsername(),user.getUser_password(),user.getUserType(),new PreduzeceDTO(user.getPreduzece()));
+        this(user.getId(),user.getFirstname(),user.getLastname(),user.getUsername(),user.getUser_password(),user.getUserType(),new PreduzeceDTO(user.getPreduzece()),user.isObrisano());
     }
 	
 	public Integer getId() {
@@ -97,6 +91,16 @@ public class UserDTO implements Serializable {
 
 	public void setPreduzece(PreduzeceDTO preduzece) {
 		this.preduzece = preduzece;
+	}
+
+
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 	
 	

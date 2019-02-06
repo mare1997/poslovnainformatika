@@ -45,19 +45,21 @@ public class GrupaRobe implements Serializable {
 	@JoinColumn(name = "preduzece_id", referencedColumnName = "preduzece_id", nullable = true)
 	private Preduzece preduzece;
 
-	
+	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")
+	private boolean obrisano;
 	
 	public GrupaRobe() {
 		super();
 	}
 
-	public GrupaRobe(Integer id, String name, PDV pdv, Set<Roba> robe, Preduzece preduzece) {
+	public GrupaRobe(Integer id, String name, PDV pdv, Set<Roba> robe, Preduzece preduzece,boolean obrisano) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.pdv = pdv;
 		this.robe = robe;
 		this.preduzece = preduzece;
+		this.obrisano = obrisano;
 	}
 
 	public Integer getId() {
@@ -98,6 +100,14 @@ public class GrupaRobe implements Serializable {
 
 	public void setPreduzece(Preduzece preduzece) {
 		this.preduzece = preduzece;
+	}
+
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 	
 	
