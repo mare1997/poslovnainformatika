@@ -9,7 +9,6 @@ import org.springframework.core.convert.converter.Converter;
 import com.pi.PoslovnaInformatika.dto.StavkaFaktureDTO;
 import com.pi.PoslovnaInformatika.model.Faktura;
 import com.pi.PoslovnaInformatika.model.StavkaFakture;
-import com.pi.PoslovnaInformatika.service.RobaService;
 import com.pi.PoslovnaInformatika.service.interfaces.FakturaServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.RobaServiceInterface;
 
@@ -20,7 +19,7 @@ public class StavkaFaktureDTOtoStavkaFakture implements Converter<StavkaFaktureD
 	private FakturaServiceInterface fakturaService;
 	
 	@Autowired
-	private RobaService robaService;
+	private RobaServiceInterface robaService;
 	
 	@Override
 	public StavkaFakture convert(StavkaFaktureDTO source){

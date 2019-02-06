@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 import com.pi.PoslovnaInformatika.dto.FakturaDTO;
 import com.pi.PoslovnaInformatika.model.Faktura;
 import com.pi.PoslovnaInformatika.model.StavkaFakture;
-import com.pi.PoslovnaInformatika.service.KupacService;
-import com.pi.PoslovnaInformatika.service.NarudzbenicaService;
-import com.pi.PoslovnaInformatika.service.OtpremnicaService;
-import com.pi.PoslovnaInformatika.service.StavkaFaktureService;
-import com.pi.PoslovnaInformatika.service.UserService;
+import com.pi.PoslovnaInformatika.service.interfaces.KupacServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.NarudzbenicaServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.OtpremnicaServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.StavkaFaktureServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.UserServiceInterface;
 
 
 
@@ -24,19 +24,19 @@ import com.pi.PoslovnaInformatika.service.UserService;
 public class FakturaDTOtoFaktura implements Converter<FakturaDTO, Faktura>{
 	
 	@Autowired
-	private StavkaFaktureService stavkeFaktureService;
+	private StavkaFaktureServiceInterface stavkeFaktureService;
 	
 	@Autowired
-	private NarudzbenicaService narudzbenicaService;
+	private NarudzbenicaServiceInterface narudzbenicaService;
 	
 	@Autowired
-	private OtpremnicaService otpremnicaService;
+	private OtpremnicaServiceInterface otpremnicaService;
 	
 	@Autowired
-	private UserService userService;
+	private UserServiceInterface userService;
 	
 	@Autowired
-	private KupacService kupacService;
+	private KupacServiceInterface kupacService;
 	
 	@Override
 	public Faktura convert(FakturaDTO source){

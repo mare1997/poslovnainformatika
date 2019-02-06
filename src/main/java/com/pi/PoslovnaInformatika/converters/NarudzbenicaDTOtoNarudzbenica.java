@@ -10,23 +10,23 @@ import org.springframework.stereotype.Component;
 import com.pi.PoslovnaInformatika.dto.NarudzbenicaDTO;
 import com.pi.PoslovnaInformatika.model.Narudzbenica;
 import com.pi.PoslovnaInformatika.model.StavkaNarudzbenice;
-import com.pi.PoslovnaInformatika.service.FakturaService;
-import com.pi.PoslovnaInformatika.service.StavkaNarudzbeniceService;
-import com.pi.PoslovnaInformatika.service.UserService;
+import com.pi.PoslovnaInformatika.service.interfaces.FakturaServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.StavkaNarudzbeniceServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.UserServiceInterface;
 
 
 @Component
 public class NarudzbenicaDTOtoNarudzbenica implements Converter<NarudzbenicaDTO, Narudzbenica>{
 	
 	@Autowired
-	private StavkaNarudzbeniceService stavkeNarudzbeniceService;
+	private StavkaNarudzbeniceServiceInterface stavkeNarudzbeniceService;
 	
 	
 	@Autowired
-	private FakturaService fakturaService;
+	private FakturaServiceInterface fakturaService;
 	
 	@Autowired
-	private UserService userService;
+	private UserServiceInterface userService;
 	
 	@Override
 	public Narudzbenica convert(NarudzbenicaDTO source){

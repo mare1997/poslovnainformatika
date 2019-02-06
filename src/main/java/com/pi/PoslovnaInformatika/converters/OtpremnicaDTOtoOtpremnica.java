@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 import com.pi.PoslovnaInformatika.dto.OtpremnicaDTO;
 import com.pi.PoslovnaInformatika.model.Otpremnica;
 import com.pi.PoslovnaInformatika.model.StavkaOtpremnice;
-import com.pi.PoslovnaInformatika.service.KupacService;
-import com.pi.PoslovnaInformatika.service.PreduzeceService;
-import com.pi.PoslovnaInformatika.service.PrevoznikService;
-import com.pi.PoslovnaInformatika.service.StavkaOtpremniceService;
-import com.pi.PoslovnaInformatika.service.UserService;
 import com.pi.PoslovnaInformatika.service.interfaces.FakturaServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.KupacServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.PreduzeceServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.PrevoznikServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.StavkeOtpremniceServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.UserServiceInterface;
 
 
 
@@ -23,16 +23,16 @@ import com.pi.PoslovnaInformatika.service.interfaces.FakturaServiceInterface;
 public class OtpremnicaDTOtoOtpremnica implements Converter<OtpremnicaDTO, Otpremnica>{
 	
 	@Autowired
-	private StavkaOtpremniceService stavkeOtpremniceService;
+	private StavkeOtpremniceServiceInterface stavkeOtpremniceService;
 	
 	@Autowired
-	private PrevoznikService prevoznikService;
+	private PrevoznikServiceInterface prevoznikService;
 	@Autowired
-	private KupacService kupacService;
+	private KupacServiceInterface kupacService;
 	@Autowired
-	private UserService userService;
+	private UserServiceInterface userService;
 	@Autowired
-	private PreduzeceService preduzeceService;
+	private PreduzeceServiceInterface preduzeceService;
 	@Autowired
 	
 	private FakturaServiceInterface fakturaService;

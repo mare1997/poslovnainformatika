@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.sql.Date;
 
 import com.pi.PoslovnaInformatika.model.Cenovnik;
-import com.pi.PoslovnaInformatika.model.Preduzece;
 
 public class CenovnikDTO implements Serializable {
 
