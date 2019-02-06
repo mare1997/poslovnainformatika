@@ -25,13 +25,13 @@ thead th {
 }
 
 tbody {
-	height: 120px;
+	height: 450px;
 	overflow-y: auto;
 	text-align: center;
 }
 
 tbody td, thead th {
-	width: 33.3%;
+	width: 50%;
 	float: left;
 }
 
@@ -40,11 +40,7 @@ tbody td, thead th {
 	width: 70%;
 }
 
-#prikazRobe {
-	margin-left: 300px;
-	width: 30%;
-	float: left;
-}
+
 
 
  

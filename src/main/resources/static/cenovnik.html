@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="js/jquery-ui.js"></script>
-	<link rel="stylesheet" type="text/css" href="./css/listaRoba.css">
+	<link rel="stylesheet" type="text/css" href="./css/cenovnik.css">
 	<link rel="stylesheet" type="text/css" href="./css/mainPage.css">
 	<script src="./bootstrap/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
@@ -34,7 +34,7 @@
 				<ul class="dropdown-menu">
 					<li><a href="cenovnik.html">Cenovnici</a></li>
 					<li>
-					<li><a href="createCenovnik.html">Kreiranje cenovnika</a></li>>
+					<li><a href="createCenovnik.html">Kreiranje cenovnika</a></li>
 				</ul>
 			</li>
 			
@@ -57,10 +57,10 @@
 		<div class="btn-group">
 			<button class="btn btn-default"> <span class="glyphicon glyphicon-search"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></button>
-			<button class="btn btn-default" onClick="addRoba()"data-toggle="modal" data-target="#addRoba">
+			<button class="btn btn-default" onClick="addCenovnik()"data-toggle="modal" data-target="#addCenovnik">
 				<span class="glyphicon glyphicon-plus"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
-			<button class="btn btn-default" onClick="editNarudzbenica()"data-toggle="modal" data-target="#editRoba">
+			<button class="btn btn-default" onClick="editCenovnik()"data-toggle="modal" data-target="#editRoba">
 				<span class="glyphicon glyphicon-chevron-down"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-step-backward"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button>
@@ -74,49 +74,36 @@
 	<table id="tableId" class="table">
 		<thead>
 			<tr>
-				<th>Naziv robe</th>
-				<th>Grupa robe</th>
-				<th>Jedinica mere</th>
+				<th>Datum vazenja</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td>Brasno</td>
-				<td>Namirnice</td>
-				<td>kg</td>
+				<td>22/12/2019</td>
+			</tr><tr>
+				<td>22/12/2019</td>
 			</tr>
-			<tr>
-				<td>Leba</td>
-				<td>Namirnice</td>
-				<td>kg</td>
-			</tr>
-			<tr>
-				<td>Pivo</td>
-				<td>Alkohol</td>
-				<td>l</td>
-			</tr>
+			
 		</tbody>
 	</table>
 
 <!-- Modal dodavanja robe -->
 
-	<div id="addRoba" class="modal fade" role="dialog">
+	<div id="addCenovnik" class="modal fade" role="dialog">
 		<div class="modal-dialog modal-sm">
 
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Dodaj robu</h4>
+					<h4 class="modal-title">Kreiraj cenovnik</h4>
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
-						<label class="control-label">Naziv robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addNazivRobe" style="width: 150px"></label>
-						<label class="control-label" id="pickGrupaRobe">Grupa robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select style="width: 150px"><option>Namirnice</option><option>Alkohol</option><option>Alat</option></select>
-						</label> <label class="control-label" id="addJedinicaMere">Jedinica mere: <input type="text" style="width: 150px">
+						<label class="control-label">Datum vazenja:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="date" id="addDatumVazenja" style="width: 150px"></label>
 					</div>
 					<div class="modal-footer">
-						<button onClick="createR()" name="createR" class="btn btn-success">Create</button>
+						<button onClick="createCen()" name="createR" class="btn btn-success">Create</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 					</div>
 				</div>
@@ -125,46 +112,14 @@
 	</div>
 
 
-<!-- Modal izmene robe -->
-
-	<div id="addRoba" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-sm">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Dodaj robu</h4>
-				</div>
-				<div class="modal-body">
-					<div class="form-group">
-						<label class="control-label">Naziv robe: <input type="text" id="addNazivRobe" style="width: 50px"></label>
-						<label class="control-label" id="pickGrupaRobe">Grupa robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select style="width: 150px"><option>Namirnice</option><option>Alkohol</option><option>Alat</option></select>
-						</label> <label class="control-label" id="addJedinicaMere">Jedinica mere: <input type="text" style="width: 150px">
-					</div>
-					<div class="modal-footer">
-						<button onClick="createR()" name="createR" class="btn btn-success">Create</button>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
 
-<!--Prikaz selektovane robe  -->
-	
-		<div id="prikazRobe">
-			<p><label>Naziv robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <label class="text-muted"></label></p>
-			<p><label>Grupa robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><label class="text-muted"></label></p>
-			<p><label>Jedinica mere:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><label class="text-muted"></label></p>
-		</div>
 		
 
 </body>
 
 
-<!-- Samo da probam kliktanje po tabeli -->
+
 <script>
 
         function addRowHandlers() {
@@ -176,18 +131,7 @@
                     function(row) 
                     {
                         return function() { 
-                                                var cell = row.getElementsByTagName("td")[0];
-                                                var id = cell.innerHTML;
-        
-                                                var cell1 = row.getElementsByTagName("td")[1];
-                                                var id2 = cell1.innerHTML;
-
-                                                var cell = row.getElementsByTagName("td")[2];
-                                                var id3 = cell.innerHTML;
-        
-                                                
-
-                                                alert("wohoo" + "!" + id + " - " + id2 + "- "+ id3);
+                                                location.href = 'ceneCenovnika.html';
                            
                                          };
                    		 };
