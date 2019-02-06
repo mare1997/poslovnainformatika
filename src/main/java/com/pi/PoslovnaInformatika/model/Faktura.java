@@ -67,6 +67,13 @@ public class Faktura implements Serializable{
 	@JoinColumn(name="kupac_id")
 	private Kupac kupac;
 	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="preduzece")
+	private Preduzece preduzece;
+	
+	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")
+	private boolean obrisano;
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = true)
 	private User user;
@@ -79,7 +86,7 @@ public class Faktura implements Serializable{
 			Date datumFakture, Long osnovica, Long ukupanPDV,
 			Long iznosZaPlacanje, String statusFakture,
 			List<StavkaFakture> stavkeFakture, Narudzbenica narudzbenicaRel,
-			Otpremnica otpremnicaRel,Kupac kupac, User user) {
+			Otpremnica otpremnicaRel,Kupac kupac, User user,Preduzece preduzece,boolean obrisano) {
 		super();
 		this.idFakture = id;
 		this.brojFakture = brojFakture;
@@ -94,6 +101,8 @@ public class Faktura implements Serializable{
 		this.otpremnicaRel=otpremnicaRel;
 		this.kupac=kupac;
 		this.user=user;
+		this.preduzece=preduzece;
+		this.obrisano=obrisano;
 	}
 
 
@@ -197,6 +206,30 @@ public class Faktura implements Serializable{
 
 	public void setKupac(Kupac kupac) {
 		this.kupac = kupac;
+	}
+
+
+
+	public Preduzece getPreduzece() {
+		return preduzece;
+	}
+
+
+
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
+	}
+
+
+
+	public void setPreduzece(Preduzece preduzece) {
+		this.preduzece = preduzece;
 	}
 
 

@@ -13,6 +13,7 @@ import com.pi.PoslovnaInformatika.model.StavkaFakture;
 import com.pi.PoslovnaInformatika.service.interfaces.KupacServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.NarudzbenicaServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.OtpremnicaServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.PreduzeceServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.StavkaFaktureServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.UserServiceInterface;
 
@@ -38,6 +39,9 @@ public class FakturaDTOtoFaktura implements Converter<FakturaDTO, Faktura>{
 	@Autowired
 	private KupacServiceInterface kupacService;
 	
+	@Autowired
+	private PreduzeceServiceInterface preduzeceService;
+	
 	@Override
 	public Faktura convert(FakturaDTO source){
 		
@@ -58,6 +62,8 @@ public class FakturaDTOtoFaktura implements Converter<FakturaDTO, Faktura>{
 		faktura.setNarudzbenicaRel(narudzbenicaService.findOne(Long.valueOf(source.getNarudzbeniceRel())));
 		faktura.setOtpremnicaRel(otpremnicaService.findOne(Long.valueOf(source.getOtpremnicaRel())));
 		faktura.setUser(userService.getOne(source.getUser()));
+		faktura.setObrisano(source.isObrisano());
+		faktura.setPreduzece(preduzeceService.getOne(source.getPreduzece()));
 		
 		faktura.setKupac(kupacService.getOne(source.getKupac()));
 		List<StavkaFakture> sveStavke = new ArrayList<StavkaFakture>();

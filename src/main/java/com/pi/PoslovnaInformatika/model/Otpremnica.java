@@ -62,6 +62,9 @@ public class Otpremnica implements Serializable{
 	@JoinColumn(name="fakturaRel")
 	private Faktura fakturaRel;
 	
+	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")
+	private boolean obrisano;
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = true)
 	private User user;
@@ -71,7 +74,7 @@ public class Otpremnica implements Serializable{
 
 	public Otpremnica(int idOtpremnice, Long brojOtpremnice, Date datumOtpremnice, boolean primljenaRoba,
 			Date datumIsporuke, List<StavkaOtpremnice> stavkeOtpremnice, Prevoznik prevoznik, Kupac kupac,
-			User user, Preduzece preduzece, Faktura fakturaRel) {
+			User user, Preduzece preduzece, Faktura fakturaRel,boolean obrisano) {
 		super();
 		this.idOtpremnice = idOtpremnice;
 		this.brojOtpremnice = brojOtpremnice;
@@ -84,6 +87,7 @@ public class Otpremnica implements Serializable{
 		this.user = user;
 		this.preduzece = preduzece;
 		this.fakturaRel = fakturaRel;
+		this.obrisano=obrisano;
 	}
 
 
@@ -175,6 +179,16 @@ public class Otpremnica implements Serializable{
 
 	public void setPreduzece(Preduzece preduzece) {
 		this.preduzece = preduzece;
+	}
+
+
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 
 

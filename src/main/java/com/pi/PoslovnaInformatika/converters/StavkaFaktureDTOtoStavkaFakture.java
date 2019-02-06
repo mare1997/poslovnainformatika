@@ -40,6 +40,7 @@ public class StavkaFaktureDTOtoStavkaFakture implements Converter<StavkaFaktureD
 		stavkaFakture.setIznosStavke(source.getIznosStavke());
 		stavkaFakture.setRoba(robaService.getOne(source.getRobaUslugaId()));
 		stavkaFakture.setJedinicaMere(source.getJedinicaMere());
+		stavkaFakture.setObrisano(source.isObrisano());
 		
 		if(source.getIdFakture() != 0){
 			Faktura faktura = fakturaService.findOne(Long.valueOf(source.getIdFakture()));

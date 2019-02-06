@@ -11,6 +11,8 @@ import com.pi.PoslovnaInformatika.dto.NarudzbenicaDTO;
 import com.pi.PoslovnaInformatika.model.Narudzbenica;
 import com.pi.PoslovnaInformatika.model.StavkaNarudzbenice;
 import com.pi.PoslovnaInformatika.service.interfaces.FakturaServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.KupacServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.PreduzeceServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.StavkaNarudzbeniceServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.UserServiceInterface;
 
@@ -28,6 +30,12 @@ public class NarudzbenicaDTOtoNarudzbenica implements Converter<NarudzbenicaDTO,
 	@Autowired
 	private UserServiceInterface userService;
 	
+	@Autowired
+	private PreduzeceServiceInterface preduzeceService;
+	
+	@Autowired
+	private KupacServiceInterface kupacService;
+	
 	@Override
 	public Narudzbenica convert(NarudzbenicaDTO source){
 		
@@ -44,8 +52,10 @@ public class NarudzbenicaDTOtoNarudzbenica implements Converter<NarudzbenicaDTO,
 		narudzbenica.setPlacena(source.isPlacena());
 		narudzbenica.setFakturaRel(fakturaService.findOne(Long.valueOf(source.getFakturaRel())));
 		narudzbenica.setUser(userService.getOne(source.getUser()));
+		narudzbenica.setPreduzece(preduzeceService.getOne(source.getPreduzece()));
+		narudzbenica.setKupac(kupacService.getOne(source.getKupac()));
+		narudzbenica.setObrisano(source.isObrisano());
 		
-			
 		List<StavkaNarudzbenice> sveStavke = new ArrayList<StavkaNarudzbenice>();
 		sveStavke = stavkeNarudzbeniceService.findAll();
 		for(StavkaNarudzbenice stavkaNarudzbenice: sveStavke){

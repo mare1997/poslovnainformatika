@@ -46,10 +46,20 @@ public class Narudzbenica implements Serializable{
 	@OneToMany(mappedBy="narudzbenica", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private List<StavkaNarudzbenice> stavkeNarudzbenice;
 	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="preduzece")
+	private Preduzece preduzece;
 
 	@OneToOne(mappedBy="narudzbenicaRel")
 	private Faktura fakturaRel;
 
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="kupac_id")
+	private Kupac kupac;
+	
+	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")
+	private boolean obrisano;
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = true)
 	private User user;
@@ -58,7 +68,7 @@ public class Narudzbenica implements Serializable{
 	public Narudzbenica () {}
 
 	public Narudzbenica(int idNarudzbenice, Long brojNarudzbenice, Date datumIzrade, Date datumIsporuke,
-			boolean placena, List<StavkaNarudzbenice> stavkeNarudzbenice,Faktura fakturaRel,User user) {
+			boolean placena, List<StavkaNarudzbenice> stavkeNarudzbenice,Faktura fakturaRel,User user, Preduzece preduzece, Kupac kupac, boolean obrisano) {
 		super();
 		this.idNarudzbenice = idNarudzbenice;
 		this.brojNarudzbenice = brojNarudzbenice;
@@ -68,6 +78,17 @@ public class Narudzbenica implements Serializable{
 		this.stavkeNarudzbenice = stavkeNarudzbenice;
 		this.fakturaRel = fakturaRel;
 		this.user=user;
+		this.preduzece=preduzece;
+		this.kupac=kupac;
+		this.obrisano=obrisano;
+	}
+
+	public Kupac getKupac() {
+		return kupac;
+	}
+
+	public void setKupac(Kupac kupac) {
+		this.kupac = kupac;
 	}
 
 	public int getIdNarudzbenice() {
@@ -153,6 +174,22 @@ public class Narudzbenica implements Serializable{
 		if(stavkaNarudzbenice.getNarudzbenica().equals(this)){
 			stavkaNarudzbenice.setNarudzbenica(null);
 		}
+	}
+
+	public Preduzece getPreduzece() {
+		return preduzece;
+	}
+
+	public void setPreduzece(Preduzece preduzece) {
+		this.preduzece = preduzece;
+	}
+
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 
 	

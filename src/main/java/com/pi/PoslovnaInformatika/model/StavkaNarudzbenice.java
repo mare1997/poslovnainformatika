@@ -38,17 +38,21 @@ public class StavkaNarudzbenice implements Serializable{
 	@JoinColumn(name="idNarudzbenice")
 	private Narudzbenica narudzbenica;
 	
+	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")
+	private boolean obrisano;
+	
 	public StavkaNarudzbenice () {}
 
 	
 
-	public StavkaNarudzbenice(int idStavkeNarudzbenice, String naziv, Long kolicina, Narudzbenica narudzbenica,String jedinicaMere) {
+	public StavkaNarudzbenice(int idStavkeNarudzbenice, String naziv, Long kolicina, Narudzbenica narudzbenica,String jedinicaMere,boolean obrisano) {
 		super();
 		this.idStavkeNarudzbenice = idStavkeNarudzbenice;
 		this.naziv = naziv;
 		this.kolicina = kolicina;
 		this.narudzbenica = narudzbenica;
 		this.jedinicaMere=jedinicaMere;
+		this.obrisano=obrisano;
 	}
 
 
@@ -85,6 +89,18 @@ public class StavkaNarudzbenice implements Serializable{
 
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
+	}
+
+
+
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 
 
