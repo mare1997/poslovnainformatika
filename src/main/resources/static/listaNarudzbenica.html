@@ -1,0 +1,223 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/listaNarudzbenica.css">
+	<link rel="stylesheet" type="text/css" href="./css/mainPage.css">
+	<script src="./bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./bootstrap/css/jquery-ui.css">
+	<title>Lista narudzbenica</title>
+</head>
+
+<body>
+
+<!-- Navigacija -->
+	<nav>
+		<ul id="mainUl" class="nav navbar-nav">
+			<li><a href="mainPage.html">Home</a></li>
+
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Narudzbenice <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="listaNarudzbenica.html">Lista narudzbenica</a></li>
+					<li><a href="createNarudzbenica.html">Kreiranje
+							narudzbenice</a></li>
+				</ul>
+			</li>
+
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Cenovnik <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="#">Lista</a></li>
+					<li>
+					<li><a href="#">blabla</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Roba ili usluga <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="#">Lista</a></li>
+					<li>
+					<li><a href="#">blabla</a></li>
+				</ul>
+			</li>
+
+		</ul>
+	</nav>
+	
+	
+<!-- Toolbar dugmici -->
+
+	<div class="col-lg-5 col-md-offset-2" id="toolbarbuttons">
+		<div class="btn-group">
+			<button class="btn btn-default"> <span class="glyphicon glyphicon-search"></span></button>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></button>
+			<button class="btn btn-default" onClick="addNarudzbenica()"data-toggle="modal" data-target="#addNarudzbenica">
+				<span class="glyphicon glyphicon-plus"></span></button>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
+			<button class="btn btn-default" onClick="editNarudzbenica()"data-toggle="modal" data-target="#editNarudzbenica">
+				<span class="glyphicon glyphicon-chevron-down"></span></button>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-step-backward"></span></button>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-chevron-right"></span></button>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-step-forward"></span></button>
+		</div>
+	</div>
+
+<!-- Lista narudzbenica -->
+
+	<table id="tableId" class="table">
+		<thead>
+			<tr>
+				<th>Br. narudzbenice</th>
+				<th>Datum izrade</th>
+				<th>Datum isporuke</th>
+				<th>Placena</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Forddsfsdfd</td>
+				<td>Escort</td>
+				<td>Blue</td>
+				<td><input type="checkbox"></td>
+			</tr>
+			<tr>
+				<td>Ford</td>
+				<td>Escort</td>
+				<td>Blue</td>
+				<td><input type="checkbox"></td>
+			</tr>
+			<tr>
+				<td>Ford</td>
+				<td>Escort</td>
+				<td>Blue</td>
+				<td><input type="checkbox"></td>
+			</tr>
+			<tr>
+				<td>Ford</td>
+				<td>Escort</td>
+				<td>Blue</td>
+				<td><input type="checkbox"></td>
+			</tr>
+		</tbody>
+	</table>
+
+<!-- Modal dodavanja narudzbenice -->
+
+	<div id="addNarudzbenica" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-sm">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Kreiraj narudzbenicu</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="control-label">Broj narudzbenice: <input type="text" id="addBrojNarudzbenice" style="width: 50px"></label>
+						<label class="control-label" id="addDatumIzrade">Datum izrade:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="date" style="width: 150px">
+						</label> <label class="control-label" id="addDatumIsporuke">Datum isporuke: <input type="date" style="width: 150px">
+						</label> <label type="text"> Placena&nbsp;&nbsp;&nbsp; <input type="checkbox" name="placena" value="placena"></label>
+					</div>
+					<div class="modal-footer">
+						<button onClick="createN()" name="createN" class="btn btn-success">Create</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<!-- Modal izmene narudzbenice -->
+
+	<div id="editNarudzbenica" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-sm">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Izmeni narudzbenicu</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="control-label">Broj narudzbenice: <input type="text" id="addBrojNarudzbenice" style="width: 50px"></label>
+						<label class="control-label" id="addDatumIzrade">Datum izrade:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="date" style="width: 150px">
+						</label> <label class="control-label" id="addDatumIsporuke">Datum isporuke: <input type="date" style="width: 150px">
+						</label> <label type="text">Placena &nbsp;&nbsp;&nbsp; <input type="checkbox" name="placena" value="placena"></label>
+					</div>
+					<div class="modal-footer">
+						<button onClick="editN()" name="editN"
+							class="btn btn-success">Save</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<!--Prikaz selektovane narudzbenice  -->
+	
+		<div id="prikazNarudzbenice">
+			<p><label>Broj narudzbenice:</label> <label class="text-muted"></label></p>
+			<p><label>Datum izrade:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><label class="text-muted"></label></p>
+			<p><label>Datum isporuke:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><label class="text-muted"></label></p>
+			<p><label>Placena &nbsp;&nbsp;</label><input type="checkbox" name="placena" value="placena"></p>
+		</div>
+		<div id="buttonsFaktura">
+			<button class="btn btn-lg" id="btnFaktura">
+				<span class="glyphicon glyphicon-align-justify"></span>Faktura</button>
+			<br/>
+			<button class="btn btn-lg"><span class="glyphicon glyphicon-remove"></span></button>
+		</div>
+
+</body>
+
+
+<!-- Samo da probam kliktanje po tabeli -->
+<script>
+
+        function addRowHandlers() {
+            var table = document.getElementById("tableId");
+            var rows = table.getElementsByTagName("tr");
+            for (i = 0; i < rows.length; i++) {
+                var currentRow = table.rows[i];
+                var createClickHandler = 
+                    function(row) 
+                    {
+                        return function() { 
+                                                var cell = row.getElementsByTagName("td")[0];
+                                                var id = cell.innerHTML;
+        
+                                                var cell1 = row.getElementsByTagName("td")[1];
+                                                var id2 = cell1.innerHTML;
+
+                                                var cell = row.getElementsByTagName("td")[2];
+                                                var id3 = cell.innerHTML;
+        
+                                                var cell1 = row.getElementsByTagName("td")[3];
+                                                var id4 = cell1.innerHTML;
+
+                                                alert("wohoo" + "!" + id + " - " + id2 + "- "+ id3 + " - " + id4);
+                           
+                                         };
+                   		 };
+        
+                currentRow.onclick = createClickHandler(currentRow);
+                
+            }
+        }
+        window.onload = addRowHandlers();
+
+       
+        </script>
+</html>

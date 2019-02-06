@@ -1,31 +1,93 @@
 <html>
-	<head>
-		<title> Kreiranje narudzbenice</title>
-        <link rel="stylesheet" type="text/css" href="./css/createNarudzbenica.css">
-        <link rel="stylesheet" type="text/css" href="./css/mainPage.css">
-	</head>
-	<body>
-            <nav>
-                    <ul>
-                        <li><a href="mainPage.html">Home</a></li>
-                        <li><a class="active" href="createNarudzbenica.html">Kreiranje narudzbenice</a></li>
-                        <li><a href="#about">......</a></li>
-                        <li><a href="#about">......</a></li>
-                        <li><a href="#about">......</a></li>
-        
-                    </ul>
-                <nav>
-		<div>
-            <!--<p id="title">
-                <label>KREIRANJE OTPREMNICE</label></p>-->
-			<form action="#">
-                <p>Broj narudzbenice: <input id='brOtpr' type="text" id="brNarudzbenice" name="brNarudzbenice"></p>
-                <p><label>Datum izrade: </label><input type="date" name="datumIzradeNarudzbenice"></p>
-                <p><label>Datum isporuke: </label><input type="date" name="datumIsporuke"></p>
-                <p>Placena <input type="checkbox" name="placena" value="placena"></p>
-                <br/>
-                <input type="submit" value="OK" id="okButton">
-			</form>
-		</div>
-	</body>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/createNarudzbenica.css">
+	<link rel="stylesheet" type="text/css"href="./css/mainPage.css">
+	<script src="./bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./bootstrap/css/jquery-ui.css">
+	<title>Kreiranje narudzbenice</title>
+</head>
+
+<body>
+
+	<!-- Navigacija -->
+	<nav>
+		<ul id="mainUl" class="nav navbar-nav">
+			<li><a href="mainPage.html">Home</a></li>
+
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Narudzbenice <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="listaNarudzbenica.html">Lista narudzbenica</a></li>
+					<li><a href="createNarudzbenica.html">Kreiranje
+							narudzbenice</a></li>
+				</ul>
+			</li>
+
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Cenovnik <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="#">Lista</a></li>
+					<li>
+					<li><a href="#">blabla</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Roba ili usluga <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="#">Lista</a></li>
+					<li>
+					<li><a href="#">blabla</a></li>
+				</ul>
+			</li>
+
+		</ul>
+	</nav>
+
+<!-- Kreiranje narudzbenice -->
+
+	<table id="tableCreate" class="table">
+
+		<thead>
+			<th> Nova narudzbenica: </th>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Broj narudzbenice:&nbsp; <input id='brOtpr' type="text"
+					id="brNarudzbenice" name="brNarudzbenice" style="width: 50px">
+				</td>
+			</tr>
+			<tr>
+				<td>Datum izrade:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="date" name="datumIzradeNarudzbenice"
+					style="width: 150px">
+				</td>
+
+			</tr>
+			<tr>
+				<td>Datum isporuke:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="date"
+					name="datumIzradeNarudzbenice" style="width: 150px">
+				</td>
+
+			</tr>
+			<tr>
+				<td>Placena &nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox"
+					name="placena" value="placena">
+				</td>
+
+			</tr>
+			<tr>
+				<td><input type="submit" value="OK" id="okButton"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+
 </html>
