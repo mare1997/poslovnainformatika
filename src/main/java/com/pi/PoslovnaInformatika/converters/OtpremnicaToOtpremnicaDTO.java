@@ -30,7 +30,7 @@ public class OtpremnicaToOtpremnicaDTO implements Converter<Otpremnica, Otpremni
 		otpremnicaDTO.setUser(source.getUser().getId());
 		otpremnicaDTO.setPreduzeceId(source.getPreduzece().getId());
 		otpremnicaDTO.setFakturaRel(source.getFakturaRel().getId());
-		
+		otpremnicaDTO.setObrisano(source.isObrisano());
 		return otpremnicaDTO;
 	}
 	

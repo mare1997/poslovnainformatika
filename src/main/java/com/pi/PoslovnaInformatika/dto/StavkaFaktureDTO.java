@@ -1,7 +1,5 @@
 package com.pi.PoslovnaInformatika.dto;
 
-import com.pi.PoslovnaInformatika.model.Faktura;
-
 public class StavkaFaktureDTO {
 
 	private int idStavkeFakture;
@@ -15,11 +13,12 @@ public class StavkaFaktureDTO {
 	private int idFakture;
 	private int robaUslugaId;
 	private String jedinicaMere;
+	private boolean obrisano;
 	
 	public StavkaFaktureDTO() {}
 
 	public StavkaFaktureDTO(int idStavkeFakture, Long kolicina, Long jedinicnaCena, Long rabat, Long osnovicaZaPDV,
-			Long procenatPDV, Long iznosPDV, Long iznosStavke, int idFakture, int robaUslugaId, String jedinicaMere) {
+			Long procenatPDV, Long iznosPDV, Long iznosStavke, int idFakture, int robaUslugaId, String jedinicaMere, boolean obrisano) {
 		super();
 		this.idStavkeFakture = idStavkeFakture;
 		this.kolicina = kolicina;
@@ -32,6 +31,7 @@ public class StavkaFaktureDTO {
 		this.idFakture = idFakture;
 		this.robaUslugaId=robaUslugaId;
 		this.jedinicaMere=jedinicaMere;
+		this.obrisano=obrisano;
 	}
 
 	public int getIdStavkeFakture() {
@@ -120,6 +120,14 @@ public class StavkaFaktureDTO {
 
 	public void setJedinicaMere(String jedinicaMere) {
 		this.jedinicaMere = jedinicaMere;
+	}
+
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 	
 	

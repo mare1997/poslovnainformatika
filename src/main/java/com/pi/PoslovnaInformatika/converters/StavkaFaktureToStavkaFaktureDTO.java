@@ -31,6 +31,7 @@ public class StavkaFaktureToStavkaFaktureDTO implements Converter<StavkaFakture,
 		stavkaFaktureDTO.setIznosStavke(source.getIznosStavke());
 		stavkaFaktureDTO.setJedinicaMere(source.getJedinicaMere());
 		stavkaFaktureDTO.setRobaUslugaId(source.getRoba().getId());
+		stavkaFaktureDTO.setObrisano(source.isObrisano());
 		
 		if(source.getFaktura() !=null){
 			stavkaFaktureDTO.setIdFakture(source.getFaktura().getId());

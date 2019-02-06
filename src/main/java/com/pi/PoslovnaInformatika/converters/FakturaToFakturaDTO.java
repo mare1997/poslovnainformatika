@@ -33,6 +33,8 @@ public class FakturaToFakturaDTO implements Converter<Faktura, FakturaDTO> {
 		fakturaDTO.setOtpremnicaRel(source.getOtpremnicaRel().getIdOtpremnice());
 		fakturaDTO.setKupac(source.getKupac().getId());
 		fakturaDTO.setUser(source.getUser().getId());
+		fakturaDTO.setPreduzece(source.getPreduzece().getId());
+		fakturaDTO.setObrisano(source.isObrisano());
 		
 		return fakturaDTO;
 	}

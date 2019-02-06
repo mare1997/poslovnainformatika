@@ -17,6 +17,8 @@ public class FakturaDTO {
 	private int otpremnicaRel;
 	private int kupac;
 	private int user;
+	private boolean obrisano;
+	private int preduzece;
 	
 	
 	public FakturaDTO () {}
@@ -25,7 +27,7 @@ public class FakturaDTO {
 
 	public FakturaDTO(int idFakture, Long brojFakture, Date datumValute, Date datumFakture, Long osnovica,
 			Long ukupanPDV, Long iznosZaPlacanje, String statusFakture, int narudzbeniceRel, int otpremnicaRel,
-			int kupac,int user) {
+			int kupac,int user,boolean obrisano,int preduzece) {
 		super();
 		this.idFakture = idFakture;
 		this.brojFakture = brojFakture;
@@ -39,6 +41,8 @@ public class FakturaDTO {
 		this.otpremnicaRel = otpremnicaRel;
 		this.kupac = kupac;
 		this.user=user;
+		this.obrisano=obrisano;
+		this.preduzece=preduzece;
 	}
 
 
@@ -86,6 +90,31 @@ public class FakturaDTO {
 	public void setDatumFakture(Date datumFakture) {
 		this.datumFakture = datumFakture;
 	}
+
+	
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
+	}
+
+
+
+	public int getPreduzece() {
+		return preduzece;
+	}
+
+
+
+	public void setPreduzece(int preduzece) {
+		this.preduzece = preduzece;
+	}
+
+
 
 	public Long getOsnovica() {
 		return osnovica;

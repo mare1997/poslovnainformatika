@@ -53,16 +53,22 @@ public class Kupac implements Serializable {
 	
 	@OneToMany(cascade = { ALL }, fetch = LAZY, mappedBy = "kupac")
 	private Set<Otpremnica> otpremnice=new HashSet<Otpremnica>();
+	
+	@OneToMany(mappedBy="kupac",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	private List<Narudzbenica> narudzbenice;
 
 	@OneToMany(mappedBy="kupac",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<Faktura> fakture;
+	
+	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")
+	private boolean obrisano;
 	
 	public Kupac() {
 		super();
 	}
 
 	public Kupac(Integer id, String name, String adresa, long pib_jmbg, Mesto mesto, Preduzece preduzece,
-			Set<Otpremnica> otpremnice,List<Faktura> fakture) {
+			Set<Otpremnica> otpremnice,List<Faktura> fakture,List<Narudzbenica> narudzbenice,boolean obrisano) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -72,6 +78,8 @@ public class Kupac implements Serializable {
 		this.preduzece = preduzece;
 		this.otpremnice = otpremnice;
 		this.fakture=fakture;
+		this.narudzbenice=narudzbenice;
+		this.obrisano=obrisano;
 	}
 
 	public Integer getId() {
@@ -136,6 +144,22 @@ public class Kupac implements Serializable {
 
 	public void setFakture(List<Faktura> fakture) {
 		this.fakture = fakture;
+	}
+
+	public List<Narudzbenica> getNarudzbenice() {
+		return narudzbenice;
+	}
+
+	public void setNarudzbenice(List<Narudzbenica> narudzbenice) {
+		this.narudzbenice = narudzbenice;
+	}
+
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
 	}
 	
 	

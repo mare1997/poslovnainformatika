@@ -56,13 +56,16 @@ public class StavkaFakture implements Serializable{
 	@JoinColumn(name="roba_usluga_id")
 	private Roba roba_usluga_id;
 	
+	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")
+	private boolean obrisano;
+	
 	public StavkaFakture () {}
 
 	
 
 	public StavkaFakture(int idStavkeFakture, Long kolicina, Long jedinicnaCena, Long rabat, Long osnovicaZaPDV,
 			Long procenatPDV, Long iznosPDV, Long iznosStavke, String jedinicaMere, Faktura faktura,
-			Roba roba_usluga_id) {
+			Roba roba_usluga_id,boolean obrisano) {
 		super();
 		this.idStavkeFakture = idStavkeFakture;
 		this.kolicina = kolicina;
@@ -75,6 +78,7 @@ public class StavkaFakture implements Serializable{
 		this.jedinicaMere = jedinicaMere;
 		this.faktura = faktura;
 		this.roba_usluga_id = roba_usluga_id;
+		this.obrisano=obrisano;
 	}
 
 
@@ -102,6 +106,19 @@ public class StavkaFakture implements Serializable{
 	public void setJedinicnaCena(Long jedinicnaCena) {
 		this.jedinicnaCena = jedinicnaCena;
 	}
+
+	
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
+	}
+
+
 
 	public Long getRabat() {
 		return rabat;

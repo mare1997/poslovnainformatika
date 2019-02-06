@@ -30,7 +30,7 @@ public class StavkaNarudzbeniceDTOtoStavkaNarudzbenice implements Converter<Stav
 		stavkaNarudzbenice.setKolicina(source.getKolicina());
 		stavkaNarudzbenice.setNaziv(source.getNaziv());
 		stavkaNarudzbenice.setJedinicaMere(source.getJedinicaMere());
-		
+		stavkaNarudzbenice.setObrisano(source.isObrisano());
 		
 		if(source.getIdNarudzbenice() != 0){
 			Narudzbenica narudzbenica = narudzbenicaService.findOne(Long.valueOf(source.getIdNarudzbenice()));

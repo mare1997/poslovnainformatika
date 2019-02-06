@@ -43,6 +43,9 @@ public class StavkaOtpremnice implements Serializable{
 	@Column(name="Jedinica_mere",columnDefinition="VARCHAR(20)")
 	private String jedinicaMere;
 	
+	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")
+	private boolean obrisano;
+	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idOtpremnice")
 	private Otpremnica otpremnica;
@@ -50,7 +53,7 @@ public class StavkaOtpremnice implements Serializable{
 	public StavkaOtpremnice() {}
 
 	public StavkaOtpremnice(int idStavkeOtpremnice, Long redniBroj, String naziv, Long cena, Long isporucenaKolicina,
-			String napomena, Otpremnica otpremnica,String jedinicaMere) {
+			String napomena, Otpremnica otpremnica,String jedinicaMere,boolean obrisano) {
 		super();
 		this.idStavkeOtpremnice = idStavkeOtpremnice;
 		this.redniBroj = redniBroj;
@@ -60,6 +63,7 @@ public class StavkaOtpremnice implements Serializable{
 		this.napomena = napomena;
 		this.otpremnica = otpremnica;
 		this.jedinicaMere=jedinicaMere;
+		this.obrisano=obrisano;
 	}
 
 	
@@ -117,6 +121,14 @@ public class StavkaOtpremnice implements Serializable{
 	}
 
 
+
+	public boolean isObrisano() {
+		return obrisano;
+	}
+
+	public void setObrisano(boolean obrisano) {
+		this.obrisano = obrisano;
+	}
 
 	public void setJedinicaMere(String jedinicaMere) {
 		this.jedinicaMere = jedinicaMere;
