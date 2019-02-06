@@ -2,9 +2,12 @@ package com.pi.PoslovnaInformatika.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.pi.PoslovnaInformatika.model.StavkaFakture;
 import com.pi.PoslovnaInformatika.service.interfaces.StavkaFaktureServiceInterface;
 
+@Service
 public class StavkaFaktureService implements StavkaFaktureServiceInterface {
 
 	@Override

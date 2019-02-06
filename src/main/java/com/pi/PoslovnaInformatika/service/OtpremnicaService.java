@@ -2,9 +2,12 @@ package com.pi.PoslovnaInformatika.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.pi.PoslovnaInformatika.model.Otpremnica;
 import com.pi.PoslovnaInformatika.service.interfaces.OtpremnicaServiceInterface;
 
+@Service
 public class OtpremnicaService implements OtpremnicaServiceInterface {
 
 	@Override
