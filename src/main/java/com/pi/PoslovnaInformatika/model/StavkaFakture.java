@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
-@Entity(name="Stavka_fakture")
+@Entity
 @Table(name="Stavka_fakture")
 public class StavkaFakture implements Serializable{
 
@@ -24,25 +24,25 @@ public class StavkaFakture implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idStavkeFakture;
 	
-	@Column(name="Kolicina", columnDefinition="NUMBER")
+	@Column(name="Kolicina")
 	private Long kolicina;
 	
-	@Column(name="Jedinicna_cena", columnDefinition="NUMBER")
+	@Column(name="Jedinicna_cena")
 	private Long jedinicnaCena;
 
-	@Column(name="Rabat", columnDefinition="NUMBER")
+	@Column(name="Rabat")
 	private Long rabat;
 	
-	@Column(name="Osnovica_za_PDV", columnDefinition="NUMBER")
+	@Column(name="Osnovica_za_PDV")
 	private Long osnovicaZaPDV;
 	
-	@Column(name="Procenat_PDV", columnDefinition="NUMBER")
+	@Column(name="Procenat_PDV")
 	private Long procenatPDV;
 	
-	@Column(name="Iznos_PDV", columnDefinition="NUMBER")
+	@Column(name="Iznos_PDV")
 	private Long iznosPDV;
 	
-	@Column(name="Iznos_stavke", columnDefinition="NUMBER")
+	@Column(name="Iznos_stavke")
 	private Long iznosStavke;
 	
 	@Column(name="Jedinica_mere",columnDefinition="VARCHAR(20)")

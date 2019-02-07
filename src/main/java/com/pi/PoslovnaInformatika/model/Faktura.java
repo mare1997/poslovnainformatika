@@ -20,7 +20,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
-@Entity(name="Faktura")
+@Entity
 @Table(name="Faktura")
 public class Faktura implements Serializable{
 
@@ -31,22 +31,22 @@ public class Faktura implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idFakture;
 	
-	@Column(name="Broj_fakture", columnDefinition="NUMBER")
+	@Column(name="Broj_fakture")
 	private Long brojFakture;
 	
-	@Column(name="Datum_valute", columnDefinition="DATE")
+	@Column(name="Datum_valute")
 	private Date datumValute;
 	
-	@Column(name="Datum_fakture", columnDefinition="DATE")
+	@Column(name="Datum_fakture")
 	private Date datumFakture;
 	
-	@Column(name="Osnovica", columnDefinition="NUMBER")
+	@Column(name="Osnovica")
 	private Long osnovica;
 	
-	@Column(name="Ukupan_PDV", columnDefinition="NUMBER")
+	@Column(name="Ukupan_PDV")
 	private Long ukupanPDV;
 	
-	@Column(name="Iznos_za_placanje", columnDefinition="NUMBER")
+	@Column(name="Iznos_za_placanje")
 	private Long iznosZaPlacanje;
 	
 	@Column(name="Status_fakture", columnDefinition="CHAR(2)")

@@ -19,7 +19,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name="Narudzbenica")
+@Entity
 @Table(name="Narudzbenica")
 public class Narudzbenica implements Serializable{
 
@@ -30,13 +30,13 @@ public class Narudzbenica implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idNarudzbenice;
 	
-	@Column(name="Broj_narudzbenice", columnDefinition="NUMBER")
+	@Column(name="Broj_narudzbenice")
 	private Long brojNarudzbenice;
 	
-	@Column(name="Datum_izrade", columnDefinition="DATE")
+	@Column(name="Datum_izrade")
 	private Date datumIzrade;
 
-	@Column(name="Datum_isporuke", columnDefinition="DATE")
+	@Column(name="Datum_isporuke")
 	private Date datumIsporuke;
 	
 	@Column(name="Placena", columnDefinition="BOOLEAN DEFAULT FALSE")

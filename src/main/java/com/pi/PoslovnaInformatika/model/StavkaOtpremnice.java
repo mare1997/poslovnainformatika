@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity(name="Stavka_otpremnice")
+@Entity
 @Table(name="Stavka_Otpremnice")
 public class StavkaOtpremnice implements Serializable{
 
@@ -31,10 +31,10 @@ public class StavkaOtpremnice implements Serializable{
 	@Column(name="Naziv", columnDefinition="VARCHAR(30)")
 	private String naziv;
 	
-	@Column(name="Cena", columnDefinition="NUMBER")
+	@Column(name="Cena")
 	private Long cena;
 
-	@Column(name="Isporucena_kolicina", columnDefinition="NUMBER")
+	@Column(name="Isporucena_kolicina")
 	private Long isporucenaKolicina;
 	
 	@Column(name="Napomena", columnDefinition="VARCHAR(150)")

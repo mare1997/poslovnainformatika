@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity(name="Stavka_narudzbenice")
+@Entity
 @Table(name="Stavka_narudzbenice")
 public class StavkaNarudzbenice implements Serializable{
 
@@ -28,7 +28,7 @@ public class StavkaNarudzbenice implements Serializable{
 	@Column(name="Naziv", columnDefinition="VARCHAR(30)")
 	private String naziv;
 	
-	@Column(name="Kolicina", columnDefinition="NUMBER")
+	@Column(name="Kolicina")
 	private Long kolicina;
 	
 	@Column(name="Jedinica_mere",columnDefinition="VARCHAR(20)")
