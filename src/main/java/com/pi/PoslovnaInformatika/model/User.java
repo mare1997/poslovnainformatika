@@ -5,19 +5,33 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
+
+
 
 
 
@@ -25,16 +39,12 @@ import javax.persistence.Table;
 
 @Entity                 
 @Table(name="users") 
-public class User implements Serializable {
+public class User implements Serializable,UserDetails {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-
-	public enum UserType {ADMIN,USER}
-	
 	@Id                                 
 	@GeneratedValue(strategy=IDENTITY) 
 	@Column(name="user_id", unique=true, nullable=false) 
@@ -49,12 +59,14 @@ public class User implements Serializable {
 	@Column(name="username", unique=true, nullable=false, length = 30)
 	private String username;
 	  
-	@Column(name="user_pasword", unique=false, nullable=false, length = 10)
+	@Column(name="user_pasword", unique=false, nullable=false)
 	private String password;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name="user_type", unique=false, nullable=false)
-	private UserType userType;
+	@ManyToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
+	@JoinTable(name="user_authority",
+			joinColumns=@JoinColumn(name="user_id",referencedColumnName="user_id"),
+			inverseJoinColumns = @JoinColumn(name="authority_id",referencedColumnName="id"))
+	private Set<Authority> user_authorities = new HashSet<>();
 
 	@ManyToOne
 	@JoinColumn(name = "preduzece_id", referencedColumnName = "preduzece_id", nullable = true)
@@ -75,29 +87,22 @@ public class User implements Serializable {
 	public User() {
 		super();
 	}
-	
-	public User(Integer id, String firstname, String lastname, String username, String password, UserType userType,
-			Preduzece preduzece, Set<Narudzbenica> narudzbenice, Set<Faktura> fakture, Set<Otpremnica> otpremnica,boolean obrisano) {
+	public User(Integer id, String firstname, String lastname, String username, String password,
+			 Preduzece preduzece, Set<Narudzbenica> narudzbenice, Set<Faktura> fakture,
+			Set<Otpremnica> otpremnica, boolean obrisano) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.username = username;
 		this.password = password;
-		this.userType = userType;
+		
 		this.preduzece = preduzece;
 		this.narudzbenice = narudzbenice;
 		this.fakture = fakture;
 		this.otpremnica = otpremnica;
 		this.obrisano = obrisano;
 	}
-
-	
-
-
-
-
-
 	public Integer getId() {
 		return id;
 	}
@@ -138,14 +143,9 @@ public class User implements Serializable {
 		this.password = user_password;
 	}
 
-	public UserType getUserType() {
-		return userType;
-	}
+	
 
-	public void setUserType(UserType userType) {
-		this.userType = userType;
-	}
-
+	
 	public String getPassword() {
 		return password;
 	}
@@ -192,6 +192,43 @@ public class User implements Serializable {
 
 	public void setObrisano(boolean obrisano) {
 		this.obrisano = obrisano;
+	}
+	
+	public Set<Authority> getUser_authorities() {
+		return user_authorities;
+	}
+
+	public void setUser_authorities(Set<Authority> user_authorities) {
+		this.user_authorities = user_authorities;
+	}
+	
+	@Override
+	 public Collection<? extends GrantedAuthority> getAuthorities() {
+		 return this.user_authorities;
+	 }
+	@JsonIgnore
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@JsonIgnore
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@JsonIgnore
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+	
+	@JsonIgnore
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 	

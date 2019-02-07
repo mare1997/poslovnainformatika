@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 
 import com.pi.PoslovnaInformatika.model.User;
-import com.pi.PoslovnaInformatika.model.User.UserType;
+
 
 public class UserDTO implements Serializable {
 
@@ -17,7 +17,7 @@ public class UserDTO implements Serializable {
     private String lastname;
     private String username;
     private String password;
-    private UserType userType;
+    
     private PreduzeceDTO preduzece;
 	private boolean obrisano;
 	
@@ -28,7 +28,7 @@ public class UserDTO implements Serializable {
 	}
 	
 	
-	public UserDTO(Integer id, String firstname, String lastname, String username, String password, UserType userType,
+	public UserDTO(Integer id, String firstname, String lastname, String username, String password, 
 			PreduzeceDTO preduzece,boolean obrisano) {
 		super();
 		this.id = id;
@@ -36,14 +36,14 @@ public class UserDTO implements Serializable {
 		this.lastname = lastname;
 		this.username = username;
 		this.password = password;
-		this.userType = userType;
+		
 		this.preduzece = preduzece;
 		this.obrisano=  obrisano;
 	}
 
 
 	public UserDTO(User user) {
-        this(user.getId(),user.getFirstname(),user.getLastname(),user.getUsername(),user.getUser_password(),user.getUserType(),new PreduzeceDTO(user.getPreduzece()),user.isObrisano());
+        this(user.getId(),user.getFirstname(),user.getLastname(),user.getUsername(),user.getUser_password(),new PreduzeceDTO(user.getPreduzece()),user.isObrisano());
     }
 	
 	public Integer getId() {
@@ -76,12 +76,7 @@ public class UserDTO implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public UserType getUserType() {
-		return userType;
-	}
-	public void setUserType(UserType userType) {
-		this.userType = userType;
-	}
+	
 
 
 	public PreduzeceDTO getPreduzece() {
