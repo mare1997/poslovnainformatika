@@ -59,8 +59,8 @@ public class FakturaDTOtoFaktura implements Converter<FakturaDTO, Faktura>{
 		faktura.setUkupanPDV(source.getUkupanPDV());
 		faktura.setIznosZaPlacanje(source.getIznosZaPlacanje());
 		faktura.setStatusFakture(source.getStatusFakture());
-		faktura.setNarudzbenicaRel(narudzbenicaService.findOne(Long.valueOf(source.getNarudzbeniceRel())));
-		faktura.setOtpremnicaRel(otpremnicaService.findOne(Long.valueOf(source.getOtpremnicaRel())));
+		faktura.setNarudzbenicaRel(narudzbenicaService.getOne(source.getNarudzbeniceRel()));
+		faktura.setOtpremnicaRel(otpremnicaService.getOne(source.getOtpremnicaRel()));
 		faktura.setUser(userService.getOne(source.getUser()));
 		faktura.setObrisano(source.isObrisano());
 		faktura.setPreduzece(preduzeceService.getOne(source.getPreduzece()));

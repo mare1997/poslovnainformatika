@@ -6,7 +6,7 @@ import com.pi.PoslovnaInformatika.model.Otpremnica;
 
 public interface OtpremnicaServiceInterface {
 	
-	public Otpremnica findOne(Long id);
+	public Otpremnica getOne(Integer id);
 	
 	public List<Otpremnica> findAll();
 
@@ -14,8 +14,8 @@ public interface OtpremnicaServiceInterface {
 
 	public List<Otpremnica> save(List<Otpremnica> otpremnice);
 
-	public Otpremnica delete(Long id);
+	public void delete(Integer id);
 	
-	public void delete(List<Long> ids);
+	public void delete(List<Integer> ids);
 
 }

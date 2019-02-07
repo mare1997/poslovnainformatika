@@ -7,7 +7,7 @@ import com.pi.PoslovnaInformatika.model.StavkaFakture;
 public interface StavkaFaktureServiceInterface {
 
 
-	public StavkaFakture findOne(Long id);
+	public StavkaFakture getOne(Integer id);
 	
 	public List<StavkaFakture> findAll();
 
@@ -15,7 +15,7 @@ public interface StavkaFaktureServiceInterface {
 
 	public List<StavkaFakture> save(List<StavkaFakture> stavke);
 
-	public StavkaFakture delete(Long id);
+	public void delete(Integer id);
 	
-	public void delete(List<Long> ids);
+	public void delete(List<Integer> ids);
 }

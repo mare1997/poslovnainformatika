@@ -6,7 +6,7 @@ import com.pi.PoslovnaInformatika.model.Faktura;
 
 public interface FakturaServiceInterface {
 
-	public Faktura findOne(Long id);
+	public Faktura getOne(Integer id);
 	
 	public List<Faktura> findAll();
 
@@ -14,7 +14,7 @@ public interface FakturaServiceInterface {
 
 	public List<Faktura> save(List<Faktura> fakture);
 
-	public Faktura delete(Long id);
+	public void delete(Integer id);
 	
-	public void delete(List<Long> ids);
+	public void delete(List<Integer> ids);
 }

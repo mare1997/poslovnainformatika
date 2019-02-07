@@ -43,7 +43,7 @@ public class StavkaFaktureDTOtoStavkaFakture implements Converter<StavkaFaktureD
 		stavkaFakture.setObrisano(source.isObrisano());
 		
 		if(source.getIdFakture() != 0){
-			Faktura faktura = fakturaService.findOne(Long.valueOf(source.getIdFakture()));
+			Faktura faktura = fakturaService.getOne(source.getIdFakture());
 			stavkaFakture.setFaktura(faktura);
 		}
 		

@@ -6,7 +6,7 @@ import com.pi.PoslovnaInformatika.model.StavkaNarudzbenice;
 
 public interface StavkaNarudzbeniceServiceInterface {
 
-	public StavkaNarudzbenice findOne(Long id);
+	public StavkaNarudzbenice getOne(Integer id);
 	
 	public List<StavkaNarudzbenice> findAll();
 
@@ -14,7 +14,7 @@ public interface StavkaNarudzbeniceServiceInterface {
 
 	public List<StavkaNarudzbenice> save(List<StavkaNarudzbenice> stavke);
 
-	public StavkaNarudzbenice delete(Long id);
+	public void delete(Integer id);
 	
-	public void delete(List<Long> ids);
+	public void delete(List<Integer> ids);
 }

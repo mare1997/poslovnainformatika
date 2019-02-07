@@ -2,48 +2,53 @@ package com.pi.PoslovnaInformatika.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pi.PoslovnaInformatika.model.Narudzbenica;
+import com.pi.PoslovnaInformatika.repository.NarudzbenicaRepository;
 import com.pi.PoslovnaInformatika.service.interfaces.NarudzbenicaServiceInterface;
 
 @Service
 public class NarudzbenicaService implements NarudzbenicaServiceInterface {
 
+	@Autowired
+	NarudzbenicaRepository narudzbenicaRepository;
 	@Override
-	public Narudzbenica findOne(Long id) {
+	public Narudzbenica getOne(Integer id) {
 		// TODO Auto-generated method stub
-		return null;
+		return narudzbenicaRepository.getOne(id);
 	}
 
 	@Override
 	public List<Narudzbenica> findAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return narudzbenicaRepository.findAll();
 	}
 
 	@Override
 	public Narudzbenica save(Narudzbenica narudzbenica) {
 		// TODO Auto-generated method stub
-		return null;
+		return narudzbenicaRepository.save(narudzbenica);
 	}
 
 	@Override
 	public List<Narudzbenica> save(List<Narudzbenica> narudzbenice) {
 		// TODO Auto-generated method stub
-		return null;
+		return narudzbenicaRepository.saveAll(narudzbenice);
 	}
 
 	@Override
-	public Narudzbenica delete(Long id) {
+	public void delete(Integer id) {
 		// TODO Auto-generated method stub
-		return null;
+		narudzbenicaRepository.deleteById(id);
 	}
 
 	@Override
-	public void delete(List<Long> ids) {
+	public void delete(List<Integer> ids) {
 		// TODO Auto-generated method stub
-
+		narudzbenicaRepository.delete((Narudzbenica) ids);
 	}
 
+	
 }

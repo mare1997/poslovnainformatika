@@ -6,7 +6,7 @@ import com.pi.PoslovnaInformatika.model.StavkaOtpremnice;
 
 public interface StavkeOtpremniceServiceInterface {
 
-	public StavkaOtpremnice findOne(Long id);
+	public StavkaOtpremnice getOne(Integer id);
 	
 	public List<StavkaOtpremnice> findAll();
 
@@ -14,7 +14,7 @@ public interface StavkeOtpremniceServiceInterface {
 
 	public List<StavkaOtpremnice> save(List<StavkaOtpremnice> otpremnice);
 
-	public StavkaOtpremnice delete(Long id);
+	public void delete(Integer id);
 	
-	public void delete(List<Long> ids);
+	public void delete(List<Integer> ids);
 }

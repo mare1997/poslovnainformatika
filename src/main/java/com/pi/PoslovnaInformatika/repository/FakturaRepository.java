@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.pi.PoslovnaInformatika.model.Faktura;
 
 
-public interface FakturaRepository extends JpaRepository<Faktura, Long> {
+public interface FakturaRepository extends JpaRepository<Faktura, Integer> {
 
 }

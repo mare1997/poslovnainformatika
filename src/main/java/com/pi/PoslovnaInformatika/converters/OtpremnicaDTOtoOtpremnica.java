@@ -56,7 +56,7 @@ public class OtpremnicaDTOtoOtpremnica implements Converter<OtpremnicaDTO, Otpre
 		otpremnica.setUser(userService.getOne(source.getUser()));
 		otpremnica.setPreduzece(preduzeceService.getOne(source.getPreduzeceId()));
 		
-		otpremnica.setFakturaRel(fakturaService.findOne(Long.valueOf(source.getFakturaRel())));
+		otpremnica.setFakturaRel(fakturaService.getOne(source.getFakturaRel()));
 		otpremnica.setObrisano(source.isObrisano());
 		
 		

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.pi.PoslovnaInformatika.model.Otpremnica;
 
 
-public interface OtpremnicaRepository extends JpaRepository<Otpremnica, Long> {
+public interface OtpremnicaRepository extends JpaRepository<Otpremnica, Integer> {
 
 }

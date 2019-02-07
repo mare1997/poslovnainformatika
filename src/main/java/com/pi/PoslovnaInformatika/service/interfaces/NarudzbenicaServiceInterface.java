@@ -6,7 +6,7 @@ import com.pi.PoslovnaInformatika.model.Narudzbenica;
 
 public interface NarudzbenicaServiceInterface {
 
-	public Narudzbenica findOne(Long id);
+	public Narudzbenica getOne(Integer id);
 	
 	public List<Narudzbenica> findAll();
 
@@ -14,8 +14,8 @@ public interface NarudzbenicaServiceInterface {
 
 	public List<Narudzbenica> save(List<Narudzbenica> narudzbenice);
 
-	public Narudzbenica delete(Long id);
+	public void delete(Integer id);
 	
-	public void delete(List<Long> ids);
+	public void delete(List<Integer> ids);
 	
 }

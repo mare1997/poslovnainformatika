@@ -36,7 +36,7 @@ public class StavkaOtpremniceDTOtoStavkaOtpremnice implements Converter<StavkaOt
 		stavkaOtpremnice.setObrisano(source.isObrisano());
 		
 		if(source.getIdOtpremnice() != 0){
-			Otpremnica otpremnica = otpremnicaService.findOne(Long.valueOf(source.getIdOtpremnice()));
+			Otpremnica otpremnica = otpremnicaService.getOne(source.getIdOtpremnice());
 			stavkaOtpremnice.setOtpremnica(otpremnica);
 		}
 		

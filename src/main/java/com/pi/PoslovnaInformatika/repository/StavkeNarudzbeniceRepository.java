@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.pi.PoslovnaInformatika.model.StavkaNarudzbenice;
 
 
-public interface StavkeNarudzbeniceRepository extends JpaRepository<StavkaNarudzbenice, Long> {
+public interface StavkeNarudzbeniceRepository extends JpaRepository<StavkaNarudzbenice, Integer> {
 
 }
