@@ -1,0 +1,70 @@
+#tableId11 {
+    margin-left: 140px;
+	height: 200px;
+    width: 80%;
+
+}
+
+tbody tr:hover {
+	background-color: #d3d3d3;
+}
+
+
+
+thead, tbody, tr, td, th {
+    display: block;
+    
+}
+
+tr:after {
+	content: ' ';
+	display: block;
+	visibility: hidden;
+	clear: both;
+}
+
+thead th {
+	height: 50px;
+	text-align: center;
+}
+
+tbody {
+	height: 120px;
+	overflow-y: auto;
+	text-align: center;
+}
+
+tbody td, thead th {
+	width: 12.5%;
+	float: left;
+}
+
+#prikazFakture{
+    margin-top: 15px;
+    width: 80%;
+    margin-left: 140px;
+    float: left;
+    
+border: 1px solid rgb(99, 99, 99);
+ }
+
+ tfoot {
+   
+    border: 1px solid rgb(99, 99, 99);
+ }
+
+ #div1{
+     float:left;
+     margin-left: 150px;
+ }
+
+ 
+ #div2{
+    float:left;
+    margin-left: 200px;
+}
+
+#toolbarbuttons {
+	margin-left: 125px;
+	width: 70%;
+}

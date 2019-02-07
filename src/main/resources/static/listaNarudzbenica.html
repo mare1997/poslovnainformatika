@@ -174,12 +174,44 @@
 			<p><label>Placena &nbsp;&nbsp;</label><input type="checkbox" name="placena" value="placena"></p>
 		</div>
 		<div id="buttonsFaktura">
-			<button class="btn btn-lg" id="btnFaktura">
+			<button class="btn btn-default" onClick="prikazFakture()" data-toggle="modal" data-target="#idFaktura">
 				<span class="glyphicon glyphicon-align-justify"></span>Faktura</button>
 			<br/>
-			<button class="btn btn-lg"><span class="glyphicon glyphicon-remove"></span></button>
+			<br/>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
 		</div>
 
+<!-- Modal fakture -->
+
+<div id="idFaktura" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-sm">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Faktura</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label class="control-label">Broj fakture:</label><label id="brFakture" class="text-muted">15</label><br/>
+					<label class="control-label">Datum fakture:</label><label id="datumFakture" class="text-muted">12.03.2017.</label><br/>
+					<label class="control-label">Datum valute:</label><label id="datumValute" class="text-muted">02.05.2018.</label><br/>
+					<label class="control-label">Osnovica:</label><label id="osnovica" class="text-muted">8</label><br/>
+					<label class="control-label">Ukupan PDV:</label><label id="ukupanPDV" class="text-muted">14.5</label><br/>
+					<label class="control-label">Iznos za placanje (u din):</label><label id="iznosZaPlacanje" class="text-muted">8500</label><br/>
+					<label class="control-label">Status fakture:</label><label id="statusFakture" class="text-muted">AS</label>
+				<div class="modal-footer">
+					<form action="faktura.html">
+					<button onClick="vidiFakturu()" name="vidiF" 
+						class="btn btn-default"><span class="glyphicon glyphicon-zoom-in"></span>&nbsp;Pogledaj celu fakturu</button></form>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
 </body>
 
 

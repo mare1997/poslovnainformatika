@@ -1,0 +1,174 @@
+<html>
+        
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <script src="js/jquery-2.1.4.min.js"></script>
+            <script src="js/jquery-ui.js"></script>
+            <link rel="stylesheet" type="text/css" href="./css/faktura.css">
+            <link rel="stylesheet" type="text/css" href="./css/mainPage.css">
+            <script src="./bootstrap/js/bootstrap.min.js"></script>
+            <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+            <link rel="stylesheet" href="./bootstrap/css/jquery-ui.css">
+            <title>Faktura</title>
+        </head>
+        
+        <body>
+        
+        <!-- Navigacija -->
+            <nav>
+                <ul id="mainUl" class="nav navbar-nav">
+                    <li><a href="mainPage.html">Home</a></li>
+        
+                    <li class="dropdown"><a class="dropdown-toggle"
+                        data-toggle="dropdown" href="#">Narudzbenice <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="listaNarudzbenica.html">Lista narudzbenica</a></li>
+                            <li><a href="createNarudzbenica.html">Kreiranje
+                                    narudzbenice</a></li>
+                        </ul>
+                    </li>
+        
+                    <li class="dropdown"><a class="dropdown-toggle"
+                        data-toggle="dropdown" href="#">Cenovnik <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="cenovnik.html">Cenovnici</a></li>
+                            <li>
+                            <li><a href="createCenovnik.html">Kreiranje cenovnika</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="dropdown"><a class="dropdown-toggle"
+                        data-toggle="dropdown" href="#">Roba ili usluga <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="listaRobe.html">Lista robe</a></li>
+                            <li>
+                            <li><a href="createRobu.html">Kreiranje robe</a></li>
+                        </ul>
+                    </li>
+        
+                </ul>
+            </nav>
+       
+         <!--  <div id="prikazFakture" style="font-size:20px;">
+                <div id="div1">
+                    <p ><label>Broj fakture:</label> <label class="text-muted">8</label></p>
+                    <p><label>Datum fakture:</label><label class="text-muted">15.03.2017.</label></p>
+                    <p><label>Datum valute:</label><label class="text-muted">15.03.2018.</label></p></div>
+               <div id="div2"><p><label>Osnovica: </label><label class="text-muted">8</label></p>
+                    <p><label>Ukupan PDV</label><label class="text-muted">14.5</label></p>
+                    <p><label>Status fakture:</label><label class="text-muted">14.5</label></p></div>
+                   
+                </div>-->
+                <div id="prikazFakture" style="font-size:19px;">
+                     
+                            <p ><label>Broj fakture:</label> <label class="text-muted">8</label>
+                            <label>Datum fakture:</label><label class="text-muted">15.03.2017.</label>
+                            <label>Datum valute:</label><label class="text-muted">15.03.2018.</label>
+                        <label>Osnovica: </label><label class="text-muted">8</label>
+                            <label>Ukupan PDV</label><label class="text-muted">14.5</label>
+                            <label>Status fakture:</label><label class="text-muted">14.5</label></p>
+              
+                            </div>
+
+ <!-- Toolbar dugmici -->
+        <div class="col-lg-5 col-md-offset-2" id="toolbarbuttons">
+                <div class="btn-group">
+                    <button class="btn btn-default"> <span class="glyphicon glyphicon-search"></span></button>
+                    <button class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></button>
+                    <button class="btn btn-default" onClick="addNarudzbenica()"data-toggle="modal" data-target="#addNarudzbenica">
+                        <span class="glyphicon glyphicon-plus"></span></button>
+                    <button class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
+                    <button class="btn btn-default" onClick="editNarudzbenica()"data-toggle="modal" data-target="#editNarudzbenica">
+                        <span class="glyphicon glyphicon-chevron-down"></span></button>
+                    <button class="btn btn-default"><span class="glyphicon glyphicon-step-backward"></span></button>
+                    <button class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button>
+                    <button class="btn btn-default"><span class="glyphicon glyphicon-chevron-right"></span></button>
+                    <button class="btn btn-default"><span class="glyphicon glyphicon-step-forward"></span></button>
+                </div>
+            </div>
+           
+            <!--Prikaz liste stavki fakture -->
+            <table id="tableId11" class="table" > 
+                   
+                <caption style="text-align:left">Stavke fakture:</caption>
+                    <thead style="font-size:15px;">
+                        
+                            <tr>    <th>Naziv robe</th>
+                                    <th>Kolicina</th>
+                                    <th>Cena</th>
+                                    <th>Rabat</th>
+                                    <th>Osnovica za PDV</th>
+                                    <th>Procenat PDV</th>
+                                    <th>Iznos PDV</th>
+                                    <th>Iznos stavke</th>
+                                   
+                                </tr>
+                    </thead>
+                    <tbody style="font-size:15px;">
+                        <tr >
+                            <td>leb</td>
+                            <td>15</td>
+                            <td>40</td>
+                            <td>35</td>
+                            <td>2</td>
+                            <td>0.2</td>
+                            <td>1.5</td>
+                            <td>550</td>
+                           
+                        </tr>
+                        <tr >
+                                <td>brasno</td>
+                                <td>7kg</td>
+                                <td>70</td>
+                                <td>65</td>
+                                <td>2</td>
+                                <td>0.2</td>
+                                <td>1.5</td>
+                                <td>490</td>
+                              
+                            </tr>
+                            <tr >
+                                    <td>pivo</td>
+                                    <td>30 l</td>
+                                    <td>100</td>
+                                    <td>95</td>
+                                    <td>2</td>
+                                    <td>0.2</td>
+                                    <td>1.5</td>
+                                    <td>3000</td>
+                                   
+                                </tr>
+                                <tr >
+                                        <td>Forddsfsdfd</td>
+                                        <td>Escort</td>
+                                        <td>Blue</td>
+                                        <td>Forddsfsdfd</td>
+                                        <td>Escort</td>
+                                        <td>Blue</td>
+                                       
+                                    </tr>
+                                    <tr >
+                                            <td>Forddsfsdfd</td>
+                                            <td>Escort</td>
+                                            <td>Blue</td>
+                                            <td>Forddsfsdfd</td>
+                                            <td>Escort</td>
+                                            <td>Blue</td>
+                                           
+                                        </tr>
+                                        <tfoot style="text-align:right; font-size:19px">
+                                                <tr>
+                                                  
+                                                 
+                                                  <td ><label>Iznos za placanje (u din):</label> <label class="text-muted">5256</label></td>
+                                                </tr>
+                                              </tfoot>
+                    </tbody>
+                </table>
+            
+       
+        
+         
+</body>
+</html>        
