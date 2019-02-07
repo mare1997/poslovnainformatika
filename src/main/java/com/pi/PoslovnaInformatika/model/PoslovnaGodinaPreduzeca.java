@@ -27,7 +27,7 @@ public class PoslovnaGodinaPreduzeca implements Serializable{
 	@Column(name="godina", unique=true, nullable=false, length = 4)
 	private String godina;
 	
-	@Column(name="zavrsena", unique=false, nullable=false)
+	@Column(name="zavrsena", columnDefinition="BOOLEAN DEFAULT FALSE")
 	private Boolean zavrsena;
 
 	public PoslovnaGodinaPreduzeca() {
