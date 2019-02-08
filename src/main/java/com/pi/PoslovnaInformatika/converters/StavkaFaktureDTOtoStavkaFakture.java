@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
 import com.pi.PoslovnaInformatika.dto.StavkaFaktureDTO;
 import com.pi.PoslovnaInformatika.model.Faktura;
@@ -12,7 +13,7 @@ import com.pi.PoslovnaInformatika.model.StavkaFakture;
 import com.pi.PoslovnaInformatika.service.interfaces.FakturaServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.RobaServiceInterface;
 
-
+@Component
 public class StavkaFaktureDTOtoStavkaFakture implements Converter<StavkaFaktureDTO, StavkaFakture>{
 
 	@Autowired

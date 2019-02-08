@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
 import com.pi.PoslovnaInformatika.dto.OtpremnicaDTO;
 import com.pi.PoslovnaInformatika.model.Otpremnica;
 
+@Component
 public class OtpremnicaToOtpremnicaDTO implements Converter<Otpremnica, OtpremnicaDTO> {
 
 	@Override

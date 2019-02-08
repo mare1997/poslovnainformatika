@@ -5,13 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
 import com.pi.PoslovnaInformatika.dto.StavkaOtpremniceDTO;
 import com.pi.PoslovnaInformatika.model.Otpremnica;
 import com.pi.PoslovnaInformatika.model.StavkaOtpremnice;
 import com.pi.PoslovnaInformatika.service.interfaces.OtpremnicaServiceInterface;
 
-
+@Component
 public class StavkaOtpremniceDTOtoStavkaOtpremnice implements Converter<StavkaOtpremniceDTO, StavkaOtpremnice>{
 
 	@Autowired

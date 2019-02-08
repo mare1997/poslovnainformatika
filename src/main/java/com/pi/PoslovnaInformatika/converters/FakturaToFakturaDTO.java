@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
 import com.pi.PoslovnaInformatika.dto.FakturaDTO;
 import com.pi.PoslovnaInformatika.model.Faktura;
 
-
+@Component
 public class FakturaToFakturaDTO implements Converter<Faktura, FakturaDTO> {
 
 	@Override

@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
 import com.pi.PoslovnaInformatika.dto.NarudzbenicaDTO;
 import com.pi.PoslovnaInformatika.model.Narudzbenica;
 
-
+@Component
 public class NarudzbenicaToNarudzbenicaDTO implements Converter<Narudzbenica, NarudzbenicaDTO>{
 
 	@Override

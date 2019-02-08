@@ -5,13 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
 import com.pi.PoslovnaInformatika.dto.StavkaNarudzbeniceDTO;
 import com.pi.PoslovnaInformatika.model.Narudzbenica;
 import com.pi.PoslovnaInformatika.model.StavkaNarudzbenice;
 import com.pi.PoslovnaInformatika.service.interfaces.NarudzbenicaServiceInterface;
 
-
+@Component
 public class StavkaNarudzbeniceDTOtoStavkaNarudzbenice implements Converter<StavkaNarudzbeniceDTO, StavkaNarudzbenice>{
 
 	@Autowired
