@@ -42,7 +42,7 @@ public class StavkaFaktureController {
 		return new ResponseEntity<>(toStavkaFaktureDTO.convert(sveStavke), HttpStatus.OK);
 	}*/
 	
-	@RequestMapping(value="/{fakturaId}", method=RequestMethod.GET)
+	@RequestMapping(value="/{idFakture}", method=RequestMethod.GET)
 	public ResponseEntity<List<StavkaFaktureDTO>> getStavkeFaktureByFakturaId(@PathVariable Integer idFakture){
 		List<StavkaFakture> sveStavke = stavkaFaktureService.findAll();
 		List<StavkaFakture> pronadjeneStavke = new ArrayList<StavkaFakture>();

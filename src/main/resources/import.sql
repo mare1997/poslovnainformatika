@@ -1,11 +1,13 @@
-INSERT INTO `poslovnainformatika`.`faktura` (`id_fakture`, `broj_fakture`, `datum_fakture`, `datum_valute`, `iznos_za_placanje`, `obrisano`, `osnovica`, `status_fakture`, `ukupan_pdv`, `kupac_id`, `narudzbenica_rel`, `preduzece`, `user_id`) VALUES ('1', '1', '2019-02-07', '2019-02-01', '500', '0', '50', '01', '15', '1', '1', '1', '1');
-INSERT INTO `poslovnainformatika`.`faktura` (`id_fakture`, `broj_fakture`, `datum_fakture`, `datum_valute`, `iznos_za_placanje`, `obrisano`, `osnovica`, `status_fakture`, `ukupan_pdv`, `kupac_id`, `narudzbenica_rel`, `preduzece`, `user_id`) VALUES ('2', '2', '2019-02-05', '2019-02-01', '6000', '0', '600', '01', '18', '2', '2', '2', '2');
-INSERT INTO `poslovnainformatika`.`faktura` (`id_fakture`, `broj_fakture`, `datum_fakture`, `datum_valute`, `iznos_za_placanje`, `obrisano`, `osnovica`, `status_fakture`, `ukupan_pdv`, `kupac_id`, `narudzbenica_rel`, `preduzece`, `user_id`) VALUES ('3', '3', '2019-02-06', '2019-01-01', '588', '1', '121', '02', '20', '1', '1', '1', '1');
+INSERT INTO `poslovnainformatika`.`faktura` (`id_fakture`, `broj_fakture`, `datum_fakture`, `datum_valute`, `iznos_za_placanje`, `obrisano`, `osnovica`, `status_fakture`, `ukupan_pdv`, `kupac_id`, `narudzbenica_rel`, `otpremnica_rel`, `preduzece`, `user_id`) VALUES ('1', '1', '2019-02-07', '2019-02-01', '500', '0', '50', '01', '15', '1', '1', '1', '1', '1');
+INSERT INTO `poslovnainformatika`.`faktura` (`id_fakture`, `broj_fakture`, `datum_fakture`, `datum_valute`, `iznos_za_placanje`, `obrisano`, `osnovica`, `status_fakture`, `ukupan_pdv`, `kupac_id`, `narudzbenica_rel`, `otpremnica_rel`, `preduzece`, `user_id`) VALUES ('2', '2', '2019-02-05', '2019-02-01', '6000', '0', '600', '01', '18', '2', '2', '2', '2', '2');
+INSERT INTO `poslovnainformatika`.`faktura` (`id_fakture`, `broj_fakture`, `datum_fakture`, `datum_valute`, `iznos_za_placanje`, `obrisano`, `osnovica`, `status_fakture`, `ukupan_pdv`, `kupac_id`, `narudzbenica_rel`, `otpremnica_rel`, `preduzece`, `user_id`) VALUES ('3', '3', '2019-03-05', '2019-03-01', '52324', '0', '6743', '01', '20', '2', '3', '3', '2', '2');
 
 INSERT INTO `poslovnainformatika`.`cenovnik` (`cenovnik_id`, `datum_vazenja`, `obrisano`, `preduzece_id`) VALUES ('1', '2019-03-01', '0', '1');
 INSERT INTO `poslovnainformatika`.`cenovnik` (`cenovnik_id`, `datum_vazenja`, `obrisano`, `preduzece_id`) VALUES ('2', '2019-03-01', '0', '2');
 INSERT INTO `poslovnainformatika`.`cenovnik` (`cenovnik_id`, `datum_vazenja`, `obrisano`, `preduzece_id`) VALUES ('3', '2019-02-01', '1', '2');
 
+INSERT INTO `poslovnainformatika`.`preduzece` (`preduzece_id`, `adresa`, `email`, `name`, `obrisano`, `pib`, `telefon`, `mesto_id`) VALUES ('1', 'adresa1', 'email1', 'ime1', '0', '0123', '12312', '1');
+INSERT INTO `poslovnainformatika`.`preduzece` (`preduzece_id`, `adresa`, `email`, `name`, `obrisano`, `pib`, `telefon`, `mesto_id`) VALUES ('2', 'adresa2', 'email2', 'ime2', '0', '12452', '3155', '2');
 
 
 INSERT INTO `poslovnainformatika`.`grupa_robe` (`grupa_robe_id`, `name`, `obrisano`, `pdv_id`, `preduzece_id`) VALUES ('1', 'roba1', '0', '1', '1');
@@ -24,12 +26,11 @@ INSERT INTO `poslovnainformatika`.`mesto` (`mesto_id`, `grad`, `obrisano`, `post
 
 INSERT INTO `poslovnainformatika`.`otpremnica` (`id_otpremnice`, `broj_otpremnice`, `datum_isporuke`, `datum_otpremnice`, `obrisano`, `primljena_roba`, `faktura_rel`, `kupac_id`, `preduzece_id`, `prevoznik_id`, `user_id`) VALUES ('1', '1', '2019-02-15', '2019-02-08', '0', '0', '1', '1', '1', '1', '1');
 INSERT INTO `poslovnainformatika`.`otpremnica` (`id_otpremnice`, `broj_otpremnice`, `datum_isporuke`, `datum_otpremnice`, `obrisano`, `primljena_roba`, `faktura_rel`, `kupac_id`, `preduzece_id`, `prevoznik_id`, `user_id`) VALUES ('2', '2', '2019-02-22', '2019-02-02', '0', '0', '2', '2', '2', '2', '2');
-INSERT INTO `poslovnainformatika`.`otpremnica` (`id_otpremnice`, `broj_otpremnice`, `datum_isporuke`, `datum_otpremnice`, `obrisano`, `primljena_roba`, `faktura_rel`, `kupac_id`, `preduzece_id`, `prevoznik_id`, `user_id`) VALUES ('3', '3', '2019-02-01', '2019-02-01', '1', '1', '2', '1', '1', '1', '2');
+INSERT INTO `poslovnainformatika`.`otpremnica` (`id_otpremnice`, `broj_otpremnice`, `datum_isporuke`, `datum_otpremnice`, `obrisano`, `primljena_roba`, `faktura_rel`, `kupac_id`, `preduzece_id`, `prevoznik_id`, `user_id`) VALUES ('3', '3', '2019-02-25', '2019-02-20', '0', '0', '3', '2', '2', '2', '2');
 
-
-INSERT INTO `poslovnainformatika`.`narudzbenica` (`id_narudzbenice`, `broj_narudzbenice`, `datum_isporuke`, `datum_izrade`, `obrisano`, `placena`, `kupac_id`, `preduzece`, `user_id`) VALUES ('1', '1', '2019-02-14', '2019-02-12', '0', '0', '1', '1', '1');
-INSERT INTO `poslovnainformatika`.`narudzbenica` (`id_narudzbenice`, `broj_narudzbenice`, `datum_isporuke`, `datum_izrade`, `obrisano`, `placena`, `kupac_id`, `preduzece`, `user_id`) VALUES ('2', '2', '2019-02-22', '2019-02-16', '0', '0', '2', '2', '2');
-INSERT INTO `poslovnainformatika`.`narudzbenica` (`id_narudzbenice`, `broj_narudzbenice`, `datum_isporuke`, `datum_izrade`, `obrisano`, `placena`, `kupac_id`, `preduzece`, `user_id`) VALUES ('3', '3', '2019-03-25', '2019-03-03', '1', '0', '1', '1', '2');
+INSERT INTO `poslovnainformatika`.`narudzbenica` (`id_narudzbenice`, `broj_narudzbenice`, `datum_isporuke`, `datum_izrade`, `obrisano`, `placena`, `faktura_rel`, `kupac_id`, `preduzece`, `user_id`) VALUES ('1', '1', '2019-02-14', '2019-02-12', '0', '0', '1', '1', '1', '1');
+INSERT INTO `poslovnainformatika`.`narudzbenica` (`id_narudzbenice`, `broj_narudzbenice`, `datum_isporuke`, `datum_izrade`, `obrisano`, `placena`, `faktura_rel`, `kupac_id`, `preduzece`, `user_id`) VALUES ('2', '2', '2019-02-22', '2019-02-16', '0', '0', '2', '2', '2', '2');
+INSERT INTO `poslovnainformatika`.`narudzbenica` (`id_narudzbenice`, `broj_narudzbenice`, `datum_isporuke`, `datum_izrade`, `obrisano`, `placena`, `faktura_rel`, `kupac_id`, `preduzece`, `user_id`) VALUES ('3', '3', '2019-03-25', '2019-03-03', '1', '0', '3', '1', '1', '2');
 
 INSERT INTO `poslovnainformatika`.`pdv` (`pdv_id`, `name`, `obrisano`) VALUES ('1', 'pdv1', '0');
 INSERT INTO `poslovnainformatika`.`pdv` (`pdv_id`, `name`, `obrisano`) VALUES ('2', 'pdv2', '0');
@@ -72,16 +73,9 @@ INSERT INTO `poslovnainformatika`.`stopa_pdv` (`stopa_pdv_id`, `datum_vazenja`, 
 INSERT INTO `poslovnainformatika`.`stopa_pdv` (`stopa_pdv_id`, `datum_vazenja`, `obrisano`, `procenat`, `pdv_id`) VALUES ('2', '2019-03-30', '0', '20', '2');
 INSERT INTO `poslovnainformatika`.`stopa_pdv` (`stopa_pdv_id`, `datum_vazenja`, `obrisano`, `procenat`, `pdv_id`) VALUES ('3', '2019-02-01', '1', '18', '1');
 
-INSERT INTO `poslovnainformatika`.`users` (`user_id`, `firstname`, `lastname`, `obrisano`, `user_pasword`,  `username`, `preduzece_id`) VALUES ('1', 'ime1', 'prezime1', '0', '$2a$04$bAsNVI05EjajIzH4AHFdu.RimWMl2K5hmnzeBrcqRX7Cm8BtMgIFK',  'admin', '1');
-INSERT INTO `poslovnainformatika`.`users` (`user_id`, `firstname`, `lastname`, `obrisano`, `user_pasword`,  `username`, `preduzece_id`) VALUES ('2', 'ime2', 'prezime2', '0', '$2a$04$bAsNVI05EjajIzH4AHFdu.RimWMl2K5hmnzeBrcqRX7Cm8BtMgIFK', 'user', '1');
-INSERT INTO `poslovnainformatika`.`users` (`user_id`, `firstname`, `lastname`, `obrisano`, `user_pasword`,  `username`, `preduzece_id`) VALUES ('3', 'ime3', 'prezime3', '0', '$2a$04$bAsNVI05EjajIzH4AHFdu.RimWMl2K5hmnzeBrcqRX7Cm8BtMgIFK',  'user3', '2');
+INSERT INTO `poslovnainformatika`.`users` (`user_id`, `firstname`, `lastname`, `obrisano`, `user_pasword`, `user_type`, `username`, `preduzece_id`) VALUES ('1', 'ime1', 'prezime1', '0', 'sifra1', 'ADMIN', 'user1', '1');
+INSERT INTO `poslovnainformatika`.`users` (`user_id`, `firstname`, `lastname`, `obrisano`, `user_pasword`, `user_type`, `username`, `preduzece_id`) VALUES ('2', 'ime2', 'prezime2', '0', 'sifra2', 'USER', 'user2', '1');
+INSERT INTO `poslovnainformatika`.`users` (`user_id`, `firstname`, `lastname`, `obrisano`, `user_pasword`, `user_type`, `username`, `preduzece_id`) VALUES ('3', 'ime3', 'prezime3', '0', 'sifra3', 'ADMIN', 'user3', '2');
+INSERT INTO `poslovnainformatika`.`users` (`user_id`, `firstname`, `lastname`, `obrisano`, `user_pasword`, `user_type`, `username`, `preduzece_id`) VALUES ('4', 'ime4', 'prezime4', '0', 'sifra4', 'USER', 'user4', '2');
+INSERT INTO `poslovnainformatika`.`users` (`user_id`, `firstname`, `lastname`, `obrisano`, `user_pasword`, `user_type`, `username`, `preduzece_id`) VALUES ('5', 'ime5', 'prezime5', '1', 'sifra5', 'USER', 'user5', '1');
 
-INSERT INTO preduzece(name,adresa,email,telefon,pib,obrisano,mesto_id) values('preduzce1','a','a','a',11,'0',1);
-
-INSERT INTO authority(name)VALUES('ADMIN')
-INSERT INTO authority(name)VALUES('REGULAR')
-
-INSERT INTO user_authority(user_id,authority_id)VALUES(1,1)
-INSERT INTO user_authority(user_id,authority_id)VALUES(2,2)
-INSERT INTO user_authority(user_id,authority_id)VALUES(3,2)
-INSERT INTO user_authority(user_id,authority_id)VALUES(4,2)

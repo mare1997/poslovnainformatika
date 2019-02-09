@@ -42,7 +42,7 @@ public class StavkaOtpremniceController {
 		return new ResponseEntity<>(toStavkaOtpremniceDTO.convert(sveStavke), HttpStatus.OK);
 	}*/
 	
-	@RequestMapping(value="/{otpremnicaId}", method=RequestMethod.GET)
+	@RequestMapping(value="/{idOtpremnice}", method=RequestMethod.GET)
 	public ResponseEntity<List<StavkaOtpremniceDTO>> getStavkeOtpremniceByOtpremnicaId(@PathVariable Integer idOtpremnice){
 		List<StavkaOtpremnice> sveStavke = stavkaOtpremniceService.findAll();
 		List<StavkaOtpremnice> pronadjeneStavke = new ArrayList<StavkaOtpremnice>();

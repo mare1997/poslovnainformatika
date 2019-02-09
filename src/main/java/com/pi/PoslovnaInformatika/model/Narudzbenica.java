@@ -50,7 +50,8 @@ public class Narudzbenica implements Serializable{
 	@JoinColumn(name="preduzece")
 	private Preduzece preduzece;
 
-	@OneToOne(mappedBy="narudzbenicaRel")
+	@OneToOne()
+	@JoinColumn(name="fakturaRel")
 	private Faktura fakturaRel;
 
 	@ManyToOne(fetch=FetchType.LAZY)

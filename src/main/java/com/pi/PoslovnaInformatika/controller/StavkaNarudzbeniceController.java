@@ -42,7 +42,7 @@ public class StavkaNarudzbeniceController {
 		return new ResponseEntity<>(toStavkaNarudzbeniceDTO.convert(sveStavke), HttpStatus.OK);
 	}*/
 	
-	@RequestMapping(value="/{narudzbenicaId}", method=RequestMethod.GET)
+	@RequestMapping(value="/{idNarudzbenice}", method=RequestMethod.GET)
 	public ResponseEntity<List<StavkaNarudzbeniceDTO>> getStavkeNarudzbeniceByNarudzbenicaId(@PathVariable Integer idNarudzbenice){
 		List<StavkaNarudzbenice> sveStavke = stavkaNarudzbeniceService.findAll();
 		List<StavkaNarudzbenice> pronadjeneStavke = new ArrayList<StavkaNarudzbenice>();
