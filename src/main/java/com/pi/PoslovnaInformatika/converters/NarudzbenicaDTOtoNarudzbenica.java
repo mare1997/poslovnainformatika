@@ -49,7 +49,7 @@ public class NarudzbenicaDTOtoNarudzbenica implements Converter<NarudzbenicaDTO,
 		narudzbenica.setBrojNarudzbenice(source.getBrojNarudzbenice());
 		narudzbenica.setDatumIzrade(source.getDatumIzrade());
 		narudzbenica.setDatumIsporuke(source.getDatumIsporuke());
-		narudzbenica.setPlacena(source.isPlacena());
+		narudzbenica.setAktivna(source.isAktivna());
 		narudzbenica.setFakturaRel(fakturaService.getOne(source.getFakturaRel()));
 		narudzbenica.setUser(userService.getOne(source.getUser()));
 		narudzbenica.setPreduzece(preduzeceService.getOne(source.getPreduzece()));

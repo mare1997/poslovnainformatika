@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="Faktura")
-public class Faktura implements Serializable{
+public class Faktura implements Serializable,Comparable<Faktura>{
 
 	
 	private static final long serialVersionUID = 4156764521915772558L;
@@ -269,6 +269,14 @@ public class Faktura implements Serializable{
 		if(stavkaFakture.getFaktura().equals(this)){
 			stavkaFakture.setFaktura(null);
 		}
+	}
+
+
+
+	@Override
+	public int compareTo(Faktura o) {
+		
+		return getDatumFakture().compareTo(o.getDatumFakture());
 	}
 	
 }

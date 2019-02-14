@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="Narudzbenica")
-public class Narudzbenica implements Serializable{
+public class Narudzbenica implements Serializable,Comparable<Narudzbenica>{
 
 
 	private static final long serialVersionUID = -9025140794203656828L;
@@ -39,8 +39,8 @@ public class Narudzbenica implements Serializable{
 	@Column(name="Datum_isporuke")
 	private Date datumIsporuke;
 	
-	@Column(name="Placena", columnDefinition="BOOLEAN DEFAULT FALSE")
-	private boolean placena;
+	@Column(name="Aktivna", columnDefinition="BOOLEAN DEFAULT FALSE")
+	private boolean aktivna;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="narudzbenica", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
@@ -69,13 +69,13 @@ public class Narudzbenica implements Serializable{
 	public Narudzbenica () {}
 
 	public Narudzbenica(int idNarudzbenice, Long brojNarudzbenice, Date datumIzrade, Date datumIsporuke,
-			boolean placena, List<StavkaNarudzbenice> stavkeNarudzbenice,Faktura fakturaRel,User user, Preduzece preduzece, Kupac kupac, boolean obrisano) {
+			boolean aktivna, List<StavkaNarudzbenice> stavkeNarudzbenice,Faktura fakturaRel,User user, Preduzece preduzece, Kupac kupac, boolean obrisano) {
 		super();
 		this.idNarudzbenice = idNarudzbenice;
 		this.brojNarudzbenice = brojNarudzbenice;
 		this.datumIzrade = datumIzrade;
 		this.datumIsporuke = datumIsporuke;
-		this.placena = placena;
+		this.aktivna = aktivna;
 		this.stavkeNarudzbenice = stavkeNarudzbenice;
 		this.fakturaRel = fakturaRel;
 		this.user=user;
@@ -124,12 +124,12 @@ public class Narudzbenica implements Serializable{
 		this.datumIsporuke = datumIsporuke;
 	}
 
-	public boolean isPlacena() {
-		return placena;
+	public boolean isAktivna() {
+		return aktivna;
 	}
 
-	public void setPlacena(boolean placena) {
-		this.placena = placena;
+	public void setAktivna(boolean aktivna) {
+		this.aktivna = aktivna;
 	}
 
 	public List<StavkaNarudzbenice> getStavkeNarudzbenice() {
@@ -191,6 +191,13 @@ public class Narudzbenica implements Serializable{
 
 	public void setObrisano(boolean obrisano) {
 		this.obrisano = obrisano;
+	}
+
+
+	@Override
+	public int compareTo(Narudzbenica o) {
+		
+		return getDatumIzrade().compareTo(o.getDatumIzrade());
 	}
 
 	
