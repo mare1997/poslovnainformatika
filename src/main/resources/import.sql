@@ -2,9 +2,9 @@ INSERT INTO `poslovnainformatika`.`faktura` (`id_fakture`, `broj_fakture`, `datu
 INSERT INTO `poslovnainformatika`.`faktura` (`id_fakture`, `broj_fakture`, `datum_fakture`, `datum_valute`, `iznos_za_placanje`, `obrisano`, `osnovica`, `status_fakture`, `ukupan_pdv`, `kupac_id`, `narudzbenica_rel`, `otpremnica_rel`, `preduzece`, `user_id`) VALUES ('2', '2', '2019-02-05', '2019-02-01', '6000', '0', '600', '01', '18', '2', '2', '2', '2', '2');
 INSERT INTO `poslovnainformatika`.`faktura` (`id_fakture`, `broj_fakture`, `datum_fakture`, `datum_valute`, `iznos_za_placanje`, `obrisano`, `osnovica`, `status_fakture`, `ukupan_pdv`, `kupac_id`, `narudzbenica_rel`, `otpremnica_rel`, `preduzece`, `user_id`) VALUES ('3', '3', '2019-03-05', '2019-03-01', '52324', '0', '6743', '01', '20', '2', '3', '3', '2', '2');
 
-INSERT INTO `poslovnainformatika`.`cenovnik` (`cenovnik_id`, `datum_vazenja`, `obrisano`, `preduzece_id`) VALUES ('1', '2019-03-01', '0', '1');
-INSERT INTO `poslovnainformatika`.`cenovnik` (`cenovnik_id`, `datum_vazenja`, `obrisano`, `preduzece_id`) VALUES ('2', '2019-03-01', '0', '2');
-INSERT INTO `poslovnainformatika`.`cenovnik` (`cenovnik_id`, `datum_vazenja`, `obrisano`, `preduzece_id`) VALUES ('3', '2019-02-01', '1', '2');
+INSERT INTO `poslovnainformatika`.`cenovnik` (`cenovnik_id`,`name`, `datum_vazenja`, `obrisano`, `preduzece_id`) VALUES ('1','Name1', '2019-03-01', '0', '1');
+INSERT INTO `poslovnainformatika`.`cenovnik` (`cenovnik_id`,`name`, `datum_vazenja`, `obrisano`, `preduzece_id`) VALUES ('2','Name2', '2019-03-01', '0', '2');
+INSERT INTO `poslovnainformatika`.`cenovnik` (`cenovnik_id`,`name`, `datum_vazenja`, `obrisano`, `preduzece_id`) VALUES ('3','Name3', '2019-02-01', '1', '2');
 
 INSERT INTO `poslovnainformatika`.`preduzece` (`preduzece_id`, `adresa`, `email`, `name`, `obrisano`, `pib`, `telefon`, `mesto_id`) VALUES ('1', 'adresa1', 'email1', 'ime1', '0', '0123', '12312', '1');
 INSERT INTO `poslovnainformatika`.`preduzece` (`preduzece_id`, `adresa`, `email`, `name`, `obrisano`, `pib`, `telefon`, `mesto_id`) VALUES ('2', 'adresa2', 'email2', 'ime2', '0', '12452', '3155', '2');

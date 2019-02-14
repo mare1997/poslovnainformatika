@@ -17,7 +17,7 @@ public class UserDTO implements Serializable {
     private String lastname;
     private String username;
     private String password;
-    
+    private String autority;
     private PreduzeceDTO preduzece;
 	private boolean obrisano;
 	
@@ -29,21 +29,21 @@ public class UserDTO implements Serializable {
 	
 	
 	public UserDTO(Integer id, String firstname, String lastname, String username, String password, 
-			PreduzeceDTO preduzece,boolean obrisano) {
+			PreduzeceDTO preduzece,boolean obrisano,String autority) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.username = username;
 		this.password = password;
-		
+		this.autority = autority;
 		this.preduzece = preduzece;
 		this.obrisano=  obrisano;
 	}
 
 
 	public UserDTO(User user) {
-        this(user.getId(),user.getFirstname(),user.getLastname(),user.getUsername(),user.getUser_password(),new PreduzeceDTO(user.getPreduzece()),user.isObrisano());
+        this(user.getId(),user.getFirstname(),user.getLastname(),user.getUsername(),user.getPassword(),new PreduzeceDTO(user.getPreduzece()),user.isObrisano(),user.getauthorities());
     }
 	
 	public Integer getId() {
@@ -96,6 +96,16 @@ public class UserDTO implements Serializable {
 
 	public void setObrisano(boolean obrisano) {
 		this.obrisano = obrisano;
+	}
+
+
+	public String getAutority() {
+		return autority;
+	}
+
+
+	public void setAutority(String autority) {
+		this.autority = autority;
 	}
 	
 	
