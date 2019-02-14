@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.pi.PoslovnaInformatika.dto.RobaDTO;
+import com.pi.PoslovnaInformatika.model.GrupaRobe;
 import com.pi.PoslovnaInformatika.model.Roba;
 import com.pi.PoslovnaInformatika.service.interfaces.GrupaRobeServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.RobaServiceInterface;
@@ -76,6 +77,20 @@ public class RobaController {
         for (Roba r:roba) {
         	if(r.isObrisano() == false) {
         		robaDTo.add(new RobaDTO(r));
+        	}
+        }
+        return new ResponseEntity<List<RobaDTO>>(robaDTo,HttpStatus.OK);
+    }
+	@RequestMapping(value="/getAllRobadeliteNo/{idgr}", method = RequestMethod.GET)
+    public ResponseEntity<List<RobaDTO>> getRr(@PathVariable("idgr") int id){
+    	GrupaRobe gr = grsi.getOne(id);
+    	List<Roba> roba=rsi.getAll();
+        List<RobaDTO> robaDTo=new ArrayList<>();
+        for (Roba r:roba) {
+        	if(r.isObrisano() == false) {
+        		if(gr.getId() == r.getGrupa().getId()) {
+        			robaDTo.add(new RobaDTO(r));
+        		}
         	}
         }
         return new ResponseEntity<List<RobaDTO>>(robaDTo,HttpStatus.OK);
