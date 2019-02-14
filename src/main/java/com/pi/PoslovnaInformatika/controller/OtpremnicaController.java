@@ -1,10 +1,14 @@
 package com.pi.PoslovnaInformatika.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,11 +37,23 @@ public class OtpremnicaController {
 	@Autowired
 	private OtpremnicaDTOtoOtpremnica toOtpremnica;
 	
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(value="/all",method=RequestMethod.GET)
 	public ResponseEntity<List<OtpremnicaDTO>> getOtpremnice(){
 		List<Otpremnica> otpremnice = otpremnicaService.findAll();
-		
+		Collections.sort(otpremnice);
 		return new ResponseEntity<>(toOtpremnicaDTO.convert(otpremnice), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/active/all",method=RequestMethod.GET)
+	public ResponseEntity<List<OtpremnicaDTO>> getActiveFakture(){
+		List<Otpremnica> otpremnice = otpremnicaService.findAll();
+		List<Otpremnica> activeOtpremnice = new ArrayList<>();
+		for (Otpremnica otpremnica : otpremnice){
+			if (otpremnica.isObrisano()==false)
+					activeOtpremnice.add(otpremnica);
+		}
+		Collections.sort(activeOtpremnice);
+		return new ResponseEntity<>(toOtpremnicaDTO.convert(activeOtpremnice), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
@@ -49,9 +65,20 @@ public class OtpremnicaController {
 		return new ResponseEntity<>(toOtpremnicaDTO.convert(otpremnica), HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/active/{id}", method=RequestMethod.GET)
+	public ResponseEntity<OtpremnicaDTO> getActiveOtpremnicaById(@PathVariable Integer id){
+		Otpremnica otpremnica = otpremnicaService.getOne(id);
+		if(otpremnica==null || otpremnica.isObrisano()==true){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(toOtpremnicaDTO.convert(otpremnica), HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/addOtpremnica", method=RequestMethod.POST, consumes="application/json")
-	public ResponseEntity<OtpremnicaDTO> addOtpremnica(@RequestBody OtpremnicaDTO otpremnicaDTO){
-		
+	public ResponseEntity<?> addOtpremnica(@Validated @RequestBody OtpremnicaDTO otpremnicaDTO,Errors errors){
+		if(errors.hasErrors()) {
+			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
+		}
 		
 		Otpremnica novaOtpremnica = otpremnicaService.save(toOtpremnica.convert(otpremnicaDTO));
 		return new ResponseEntity<>(toOtpremnicaDTO.convert(novaOtpremnica), HttpStatus.OK);
@@ -59,7 +86,10 @@ public class OtpremnicaController {
 	
 	
 	@RequestMapping(value="/editOtpremnica/{id}", method=RequestMethod.PUT, consumes="application/json")
-	public ResponseEntity<OtpremnicaDTO> editOtpremnica(@PathVariable Integer id, @RequestBody OtpremnicaDTO editedOtpremnicaDTO){
+	public ResponseEntity<?> editOtpremnica(@Validated @PathVariable Integer id, @RequestBody OtpremnicaDTO editedOtpremnicaDTO,Errors errors){
+		if(errors.hasErrors()) {
+			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
+		}
 		
 		Otpremnica otpremnica = otpremnicaService.getOne(id);
 		if(otpremnica==null){
