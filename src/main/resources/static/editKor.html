@@ -6,7 +6,7 @@
 		content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="js/jquery-ui.js"></script>
-	<link rel="stylesheet" type="text/css" href="./css/dodajRobu.css">
+	<link rel="stylesheet" type="text/css" href="./css/editKor.css">
 	<link rel="stylesheet" type="text/css"href="./css/mainPage.css">
 	<script src="./bootstrap/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
@@ -48,6 +48,8 @@
 				</ul>
 			</li>
 			
+			
+			
 			<li class="dropdown"><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#">Prevoznici <span class="caret"></span></a>
 				<ul class="dropdown-menu">
@@ -76,26 +78,43 @@
 	<table id="tableCreate" class="table">
 
 		<thead>
-			<th> Dodaj robu: </th>
+			<th> Korisnik: </th>
 		</thead>
 		<tbody>
 			
 			<tr>
-				<td>Naziv robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="text" name="CreateNazivRobe"
+				<td>Ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="text" name="imeKorisnika" value="Ime"
 					style="width: 150px">
 				</td>
 
 			</tr>
 			<tr>
-				<td>Grupa robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select id="pickGrupu" style="width: 150px"><option>Namirnice</option><option>Alkohol</option><option>Alat</option></select>
+				<td>Prezime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="text" name="prezimeKorisnika" value="Prezime"
+					style="width: 150px">
 				</td>
 
 			</tr>
 			<tr>
-				<td>Jedinica mere:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="text" name="CreateJedMere"
+				<td>Korisnicko ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="text" name="korisnickoIme" value="username"
 					style="width: 150px">
+				</td>
+
+			</tr>
+			<tr>
+				<td>Lozinka:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="password" name="lozinka" value="password"
+					style="width: 150px">
+				</td>
+
+			</tr>
+			
+			<tr>
+				<td>Preduzece:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="text" name="preduzece" value="ovo"
+					style="width: 150px" readonly>
 				</td>
 
 			</tr>
