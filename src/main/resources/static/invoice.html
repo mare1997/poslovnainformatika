@@ -1,0 +1,221 @@
+<html>
+<head>
+    <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <script src="js/jquery-2.1.4.min.js"></script>
+            <script src="js/jquery-ui.js"></script>
+           <link rel="stylesheet" type="text/css" href="./css/invoice.css">
+            <link rel="stylesheet" type="text/css" href="./css/mainPage.css">
+            <script src="./bootstrap/js/bootstrap.min.js"></script>
+            <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+            <link rel="stylesheet" href="./bootstrap/css/jquery-ui.css">
+            <title>Faktura</title>
+    
+    
+   
+</head>
+
+<body>
+ <!-- Navigacija -->
+            <nav>
+                <ul id="mainUl" class="nav navbar-nav">
+                    <li><a href="mainPage.html">Home</a></li>
+        
+                    <li class="dropdown"><a class="dropdown-toggle"
+                        data-toggle="dropdown" href="#">Narudzbenice <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="listaNarudzbenica.html">Lista narudzbenica</a></li>
+                            <li><a href="createNarudzbenica.html">Kreiranje
+                                    narudzbenice</a></li>
+                        </ul>
+                    </li>
+        
+                    <li class="dropdown"><a class="dropdown-toggle"
+                        data-toggle="dropdown" href="#">Cenovnik <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="cenovnik.html">Cenovnici</a></li>
+                            <li>
+                            <li><a href="createCenovnik.html">Kreiranje cenovnika</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="dropdown"><a class="dropdown-toggle"
+                        data-toggle="dropdown" href="#">Roba ili usluga <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="listaRobe.html">Lista robe</a></li>
+                            <li>
+                            <li><a href="createRobu.html">Kreiranje robe</a></li>
+                        </ul>
+                    </li>
+        
+                </ul>
+            </nav>
+            
+            <!-- Faktura -->
+            
+    <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="8">
+                    <table>
+                        <tr>
+                            <td class="title">
+                                <img src="img/fakturaboks-logo.jpg" style="width:100%; max-width:300px;">
+                            </td>
+                            
+                            <td>
+                                Faktura # <label>123</label><br/>
+                                Kreirana: <label> January 1, 2015</label><br/>
+                                Datum isporuke: <label> February 1, 2015</label>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+            <tr class="information">
+                <td colspan="8">
+                    <table>
+                        <tr>
+                            <td>
+                                Naziv preduzeca<br>
+                                Poslovna godina: <label>2019.</label><br>
+                                Sunnyville, CA 12345
+                            </td>
+                            
+                            <td>
+                                Acme Corp.<br>
+                                John Doe<br>
+                                john@example.com
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+            <tr class="heading">
+                <td>
+                   Osnovica
+                </td>
+                <td></td>
+                <td></td>
+                		<td></td>	
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="text-align:center;">
+                    #
+                </td>
+            </tr>
+            
+            <tr class="details"  >
+                <td>
+                    
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
+                <td style="text-align:center;">
+                   8
+                </td>
+            </tr>
+            
+            <tr class="heading">
+                <td>
+                    Roba
+                </td>
+                <td>
+                 Kolicina
+                </td>
+                <td> Cena</td>
+                <td> Rabat</td>
+                <td>
+                    Osnovica za PDV
+                </td>
+                <td> Procenat PDV-a</td>
+                <td> Iznos PDV-a</td>
+                <td> Iznos stavke</td>
+            </tr>
+            
+            <tr class="item">
+                <td>
+                    Website design
+                </td>
+                  <td></td>
+                <td></td>
+                <td></td>
+                
+                <td></td>
+                <td></td>
+               
+              
+                <td></td>
+                 <td>
+                    $300.00
+                </td>
+            </tr>
+            
+            <tr class="item">
+                <td>
+                    Hosting (3 months)
+                </td>
+                 <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+               
+                <td></td>
+                <td></td>
+                <td>
+                    $75.00
+                </td>
+            </tr>
+            
+            <tr class="item last">
+                <td>
+                    Domain name (1 year)
+                </td>
+                 <td></td>
+                <td></td>
+                    <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    $10.00
+                </td>
+            </tr>
+            
+           
+             <tr class="ukPDV">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="text-align:right;">Ukupan</td>
+                <td style="text-align:left;">PDV:</td>
+                <td>
+                   80
+                </td>
+            </tr>
+            <tr class="total">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="text-align:left;">TOTAL:</td>
+                <td >
+                    $385.00
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
