@@ -36,7 +36,7 @@ public class PrevoznikContoller {
     public ResponseEntity<PrevoznikDTO> getPrevoznik(@PathVariable("id") int id){
     	
 		Prevoznik p = psi.getOne(id);
-        if(p == null)
+        if(p == null || p.isObrisano() == true)
             return new ResponseEntity<PrevoznikDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<PrevoznikDTO>(new PrevoznikDTO(p),HttpStatus.OK);
     }
@@ -46,8 +46,9 @@ public class PrevoznikContoller {
     	List<Prevoznik> pr=psi.getAll();
         List<PrevoznikDTO> prevoznikDTO=new ArrayList<>();
         for (Prevoznik p:pr) {
-        	prevoznikDTO.add(new PrevoznikDTO(p));
-            
+        	if(p.isObrisano() == false) {
+        		prevoznikDTO.add(new PrevoznikDTO(p));
+        	}
         }
         return new ResponseEntity<List<PrevoznikDTO>>(prevoznikDTO,HttpStatus.OK);
     }

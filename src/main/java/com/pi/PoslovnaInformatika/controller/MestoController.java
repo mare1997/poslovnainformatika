@@ -1,5 +1,8 @@
 package com.pi.PoslovnaInformatika.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,10 +37,24 @@ public class MestoController {
     public ResponseEntity<MestoDTO> getMesto(@PathVariable("id") int id){
     	
     	Mesto mesto = msi.getOne(id);
-        if(mesto == null)
+        if(mesto == null || mesto.isObrisano() == true)
             return new ResponseEntity<MestoDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<MestoDTO>(new MestoDTO(mesto),HttpStatus.OK);
     }
+	@GetMapping(value="/all")
+	public ResponseEntity<List<MestoDTO>> getAll(){
+		
+		List<Mesto> mesta = msi.getAll();
+		List<MestoDTO> m  = new ArrayList<>();
+		for(Mesto mm: mesta) {
+			if(mm.isObrisano() == false) {
+				m.add(new MestoDTO(mm));
+			}
+		}
+		
+		return new ResponseEntity<List<MestoDTO>>(m,HttpStatus.OK);
+	}
+	
 	
 	@PostMapping(value = "/add")
 	public ResponseEntity<?> addMesto(@Validated @RequestBody MestoDTO mestoDTO,Errors errors){
