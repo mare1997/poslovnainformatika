@@ -7,5 +7,5 @@ import com.pi.PoslovnaInformatika.model.Roba;
 
 
 public interface RobaRepository extends JpaRepository<Roba, Integer>{
-
+	Roba getByName(String roba); 
 }

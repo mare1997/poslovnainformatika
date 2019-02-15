@@ -95,6 +95,20 @@ public class RobaController {
         }
         return new ResponseEntity<List<RobaDTO>>(robaDTo,HttpStatus.OK);
     }
+	@RequestMapping(value="/getAllRobadeliteNoName/{name}", method = RequestMethod.GET)
+    public ResponseEntity<List<RobaDTO>> getRr(@PathVariable("name") String name){
+    	GrupaRobe gr = grsi.getByName(name);
+    	List<Roba> roba=rsi.getAll();
+        List<RobaDTO> robaDTo=new ArrayList<>();
+        for (Roba r:roba) {
+        	if(r.isObrisano() == false) {
+        		if(gr.getId() == r.getGrupa().getId()) {
+        			robaDTo.add(new RobaDTO(r));
+        		}
+        	}
+        }
+        return new ResponseEntity<List<RobaDTO>>(robaDTo,HttpStatus.OK);
+    }
 	
 	@PostMapping(value = "/add")
 	public ResponseEntity<?> addRoba(@Validated @RequestBody RobaDTO robaDTO,Errors errors){
