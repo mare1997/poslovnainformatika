@@ -60,15 +60,15 @@ public class OtpremnicaDTOtoOtpremnica implements Converter<OtpremnicaDTO, Otpre
 		otpremnica.setObrisano(source.isObrisano());
 		
 		
-		List<StavkaOtpremnice> sveStavke = new ArrayList<StavkaOtpremnice>();
+		/*List<StavkaOtpremnice> sveStavke = new ArrayList<StavkaOtpremnice>();
 		sveStavke = stavkeOtpremniceService.findAll();
 		for(StavkaOtpremnice stavkaOtpremnice: sveStavke){
 			if(stavkaOtpremnice.getOtpremnica().getIdOtpremnice()==otpremnica.getIdOtpremnice()){
 				sveStavke.add(stavkaOtpremnice);
 			}
-		}
 		
-		otpremnica.setStavkeOtpremnice(sveStavke);
+		
+		otpremnica.setStavkeOtpremnice(sveStavke);*/
 		
 		return otpremnica;
 	}

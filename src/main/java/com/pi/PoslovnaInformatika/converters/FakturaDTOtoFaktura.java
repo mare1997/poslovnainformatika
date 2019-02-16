@@ -66,14 +66,14 @@ public class FakturaDTOtoFaktura implements Converter<FakturaDTO, Faktura>{
 		faktura.setPreduzece(preduzeceService.getOne(source.getPreduzece()));
 		
 		faktura.setKupac(kupacService.getOne(source.getKupac()));
-		List<StavkaFakture> sveStavke = new ArrayList<StavkaFakture>();
+		/*List<StavkaFakture> sveStavke = new ArrayList<StavkaFakture>();
 		sveStavke = stavkeFaktureService.findAll();
 		for(StavkaFakture stavkaFakture: sveStavke){
 			if(stavkaFakture.getFaktura().getId()==faktura.getId()){
 				sveStavke.add(stavkaFakture);
 			}
 		}
-		faktura.setStavkeFakture(sveStavke);
+		faktura.setStavkeFakture(sveStavke);*/
 		
 		return faktura;
 	}
