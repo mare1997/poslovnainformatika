@@ -3,6 +3,8 @@ package com.pi.PoslovnaInformatika.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.pi.PoslovnaInformatika.model.Faktura;
@@ -17,37 +19,32 @@ public class FakturaService implements FakturaServiceInterface {
 
 	@Override
 	public Faktura getOne(Integer id) {
-		// TODO Auto-generated method stub
 		return fakturaRepository.getOne(id);
 	}
 
 	@Override
-	public List<Faktura> findAll() {
-		// TODO Auto-generated method stub
-		return fakturaRepository.findAll();
+	public Page<Faktura> findAll(Pageable pageRequest) {
+		
+		return fakturaRepository.findAll(pageRequest);
 	}
 
 	@Override
 	public Faktura save(Faktura faktura) {
-		// TODO Auto-generated method stub
 		return fakturaRepository.save(faktura);
 	}
 
 	@Override
 	public List<Faktura> save(List<Faktura> fakture) {
-		// TODO Auto-generated method stub
 		return fakturaRepository.saveAll(fakture);
 	}
 
 	@Override
 	public void delete(Integer id) {
-		// TODO Auto-generated method stub
 		fakturaRepository.deleteById(id);
 	}
 
 	@Override
 	public void delete(List<Integer> ids) {
-		// TODO Auto-generated method stub
 		fakturaRepository.delete((Faktura) ids);
 	}
 	

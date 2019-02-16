@@ -5,6 +5,10 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pi.PoslovnaInformatika.converters.OtpremnicaDTOtoOtpremnica;
@@ -37,23 +42,39 @@ public class OtpremnicaController {
 	@Autowired
 	private OtpremnicaDTOtoOtpremnica toOtpremnica;
 	
-	@RequestMapping(value="/all",method=RequestMethod.GET)
-	public ResponseEntity<List<OtpremnicaDTO>> getOtpremnice(){
-		List<Otpremnica> otpremnice = otpremnicaService.findAll();
-		Collections.sort(otpremnice);
-		return new ResponseEntity<>(toOtpremnicaDTO.convert(otpremnice), HttpStatus.OK);
+	@RequestMapping(value="/all",method=RequestMethod.GET,params={"page","size"})
+	public ResponseEntity<List<OtpremnicaDTO>> getOtpremnice(@RequestParam("page") int page, @RequestParam("size") int size){
+		Page<Otpremnica> otpremnicePage = otpremnicaService.findAll(PageRequest.of(page, size));
+		if (page > otpremnicePage.getTotalPages()) {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("totalPages", Integer.toString(otpremnicePage.getTotalPages()));
+		Collections.sort(otpremnicePage.getContent());
+		return new ResponseEntity<>(toOtpremnicaDTO.convert(otpremnicePage.getContent()),headers, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/active/all",method=RequestMethod.GET)
-	public ResponseEntity<List<OtpremnicaDTO>> getActiveFakture(){
-		List<Otpremnica> otpremnice = otpremnicaService.findAll();
+	@RequestMapping(value="/active/all",method=RequestMethod.GET,params={"page","size"})
+	public ResponseEntity<List<OtpremnicaDTO>> getActiveFakture(@RequestParam("page") int page, @RequestParam("size") int size){
+		Page<Otpremnica> otpremnicePage = otpremnicaService.findAll(PageRequest.of(page, size));
+		
+		if (page > otpremnicePage.getTotalPages()) {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+		List<Otpremnica> tempOtpremnice = otpremnicePage.getContent();
 		List<Otpremnica> activeOtpremnice = new ArrayList<>();
-		for (Otpremnica otpremnica : otpremnice){
+		for (Otpremnica otpremnica : tempOtpremnice){
 			if (otpremnica.isObrisano()==false)
 					activeOtpremnice.add(otpremnica);
 		}
 		Collections.sort(activeOtpremnice);
-		return new ResponseEntity<>(toOtpremnicaDTO.convert(activeOtpremnice), HttpStatus.OK);
+		
+		Page<Otpremnica> activeOtpremnicePage = new PageImpl<>(activeOtpremnice);
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("totalPages", Integer.toString(otpremnicePage.getTotalPages()));
+		return new ResponseEntity<>(toOtpremnicaDTO.convert(activeOtpremnicePage.getContent()),headers, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)

@@ -2,13 +2,16 @@ package com.pi.PoslovnaInformatika.service.interfaces;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.pi.PoslovnaInformatika.model.Narudzbenica;
 
 public interface NarudzbenicaServiceInterface {
 
 	public Narudzbenica getOne(Integer id);
 	
-	public List<Narudzbenica> findAll();
+	public Page<Narudzbenica> findAll(Pageable pageRequest);
 
 	public Narudzbenica save(Narudzbenica narudzbenica);
 

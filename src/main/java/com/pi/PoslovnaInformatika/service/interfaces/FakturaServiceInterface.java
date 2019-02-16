@@ -2,13 +2,16 @@ package com.pi.PoslovnaInformatika.service.interfaces;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.pi.PoslovnaInformatika.model.Faktura;
 
 public interface FakturaServiceInterface {
 
 	public Faktura getOne(Integer id);
 	
-	public List<Faktura> findAll();
+	public Page<Faktura> findAll(Pageable pageRequest);
 
 	public Faktura save(Faktura faktura);
 

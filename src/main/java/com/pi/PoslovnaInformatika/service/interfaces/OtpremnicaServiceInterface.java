@@ -2,13 +2,16 @@ package com.pi.PoslovnaInformatika.service.interfaces;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.pi.PoslovnaInformatika.model.Otpremnica;
 
 public interface OtpremnicaServiceInterface {
 	
 	public Otpremnica getOne(Integer id);
 	
-	public List<Otpremnica> findAll();
+	public Page<Otpremnica> findAll(Pageable pageRequest);
 
 	public Otpremnica save(Otpremnica otpremnica);
 

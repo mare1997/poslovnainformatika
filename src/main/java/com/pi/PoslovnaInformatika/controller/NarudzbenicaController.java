@@ -5,6 +5,10 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pi.PoslovnaInformatika.converters.NarudzbenicaDTOtoNarudzbenica;
@@ -37,23 +42,40 @@ public class NarudzbenicaController {
 	@Autowired
 	private NarudzbenicaDTOtoNarudzbenica toNarudzbenica;
 	
-	@RequestMapping(value="/all",method=RequestMethod.GET)
-	public ResponseEntity<List<NarudzbenicaDTO>> getNarudzbenice(){
-		List<Narudzbenica> narudzbenice = narudzbenicaService.findAll();
-		Collections.sort(narudzbenice);
-		return new ResponseEntity<>(toNarudzbenicaDTO.convert(narudzbenice), HttpStatus.OK);
+	@RequestMapping(value="/all",method=RequestMethod.GET,params={"page","size"})
+	public ResponseEntity<List<NarudzbenicaDTO>> getNarudzbenice(@RequestParam("page") int page, @RequestParam("size") int size){
+		Page<Narudzbenica> narudzbenicePage = narudzbenicaService.findAll(PageRequest.of(page, size));
+		if (page > narudzbenicePage.getTotalPages()) {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("totalPages", Integer.toString(narudzbenicePage.getTotalPages()));
+		
+		Collections.sort(narudzbenicePage.getContent());
+		return new ResponseEntity<>(toNarudzbenicaDTO.convert(narudzbenicePage.getContent()),headers, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/active",method=RequestMethod.GET)
-	public ResponseEntity<List<NarudzbenicaDTO>> getActiveNarudzbenica(){
-		List<Narudzbenica> narudzbenice = narudzbenicaService.findAll();
+	@RequestMapping(value="/active/all",method=RequestMethod.GET,params={"page","size"})
+	public ResponseEntity<List<NarudzbenicaDTO>> getActiveNarudzbenica(@RequestParam("page") int page, @RequestParam("size") int size){
+		Page<Narudzbenica> narudzbenicePage = narudzbenicaService.findAll(PageRequest.of(page, size));
+		
+		if (page > narudzbenicePage.getTotalPages()) {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+		
 		List<Narudzbenica> activeNarudzbenice = new ArrayList<>();
-		for (Narudzbenica narudzbenica : narudzbenice){
+		List<Narudzbenica> tempNarudzbenice = new ArrayList<>();
+
+		for (Narudzbenica narudzbenica : tempNarudzbenice){
 			if (narudzbenica.isObrisano()==false)
 					activeNarudzbenice.add(narudzbenica);
 		}
 		Collections.sort(activeNarudzbenice);
-		return new ResponseEntity<>(toNarudzbenicaDTO.convert(activeNarudzbenice), HttpStatus.OK);
+		Page<Narudzbenica> activeNarudzbenicePage = new PageImpl<>(activeNarudzbenice);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("totalPages", Integer.toString(narudzbenicePage.getTotalPages()));
+		
+		return new ResponseEntity<>(toNarudzbenicaDTO.convert(activeNarudzbenicePage.getContent()),headers, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)

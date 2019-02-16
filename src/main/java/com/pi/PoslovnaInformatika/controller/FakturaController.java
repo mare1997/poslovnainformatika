@@ -5,6 +5,10 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pi.PoslovnaInformatika.converters.FakturaDTOtoFaktura;
@@ -37,22 +42,37 @@ public class FakturaController {
 	@Autowired
 	private FakturaDTOtoFaktura toFaktura;
 	
-	@RequestMapping(value="/all",method=RequestMethod.GET)
-	public ResponseEntity<List<FakturaDTO>> getFakture(){
-		List<Faktura> fakture = fakturaService.findAll();
-		Collections.sort(fakture);
-		return new ResponseEntity<>(toFakturaDTO.convert(fakture), HttpStatus.OK);
+	@RequestMapping(value="/all",method=RequestMethod.GET,params={"page","size"})
+	public ResponseEntity<List<FakturaDTO>> getFakture(@RequestParam("page") int page, @RequestParam("size") int size){
+		Page<Faktura> fakturePage = fakturaService.findAll(PageRequest.of(page, size));
+		if (page > fakturePage.getTotalPages()) {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("totalPages", Integer.toString(fakturePage.getTotalPages()));
+		Collections.sort(fakturePage.getContent());
+		return new ResponseEntity<>(toFakturaDTO.convert(fakturePage.getContent()),headers, HttpStatus.OK);
 	}
-	@RequestMapping(value="/active/all",method=RequestMethod.GET)
-	public ResponseEntity<List<FakturaDTO>> getActiveFakture(){
-		List<Faktura> fakture = fakturaService.findAll();
+	
+	@RequestMapping(value="/active/all",method=RequestMethod.GET,params={"page","size"})
+	public ResponseEntity<List<FakturaDTO>> getActiveFakture(@RequestParam("page") int page, @RequestParam("size") int size){
+		Page<Faktura> fakturePage = fakturaService.findAll(PageRequest.of(page, size));
+		if (page > fakturePage.getTotalPages()) {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+		List<Faktura> tempFakture = fakturePage.getContent(); 
 		List<Faktura> activeFakture = new ArrayList<>();
-		for (Faktura faktura : fakture){
+		for (Faktura faktura : tempFakture){
 			if (faktura.isObrisano()==false)
 					activeFakture.add(faktura);
 		}
 		Collections.sort(activeFakture);
-		return new ResponseEntity<>(toFakturaDTO.convert(activeFakture), HttpStatus.OK);
+		Page<Faktura> activeFakturePage = new PageImpl<>(activeFakture);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("totalPages", Integer.toString(fakturePage.getTotalPages()));
+		
+		return new ResponseEntity<>(toFakturaDTO.convert(activeFakturePage.getContent()), headers,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
