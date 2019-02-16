@@ -68,8 +68,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                 //svim korisnicima dopusti da pristupe putanjama /auth/**
                 .antMatchers("/api/auth/**").permitAll()
-                //.antMatchers("/pi/users/**").permitAll()
-                //.antMatchers("/api/users/activate/**").hasAuthority("ADMIN")
+                .antMatchers("/api/roba/**").permitAll()
+                .antMatchers("/api/narudzbenice/**").permitAll()
+                .antMatchers("/api/fakture/**").permitAll()
+                .antMatchers("/api/otpremnice/**").permitAll()
+                .antMatchers("/api/narudzbenice/stavkeNarudzbenice/**").permitAll()
+                .antMatchers("/api/fakture/stavkeFakture/**").permitAll()
+                .antMatchers("/api/otpremnice/stavkeOtpremnice/**").permitAll()
+                .antMatchers("/api/cenovnik/**").hasAuthority("ADMIN")
+                .antMatchers("/api/gruparobe/**").hasAuthority("ADMIN")
+                .antMatchers("/api/kupac/**").hasAuthority("ADMIN")
+                .antMatchers("/api/mesto/**").hasAuthority("ADMIN")
+                .antMatchers("/api/pdv/**").hasAuthority("ADMIN")
+                
+                .antMatchers("/api/preduzece/**").hasAuthority("ADMIN")
+                .antMatchers("/api/prevoznik/**").hasAuthority("ADMIN")
+                .antMatchers("/api/stavkacenovnika/**").hasAuthority("ADMIN")
+                .antMatchers("/api/stopapdv/**").hasAuthority("ADMIN")
+                .antMatchers("/api/users/**").hasAuthority("ADMIN")
                 //svaki zahtev mora biti autorizovan
                 .anyRequest().authenticated().and()
                 //presretni svaki zahtev filterom
@@ -98,8 +114,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 "/favicon.ico",
                 "/**/*.html",
                 "/**/*.css",
-                "/**/*.js"
-                
+                "/**/*.js",
+                "/api/poslovnagodina/**"
                 
             );
 //        "/**/*.jpg"
