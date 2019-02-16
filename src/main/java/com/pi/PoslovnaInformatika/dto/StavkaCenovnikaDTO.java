@@ -13,13 +13,13 @@ public class StavkaCenovnikaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private long cena;
-	private RobaDTO roba;
+	private int roba;
 	private CenovnikDTO cenovnik;
 	private boolean obrisano;
 	public StavkaCenovnikaDTO() {
 		super();
 	}
-	public StavkaCenovnikaDTO(Integer id, long cena, RobaDTO roba, CenovnikDTO cenovnik,boolean obrisano) {
+	public StavkaCenovnikaDTO(Integer id, long cena, int roba, CenovnikDTO cenovnik,boolean obrisano) {
 		super();
 		this.id = id;
 		this.cena = cena;
@@ -28,7 +28,9 @@ public class StavkaCenovnikaDTO implements Serializable {
 		this.obrisano = obrisano;
 	}
 	public StavkaCenovnikaDTO(StavkaCenovnika s) {
-		this(s.getId(),s.getCena(),new RobaDTO(s.getRoba()), new CenovnikDTO(s.getCenovnik()),s.isObrisano());
+		
+		this(s.getId(),s.getCena(),s.getRoba().getId(), new CenovnikDTO(s.getCenovnik()),s.isObrisano());
+		System.out.println(s);
 	}
 	public Integer getId() {
 		return id;
@@ -42,10 +44,10 @@ public class StavkaCenovnikaDTO implements Serializable {
 	public void setCena(long cena) {
 		this.cena = cena;
 	}
-	public RobaDTO getRoba() {
+	public int getRoba() {
 		return roba;
 	}
-	public void setRoba(RobaDTO roba) {
+	public void setRoba(int roba) {
 		this.roba = roba;
 	}
 	public CenovnikDTO getCenovnik() {

@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -69,9 +70,14 @@ public class AuthenticationController {
 	        	return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 	        }
 	        String jws = tokenHelper.generateToken( user.getUsername());
-
+	        String autority= null;
+	        for (GrantedAuthority s : user.getAuthorities() ) {
+	            
+	            autority = s.getAuthority();
+	            
+	        }
 	        // Vrati token kao odgovor na uspesno autentifikaciju
-	        return ResponseEntity.ok(new UserTokenState(jws));
+	        return ResponseEntity.ok(new UserTokenState(jws,user.getId(),autority));
 	    }
 	    @RequestMapping(value = "/change-password", method = RequestMethod.POST)
 	    public ResponseEntity<?> changePassword(@RequestBody PasswordChanger passwordChanger) {

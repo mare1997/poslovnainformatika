@@ -37,4 +37,10 @@ public class PreduzeceService implements PreduzeceServiceInterface {
 		pr.deleteById(id);
 	}
 
+	@Override
+	public Preduzece getByName(String name) {
+		// TODO Auto-generated method stub
+		return pr.getByName(name);
+	}
+
 }

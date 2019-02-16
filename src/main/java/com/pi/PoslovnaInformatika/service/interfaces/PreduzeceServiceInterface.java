@@ -10,4 +10,5 @@ public interface PreduzeceServiceInterface  {
 	Preduzece getOne(Integer Preduzece);
 	Preduzece save(Preduzece Preduzece);
 	void remove(Integer id);
+	Preduzece getByName(String name);	
 }

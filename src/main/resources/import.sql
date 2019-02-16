@@ -44,13 +44,13 @@ INSERT INTO `poslovnainformatika`.`prevoznik` (`prevoznik_id`, `name`, `obrisano
 INSERT INTO `poslovnainformatika`.`prevoznik` (`prevoznik_id`, `name`, `obrisano`) VALUES ('2', 'prevoznik2', '0');
 INSERT INTO `poslovnainformatika`.`prevoznik` (`prevoznik_id`, `name`, `obrisano`) VALUES ('3', 'prevoznik3', '1');
 
-INSERT INTO `poslovnainformatika`.`roba` (`roba_id`, `jedninica_mere`, `name`, `obrisano`, `grupa_robe_id`) VALUES ('1', 'kg', 'roba1', '0', '1');
-INSERT INTO `poslovnainformatika`.`roba` (`roba_id`, `jedninica_mere`, `name`, `obrisano`, `grupa_robe_id`) VALUES ('2', 'l', 'roba2', '0', '2');
-INSERT INTO `poslovnainformatika`.`roba` (`roba_id`, `jedninica_mere`, `name`, `obrisano`, `grupa_robe_id`) VALUES ('3', 't', 'roba1', '1', '1');
+INSERT INTO `poslovnainformatika`.`roba` (`roba_id`, `jedninica_mere`, `name`, `obrisano`, `grupa_robe_id`,`cena_id`) VALUES ('1', 'kg', 'roba1', '0', '1', '1');
+INSERT INTO `poslovnainformatika`.`roba` (`roba_id`, `jedninica_mere`, `name`, `obrisano`, `grupa_robe_id`,`cena_id`) VALUES ('2', 'l', 'roba2', '0', '2', '2');
+INSERT INTO `poslovnainformatika`.`roba` (`roba_id`, `jedninica_mere`, `name`, `obrisano`, `grupa_robe_id`,`cena_id`) VALUES ('3', 't', 'roba1', '1', '3', '3');
 
 INSERT INTO `poslovnainformatika`.`stavka_cenovnika` (`stavka_cenovnika_id`, `cena`, `obrisano`, `cenovnik_id`, `roba_id`) VALUES ('1', '500', '0', '1', '1');
 INSERT INTO `poslovnainformatika`.`stavka_cenovnika` (`stavka_cenovnika_id`, `cena`, `obrisano`, `cenovnik_id`, `roba_id`) VALUES ('2', '600', '0', '2', '2');
-INSERT INTO `poslovnainformatika`.`stavka_cenovnika` (`stavka_cenovnika_id`, `cena`, `obrisano`, `cenovnik_id`, `roba_id`) VALUES ('3', '523', '1', '1', '1');
+INSERT INTO `poslovnainformatika`.`stavka_cenovnika` (`stavka_cenovnika_id`, `cena`, `obrisano`, `cenovnik_id`, `roba_id`) VALUES ('3', '523', '1', '1', '3');
 
 INSERT INTO `poslovnainformatika`.`stavka_otpremnice` (`id_stavke_otpremnice`, `cena`, `isporucena_kolicina`, `jedinica_mere`, `napomena`, `naziv`, `obrisano`,`roba_usluga_id`, `redni_broj`, `id_otpremnice`) VALUES ('1', '500', '2', 'kg', 'napomena1', 'stavka1', '0', '1', '1', '1');
 INSERT INTO `poslovnainformatika`.`stavka_otpremnice` (`id_stavke_otpremnice`, `cena`, `isporucena_kolicina`, `jedinica_mere`, `napomena`, `naziv`, `obrisano`,`roba_usluga_id`, `redni_broj`, `id_otpremnice`) VALUES ('2', '600', '1', 'l', 'napomena2', 'stavka2', '0','1', '2', '1');

@@ -7,5 +7,5 @@ import com.pi.PoslovnaInformatika.model.Preduzece;
 
 
 public interface PreduzeceRepository extends JpaRepository<Preduzece, Integer> {
-
+	Preduzece getByName(String name);	
 }

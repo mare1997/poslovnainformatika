@@ -82,7 +82,7 @@ public class StavkaCenovnikaController {
 		StavkaCenovnika sc = new StavkaCenovnika();
 		sc.setCena(scDTO.getCena());
 		sc.setCenovnik(csi.getOne(scDTO.getCenovnik().getId()));
-		sc.setRoba(rsi.getOne(scDTO.getRoba().getId()));
+		sc.setRoba(rsi.getOne(scDTO.getRoba()));
 		
 		
 		scsi.save(sc);

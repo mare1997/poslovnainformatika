@@ -37,6 +37,14 @@ public class PreduzeceContoller {
             return new ResponseEntity<PreduzeceDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<PreduzeceDTO>(new PreduzeceDTO(preduzece),HttpStatus.OK);
     }
+	@GetMapping(value = "/getbyname/{name}")
+    public ResponseEntity<PreduzeceDTO> getpreduzecee(@PathVariable("name") String name){
+    	
+    	Preduzece preduzece = psi.getByName(name);
+        if(preduzece == null || preduzece.isObrisano() == true)
+            return new ResponseEntity<PreduzeceDTO>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<PreduzeceDTO>(new PreduzeceDTO(preduzece),HttpStatus.OK);
+    }
 	
 	@RequestMapping(value="/all", method = RequestMethod.GET)
     public ResponseEntity<List<PreduzeceDTO>> getAll(){

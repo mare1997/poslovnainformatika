@@ -73,9 +73,11 @@ public class RobaController {
     public ResponseEntity<List<RobaDTO>> getR(){
     	
     	List<Roba> roba=rsi.getAll();
+    	
         List<RobaDTO> robaDTo=new ArrayList<>();
         for (Roba r:roba) {
         	if(r.isObrisano() == false) {
+        		System.out.println(r.getName());
         		robaDTo.add(new RobaDTO(r));
         	}
         }
@@ -120,7 +122,7 @@ public class RobaController {
 		roba.setName(robaDTO.getName());
 		roba.setJedninica_mere(robaDTO.getJedninica_mere());
 		roba.setGrupa(grsi.getOne(robaDTO.getGrupa().getId()));
-		roba.setCene(scsi.getOne(robaDTO.getCena().getId()));
+		roba.setCene(scsi.getOne(robaDTO.getCena()));
 		
 		
 		rsi.save(roba);
