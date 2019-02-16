@@ -37,7 +37,7 @@
 					<li><a href="createCenovnik.html">Kreiranje cenovnika</a></li>>
 				</ul>
 			</li>
-			
+
 			<li class="dropdown"><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#">Roba ili usluga <span class="caret"></span></a>
 				<ul class="dropdown-menu">
@@ -46,7 +46,7 @@
 					<li><a href="createRobu.html">Kreiranje robe</a></li>
 				</ul>
 			</li>
-			
+
 			<li class="dropdown"><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#">Prevoznici <span class="caret"></span></a>
 				<ul class="dropdown-menu">
@@ -55,7 +55,7 @@
 					<li><a href="createPrevoznika.html">Kreiranje prevoznika</a></li>
 				</ul>
 			</li>
-			
+
 			<li class="dropdown" id="user" ><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#"><img src="./img/user.png"><span class="caret"></span></a>
 				<ul class="dropdown-menu">
@@ -69,18 +69,18 @@
 
 		</ul>
 	</nav>
-	
-	
+
+
 <!-- Toolbar dugmici -->
 
 	<div class="col-lg-5 col-md-offset-2" id="toolbarbuttons">
 		<div class="btn-group">
 			<button class="btn btn-default"> <span class="glyphicon glyphicon-search"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></button>
-			<button class="btn btn-default" onClick="registerModal()"data-toggle="modal" data-target="#addKorisnika">
+			<button class="btn btn-default" onClick="registerModal()"" data-target="#addKorisnika">
 				<span class="glyphicon glyphicon-plus"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
-			<button class="btn btn-default" onClick="userForEdit()"data-toggle="modal" data-target="#editKorisnika">
+			<button class="btn btn-default" onClick="userForEdit()" data-target="#editKorisnika">
 				<span class="glyphicon glyphicon-chevron-down"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-step-backward"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button>
@@ -100,7 +100,7 @@
 			</tr>
 		</thead>
 		<tbody id="usersBody">
-			
+
 		</tbody>
 	</table>
 
@@ -162,13 +162,13 @@
 
 
 <!--Prikaz selektovane robe  -->
-	
+
 		<div id="prikazRobe">
 			<p><label>Ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <label class="text-muted"></label></p>
 			<p><label>Prezime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><label class="text-muted"></label></p>
 			<p><label>Korisnicko ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><label class="text-muted"></label></p>
 		</div>
-		
+
 
 </body>
 
@@ -181,32 +181,32 @@
             var rows = table.getElementsByTagName("tr");
             for (i = 0; i < rows.length; i++) {
                 var currentRow = table.rows[i];
-                var createClickHandler = 
-                    function(row) 
+                var createClickHandler =
+                    function(row)
                     {
-                        return function() { 
+                        return function() {
                                                 var cell = row.getElementsByTagName("td")[0];
                                                 var id = cell.innerHTML;
-        
+
                                                 var cell1 = row.getElementsByTagName("td")[1];
                                                 var id2 = cell1.innerHTML;
 
                                                 var cell = row.getElementsByTagName("td")[2];
                                                 var id3 = cell.innerHTML;
-        
-                                                
+
+
 
                                                 alert("wohoo" + "!" + id + " - " + id2 + "- "+ id3);
-                           
+
                                          };
                    		 };
-        
+
                 currentRow.onclick = createClickHandler(currentRow);
-                
+
             }
         }
         window.onload = addRowHandlers();
 
-       
+
         </script>
 </html>

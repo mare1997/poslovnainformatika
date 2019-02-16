@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script src="js/jquery-2.1.4.min.js"></script>
-	<script src="js/jquery-ui.js"></script>
+	<script src="js/prevoznik.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/listaPrevoznika.css">
 	<link rel="stylesheet" type="text/css" href="./css/mainPage.css">
 	<script src="./bootstrap/js/bootstrap.min.js"></script>
@@ -37,7 +37,7 @@
 					<li><a href="createCenovnik.html">Kreiranje cenovnika</a></li>
 				</ul>
 			</li>
-			
+
 			<li class="dropdown"><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#">Roba ili usluga <span class="caret"></span></a>
 				<ul class="dropdown-menu">
@@ -46,7 +46,7 @@
 					<li><a href="createRobu.html">Kreiranje robe</a></li>
 				</ul>
 			</li>
-			
+
 			<li class="dropdown"><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#">Prevoznici <span class="caret"></span></a>
 				<ul class="dropdown-menu">
@@ -55,9 +55,9 @@
 					<li><a href="createPrevoznika.html">Kreiranje prevoznika</a></li>
 				</ul>
 			</li>
-			
 
-			
+
+
 			<li class="dropdown" id="user" ><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#"><img src="./img/user.png"><span class="caret"></span></a>
 				<ul class="dropdown-menu">
@@ -71,8 +71,8 @@
 
 		</ul>
 	</nav>
-	
-	
+
+
 <!-- Toolbar dugmici -->
 
 	<div class="col-lg-5 col-md-offset-2" id="toolbarbuttons">
@@ -99,13 +99,9 @@
 				<th>Naziv</th>
 			</tr>
 		</thead>
-		<tbody>
-			<tr>
-				<td>Lasta</td>
-			</tr><tr>
-				<td>Dunav prevoz</td>
-			</tr>
-			
+		<tbody id="prevoznikBody">
+
+
 		</tbody>
 	</table>
 
@@ -136,7 +132,7 @@
 
 
 
-		
+
 
 </body>
 
@@ -149,21 +145,21 @@
             var rows = table.getElementsByTagName("tr");
             for (i = 0; i < rows.length; i++) {
                 var currentRow = table.rows[i];
-                var createClickHandler = 
-                    function(row) 
+                var createClickHandler =
+                    function(row)
                     {
-                        return function() { 
+                        return function() {
                                                 location.href = 'listaOtpremnica.html';
-                           
+
                                          };
                    		 };
-        
+
                 currentRow.onclick = createClickHandler(currentRow);
-                
+
             }
         }
         window.onload = addRowHandlers();
 
-       
+
         </script>
 </html>
