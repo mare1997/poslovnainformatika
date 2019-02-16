@@ -2,9 +2,9 @@ INSERT INTO `poslovnainformatika`.`faktura` (`id_fakture`, `broj_fakture`, `datu
 INSERT INTO `poslovnainformatika`.`faktura` (`id_fakture`, `broj_fakture`, `datum_fakture`, `datum_valute`, `iznos_za_placanje`, `obrisano`, `osnovica`, `status_fakture`, `ukupan_pdv`, `kupac_id`, `narudzbenica_rel`, `otpremnica_rel`, `preduzece`, `user_id`) VALUES ('2', '2', '2019-02-05', '2019-02-01', '6000', '0', '600', '01', '18', '2', '2', '2', '2', '2');
 INSERT INTO `poslovnainformatika`.`faktura` (`id_fakture`, `broj_fakture`, `datum_fakture`, `datum_valute`, `iznos_za_placanje`, `obrisano`, `osnovica`, `status_fakture`, `ukupan_pdv`, `kupac_id`, `narudzbenica_rel`, `otpremnica_rel`, `preduzece`, `user_id`) VALUES ('3', '3', '2019-03-05', '2019-03-01', '52324', '0', '6743', '01', '20', '2', '3', '3', '2', '2');
 
-INSERT INTO `poslovnainformatika`.`cenovnik` (`cenovnik_id`, `datum_vazenja`, `obrisano`, `preduzece_id`) VALUES ('1', '2019-03-01', '0', '1');
-INSERT INTO `poslovnainformatika`.`cenovnik` (`cenovnik_id`, `datum_vazenja`, `obrisano`, `preduzece_id`) VALUES ('2', '2019-03-01', '0', '2');
-INSERT INTO `poslovnainformatika`.`cenovnik` (`cenovnik_id`, `datum_vazenja`, `obrisano`, `preduzece_id`) VALUES ('3', '2019-02-01', '1', '2');
+INSERT INTO `poslovnainformatika`.`cenovnik` (`cenovnik_id`,`name`, `datum_vazenja`, `obrisano`, `preduzece_id`) VALUES ('1','Name1', '2019-03-01', '0', '1');
+INSERT INTO `poslovnainformatika`.`cenovnik` (`cenovnik_id`,`name`, `datum_vazenja`, `obrisano`, `preduzece_id`) VALUES ('2','Name2', '2019-03-01', '0', '2');
+INSERT INTO `poslovnainformatika`.`cenovnik` (`cenovnik_id`,`name`, `datum_vazenja`, `obrisano`, `preduzece_id`) VALUES ('3','Name3', '2019-02-01', '1', '2');
 
 INSERT INTO `poslovnainformatika`.`preduzece` (`preduzece_id`, `adresa`, `email`, `name`, `obrisano`, `pib`, `telefon`, `mesto_id`) VALUES ('1', 'adresa1', 'email1', 'ime1', '0', '0123', '12312', '1');
 INSERT INTO `poslovnainformatika`.`preduzece` (`preduzece_id`, `adresa`, `email`, `name`, `obrisano`, `pib`, `telefon`, `mesto_id`) VALUES ('2', 'adresa2', 'email2', 'ime2', '0', '12452', '3155', '2');
@@ -28,9 +28,9 @@ INSERT INTO `poslovnainformatika`.`otpremnica` (`id_otpremnice`, `broj_otpremnic
 INSERT INTO `poslovnainformatika`.`otpremnica` (`id_otpremnice`, `broj_otpremnice`, `datum_isporuke`, `datum_otpremnice`, `obrisano`, `primljena_roba`, `faktura_rel`, `kupac_id`, `preduzece_id`, `prevoznik_id`, `user_id`) VALUES ('2', '2', '2019-02-22', '2019-02-02', '0', '0', '2', '2', '2', '2', '2');
 INSERT INTO `poslovnainformatika`.`otpremnica` (`id_otpremnice`, `broj_otpremnice`, `datum_isporuke`, `datum_otpremnice`, `obrisano`, `primljena_roba`, `faktura_rel`, `kupac_id`, `preduzece_id`, `prevoznik_id`, `user_id`) VALUES ('3', '3', '2019-02-25', '2019-02-20', '0', '0', '3', '2', '2', '2', '2');
 
-INSERT INTO `poslovnainformatika`.`narudzbenica` (`id_narudzbenice`, `broj_narudzbenice`, `datum_isporuke`, `datum_izrade`, `obrisano`, `placena`, `faktura_rel`, `kupac_id`, `preduzece`, `user_id`) VALUES ('1', '1', '2019-02-14', '2019-02-12', '0', '0', '1', '1', '1', '1');
-INSERT INTO `poslovnainformatika`.`narudzbenica` (`id_narudzbenice`, `broj_narudzbenice`, `datum_isporuke`, `datum_izrade`, `obrisano`, `placena`, `faktura_rel`, `kupac_id`, `preduzece`, `user_id`) VALUES ('2', '2', '2019-02-22', '2019-02-16', '0', '0', '2', '2', '2', '2');
-INSERT INTO `poslovnainformatika`.`narudzbenica` (`id_narudzbenice`, `broj_narudzbenice`, `datum_isporuke`, `datum_izrade`, `obrisano`, `placena`, `faktura_rel`, `kupac_id`, `preduzece`, `user_id`) VALUES ('3', '3', '2019-03-25', '2019-03-03', '1', '0', '3', '1', '1', '2');
+INSERT INTO `poslovnainformatika`.`narudzbenica` (`id_narudzbenice`, `broj_narudzbenice`, `datum_isporuke`, `datum_izrade`, `obrisano`, `aktivna`, `faktura_rel`, `kupac_id`, `preduzece`, `user_id`) VALUES ('1', '1', '2019-02-14', '2019-02-12', '0', '1', '1', '1', '1', '1');
+INSERT INTO `poslovnainformatika`.`narudzbenica` (`id_narudzbenice`, `broj_narudzbenice`, `datum_isporuke`, `datum_izrade`, `obrisano`, `aktivna`, `faktura_rel`, `kupac_id`, `preduzece`, `user_id`) VALUES ('2', '2', '2019-02-22', '2019-02-16', '0', '1', '2', '2', '2', '2');
+INSERT INTO `poslovnainformatika`.`narudzbenica` (`id_narudzbenice`, `broj_narudzbenice`, `datum_isporuke`, `datum_izrade`, `obrisano`, `aktivna`, `faktura_rel`, `kupac_id`, `preduzece`, `user_id`) VALUES ('3', '3', '2019-03-25', '2019-03-03', '1', '1', '3', '1', '1', '2');
 
 INSERT INTO `poslovnainformatika`.`pdv` (`pdv_id`, `name`, `obrisano`) VALUES ('1', 'pdv1', '0');
 INSERT INTO `poslovnainformatika`.`pdv` (`pdv_id`, `name`, `obrisano`) VALUES ('2', 'pdv2', '0');
@@ -52,17 +52,17 @@ INSERT INTO `poslovnainformatika`.`stavka_cenovnika` (`stavka_cenovnika_id`, `ce
 INSERT INTO `poslovnainformatika`.`stavka_cenovnika` (`stavka_cenovnika_id`, `cena`, `obrisano`, `cenovnik_id`, `roba_id`) VALUES ('2', '600', '0', '2', '2');
 INSERT INTO `poslovnainformatika`.`stavka_cenovnika` (`stavka_cenovnika_id`, `cena`, `obrisano`, `cenovnik_id`, `roba_id`) VALUES ('3', '523', '1', '1', '1');
 
-INSERT INTO `poslovnainformatika`.`stavka_otpremnice` (`id_stavke_otpremnice`, `cena`, `isporucena_kolicina`, `jedinica_mere`, `napomena`, `naziv`, `obrisano`, `redni_broj`, `id_otpremnice`) VALUES ('1', '500', '2', 'kg', 'napomena1', 'stavka1', '0', '1', '1');
-INSERT INTO `poslovnainformatika`.`stavka_otpremnice` (`id_stavke_otpremnice`, `cena`, `isporucena_kolicina`, `jedinica_mere`, `napomena`, `naziv`, `obrisano`, `redni_broj`, `id_otpremnice`) VALUES ('2', '600', '1', 'l', 'napomena2', 'stavka2', '0', '2', '1');
-INSERT INTO `poslovnainformatika`.`stavka_otpremnice` (`id_stavke_otpremnice`, `cena`, `isporucena_kolicina`, `jedinica_mere`, `napomena`, `naziv`, `obrisano`, `redni_broj`, `id_otpremnice`) VALUES ('3', '6005', '3', 'kg', 'napomena3', 'stavka3', '0', '1', '2');
-INSERT INTO `poslovnainformatika`.`stavka_otpremnice` (`id_stavke_otpremnice`, `cena`, `isporucena_kolicina`, `jedinica_mere`, `napomena`, `naziv`, `obrisano`, `redni_broj`, `id_otpremnice`) VALUES ('4', '123', '10', 'l', 'napomena4', 'stavka4', '0', '2', '2');
-INSERT INTO `poslovnainformatika`.`stavka_otpremnice` (`id_stavke_otpremnice`, `cena`, `isporucena_kolicina`, `jedinica_mere`, `napomena`, `naziv`, `obrisano`, `redni_broj`, `id_otpremnice`) VALUES ('5', '55555', '1', 'm', 'napomena5', 'stavka5', '1', '3', '1');
+INSERT INTO `poslovnainformatika`.`stavka_otpremnice` (`id_stavke_otpremnice`, `cena`, `isporucena_kolicina`, `jedinica_mere`, `napomena`, `naziv`, `obrisano`,`roba_usluga_id`, `redni_broj`, `id_otpremnice`) VALUES ('1', '500', '2', 'kg', 'napomena1', 'stavka1', '0', '1', '1', '1');
+INSERT INTO `poslovnainformatika`.`stavka_otpremnice` (`id_stavke_otpremnice`, `cena`, `isporucena_kolicina`, `jedinica_mere`, `napomena`, `naziv`, `obrisano`,`roba_usluga_id`, `redni_broj`, `id_otpremnice`) VALUES ('2', '600', '1', 'l', 'napomena2', 'stavka2', '0','1', '2', '1');
+INSERT INTO `poslovnainformatika`.`stavka_otpremnice` (`id_stavke_otpremnice`, `cena`, `isporucena_kolicina`, `jedinica_mere`, `napomena`, `naziv`, `obrisano`,`roba_usluga_id`, `redni_broj`, `id_otpremnice`) VALUES ('3', '6005', '3', 'kg', 'napomena3', 'stavka3', '0','2', '1', '2');
+INSERT INTO `poslovnainformatika`.`stavka_otpremnice` (`id_stavke_otpremnice`, `cena`, `isporucena_kolicina`, `jedinica_mere`, `napomena`, `naziv`, `obrisano`,`roba_usluga_id`, `redni_broj`, `id_otpremnice`) VALUES ('4', '123', '10', 'l', 'napomena4', 'stavka4', '0','2', '2', '2');
+INSERT INTO `poslovnainformatika`.`stavka_otpremnice` (`id_stavke_otpremnice`, `cena`, `isporucena_kolicina`, `jedinica_mere`, `napomena`, `naziv`, `obrisano`,`roba_usluga_id`, `redni_broj`, `id_otpremnice`) VALUES ('5', '55555', '1', 'm', 'napomena5', 'stavka5', '1','2', '3', '1');
 
-INSERT INTO `poslovnainformatika`.`stavka_narudzbenice` (`id_stavke_narudzbenice`, `jedinica_mere`, `kolicina`, `naziv`, `obrisano`, `id_narudzbenice`) VALUES ('1', 'kg', '5', 'stavka1', '0', '1');
-INSERT INTO `poslovnainformatika`.`stavka_narudzbenice` (`id_stavke_narudzbenice`, `jedinica_mere`, `kolicina`, `naziv`, `obrisano`, `id_narudzbenice`) VALUES ('2', 'l', '3', 'stavka2', '0', '2');
-INSERT INTO `poslovnainformatika`.`stavka_narudzbenice` (`id_stavke_narudzbenice`, `jedinica_mere`, `kolicina`, `naziv`, `obrisano`, `id_narudzbenice`) VALUES ('3', 'l', '6', 'stavka3', '0', '1');
-INSERT INTO `poslovnainformatika`.`stavka_narudzbenice` (`id_stavke_narudzbenice`, `jedinica_mere`, `kolicina`, `naziv`, `obrisano`, `id_narudzbenice`) VALUES ('4', 'm', '10', 'stavka4', '0', '2');
-INSERT INTO `poslovnainformatika`.`stavka_narudzbenice` (`id_stavke_narudzbenice`, `jedinica_mere`, `kolicina`, `naziv`, `obrisano`, `id_narudzbenice`) VALUES ('5', 't', '1', 'stavka5', '1', '1');
+INSERT INTO `poslovnainformatika`.`stavka_narudzbenice` (`id_stavke_narudzbenice`, `jedinica_mere`, `kolicina`, `naziv`, `obrisano`,`roba_usluga_id`, `id_narudzbenice`) VALUES ('1', 'kg', '5', 'stavka1', '0','1', '1');
+INSERT INTO `poslovnainformatika`.`stavka_narudzbenice` (`id_stavke_narudzbenice`, `jedinica_mere`, `kolicina`, `naziv`, `obrisano`,`roba_usluga_id`, `id_narudzbenice`) VALUES ('2', 'l', '3', 'stavka2', '0','1', '2');
+INSERT INTO `poslovnainformatika`.`stavka_narudzbenice` (`id_stavke_narudzbenice`, `jedinica_mere`, `kolicina`, `naziv`, `obrisano`,`roba_usluga_id`, `id_narudzbenice`) VALUES ('3', 'l', '6', 'stavka3', '0','2', '1');
+INSERT INTO `poslovnainformatika`.`stavka_narudzbenice` (`id_stavke_narudzbenice`, `jedinica_mere`, `kolicina`, `naziv`, `obrisano`,`roba_usluga_id`, `id_narudzbenice`) VALUES ('4', 'm', '10', 'stavka4', '0','2', '2');
+INSERT INTO `poslovnainformatika`.`stavka_narudzbenice` (`id_stavke_narudzbenice`, `jedinica_mere`, `kolicina`, `naziv`, `obrisano`,`roba_usluga_id`, `id_narudzbenice`) VALUES ('5', 't', '1', 'stavka5', '1','1', '1');
 
 INSERT INTO `poslovnainformatika`.`stavka_fakture` (`id_stavke_fakture`, `iznos_pdv`, `iznos_stavke`, `jedinica_mere`, `jedinicna_cena`, `kolicina`, `obrisano`, `osnovica_za_pdv`, `procenat_pdv`, `rabat`, `id_fakture`, `roba_usluga_id`) VALUES ('1', '50', '500', 'kg', '45', '11', '0', '12', '5', '50', '1', '1');
 INSERT INTO `poslovnainformatika`.`stavka_fakture` (`id_stavke_fakture`, `iznos_pdv`, `iznos_stavke`, `jedinica_mere`, `jedinicna_cena`, `kolicina`, `obrisano`, `osnovica_za_pdv`, `procenat_pdv`, `rabat`, `id_fakture`, `roba_usluga_id`) VALUES ('2', '60', '600', 'l', '57', '5', '0', '8', '18', '89', '1', '2');

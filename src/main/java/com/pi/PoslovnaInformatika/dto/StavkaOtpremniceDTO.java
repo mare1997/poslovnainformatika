@@ -10,10 +10,11 @@ public class StavkaOtpremniceDTO {
 	private String napomena;
 	private int idOtpremnice;
 	private String jedinicaMere;
+	private int robaUslugaId;
 	private boolean obrisano;
 
 	public StavkaOtpremniceDTO(int idStavkeOtpremnice, Long redniBroj, String naziv, Long cena, Long isporucenaKolicina,
-			String napomena, int idOtpremnice, String jedinicaMere, boolean obrisano) {
+			String napomena, int idOtpremnice, String jedinicaMere,int robaUslugaId, boolean obrisano) {
 		super();
 		this.idStavkeOtpremnice = idStavkeOtpremnice;
 		this.redniBroj = redniBroj;
@@ -22,12 +23,23 @@ public class StavkaOtpremniceDTO {
 		this.isporucenaKolicina = isporucenaKolicina;
 		this.napomena = napomena;
 		this.idOtpremnice = idOtpremnice;
+		this.robaUslugaId=robaUslugaId;
 		this.jedinicaMere=jedinicaMere;
 		this.obrisano=obrisano;
 	}
 
 	public StavkaOtpremniceDTO() {}
 	
+	
+	
+	public int getRobaUslugaId() {
+		return robaUslugaId;
+	}
+
+	public void setRobaUslugaId(int robaUslugaId) {
+		this.robaUslugaId = robaUslugaId;
+	}
+
 	public int getIdStavkeOtpremnice() {
 		return idStavkeOtpremnice;
 	}

@@ -14,22 +14,24 @@ public class RobaDTO implements Serializable {
 	private Integer id;
 	private String name;
 	private String jedninica_mere;
+	private StavkaCenovnikaDTO cena;
 	private GrupaRobeDTO grupa;
 	private boolean obrisano;
 	
 	public RobaDTO() {
 		super();
 	}
-	public RobaDTO(Integer id, String name, String jedninica_mere, GrupaRobeDTO grupa, boolean obrisano) {
+	public RobaDTO(Integer id, String name, String jedninica_mere,StavkaCenovnikaDTO cena, GrupaRobeDTO grupa, boolean obrisano) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.jedninica_mere = jedninica_mere;
+		this.cena = cena;
 		this.grupa = grupa;
 		this.obrisano = obrisano;
 	}
 	public RobaDTO(Roba r) {
-		this(r.getId(),r.getName(),r.getJedninica_mere(),new GrupaRobeDTO(r.getGrupa()),r.isObrisano());
+		this(r.getId(),r.getName(),r.getJedninica_mere(),new StavkaCenovnikaDTO(r.getCene()),new GrupaRobeDTO(r.getGrupa()),r.isObrisano());
 	}
 	
 	public Integer getId() {
@@ -37,6 +39,14 @@ public class RobaDTO implements Serializable {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	
+	public StavkaCenovnikaDTO getCena() {
+		return cena;
+	}
+	public void setCena(StavkaCenovnikaDTO cena) {
+		this.cena = cena;
 	}
 	public String getName() {
 		return name;

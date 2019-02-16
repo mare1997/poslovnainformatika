@@ -11,12 +11,16 @@ import com.pi.PoslovnaInformatika.dto.StavkaNarudzbeniceDTO;
 import com.pi.PoslovnaInformatika.model.Narudzbenica;
 import com.pi.PoslovnaInformatika.model.StavkaNarudzbenice;
 import com.pi.PoslovnaInformatika.service.interfaces.NarudzbenicaServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.RobaServiceInterface;
 
 @Component
 public class StavkaNarudzbeniceDTOtoStavkaNarudzbenice implements Converter<StavkaNarudzbeniceDTO, StavkaNarudzbenice>{
 
 	@Autowired
 	private NarudzbenicaServiceInterface narudzbenicaService;
+	
+	@Autowired
+	private RobaServiceInterface robaService;
 	
 	@Override
 	public StavkaNarudzbenice convert(StavkaNarudzbeniceDTO source){
@@ -31,6 +35,7 @@ public class StavkaNarudzbeniceDTOtoStavkaNarudzbenice implements Converter<Stav
 		stavkaNarudzbenice.setKolicina(source.getKolicina());
 		stavkaNarudzbenice.setNaziv(source.getNaziv());
 		stavkaNarudzbenice.setJedinicaMere(source.getJedinicaMere());
+		stavkaNarudzbenice.setRoba_usluga_id(robaService.getOne(source.getRobaUslugaId()));
 		stavkaNarudzbenice.setObrisano(source.isObrisano());
 		
 		if(source.getIdNarudzbenice() != 0){

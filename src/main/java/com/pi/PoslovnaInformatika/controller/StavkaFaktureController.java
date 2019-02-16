@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,6 +57,19 @@ public class StavkaFaktureController {
 		return new ResponseEntity<>(toStavkaFaktureDTO.convert(pronadjeneStavke), HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/active/{idFakture}", method=RequestMethod.GET)
+	public ResponseEntity<List<StavkaFaktureDTO>> getActiveStavkeFaktureByFakturaId(@PathVariable Integer idFakture){
+		List<StavkaFakture> sveStavke = stavkaFaktureService.findAll();
+		List<StavkaFakture> pronadjeneStavke = new ArrayList<StavkaFakture>();
+		for(StavkaFakture stavka: sveStavke){
+			if(stavka.getFaktura().getId()==idFakture && stavka.isObrisano()==false){
+				pronadjeneStavke.add(stavka);
+			}
+		}
+		
+		return new ResponseEntity<>(toStavkaFaktureDTO.convert(pronadjeneStavke), HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/stavka/{id}", method=RequestMethod.GET)
 	public ResponseEntity<StavkaFaktureDTO> getStavkaFaktureById(@PathVariable Integer id){
 		StavkaFakture stavkaFakture = stavkaFaktureService.getOne(id);
@@ -64,9 +79,20 @@ public class StavkaFaktureController {
 		return new ResponseEntity<>(toStavkaFaktureDTO.convert(stavkaFakture), HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/active/stavka/{id}", method=RequestMethod.GET)
+	public ResponseEntity<StavkaFaktureDTO> getActiveStavkaFaktureById(@PathVariable Integer id){
+		StavkaFakture stavkaFakture = stavkaFaktureService.getOne(id);
+		if(stavkaFakture==null || stavkaFakture.isObrisano()==true){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(toStavkaFaktureDTO.convert(stavkaFakture), HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/addStavkaFakture", method=RequestMethod.POST, consumes="application/json")
-	public ResponseEntity<StavkaFaktureDTO> addStavkaFakture(@RequestBody StavkaFaktureDTO stavkaFaktureDTO){
-		
+	public ResponseEntity<?> addStavkaFakture(@Validated @RequestBody StavkaFaktureDTO stavkaFaktureDTO, Errors errors){
+		if(errors.hasErrors()) {
+			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
+		}
 		
 		StavkaFakture novaStavkaFakture = stavkaFaktureService.save(toStavkaFakture.convert(stavkaFaktureDTO));
 		return new ResponseEntity<>(toStavkaFaktureDTO.convert(novaStavkaFakture), HttpStatus.OK);
@@ -74,8 +100,10 @@ public class StavkaFaktureController {
 	
 	
 	@RequestMapping(value="/editStavkaFakture/{id}", method=RequestMethod.PUT, consumes="application/json")
-	public ResponseEntity<StavkaFaktureDTO> editStavkaFakture(@PathVariable Integer id, @RequestBody StavkaFaktureDTO editedStavkaFaktureDTO){
-		
+	public ResponseEntity<?> editStavkaFakture(@Validated @PathVariable Integer id, @RequestBody StavkaFaktureDTO editedStavkaFaktureDTO,Errors errors){
+		if(errors.hasErrors()) {
+			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
+		}
 		StavkaFakture stavkaFakture = stavkaFaktureService.getOne(id);
 		if(stavkaFakture==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

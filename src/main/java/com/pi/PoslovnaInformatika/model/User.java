@@ -135,13 +135,7 @@ public class User implements Serializable,UserDetails {
 		this.username = username;
 	}
 
-	public String getUser_password() {
-		return password;
-	}
-
-	public void setUser_password(String user_password) {
-		this.password = user_password;
-	}
+	
 
 	
 
@@ -231,7 +225,17 @@ public class User implements Serializable,UserDetails {
 		return true;
 	}
 
-	
+	public String getauthorities() {
+		String autority= null;
+        for (GrantedAuthority s : user_authorities ) {
+            
+            autority = s.getAuthority();
+            
+        }
+		
+		return autority;
+	}
+
 	
 	
 	

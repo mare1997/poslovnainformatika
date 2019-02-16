@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+
+
 import com.pi.PoslovnaInformatika.model.User;
 import com.pi.PoslovnaInformatika.model.UserTokenState;
 import com.pi.PoslovnaInformatika.security.JwtAuthenticationRequest;
@@ -40,7 +42,8 @@ public class AuthenticationController {
 
 	    @Autowired
 	    private CustomUserDetailsService userDetailsService;
-
+	    
+	    
 
 	    @RequestMapping(value = "/login", method = RequestMethod.POST)
 	    public ResponseEntity<?> createAuthenticationToken(
@@ -55,17 +58,30 @@ public class AuthenticationController {
 	                        authenticationRequest.getPassword()
 	                )
 	        );
+	        
 
 	        // Ubaci username + password u kontext
 	        SecurityContextHolder.getContext().setAuthentication(authentication);
 
 	        // Kreiraj token
 	        User user = (User)authentication.getPrincipal();
+	        if(user.isObrisano() == true) {
+	        	return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+	        }
 	        String jws = tokenHelper.generateToken( user.getUsername());
 
 	        // Vrati token kao odgovor na uspesno autentifikaciju
 	        return ResponseEntity.ok(new UserTokenState(jws));
 	    }
+	    @RequestMapping(value = "/change-password", method = RequestMethod.POST)
+	    public ResponseEntity<?> changePassword(@RequestBody PasswordChanger passwordChanger) {
+	        userDetailsService.changePassword(passwordChanger.oldPassword, passwordChanger.newPassword);
+	        return new ResponseEntity<>(HttpStatus.OK);
+	    }
 
+	    static class PasswordChanger {
+	        public String oldPassword;
+	        public String newPassword;
+	    }
 	    
 }

@@ -1,0 +1,226 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/listaRoba.css">
+	<link rel="stylesheet" type="text/css" href="./css/mainPage.css">
+	<script src="./bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./bootstrap/css/jquery-ui.css">
+	<title>Lista roba</title>
+</head>
+
+<body>
+
+<!-- Navigacija -->
+	<nav>
+		<ul id="mainUl" class="nav navbar-nav">
+			<li><a href="mainPage.html">Home</a></li>
+
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Narudzbenice <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="listaNarudzbenica.html">Lista narudzbenica</a></li>
+					<li><a href="createNarudzbenica.html">Kreiranje
+							narudzbenice</a></li>
+				</ul>
+			</li>
+
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Cenovnik <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="cenovnik.html">Cenovnici</a></li>
+					<li>
+					<li><a href="createCenovnik.html">Kreiranje cenovnika</a></li>>
+				</ul>
+			</li>
+			
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Roba ili usluga <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="listaRobe.html">Lista robe</a></li>
+					<li>
+					<li><a href="createRobu.html">Kreiranje robe</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Prevoznici <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="listaPrevoznika.html">Lista prevoznika</a></li>
+					<li>
+					<li><a href="createPrevoznika.html">Kreiranje prevoznika</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown" id="user" ><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#"><img src="./img/user.png"><span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="registracija.html">Registracija</a></li>
+					<li>
+					<li><a href="editKor.html">Izmeni korisnika</a></li>
+					<li>
+					<li><a href="listaKorisnika.html">Lista korisnika</a></li>
+				</ul>
+			</li>
+
+		</ul>
+	</nav>
+	
+	
+<!-- Toolbar dugmici -->
+
+	<div class="col-lg-5 col-md-offset-2" id="toolbarbuttons">
+		<div class="btn-group">
+			<button class="btn btn-default"> <span class="glyphicon glyphicon-search"></span></button>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></button>
+			<button class="btn btn-default" onClick="addKorisnika()"data-toggle="modal" data-target="#addKorisnika">
+				<span class="glyphicon glyphicon-plus"></span></button>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
+			<button class="btn btn-default" onClick="editKorisnika()"data-toggle="modal" data-target="#editKorisnika">
+				<span class="glyphicon glyphicon-chevron-down"></span></button>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-step-backward"></span></button>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-chevron-right"></span></button>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-step-forward"></span></button>
+		</div>
+	</div>
+
+<!-- Lista robe -->
+
+	<table id="tableId" class="table">
+		<thead>
+			<tr>
+				<th>Ime</th>
+				<th>Prezime</th>
+				<th>Korisnicko ime</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+			</tr>
+		</tbody>
+	</table>
+
+<!-- Modal dodavanja robe -->
+
+	<div id="addKorisnika" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-sm">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Korisnik</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="control-label">Ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addName" style="width: 150px"></label>
+						<label class="control-label">Prezime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addLastname" style="width: 150px"></label>
+						<label class="control-label">Korisnicko ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addUsername" style="width: 150px"></label>
+						<label class="control-label">Lozinja:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="password" id="addPass" style="width: 150px"></label>
+					</div>
+					<div class="modal-footer">
+						<button onClick="createR()" name="createR" class="btn btn-success">Create</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<!-- Modal izmene robe -->
+
+	<div id="editKorisnika" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-sm">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Korisnik</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="control-label">Ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addName" style="width: 150px"></label>
+						<label class="control-label">Prezime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addLastname" style="width: 150px"></label>
+						<label class="control-label">Korisnicko ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addUsername" style="width: 150px"></label>
+						<label class="control-label">Lozinja:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="password" id="addPass" style="width: 150px"></label>
+						<label class="control-label">preduzece:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="preduzece" style="width: 150px" readonly></label>
+					</div>
+					<div class="modal-footer">
+						<button onClick="createR()" name="createR" class="btn btn-success">Create</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<!--Prikaz selektovane robe  -->
+	
+		<div id="prikazRobe">
+			<p><label>Ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <label class="text-muted"></label></p>
+			<p><label>Prezime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><label class="text-muted"></label></p>
+			<p><label>Korisnicko ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><label class="text-muted"></label></p>
+		</div>
+		
+
+</body>
+
+
+<!-- Samo da probam kliktanje po tabeli -->
+<script>
+
+        function addRowHandlers() {
+            var table = document.getElementById("tableId");
+            var rows = table.getElementsByTagName("tr");
+            for (i = 0; i < rows.length; i++) {
+                var currentRow = table.rows[i];
+                var createClickHandler = 
+                    function(row) 
+                    {
+                        return function() { 
+                                                var cell = row.getElementsByTagName("td")[0];
+                                                var id = cell.innerHTML;
+        
+                                                var cell1 = row.getElementsByTagName("td")[1];
+                                                var id2 = cell1.innerHTML;
+
+                                                var cell = row.getElementsByTagName("td")[2];
+                                                var id3 = cell.innerHTML;
+        
+                                                
+
+                                                alert("wohoo" + "!" + id + " - " + id2 + "- "+ id3);
+                           
+                                         };
+                   		 };
+        
+                currentRow.onclick = createClickHandler(currentRow);
+                
+            }
+        }
+        window.onload = addRowHandlers();
+
+       
+        </script>
+</html>

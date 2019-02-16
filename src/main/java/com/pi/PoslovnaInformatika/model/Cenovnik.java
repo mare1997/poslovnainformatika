@@ -32,6 +32,9 @@ public class Cenovnik implements Serializable {
 	@Column(name="cenovnik_id", unique=true, nullable=false) 
 	private Integer id;
 	
+	@Column(name="name", unique=false, nullable=false, length = 50)
+	private String name;
+	
 	@Column(name="datum_vazenja", unique=false, nullable=false)
 	private Date datum_vazenja;
 	
@@ -52,9 +55,10 @@ public class Cenovnik implements Serializable {
 
 
 
-	public Cenovnik(Integer id, Date datum_vazenja, Preduzece preduzece, Set<StavkaCenovnika> cene,boolean obrisano) {
+	public Cenovnik(Integer id,String name, Date datum_vazenja, Preduzece preduzece, Set<StavkaCenovnika> cene,boolean obrisano) {
 		super();
 		this.id = id;
+		this.name = name;
 		this.datum_vazenja = datum_vazenja;
 		this.preduzece = preduzece;
 		this.cene = cene;
@@ -71,6 +75,18 @@ public class Cenovnik implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	
+
+	public String getName() {
+		return name;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 

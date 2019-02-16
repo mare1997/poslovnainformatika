@@ -11,12 +11,16 @@ import com.pi.PoslovnaInformatika.dto.StavkaOtpremniceDTO;
 import com.pi.PoslovnaInformatika.model.Otpremnica;
 import com.pi.PoslovnaInformatika.model.StavkaOtpremnice;
 import com.pi.PoslovnaInformatika.service.interfaces.OtpremnicaServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.RobaServiceInterface;
 
 @Component
 public class StavkaOtpremniceDTOtoStavkaOtpremnice implements Converter<StavkaOtpremniceDTO, StavkaOtpremnice>{
 
 	@Autowired
 	private OtpremnicaServiceInterface otpremnicaService;
+	
+	@Autowired
+	private RobaServiceInterface robaService;
 	
 	@Override
 	public StavkaOtpremnice convert(StavkaOtpremniceDTO source){
@@ -34,6 +38,7 @@ public class StavkaOtpremniceDTOtoStavkaOtpremnice implements Converter<StavkaOt
 		stavkaOtpremnice.setIsporucenaKolicina(source.getIsporucenaKolicina());
 		stavkaOtpremnice.setNapomena(source.getNapomena());
 		stavkaOtpremnice.setJedinicaMere(source.getJedinicaMere());
+		stavkaOtpremnice.setRoba_usluga_id(robaService.getOne(source.getRobaUslugaId()));
 		stavkaOtpremnice.setObrisano(source.isObrisano());
 		
 		if(source.getIdOtpremnice() != 0){

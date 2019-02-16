@@ -43,6 +43,10 @@ public class StavkaOtpremnice implements Serializable{
 	@Column(name="Jedinica_mere",columnDefinition="VARCHAR(20)")
 	private String jedinicaMere;
 	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="roba_usluga_id")
+	private Roba roba_usluga_id;
+	
 	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")
 	private boolean obrisano;
 	
@@ -53,7 +57,7 @@ public class StavkaOtpremnice implements Serializable{
 	public StavkaOtpremnice() {}
 
 	public StavkaOtpremnice(int idStavkeOtpremnice, Long redniBroj, String naziv, Long cena, Long isporucenaKolicina,
-			String napomena, Otpremnica otpremnica,String jedinicaMere,boolean obrisano) {
+			String napomena, Otpremnica otpremnica,String jedinicaMere,Roba roba_usluga_id,boolean obrisano) {
 		super();
 		this.idStavkeOtpremnice = idStavkeOtpremnice;
 		this.redniBroj = redniBroj;
@@ -62,12 +66,21 @@ public class StavkaOtpremnice implements Serializable{
 		this.isporucenaKolicina = isporucenaKolicina;
 		this.napomena = napomena;
 		this.otpremnica = otpremnica;
+		this.roba_usluga_id=roba_usluga_id;
 		this.jedinicaMere=jedinicaMere;
 		this.obrisano=obrisano;
 	}
 
 	
 	
+	public Roba getRoba_usluga_id() {
+		return roba_usluga_id;
+	}
+
+	public void setRoba_usluga_id(Roba roba_usluga_id) {
+		this.roba_usluga_id = roba_usluga_id;
+	}
+
 	public int getIdStavkeOtpremnice() {
 		return idStavkeOtpremnice;
 	}

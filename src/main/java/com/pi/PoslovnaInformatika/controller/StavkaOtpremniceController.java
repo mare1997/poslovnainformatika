@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,6 +57,19 @@ public class StavkaOtpremniceController {
 		return new ResponseEntity<>(toStavkaOtpremniceDTO.convert(pronadjeneStavke), HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/active/{idOtpremnice}", method=RequestMethod.GET)
+	public ResponseEntity<List<StavkaOtpremniceDTO>> getActiveStavkeOtpremniceByOtpremnicaId(@PathVariable Integer idOtpremnice){
+		List<StavkaOtpremnice> sveStavke = stavkaOtpremniceService.findAll();
+		List<StavkaOtpremnice> pronadjeneStavke = new ArrayList<StavkaOtpremnice>();
+		for(StavkaOtpremnice stavka: sveStavke){
+			if(stavka.getOtpremnica().getIdOtpremnice()==idOtpremnice && stavka.isObrisano()==false){
+				pronadjeneStavke.add(stavka);
+			}
+		}
+		
+		return new ResponseEntity<>(toStavkaOtpremniceDTO.convert(pronadjeneStavke), HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/stavka/{id}", method=RequestMethod.GET)
 	public ResponseEntity<StavkaOtpremniceDTO> getStavkaOtpremniceById(@PathVariable Integer id){
 		StavkaOtpremnice stavkaOtpremnice = stavkaOtpremniceService.getOne(id);
@@ -64,9 +79,20 @@ public class StavkaOtpremniceController {
 		return new ResponseEntity<>(toStavkaOtpremniceDTO.convert(stavkaOtpremnice), HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/active/stavka/{id}", method=RequestMethod.GET)
+	public ResponseEntity<StavkaOtpremniceDTO> getActiveStavkaOtpremniceById(@PathVariable Integer id){
+		StavkaOtpremnice stavkaOtpremnice = stavkaOtpremniceService.getOne(id);
+		if(stavkaOtpremnice==null || stavkaOtpremnice.isObrisano()==true){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(toStavkaOtpremniceDTO.convert(stavkaOtpremnice), HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/addStavkaOtpremnice", method=RequestMethod.POST, consumes="application/json")
-	public ResponseEntity<StavkaOtpremniceDTO> addStavkaOtpremnice(@RequestBody StavkaOtpremniceDTO stavkaOtpremniceDTO){
-		
+	public ResponseEntity<?> addStavkaOtpremnice(@Validated @RequestBody StavkaOtpremniceDTO stavkaOtpremniceDTO,Errors errors){
+		if(errors.hasErrors()) {
+			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
+		}
 		
 		StavkaOtpremnice novaStavkaOtpremnice = stavkaOtpremniceService.save(toStavkaOtpremnice.convert(stavkaOtpremniceDTO));
 		return new ResponseEntity<>(toStavkaOtpremniceDTO.convert(novaStavkaOtpremnice), HttpStatus.OK);
@@ -74,8 +100,10 @@ public class StavkaOtpremniceController {
 	
 	
 	@RequestMapping(value="/editStavkaOtpremnice/{id}", method=RequestMethod.PUT, consumes="application/json")
-	public ResponseEntity<StavkaOtpremniceDTO> editStavkaOtpremnice(@PathVariable Integer id, @RequestBody StavkaOtpremniceDTO editedStavkaOtpremniceDTO){
-		
+	public ResponseEntity<?> editStavkaOtpremnice(@Validated @PathVariable Integer id, @RequestBody StavkaOtpremniceDTO editedStavkaOtpremniceDTO,Errors errors){
+		if(errors.hasErrors()) {
+			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
+		}
 		StavkaOtpremnice stavkaOtpremnice = stavkaOtpremniceService.getOne(id);
 		if(stavkaOtpremnice==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

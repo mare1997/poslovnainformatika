@@ -7,18 +7,30 @@ public class StavkaNarudzbeniceDTO {
 	private Long kolicina;
 	private int idNarudzbenice;
 	private String jedinicaMere;
+	private int robaUslugaId;
 	private boolean obrisano;
 	
 	public StavkaNarudzbeniceDTO() {}
 
-	public StavkaNarudzbeniceDTO(int idStavkeNarudzbenice, String naziv, Long kolicina, int idNarudzbenice, String jedinicaMere, boolean obrisano) {
+	public StavkaNarudzbeniceDTO(int idStavkeNarudzbenice, String naziv, Long kolicina, int idNarudzbenice,int robaUslugaId, String jedinicaMere, boolean obrisano) {
 		super();
 		this.idStavkeNarudzbenice = idStavkeNarudzbenice;
 		this.naziv = naziv;
 		this.kolicina = kolicina;
 		this.idNarudzbenice = idNarudzbenice;
 		this.jedinicaMere=jedinicaMere;
+		this.robaUslugaId=robaUslugaId;
 		this.obrisano=obrisano;
+	}
+
+	
+	
+	public int getRobaUslugaId() {
+		return robaUslugaId;
+	}
+
+	public void setRobaUslugaId(int robaUslugaId) {
+		this.robaUslugaId = robaUslugaId;
 	}
 
 	public int getIdStavkeNarudzbenice() {

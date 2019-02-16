@@ -38,6 +38,10 @@ public class StavkaNarudzbenice implements Serializable{
 	@JoinColumn(name="idNarudzbenice")
 	private Narudzbenica narudzbenica;
 	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="roba_usluga_id")
+	private Roba roba_usluga_id;
+	
 	@Column(name="Obrisano", columnDefinition="BOOLEAN DEFAULT FALSE")
 	private boolean obrisano;
 	
@@ -45,14 +49,28 @@ public class StavkaNarudzbenice implements Serializable{
 
 	
 
-	public StavkaNarudzbenice(int idStavkeNarudzbenice, String naziv, Long kolicina, Narudzbenica narudzbenica,String jedinicaMere,boolean obrisano) {
+	public StavkaNarudzbenice(int idStavkeNarudzbenice, String naziv, Long kolicina, Narudzbenica narudzbenica,String jedinicaMere,Roba roba_usluga_id,boolean obrisano) {
 		super();
 		this.idStavkeNarudzbenice = idStavkeNarudzbenice;
 		this.naziv = naziv;
 		this.kolicina = kolicina;
 		this.narudzbenica = narudzbenica;
 		this.jedinicaMere=jedinicaMere;
+		this.roba_usluga_id=roba_usluga_id;
 		this.obrisano=obrisano;
+	}
+
+
+
+	
+	public Roba getRoba_usluga_id() {
+		return roba_usluga_id;
+	}
+
+
+
+	public void setRoba_usluga_id(Roba roba_usluga_id) {
+		this.roba_usluga_id = roba_usluga_id;
 	}
 
 

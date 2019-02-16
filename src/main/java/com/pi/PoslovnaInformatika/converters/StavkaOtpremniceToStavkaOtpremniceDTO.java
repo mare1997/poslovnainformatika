@@ -28,6 +28,7 @@ public class StavkaOtpremniceToStavkaOtpremniceDTO implements Converter<StavkaOt
 		stavkaOtpremniceDTO.setIsporucenaKolicina(source.getIsporucenaKolicina());
 		stavkaOtpremniceDTO.setNapomena(source.getNapomena());
 		stavkaOtpremniceDTO.setJedinicaMere(source.getJedinicaMere());
+		stavkaOtpremniceDTO.setRobaUslugaId(source.getRoba_usluga_id().getId());
 		stavkaOtpremniceDTO.setObrisano(source.isObrisano());
 		
 		if(source.getOtpremnica() !=null){

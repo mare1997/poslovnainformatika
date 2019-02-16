@@ -19,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity                 
@@ -45,8 +46,9 @@ public class Roba implements Serializable {
 	@JoinColumn(name = "grupa_robe_id", referencedColumnName = "grupa_robe_id", nullable = true)
 	private GrupaRobe grupa;
 	
-	@OneToMany(cascade = { ALL }, fetch = LAZY, mappedBy = "roba")
-	private Set<StavkaCenovnika> cene=new HashSet<StavkaCenovnika>();
+	@OneToOne()
+	@JoinColumn(name="cena_id")
+	private StavkaCenovnika cena;
 	
 	@OneToMany(mappedBy="roba_usluga_id", cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<StavkaFakture> stavkeFakture;
@@ -57,14 +59,14 @@ public class Roba implements Serializable {
 	public Roba() {}
 	
 	
-	public Roba(Integer id, String name, String jedninica_mere, GrupaRobe grupa, Set<StavkaCenovnika> cene,
+	public Roba(Integer id, String name, String jedninica_mere, GrupaRobe grupa, StavkaCenovnika cene,
 			List<StavkaFakture> stavkeFakture,boolean obrisano) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.jedninica_mere = jedninica_mere;
 		this.grupa = grupa;
-		this.cene = cene;
+		this.cena = cene;
 		this.stavkeFakture = stavkeFakture;
 		this.obrisano = obrisano;
 	}
@@ -110,13 +112,13 @@ public class Roba implements Serializable {
 	}
 
 
-	public Set<StavkaCenovnika> getCene() {
-		return cene;
+	public StavkaCenovnika getCene() {
+		return cena;
 	}
 
 
-	public void setCene(Set<StavkaCenovnika> cene) {
-		this.cene = cene;
+	public void setCene(StavkaCenovnika cene) {
+		this.cena = cene;
 	}
 
 

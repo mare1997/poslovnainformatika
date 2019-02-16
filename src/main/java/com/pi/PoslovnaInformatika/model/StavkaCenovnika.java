@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity                 
@@ -30,8 +31,8 @@ public class StavkaCenovnika implements Serializable {
 	@Column(name="cena", unique=false, nullable=false)
 	private long cena;
 	
-	@ManyToOne
-	@JoinColumn(name = "roba_id", referencedColumnName = "roba_id", nullable = true)
+	@OneToOne
+	@JoinColumn(name = "roba_id", nullable = true)
 	private Roba roba;
 	
 	@ManyToOne

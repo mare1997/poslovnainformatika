@@ -1,0 +1,118 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/registracija.css">
+	<link rel="stylesheet" type="text/css"href="./css/mainPage.css">
+	<script src="./bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./bootstrap/css/jquery-ui.css">
+	<title>Dodavanje robe</title>
+</head>
+
+<body>
+
+	<!-- Navigacija -->
+	<nav>
+		<ul id="mainUl" class="nav navbar-nav">
+			<li><a href="mainPage.html">Home</a></li>
+
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Narudzbenice <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="listaNarudzbenica.html">Lista narudzbenica</a></li>
+					<li><a href="createNarudzbenica.html">Kreiranje
+							narudzbenice</a></li>
+				</ul>
+			</li>
+
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Cenovnik <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="cenovnik.html">Cenovnici</a></li>
+					<li>
+					<li><a href="createCenovnik.html">Kreiranje cenovnika</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Roba ili usluga <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="listaRobe.html">Lista robe</a></li>
+					<li>
+					<li><a href="createRobu.html">Kreiranje robe</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Prevoznici <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="listaPrevoznika.html">Lista prevoznika</a></li>
+					<li>
+					<li><a href="createPrevoznika.html">Kreiranje prevoznika</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown" id="user" ><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#"><img src="./img/user.png"><span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="registracija.html">Registracija</a></li>
+					<li>
+					<li><a href="editKor.html">Izmeni korisnika</a></li>
+					<li>
+					<li><a href="listaKorisnika.html">Lista korisnika</a></li>
+				</ul>
+			</li>
+
+		</ul>
+	</nav>
+
+<!-- Kreiranje narudzbenice -->
+
+	<table id="tableCreate" class="table">
+
+		<thead>
+			<th> Korisnik: </th>
+		</thead>
+		<tbody>
+			
+			<tr>
+				<td>Ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="text" name="imeKorisnika"
+					style="width: 150px">
+				</td>
+
+			</tr>
+			<tr>
+				<td>Prezime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="text" name="prezimeKorisnika"
+					style="width: 150px">
+				</td>
+
+			</tr>
+			<tr>
+				<td>Korisnicko ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="text" name="korisnickoIme"
+					style="width: 150px">
+				</td>
+
+			</tr>
+			<tr>
+				<td>Lozinka:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="password" name="lozinka"
+					style="width: 150px">
+				</td>
+
+			</tr>
+			<tr>
+				<td><input type="submit" value="OK" id="okButton"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+
+</html>

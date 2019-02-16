@@ -3,11 +3,12 @@ package com.pi.PoslovnaInformatika.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
 import com.pi.PoslovnaInformatika.repository.PGPrepository;
 import com.pi.PoslovnaInformatika.service.interfaces.PGPserviceInterface;
-
+@Service
 public class PGPservice implements PGPserviceInterface {
 
 	@Autowired
