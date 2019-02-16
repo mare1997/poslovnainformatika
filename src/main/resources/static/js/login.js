@@ -1,3 +1,8 @@
+$(document).ready(function(){
+	
+	
+});
+
 function login(){
 	var username=$('#usernameLog').val().trim();
 	var pass =$('#passLog').val().trim();
