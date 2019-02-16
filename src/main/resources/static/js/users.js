@@ -1,12 +1,11 @@
+var token= localStorage.getItem("token");
 var currentUserId = "";
 $(document).ready(function() {
-	loginStatus();
 	loadUsers();
 });
 function loginStatus(){
 	currentUserId = localStorage.getItem("id");
 	console.log("currentUserId: "+currentUserId);
-	token = localStorage.getItem("token");
 	
 
 
@@ -15,7 +14,7 @@ function loginStatus(){
 
 function loadUsers(){
   $.ajax({
-    url:'https://localhost:8081/api/users/active',
+    url:'https://localhost:8081/api/users',
     headers:{Authorization:"Bearer " + token},
     type:"GET",
     dataType: 'json',
@@ -23,12 +22,12 @@ function loadUsers(){
     success: function (response) {
       var table = $('#usersBody');
       for (var i=0; i<response.length; i++){
-        user = response(i);
-        while(user){
+        user = response[i];
+        
           table.append(
             '<tr>'+'<td>'+user.firstname+'</td><td>'+user.lastname+'</td><td>'+user.username+'</td></tr>'
           )
-        }
+        
       }
     },error: function (jqXHR, textStatus, errorThrown) {
 			alert("read error!!!");
@@ -65,7 +64,8 @@ function register(){
 	$.ajax({
 		type: 'POST',
         contentType: 'application/json',
-        url: 'http://localhost:8081/api/users/',
+        url:'https://localhost:8081/api/users/add',
+        headers:{Authorization:"Bearer " + token},
         data: JSON.stringify(data),
         dataType: 'json',
 		cache: false,
@@ -86,7 +86,8 @@ function register(){
 function userForEdit(){
 	$.ajax({
 		type: 'GET',
-        url: 'http://localhost:8081/api/users/'+currentUserId,
+		url:'https://localhost:8081/api/users',
+	    headers:{Authorization:"Bearer " + token},
 		cache: false,
         success: function (response) {
         	$('#editKorisnika').modal();
