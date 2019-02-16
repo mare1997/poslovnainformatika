@@ -1,7 +1,4 @@
-$(document).ready(function(){
-	
-	
-});
+
 
 function login(){
 	var username=$('#usernameLog').val().trim();
@@ -33,6 +30,7 @@ function login(){
 			console.log(response);
 
 			localStorage.setItem("token",token);
+			localStorage.setItem("id",response.id);
 			console.log(username);
 			localStorage.setItem("username",username);
 			console.log("login i ajax success");

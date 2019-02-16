@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script src="js/jquery-2.1.4.min.js"></script>
-	<script src="js/jquery-ui.js"></script>
+	<script src="js/users.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/listaRoba.css">
 	<link rel="stylesheet" type="text/css" href="./css/mainPage.css">
 	<script src="./bootstrap/js/bootstrap.min.js"></script>
@@ -77,10 +77,10 @@
 		<div class="btn-group">
 			<button class="btn btn-default"> <span class="glyphicon glyphicon-search"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></button>
-			<button class="btn btn-default" onClick="addKorisnika()"data-toggle="modal" data-target="#addKorisnika">
+			<button class="btn btn-default" onClick="registerModal()"data-toggle="modal" data-target="#addKorisnika">
 				<span class="glyphicon glyphicon-plus"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
-			<button class="btn btn-default" onClick="editKorisnika()"data-toggle="modal" data-target="#editKorisnika">
+			<button class="btn btn-default" onClick="userForEdit()"data-toggle="modal" data-target="#editKorisnika">
 				<span class="glyphicon glyphicon-chevron-down"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-step-backward"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button>
@@ -99,22 +99,8 @@
 				<th>Korisnicko ime</th>
 			</tr>
 		</thead>
-		<tbody>
-			<tr>
-				<td>1</td>
-				<td>2</td>
-				<td>3</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>2</td>
-				<td>3</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>2</td>
-				<td>3</td>
-			</tr>
+		<tbody id="usersBody">
+			
 		</tbody>
 	</table>
 
@@ -134,10 +120,10 @@
 						<label class="control-label">Ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addName" style="width: 150px"></label>
 						<label class="control-label">Prezime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addLastname" style="width: 150px"></label>
 						<label class="control-label">Korisnicko ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addUsername" style="width: 150px"></label>
-						<label class="control-label">Lozinja:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="password" id="addPass" style="width: 150px"></label>
+						<label class="control-label">Lozinka:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="password" id="addPass" style="width: 150px"></label>
 					</div>
 					<div class="modal-footer">
-						<button onClick="createR()" name="createR" class="btn btn-success">Create</button>
+						<button onClick="register()" name="createKor" class="btn btn-success">Create</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 					</div>
 				</div>
@@ -159,14 +145,14 @@
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
-						<label class="control-label">Ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addName" style="width: 150px"></label>
-						<label class="control-label">Prezime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addLastname" style="width: 150px"></label>
-						<label class="control-label">Korisnicko ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addUsername" style="width: 150px"></label>
-						<label class="control-label">Lozinja:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="password" id="addPass" style="width: 150px"></label>
+						<label class="control-label">Ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="editName" style="width: 150px"></label>
+						<label class="control-label">Prezime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="editLastname" style="width: 150px"></label>
+						<label class="control-label">Korisnicko ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="editUsername" style="width: 150px"></label>
+						<label class="control-label">Lozinka:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="password" id="editPass" style="width: 150px"></label>
 						<label class="control-label">preduzece:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="preduzece" style="width: 150px" readonly></label>
 					</div>
 					<div class="modal-footer">
-						<button onClick="createR()" name="createR" class="btn btn-success">Create</button>
+						<button onClick="saveUserEdit" name="editUser" class="btn btn-success">Edit</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 					</div>
 				</div>

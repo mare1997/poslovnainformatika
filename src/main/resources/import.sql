@@ -73,9 +73,18 @@ INSERT INTO `poslovnainformatika`.`stopa_pdv` (`stopa_pdv_id`, `datum_vazenja`, 
 INSERT INTO `poslovnainformatika`.`stopa_pdv` (`stopa_pdv_id`, `datum_vazenja`, `obrisano`, `procenat`, `pdv_id`) VALUES ('2', '2019-03-30', '0', '20', '2');
 INSERT INTO `poslovnainformatika`.`stopa_pdv` (`stopa_pdv_id`, `datum_vazenja`, `obrisano`, `procenat`, `pdv_id`) VALUES ('3', '2019-02-01', '1', '18', '1');
 
-INSERT INTO `poslovnainformatika`.`users` (`user_id`, `firstname`, `lastname`, `obrisano`, `user_pasword`, `user_type`, `username`, `preduzece_id`) VALUES ('1', 'ime1', 'prezime1', '0', 'sifra1', 'ADMIN', 'user1', '1');
-INSERT INTO `poslovnainformatika`.`users` (`user_id`, `firstname`, `lastname`, `obrisano`, `user_pasword`, `user_type`, `username`, `preduzece_id`) VALUES ('2', 'ime2', 'prezime2', '0', 'sifra2', 'USER', 'user2', '1');
-INSERT INTO `poslovnainformatika`.`users` (`user_id`, `firstname`, `lastname`, `obrisano`, `user_pasword`, `user_type`, `username`, `preduzece_id`) VALUES ('3', 'ime3', 'prezime3', '0', 'sifra3', 'ADMIN', 'user3', '2');
-INSERT INTO `poslovnainformatika`.`users` (`user_id`, `firstname`, `lastname`, `obrisano`, `user_pasword`, `user_type`, `username`, `preduzece_id`) VALUES ('4', 'ime4', 'prezime4', '0', 'sifra4', 'USER', 'user4', '2');
-INSERT INTO `poslovnainformatika`.`users` (`user_id`, `firstname`, `lastname`, `obrisano`, `user_pasword`, `user_type`, `username`, `preduzece_id`) VALUES ('5', 'ime5', 'prezime5', '1', 'sifra5', 'USER', 'user5', '1');
+INSERT INTO `poslovnainformatika`.`users` (`user_id`, `firstname`, `lastname`, `obrisano`, `user_pasword`,  `username`, `preduzece_id`) VALUES ('1', 'ime1', 'prezime1', '0', 'sifra1',  'user1', '1');
+INSERT INTO `poslovnainformatika`.`users` (`user_id`, `firstname`, `lastname`, `obrisano`, `user_pasword`,  `username`, `preduzece_id`) VALUES ('2', 'ime2', 'prezime2', '0', 'sifra2',  'user2', '1');
+INSERT INTO `poslovnainformatika`.`users` (`user_id`, `firstname`, `lastname`, `obrisano`, `user_pasword`,  `username`, `preduzece_id`) VALUES ('3', 'ime3', 'prezime3', '0', 'sifra3',  'user3', '2');
+INSERT INTO `poslovnainformatika`.`users` (`user_id`, `firstname`, `lastname`, `obrisano`, `user_pasword`,  `username`, `preduzece_id`) VALUES ('4', 'ime4', 'prezime4', '0', 'sifra4',  'user4', '2');
+INSERT INTO `poslovnainformatika`.`users` (`user_id`, `firstname`, `lastname`, `obrisano`, `user_pasword`,  `username`, `preduzece_id`) VALUES ('5', 'ime5', 'prezime5', '1', 'sifra5',  'user5', '1');
+
+
+INSERT INTO authority(name)VALUES('ADMIN')
+INSERT INTO authority(name)VALUES('REGULAR')
+
+INSERT INTO user_authority(user_id,authority_id)VALUES(1,1)
+INSERT INTO user_authority(user_id,authority_id)VALUES(2,2)
+INSERT INTO user_authority(user_id,authority_id)VALUES(3,2)
+INSERT INTO user_authority(user_id,authority_id)VALUES(4,2)
 
