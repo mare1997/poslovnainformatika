@@ -38,4 +38,10 @@ public class GrupaRobeService implements  GrupaRobeServiceInterface {
 		crr.deleteById(id);
 	}
 
+	@Override
+	public GrupaRobe getByName(String name) {
+		// TODO Auto-generated method stub
+		return crr.getByName(name);
+	}
+
 }

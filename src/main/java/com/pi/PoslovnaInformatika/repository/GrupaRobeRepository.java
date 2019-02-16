@@ -7,5 +7,5 @@ import com.pi.PoslovnaInformatika.model.GrupaRobe;
 
 
 public interface GrupaRobeRepository extends JpaRepository<GrupaRobe , Integer> {
-
+	GrupaRobe getByName(String name); 
 }

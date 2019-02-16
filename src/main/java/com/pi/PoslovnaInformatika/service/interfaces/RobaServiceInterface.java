@@ -10,4 +10,5 @@ public interface RobaServiceInterface{
 	Roba getOne(Integer Roba);
 	Roba save(Roba Roba);
 	void remove(Integer id);
+	Roba getByName(String roba);
 }

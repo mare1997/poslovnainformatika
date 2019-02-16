@@ -13,4 +13,5 @@ public interface GrupaRobeServiceInterface{
 	GrupaRobe getOne(Integer GrupaRobeid);
 	GrupaRobe save(GrupaRobe GrupaRobe);
 	void remove(Integer id);
+	GrupaRobe getByName(String name);
 }

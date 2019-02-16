@@ -42,7 +42,7 @@ public class KupacContoller {
     public ResponseEntity<KupacDTO> getKupac(@PathVariable("id") int id){
     	
     	Kupac kupac = ksi.getOne(id);
-        if(kupac == null)
+        if(kupac == null || kupac.isObrisano() == true)
             return new ResponseEntity<KupacDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<KupacDTO>(new KupacDTO(kupac),HttpStatus.OK);
     }

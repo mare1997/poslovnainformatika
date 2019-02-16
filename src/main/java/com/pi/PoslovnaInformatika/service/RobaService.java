@@ -38,4 +38,10 @@ public class RobaService implements RobaServiceInterface {
 		rr.deleteById(id);
 	}
 
+	@Override
+	public Roba getByName(String roba) {
+		// TODO Auto-generated method stub
+		return rr.getByName(roba);
+	}
+
 }

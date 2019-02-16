@@ -1,5 +1,8 @@
 package com.pi.PoslovnaInformatika.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +41,18 @@ public class PoslovnaGodinaController {
             return new ResponseEntity<PoslovnaGodinaDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<PoslovnaGodinaDTO>(new PoslovnaGodinaDTO(godina),HttpStatus.OK);
     }
+	@GetMapping(value = "/all")
+	public ResponseEntity<List<PoslovnaGodinaDTO>> getAll(){
+		
+		List<PoslovnaGodinaPreduzeca> pgp = psi.getAll();
+		List<PoslovnaGodinaDTO> pd = new ArrayList<>();
+		for(PoslovnaGodinaPreduzeca p:pgp) {
+			pd.add(new PoslovnaGodinaDTO(p));
+		}
+		
+		return new ResponseEntity<List<PoslovnaGodinaDTO>>(pd,HttpStatus.OK);
+	}
+	
 	@PostMapping(value = "/add")
 	public ResponseEntity<?> add(@Validated @RequestBody PoslovnaGodinaDTO pgDTO,Errors errors){
 		if(errors.hasErrors()) {

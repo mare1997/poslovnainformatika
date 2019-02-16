@@ -51,7 +51,7 @@ public class UserController {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<UserDTO> getUserById(@PathVariable("id") int id){
     	User user= userServiceIterface.getOne(id);
-		if(user == null) {
+		if(user == null || user.isObrisano() == true) {
 			return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
 		}
 		
@@ -63,7 +63,9 @@ public class UserController {
     	List<User> users = userServiceIterface.getAll();
 		List<UserDTO> userDTO = new ArrayList<UserDTO>();
 		for (User u : users) {
-			userDTO.add(new UserDTO(u));
+			if(u.isObrisano() == false) {
+				userDTO.add(new UserDTO(u));
+			}
 		}
 		return new ResponseEntity<List<UserDTO>>(userDTO, HttpStatus.OK);
 	}
@@ -72,7 +74,7 @@ public class UserController {
 	public ResponseEntity<UserDTO> getUserbyUsername(@PathVariable("username") String username){
     	
 		User user= userServiceIterface.getByUsername(username);
-		if(user == null) {
+		if(user == null || user.isObrisano() == true) {
 			return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
 		}
 		

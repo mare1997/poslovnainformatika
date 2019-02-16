@@ -33,7 +33,7 @@ public class PreduzeceContoller {
     public ResponseEntity<PreduzeceDTO> getpreduzece(@PathVariable("id") int id){
     	
     	Preduzece preduzece = psi.getOne(id);
-        if(preduzece == null)
+        if(preduzece == null || preduzece.isObrisano() == true)
             return new ResponseEntity<PreduzeceDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<PreduzeceDTO>(new PreduzeceDTO(preduzece),HttpStatus.OK);
     }
@@ -44,8 +44,9 @@ public class PreduzeceContoller {
     	List<Preduzece> p=psi.getAll();
         List<PreduzeceDTO> pDTo=new ArrayList<>();
         for (Preduzece  pp:p) {
-            pDTo.add(new PreduzeceDTO(pp));
-            
+        	if(pp.isObrisano() == false) {
+        		pDTo.add(new PreduzeceDTO(pp));
+        	}
         }
         return new ResponseEntity<List<PreduzeceDTO>>(pDTo,HttpStatus.OK);
     }

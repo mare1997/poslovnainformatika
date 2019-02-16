@@ -69,7 +69,7 @@ public class PDVContoller {
         List<PDVDTO> pdvDto=new ArrayList<>();
         for (PDV p:pdv) {
         	if(p.isObrisano() == false) {
-            pdvDto.add(new PDVDTO(p));
+        		pdvDto.add(new PDVDTO(p));
         	}
         }
         return new ResponseEntity<List<PDVDTO>>(pdvDto,HttpStatus.OK);
