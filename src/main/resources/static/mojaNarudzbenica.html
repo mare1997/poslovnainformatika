@@ -58,11 +58,29 @@
 	<table id="tableCreate" class="table">
 
 		<thead>
-			<th> Nova narudzbenica: </th>
+			<th>Pregled narudzbenice: </th>
 		</thead>
 		<tbody>
+			<tr>
+				<td>Broj narudzbenice:&nbsp; <label id="brNarudz"></label>
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Datum izrade:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<label class="text-muted" id="datumIzrade" name="datumIzradeNarudzbenice"
+					style="width: 150px"></label>
+				</td>
+				<td>Datum isporuke:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label class="text-muted" id="datumIsporuke" name="datumIzradeNarudzbenice"
+					style="width: 150px"></label>
+				</td>
+				
+
+			</tr>
 			
-			<td>Dodaj robu <button onClick="loadGrupaRobe()"data-toggle="modal" data-target="#dodajRobu"><span class="glyphicon glyphicon-plus"></span></button>
+			<tr>
+			
+			<td>Izabrana roba i kolicina: 
 		<br/><label id="nazivRobe"></label></td>
 			
 			
@@ -81,8 +99,8 @@
 			<td>Kolicina robe:&nbsp; <input id='kolRobe' type="text"
 					id="kolRobe" name="kolRobe" style="width: 50px">
 				</td>
-				 
-			</tr>-->
+				 -->
+			</tr>
 			<tr>
 				<td>Placena &nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox"
 					name="placena" value="placena">
@@ -94,78 +112,17 @@
 		</tbody>
 		<tfoot>
 			<tr>
+			<td><button class="btn btn-default">Izmeni narudzbenicu</button></td>
 			<td></td>
-			<td></td>
-				<td><button class="btn btn-default" onClick="createStavkaNarudzbenice()">OK</button></td>
+				<td><button class="btn btn-default">Potvrdi narudzbenicu</button></td>
 			
 		
 			</tr>
 			</tfoot>
 	</table>
-	<!--   Modal dodate narudzbenice 
 
-	<div id="createdNarudz" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-m">
-
-			Modal content
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Pregled narudzbenice</h4>
-				</div>
-				<div class="modal-body">
-					<div class="form-group">
-						<label class="control-label">Broj narudzbenice: </label><br/>
-						<label>Datum izrade: </label><label class="control-label" id="addDatumIzrade"></label><br/>
-						<label>Datum isporuke: </label><label class="control-label" id="addDatumIsporuke"></label><br/>
-						<label class="control-label" id="addDatumIzrade">Izabrana roba:</label><br/>
-						<label class="control-label" id="addDatumIsporuke">Kolicina robe:</label><br/>
-						<label type="text"> Placena&nbsp;&nbsp;&nbsp; <input type="checkbox" name="placena" value="placena"></label>
-					</div>
-					<div class="modal-footer">
-						<button onClick="potvrdiN()" name="createN" class="btn btn-success">Potvrdi</button>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Ponisti</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> -->
-	
-	<!-- Dodavanje robe -->
-	<div id="dodajRobu" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-m" style="width: 450px">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					
-				</div>
-				<div class="modal-body">
-					<div class="form-group">
-						<select id="select1" style="width: 150px"><option selected hidden>Grupa robe</option></select>
-						
-						<button onClick="prikazRobe()">ok</button>
-						<select id="select2" style="width: 150px; float:right;margin-top:2px;"><option selected hidden>Roba</option></select>
-						
-						<label>Unesi kolicinu: <input id="kolRobe" type="text" 
-					style="width: 30px; margin-top: 15px;"></label>
-					</div>
-					<div class="form-group">
-					
-						
-					</div>
-					<div class="modal-footer">
-						<button onClick="potvrdiN()" name="createN" class="btn btn-success">Potvrdi</button>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Ponisti</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	
 	
 </body>
-
 
 </html>
