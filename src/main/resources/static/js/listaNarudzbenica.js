@@ -1,3 +1,4 @@
+var token= localStorage.getItem("token");
 $(document).ready(function(){
 	loadListaNarudzbenica()
 	 
@@ -7,7 +8,8 @@ function loadListaNarudzbenica(){
 	 console.log("load lista narudzbenica")
 	 $.ajax({
 			method:'GET',
-			url: "http://localhost:8080/api/narudzbenice/all",
+			url: "https://localhost:8081/api/narudzbenice/all",
+			 headers:{Authorization:"Bearer " + token},
 			dataType: 'json',
 			cashe: false,
 			success: function(response){
