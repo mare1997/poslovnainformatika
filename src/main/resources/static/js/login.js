@@ -21,9 +21,6 @@ function login(){
 		url: 'https://localhost:8081/api/auth/login',
 		data: JSON.stringify(data),
 		dataType: 'json',
-		crossDomain:true,
-		cache:false,
-		processData:false,
 		success: function(response){
 			var token = response.access_token;
 			console.log(token);
@@ -34,6 +31,8 @@ function login(){
 			console.log(username);
 			localStorage.setItem("username",username);
 			console.log("login i ajax success");
+			localStorage.setItem("authority", response.autority);
+			localStorage.setItem("currentUserId", response.id);
 
 			window.location.replace("izborPPG.html");
 		},

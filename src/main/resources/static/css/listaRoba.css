@@ -25,13 +25,13 @@ thead th {
 }
 
 tbody {
-	height: 120px;
+	height: 210px;
 	overflow-y: auto;
 	text-align: center;
 }
 
 tbody td, thead th {
-	width: 33.3%;
+	width: 25%;
 	float: left;
 }
 
@@ -45,6 +45,3 @@ tbody td, thead th {
 	width: 30%;
 	float: left;
 }
-
-
- 

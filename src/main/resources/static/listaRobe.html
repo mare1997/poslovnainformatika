@@ -77,10 +77,10 @@
 		<div class="btn-group">
 			<button class="btn btn-default"> <span class="glyphicon glyphicon-search"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></button>
-			<button class="btn btn-default" onClick="addRoba()"data-toggle="modal" data-target="#addRoba">
+			<button class="btn btn-default" onClick="fillGrupaRobe()"data-target="#addRoba">
 				<span class="glyphicon glyphicon-plus"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
-			<button class="btn btn-default" onClick="editNarudzbenica()"data-toggle="modal" data-target="#editRoba">
+			<button class="btn btn-default" onClick="#"data-toggle="modal" data-target="#editRoba">
 				<span class="glyphicon glyphicon-chevron-down"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-step-backward"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button>
@@ -97,6 +97,7 @@
 				<th>Naziv robe</th>
 				<th>Grupa robe</th>
 				<th>Jedinica mere</th>
+				<th>Cena</th>
 			</tr>
 		</thead>
 		<tbody id="robaBody">
@@ -118,11 +119,12 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label class="control-label">Naziv robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addNazivRobe" style="width: 150px"></label>
-						<label class="control-label" id="pickGrupaRobe">Grupa robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select style="width: 150px"><option>Namirnice</option><option>Alkohol</option><option>Alat</option></select>
-						</label> <label class="control-label" id="addJedinicaMere">Jedinica mere: <input type="text" style="width: 150px">
+						<label class="control-label" >Cena: <input type="number" id="addcenna" style="width: 150px"></label>
+						<label class="control-label" >Jedinica mere: <input type="text" id="addJedinicaMere" style="width: 150px"></label>
+						<label class="control-label" id="grupaRobeadd">Grupa robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select id="pickGrupaRobe"style="width: 150px"></select>
 					</div>
 					<div class="modal-footer">
-						<button onClick="createR()" name="createR" class="btn btn-success">Create</button>
+						<button onClick="addRoba()" name="createR" class="btn btn-success">Create</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 					</div>
 				</div>

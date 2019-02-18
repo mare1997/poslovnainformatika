@@ -79,9 +79,9 @@
 		<div class="btn-group">
 			<button class="btn btn-default"> <span class="glyphicon glyphicon-search"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></button>
-			<button class="btn btn-default" onClick="addCenovnik()"data-toggle="modal" data-target="#addPrevoznika">
+			<button class="btn btn-default" data-toggle="modal" data-target="#addPrevoznika">
 				<span class="glyphicon glyphicon-plus"></span></button>
-			<button class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
+			<button class="btn btn-default"><span class="glyphicon glyphicon-minus"em></span></button>
 			<button class="btn btn-default" onClick="editPrevoznika()"data-toggle="modal" data-target="#editPrevoznika">
 				<span class="glyphicon glyphicon-chevron-down"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-step-backward"></span></button>
@@ -121,7 +121,7 @@
 						<label class="control-label">Naziv prevoznika:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addNazivPrevoznika" style="width: 150px"></label>
 					</div>
 					<div class="modal-footer">
-						<button onClick="createPrev()" name="createP" class="btn btn-success">Create</button>
+						<button onClick="addPrevoznika()" name="createP" class="btn btn-success">Create</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 					</div>
 				</div>
@@ -137,29 +137,4 @@
 </body>
 
 
-
-<script>
-
-        function addRowHandlers() {
-            var table = document.getElementById("tableId");
-            var rows = table.getElementsByTagName("tr");
-            for (i = 0; i < rows.length; i++) {
-                var currentRow = table.rows[i];
-                var createClickHandler =
-                    function(row)
-                    {
-                        return function() {
-                                                location.href = 'listaOtpremnica.html';
-
-                                         };
-                   		 };
-
-                currentRow.onclick = createClickHandler(currentRow);
-
-            }
-        }
-        window.onload = addRowHandlers();
-
-
-        </script>
 </html>
