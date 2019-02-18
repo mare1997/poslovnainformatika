@@ -1,5 +1,13 @@
 $(document).ready(function() {
 	loadPrevoznik();
+	$(document).on("click", "#prevoznikBody tr", function(e) {
+		//var name = this.attr("name");
+		var delId = this.id;
+		var delUserRow = $("#prevoznikBody tr");
+		console.log(delId);
+		localStorage.setItem("deletePrevoznik", delId);
+    //alert(name);
+});
 });
 var token= localStorage.getItem("token");
 function loadPrevoznik(){
@@ -15,7 +23,7 @@ function loadPrevoznik(){
         prevoznik = response[i];
 
           table.append(
-            '<tr>'+'<td>'+prevoznik.name+'</td></tr>'
+            '<tr id="'+prevoznik.id+'">'+'<td>'+prevoznik.name+'</td></tr>'
           )
 
       }
@@ -75,3 +83,29 @@ function deletePrevoznika(id){
 		}
     });
 }
+
+function prevoznikDeleteModal(){
+	$('#prevoznikDeleteModal').modal();
+}
+
+
+function deletePrevoznik(){
+	var brisanje = localStorage.getItem("deletePrevoznik");
+	var token = localStorage.getItem("token");
+	$.ajax({
+        url: 'https://localhost:8081/api/prevoznik/delete/'+brisanje,
+        headers:{Authorization:"Bearer " + token},
+        contentType: "application/json",
+		type: 'DELETE',
+        success: function (response) {
+        	console.log("prevoznik delete success: ");
+        	
+        	$('#prevoznikDeleteModal').modal('toggle');
+        	location.reload();
+        },
+		error: function (jqXHR, textStatus, errorThrown) {  
+			alert(textStatus);
+		}
+    });
+}
+

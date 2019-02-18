@@ -1,11 +1,19 @@
 $(document).ready(function() {
 	loadPdv();
-	$(document).on("click", "#pdvBody tr", function(e) {
+	$(document).on("dblclick", "#pdvBody tr", function(e) {
 		//var name = this.attr("name");
 		var pdvId = this.id;
 		console.log(pdvId);
 		localStorage.setItem("pdvId", pdvId);
 		window.location.replace("stopaPdv.html");
+    //alert(name);
+});
+	
+	$(document).on("click", "#pdvBody tr", function(e) {
+		//var name = this.attr("name");
+		var delPdvId = this.id;
+		console.log(delPdvId);
+		localStorage.setItem("delId", delPdvId);
     //alert(name);
 });
 });
@@ -69,4 +77,28 @@ $.ajax({
 
 	}
 	});
+}
+
+function deletePdv(){
+	var brisanje = localStorage.getItem("delId");
+	var token = localStorage.getItem("token");
+	$.ajax({
+        url: 'https://localhost:8081/api/pdv/delete/'+brisanje,
+        headers:{Authorization:"Bearer " + token},
+        contentType: "application/json",
+		type: 'DELETE',
+        success: function (response) {
+        	console.log("pdv delete success: ");
+        	
+        	$('#deletePdvModal').modal('toggle');
+        	location.reload();
+        },
+		error: function (jqXHR, textStatus, errorThrown) {  
+			alert(textStatus);
+		}
+    });
+}
+
+function openDeleteModal(){
+	$('#deletePdvModal').modal();
 }

@@ -1,5 +1,13 @@
 $(document).ready(function() {
 	loadMesto();
+	$(document).on("click", "#mestoBody tr", function(e) {
+		//var name = this.attr("name");
+		var delId = this.id;
+		var delUserRow = $("#mestoBody tr");
+		console.log(delId);
+		localStorage.setItem("deleteMesto", delId);
+    //alert(name);
+});
 });
 var token= localStorage.getItem("token");
 function loadMesto(){
@@ -15,7 +23,7 @@ function loadMesto(){
         mesto = response[i];
 
           table.append(
-            '<tr>'+'<td>'+mesto.grad+'</td>'+'<td>'+mesto.postanski_broj+'</td></tr>'
+            '<tr id="'+mesto.id+'">'+'<td>'+mesto.grad+'</td>'+'<td>'+mesto.postanski_broj+'</td></tr>'
           )
 
       }
@@ -63,3 +71,29 @@ $.ajax({
 	}
 	});
 }
+
+
+function mestoDeleteModal(){
+	$('#mestoDeleteModal').modal();
+}
+
+function deleteMesto(){
+	var brisanje = localStorage.getItem("deleteMesto");
+	var token = localStorage.getItem("token");
+	$.ajax({
+        url: 'https://localhost:8081/api/mesto/delete/'+brisanje,
+        headers:{Authorization:"Bearer " + token},
+        contentType: "application/json",
+		type: 'DELETE',
+        success: function (response) {
+        	console.log("mesto delete success: ");
+        	
+        	$('#mestoDeleteModal').modal('toggle');
+        	location.reload();
+        },
+		error: function (jqXHR, textStatus, errorThrown) {  
+			alert(textStatus);
+		}
+    });
+}
+

@@ -2,7 +2,7 @@ var pId = ""
 $(document).ready(function() {
 	loadCen();
 	//addRowHandlers();
-	$(document).on("click", "#cenBody tr", function(e) {
+	$(document).on("dblclick", "#cenBody tr", function(e) {
 			//var name = this.attr("name");
 			var cenId = this.id;
 			console.log(cenId);
@@ -10,6 +10,15 @@ $(document).ready(function() {
 			window.location.replace("ceneCenovnika.html");
 	    //alert(name);
 	});
+	
+	$(document).on("click", "#cenBody tr", function(e) {
+		//var name = this.attr("name");
+		var delId = this.id;
+		var delUserRow = $("#usersBody tr");
+		console.log(delId);
+		localStorage.setItem("deleteCenovnik", delId);
+    //alert(name);
+});
 });
 var token= localStorage.getItem("token");
 
@@ -117,6 +126,31 @@ $.ajax({
 
 	}
 	});
+}
+
+function cenovnikDeleteModal(){
+	$('#cenovnikDeleteModal').modal();
+}
+
+
+function deleteCenovnik(){
+	var brisanje = localStorage.getItem("deleteCenovnik");
+	var token = localStorage.getItem("token");
+	$.ajax({
+        url: 'https://localhost:8081/api/cenovnik/delete/'+brisanje,
+        headers:{Authorization:"Bearer " + token},
+        contentType: "application/json",
+		type: 'DELETE',
+        success: function (response) {
+        	console.log("cenovnik delete success: ");
+        	
+        	$('#cenovnikDeleteModal').modal('toggle');
+        	location.reload();
+        },
+		error: function (jqXHR, textStatus, errorThrown) {  
+			alert(textStatus);
+		}
+    });
 }
 
 

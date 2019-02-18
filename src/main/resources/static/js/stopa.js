@@ -2,6 +2,14 @@ var token= localStorage.getItem("token");
 pdvId=""
 $(document).ready(function() {
 	loadStope();
+	$(document).on("click", "#stopeBody tr", function(e) {
+		//var name = this.attr("name");
+		var delId = this.id;
+		var delUserRow = $("#stopeBody tr");
+		console.log(delId);
+		localStorage.setItem("deleteStopa", delId);
+    //alert(name);
+});
 });
 function loadStope(){
 
@@ -23,7 +31,7 @@ var pdvId = localStorage.getItem("pdvId");
     	  console.log("usao u for");
     	  var stopa = response[i];
     	  console.log(stopa);
-    	  table.append('<tr><td>'+stopa.procenat+'%</td><td>'+stopa.datum_vazenja+'</td></tr>');
+    	  table.append('<tr id="'+stopa.id+'"><td>'+stopa.procenat+'%</td><td>'+stopa.datum_vazenja+'</td></tr>');
 
       }
     },error: function (jqXHR, textStatus, errorThrown) {
@@ -94,4 +102,28 @@ function addStopu(){
 
 function stopaModal(){
 	$('#addStopuPdv').modal();
+}
+
+function stopaDeleteModal(){
+	$('#stopaDeleteModal').modal();
+}
+
+function deleteStopa(){
+	var brisanje = localStorage.getItem("deleteStopa");
+	var token = localStorage.getItem("token");
+	$.ajax({
+        url: 'https://localhost:8081/api/stopapdv/delete/'+brisanje,
+        headers:{Authorization:"Bearer " + token},
+        contentType: "application/json",
+		type: 'DELETE',
+        success: function (response) {
+        	console.log("stopa delete success: ");
+        	
+        	$('#stopaDeleteModal').modal('toggle');
+        	location.reload();
+        },
+		error: function (jqXHR, textStatus, errorThrown) {  
+			alert(textStatus);
+		}
+    });
 }

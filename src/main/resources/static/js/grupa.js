@@ -1,5 +1,13 @@
 $(document).ready(function() {
 	loadGrupu();
+	$(document).on("click", "#grupaBody tr", function(e) {
+		//var name = this.attr("name");
+		var delId = this.id;
+		var delUserRow = $("#grupaBody tr");
+		console.log(delId);
+		localStorage.setItem("deleteGrupa", delId);
+    //alert(name);
+});
 });
 preduzeceId=""
 var token= localStorage.getItem("token");
@@ -16,7 +24,7 @@ function loadGrupu(){
         grupa = response[i];
 
           table.append(
-            '<tr>'+'<td>'+grupa.name+'</td>'+'<td>'+grupa.pdv.name+'</td></tr>'
+            '<tr id="'+grupa.id+'">'+'<td>'+grupa.name+'</td>'+'<td>'+grupa.pdv.name+'</td></tr>'
           )
 
       }
@@ -131,3 +139,29 @@ $.ajax({
 		}
     });
 }
+
+function grupaDeleteModal(){
+	$('#grupaDeleteModal').modal();
+}
+
+
+function deleteGrupa(){
+	var brisanje = localStorage.getItem("deleteGrupa");
+	var token = localStorage.getItem("token");
+	$.ajax({
+        url: 'https://localhost:8081/api/gruparobe/delete/'+brisanje,
+        headers:{Authorization:"Bearer " + token},
+        contentType: "application/json",
+		type: 'DELETE',
+        success: function (response) {
+        	console.log("grupa delete success: ");
+        	
+        	$('#grupaDeleteModal').modal('toggle');
+        	location.reload();
+        },
+		error: function (jqXHR, textStatus, errorThrown) {  
+			alert(textStatus);
+		}
+    });
+}
+

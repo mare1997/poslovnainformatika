@@ -3,6 +3,14 @@ var auth = "";
 var currentUserId = "";
 $(document).ready(function() {
 	loadUsers();
+	$(document).on("click", "#usersBody tr", function(e) {
+		//var name = this.attr("name");
+		var delId = this.id;
+		var delUserRow = $("#usersBody tr");
+		console.log(delId);
+		localStorage.setItem("deleteId", delId);
+    //alert(name);
+});
 });
 function loginStatus(){
 	currentUserId = localStorage.getItem("id");
@@ -26,7 +34,7 @@ function loadUsers(){
         user = response[i];
 
           table.append(
-            '<tr>'+'<td>'+user.firstname+'</td><td>'+user.lastname+'</td><td>'+user.username+'</td></tr>'
+            '<tr id="'+user.id+'">'+'<td>'+user.firstname+'</td><td>'+user.lastname+'</td><td>'+user.username+'</td></tr>'
           )
 
       }
@@ -111,62 +119,27 @@ $.ajax({
     });
 }
 
-function userForEdit(){
-	$.ajax({
-		type: 'GET',
-		url:'https://localhost:8081/api/users',
-	    headers:{Authorization:"Bearer " + token},
-		cache: false,
-        success: function (response) {
-        	$('#editKorisnika').modal();
 
-
-        	$('#editName').val(response.firstname);
-          $('#editLastname').val(response.lastname);
-          $('#editUserame').val(response.username);
-          $('#editPass').val(response.password);
-
-        },
-		error: function (jqXHR, textStatus, errorThrown) {
-			alert(textStatus);
-		}
-    });
+function openDeleteModal(){
+	$('#userDeleteModal').modal();
 }
 
-
-function saveUserEdit(){
-  var ime = $('#editName').val().trim();
-	var prezime = $('#editLastname').val().trim();
-	var korIme = $('#editUsername').val().trim();
-	var lozinka = $('#editPass').val().trim();
-
-	if(ime=="" || prezime=="" || korIme=="" || lozinka==""){
-		alert("Sva polja morju biti popunjena!!");
-		return;
-	}
-
-	console.log(ime+" "+prezime+" "+korIme+" "+lozinka+" ");
-	var data={
-        'firstname':ime,
-        'lastname':prezime,
-        'username':korIme,
-        'password':lozinka,
-	}
-
+function deleteUser(){
+	var brisanje = localStorage.getItem("deleteId");
+	var token = localStorage.getItem("token");
 	$.ajax({
-		type: 'PUT',
-        contentType: 'application/json',
-        url: 'http://localhost:8081/api/users/'+currentUserId,
-        data: JSON.stringify(data),
-        dataType: 'json',
-		cache: false,
-		processData: false,
+        url: 'https://localhost:8081/api/users/delete/'+brisanje,
+        headers:{Authorization:"Bearer " + token},
+        contentType: "application/json",
+		type: 'DELETE',
         success: function (response) {
-
-        	$('#editKorisnika').modal('toggle');
+        	console.log("user delete success: ");
+        	
+        	$('#deleteUserModal').modal('toggle');
+        	location.reload();
         },
-		error: function (jqXHR, textStatus, errorThrown) {
-			alert(jqXHR.status);
+		error: function (jqXHR, textStatus, errorThrown) {  
+			alert(textStatus);
 		}
     });
 }

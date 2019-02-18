@@ -18,34 +18,41 @@
 <!-- Navigacija -->
 	<nav>
 		<ul id="mainUl" class="nav navbar-nav">
-			<li><a href="mainPage.html">Home</a></li>
+			<li><a href="#">Home</a></li>
 
 			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#">Narudzbenice <span class="caret"></span></a>
+				data-toggle="dropdown" href="#">Narudzbenice <span class="caret"></span>
+			</a>
+
 				<ul class="dropdown-menu">
 					<li><a href="listaNarudzbenica.html">Lista narudzbenica</a></li>
+					<li>
 					<li><a href="createNarudzbenica.html">Kreiranje
 							narudzbenice</a></li>
-				</ul>
-			</li>
+
+				</ul></li>
 
 			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#">Cenovnik <span class="caret"></span></a>
+				data-toggle="dropdown" href="#">Cenovnik <span class="caret"></span>
+			</a>
+
 				<ul class="dropdown-menu">
 					<li><a href="cenovnik.html">Cenovnici</a></li>
 					<li>
-					<li><a href="createCenovnik.html">Kreiranje cenovnika</a></li>>
-				</ul>
-			</li>
+					<li><a href="createCenovnik.html">Kreiranje cenovnika</a></li>
 
+				</ul></li>
 			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#">Roba ili usluga <span class="caret"></span></a>
+				data-toggle="dropdown" href="#">Roba ili usluga <span
+					class="caret"></span>
+			</a>
+
 				<ul class="dropdown-menu">
 					<li><a href="listaRobe.html">Lista robe</a></li>
 					<li>
 					<li><a href="createRobu.html">Kreiranje robe</a></li>
-				</ul>
-			</li>
+
+				</ul></li>
 
 			<li class="dropdown"><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#">Prevoznici <span class="caret"></span></a>
@@ -67,9 +74,29 @@
 				</ul>
 			</li>
 
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Mesta <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="mesto.html">Mesta</a></li>
+				</ul>
+			</li>
+
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Grupe robe <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="grupaRobe.html">Grupe</a></li>
+				</ul>
+			</li>
+
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Pdv <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="pdv.html">Pdv</a></li>
+				</ul>
+			</li>
+
 		</ul>
 	</nav>
-
 
 <!-- Toolbar dugmici -->
 
@@ -79,7 +106,7 @@
 			<button class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></button>
 			<button class="btn btn-default" onClick="fillGrupaRobe()"data-target="#addRoba">
 				<span class="glyphicon glyphicon-plus"></span></button>
-			<button class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
+			<button class="btn btn-default" onClick="robaDeleteModal()"><span class="glyphicon glyphicon-minus"></span></button>
 			<button class="btn btn-default" onClick="#"data-toggle="modal" data-target="#editRoba">
 				<span class="glyphicon glyphicon-chevron-down"></span></button>
 			<button class="btn btn-default"><span class="glyphicon glyphicon-step-backward"></span></button>
@@ -158,6 +185,28 @@
 			</div>
 		</div>
 	</div>
+	
+	<div id="robaDeleteModal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-sm">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Brisanje robe</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="control-label">Da li ste sigurni da zelite da izbrisete izabranou robu?</label>
+					</div>
+					<div class="modal-footer">
+						<button onClick="deleteRoba()" name="delRoba" class="btn btn-success">Remove</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 <!--Prikaz selektovane robe  -->
@@ -172,40 +221,5 @@
 </body>
 
 
-<!-- Samo da probam kliktanje po tabeli -->
-<script>
 
-        function addRowHandlers() {
-            var table = document.getElementById("tableId");
-            var rows = table.getElementsByTagName("tr");
-            for (i = 0; i < rows.length; i++) {
-                var currentRow = table.rows[i];
-                var createClickHandler =
-                    function(row)
-                    {
-                        return function() {
-                                                var cell = row.getElementsByTagName("td")[0];
-                                                var id = cell.innerHTML;
-
-                                                var cell1 = row.getElementsByTagName("td")[1];
-                                                var id2 = cell1.innerHTML;
-
-                                                var cell = row.getElementsByTagName("td")[2];
-                                                var id3 = cell.innerHTML;
-
-
-
-                                                alert("wohoo" + "!" + id + " - " + id2 + "- "+ id3);
-
-                                         };
-                   		 };
-
-                currentRow.onclick = createClickHandler(currentRow);
-
-            }
-        }
-        window.onload = addRowHandlers();
-
-
-        </script>
 </html>

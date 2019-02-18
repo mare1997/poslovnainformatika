@@ -1,5 +1,13 @@
 $(document).ready(function() {
 	loadRoba();
+	$(document).on("click", "#robaBody tr", function(e) {
+		//var name = this.attr("name");
+		var delId = this.id;
+		var delUserRow = $("#robaBody tr");
+		console.log(delId);
+		localStorage.setItem("deleteRoba", delId);
+    //alert(name);
+});
 });
 var token= localStorage.getItem("token");
 var pId="";
@@ -16,7 +24,7 @@ function loadRoba(){
         roba = response[i];
 			console.log(roba);
           table.append(
-            '<tr value="'+roba.id+'">'+'<td>'+roba.name+'</td><td>'+roba.grupa.name+'</td><td>'+roba.jedninica_mere+'</td><td>'+roba.cena+'</td></tr>'
+            '<tr id="'+roba.id+'" value="'+roba.id+'">'+'<td>'+roba.name+'</td><td>'+roba.grupa.name+'</td><td>'+roba.jedninica_mere+'</td><td>'+roba.cena+'</td></tr>'
           )
 
       }
@@ -112,6 +120,31 @@ $.ajax({
 				alert("Dodavanje neuspesno.");
 			}
 
+		}
+    });
+}
+
+function robaDeleteModal(){
+	$('#robaDeleteModal').modal();
+}
+
+
+function deleteRoba(){
+	var brisanje = localStorage.getItem("deleteRoba");
+	var token = localStorage.getItem("token");
+	$.ajax({
+        url: 'https://localhost:8081/api/roba/delete/'+brisanje,
+        headers:{Authorization:"Bearer " + token},
+        contentType: "application/json",
+		type: 'DELETE',
+        success: function (response) {
+        	console.log("stopa delete success: ");
+        	
+        	$('#robaDeleteModal').modal('toggle');
+        	location.reload();
+        },
+		error: function (jqXHR, textStatus, errorThrown) {  
+			alert(textStatus);
 		}
     });
 }
