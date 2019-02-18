@@ -3,6 +3,8 @@ var token= localStorage.getItem("token");
 $(document).ready(function() {
 	loadPreduzece();
   loadPG();
+	var auth = localStorage.getItem("authority")
+	console.log(auth);
 });
 
 function loadPreduzece(){
@@ -18,7 +20,7 @@ function loadPreduzece(){
         preduzece = response[i];
 
           select.append(
-            '<option>'+preduzece.name+'</option>'
+            '<option value="'+preduzece.id+'">'+preduzece.name+'</option>'
           )
 
       }
@@ -41,7 +43,7 @@ function loadPG(){
         pg = response[i];
 
           select.append(
-            '<option>'+pg.godina+'</option>'
+            '<option value="'+pg.id+'">'+pg.godina+'</option>'
           )
 
       }
@@ -49,4 +51,15 @@ function loadPG(){
 			alert("read error!!!");
   }
 });
+}
+
+function proceed(){
+	var selectP = document.getElementById('preduzeca');
+	var selectPG = document.getElementById('pg');
+	var pgId= selectPG.options[selectPG.selectedIndex].value;
+	var pId= selectP.options[selectP.selectedIndex].value;
+	console.log("id pg: " + pgId + "id pred: " + pId);
+	localStorage.setItem("pgId",pgId);
+	localStorage.setItem("pId",pId);
+	window.location.replace("mainPage.html");
 }

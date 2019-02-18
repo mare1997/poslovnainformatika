@@ -174,39 +174,5 @@
 
 
 <!-- Samo da probam kliktanje po tabeli -->
-<script>
 
-        function addRowHandlers() {
-            var table = document.getElementById("tableId");
-            var rows = table.getElementsByTagName("tr");
-            for (i = 0; i < rows.length; i++) {
-                var currentRow = table.rows[i];
-                var createClickHandler =
-                    function(row)
-                    {
-                        return function() {
-                                                var cell = row.getElementsByTagName("td")[0];
-                                                var id = cell.innerHTML;
-
-                                                var cell1 = row.getElementsByTagName("td")[1];
-                                                var id2 = cell1.innerHTML;
-
-                                                var cell = row.getElementsByTagName("td")[2];
-                                                var id3 = cell.innerHTML;
-
-
-
-                                                alert("wohoo" + "!" + id + " - " + id2 + "- "+ id3);
-
-                                         };
-                   		 };
-
-                currentRow.onclick = createClickHandler(currentRow);
-
-            }
-        }
-        window.onload = addRowHandlers();
-
-
-        </script>
 </html>
