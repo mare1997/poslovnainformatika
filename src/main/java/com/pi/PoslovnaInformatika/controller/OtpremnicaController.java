@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,20 +45,19 @@ public class OtpremnicaController {
 	
 	@RequestMapping(value="/all",method=RequestMethod.GET,params={"page","size"})
 	public ResponseEntity<List<OtpremnicaDTO>> getOtpremnice(@RequestParam("page") int page, @RequestParam("size") int size){
-		Page<Otpremnica> otpremnicePage = otpremnicaService.findAll(PageRequest.of(page, size));
+		Page<Otpremnica> otpremnicePage = otpremnicaService.findAll(PageRequest.of(page, size,Sort.by("datumOtpremnice").descending()));
 		if (page > otpremnicePage.getTotalPages()) {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("totalPages", Integer.toString(otpremnicePage.getTotalPages()));
-		Collections.sort(otpremnicePage.getContent());
 		return new ResponseEntity<>(toOtpremnicaDTO.convert(otpremnicePage.getContent()),headers, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/active/all",method=RequestMethod.GET,params={"page","size"})
 	public ResponseEntity<List<OtpremnicaDTO>> getActiveFakture(@RequestParam("page") int page, @RequestParam("size") int size){
-		Page<Otpremnica> otpremnicePage = otpremnicaService.findAll(PageRequest.of(page, size));
+		Page<Otpremnica> otpremnicePage = otpremnicaService.findAll(PageRequest.of(page, size,Sort.by("datumOtpremnice").descending()));
 		
 		if (page > otpremnicePage.getTotalPages()) {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -68,7 +68,6 @@ public class OtpremnicaController {
 			if (otpremnica.isObrisano()==false)
 					activeOtpremnice.add(otpremnica);
 		}
-		Collections.sort(activeOtpremnice);
 		
 		Page<Otpremnica> activeOtpremnicePage = new PageImpl<>(activeOtpremnice);
 		

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,19 +45,19 @@ public class FakturaController {
 	
 	@RequestMapping(value="/all",method=RequestMethod.GET,params={"page","size"})
 	public ResponseEntity<List<FakturaDTO>> getFakture(@RequestParam("page") int page, @RequestParam("size") int size){
-		Page<Faktura> fakturePage = fakturaService.findAll(PageRequest.of(page, size));
+		Page<Faktura> fakturePage = fakturaService.findAll(PageRequest.of(page, size,Sort.by("datumFakture").descending()));
 		if (page > fakturePage.getTotalPages()) {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("totalPages", Integer.toString(fakturePage.getTotalPages()));
-		Collections.sort(fakturePage.getContent());
+		
 		return new ResponseEntity<>(toFakturaDTO.convert(fakturePage.getContent()),headers, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/active/all",method=RequestMethod.GET,params={"page","size"})
 	public ResponseEntity<List<FakturaDTO>> getActiveFakture(@RequestParam("page") int page, @RequestParam("size") int size){
-		Page<Faktura> fakturePage = fakturaService.findAll(PageRequest.of(page, size));
+		Page<Faktura> fakturePage = fakturaService.findAll(PageRequest.of(page, size,Sort.by("datumFakture").descending()));
 		if (page > fakturePage.getTotalPages()) {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
@@ -66,7 +67,6 @@ public class FakturaController {
 			if (faktura.isObrisano()==false)
 					activeFakture.add(faktura);
 		}
-		Collections.sort(activeFakture);
 		Page<Faktura> activeFakturePage = new PageImpl<>(activeFakture);
 
 		HttpHeaders headers = new HttpHeaders();
@@ -74,6 +74,7 @@ public class FakturaController {
 		
 		return new ResponseEntity<>(toFakturaDTO.convert(activeFakturePage.getContent()), headers,HttpStatus.OK);
 	}
+	
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<FakturaDTO> getFakturaById(@PathVariable Integer id){
