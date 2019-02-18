@@ -3,12 +3,12 @@
     <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
             <script src="js/jquery-2.1.4.min.js"></script>
-            <script src="js/jquery-ui.js"></script>
            <link rel="stylesheet" type="text/css" href="./css/invoice.css">
             <link rel="stylesheet" type="text/css" href="./css/mainPage.css">
             <script src="./bootstrap/js/bootstrap.min.js"></script>
             <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
-            <link rel="stylesheet" href="./bootstrap/css/jquery-ui.css">
+            <script src="js/f.js" type="text/javascript"></script>
+	 <script src="js/invoice.js" type="text/javascript"></script> 
             <title>Faktura</title>
     
     
@@ -64,8 +64,8 @@
                             </td>
                             
                             <td>
-                                Faktura # <label>123</label><br/>
-                                Kreirana: <label> January 1, 2015</label><br/>
+                                Faktura # <label id="brFakture"></label><br/>
+                                Kreirana: <label id="datumFakture"></label><br/>
                                 Datum isporuke: <label> February 1, 2015</label>
                             </td>
                         </tr>
@@ -93,36 +93,9 @@
                 </td>
             </tr>
             
-            <tr class="heading">
-                <td>
-                   Osnovica
-                </td>
-                <td></td>
-                <td></td>
-                		<td></td>	
-                <td></td>
-                <td></td>
-                <td></td>
-                <td style="text-align:center;">
-                    #
-                </td>
-            </tr>
             
-            <tr class="details"  >
-                <td>
-                    
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                
-                <td style="text-align:center;">
-                   8
-                </td>
-            </tr>
+            
+           
             
             <tr class="heading">
                 <td>
@@ -190,18 +163,29 @@
                 </td>
             </tr>
             
-           
+           <tr class="osnovica">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="text-align:left;">Osnovica:</td>
+                <td>
+                   800.00
+                </td>
+            </tr>
              <tr class="ukPDV">
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td style="text-align:right;">Ukupan</td>
-                <td style="text-align:left;">PDV:</td>
+                <td style="text-align:right;"></td>
+                <td style="text-align:left;">Ukupan PDV:</td>
                 <td>
                    80
-                </td>
+                </td> 	
             </tr>
             <tr class="total">
                 <td></td>

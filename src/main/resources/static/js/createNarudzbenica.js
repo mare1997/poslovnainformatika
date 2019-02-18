@@ -1,6 +1,10 @@
+var token= localStorage.getItem("token");
 var idRobe = 0;
+var idN = 0;
 $(document).ready(function(){
 	
+	var currentNarudzbenica = null ;
+
 //	generateSerial() 
 });
 
@@ -23,14 +27,16 @@ function createNarudzbenica(){
    
    
     function prikazRobe(){
-    	var tempUrl = "http://localhost:8080/api/roba/getAllRobadeliteNoName/" ;
+    	var tempUrl = "https://localhost:8081/api/roba/getAllRobadeliteNoName/" ;
     	var x = document.getElementById("select1");
     	var y = x.options[x.selectedIndex].value;
 		console.log("urlll" + tempUrl + "iddddd" + y);
+		
 		$.ajax({
 			 
 			method:'GET',
 			url: tempUrl + y,
+			headers:{Authorization:"Bearer " + token},
 			dataType: 'json',
 			cashe: false,
 			
@@ -69,6 +75,7 @@ function potvrdiN(){
 		var textnode = document.createTextNode(y+ "("+ kolRobe + ")" + ", ");
 		node.appendChild(textnode);
 		document.getElementById("nazivRobe").appendChild(node);
+		
 }
     
 	
@@ -77,7 +84,8 @@ function potvrdiN(){
 	 var idRobe = 0;
 	 $.ajax({
 			method:'GET',
-			url: "http://localhost:8080/api/gruparobe/getGRdeliteNo/all",
+			url: "https://localhost:8081/api/gruparobe/getGRdeliteNo/all",
+			headers:{Authorization:"Bearer " + token},
 			dataType: 'json',
 			cashe: false,
 			success: function(response){
@@ -129,30 +137,85 @@ function potvrdiN(){
  
 
 
- function createStavkaNarudzbenice(){
+ function createNarudzbenica(){
 	 console.log("ko znasta je ovo")
 	 	var kolRobe = $('#kolRobe').val();
 		var x = document.getElementById("select2");
 	    var roba = x.options[x.selectedIndex].value;
-	    
-		var data = new FormData();
-		data.append('naziv',roba);
-		data.append('kolicina',kolRobe);
-		data.append('jedinicaMere', "blabla");
-		data.append('obrisano', false);
-		console.log(roba + kolRobe)
-		console.log(data)
+	    idN = 0;
+	    var formData ={
+	    		'brojNarudzbenice' : '1',
+	    		'datumIzrade' : '2019-01-02',
+	    		'datumIsporuke' : '2019-02-02' ,
+	    		'aktivna' : false,
+	    		'obrisano' : false,
+	    		'faktura_rel' : null,
+	    		'kupac' : 1,
+	    		'user' : 1,
+	    		'preduzece' : '1'
+	    		 
+	    }
+	    console.log(formData)
+	   
 		$.ajax({
 			type: 'POST',
-	        url: 'http://localhost:8080/api/narudzbenice/stavkeNarudzbenice/addStavkaNarudzbenice"',
-	        contentType: false,
-	        data: data,
-			cache: false,
-			processData: false,
+	        url: 'https://localhost:8081/api/narudzbenice/addNarudzbenica',
+	        headers:{Authorization:"Bearer " + token},
+	        contentType: "application/json",
+	        data: JSON.stringify(formData),
+
+
 			dataType: 'json',
 	        success: function (response) {
+	        	idN = response.idNarudzbenice;
+	        	var narudzbenica = response;
+	        	currentNarudzbenica = narudzbenica;
+	        	
+	        	console.log("narddd" +currentNarudzbenica)
+	        	console.log(response.idNarudzbenice);
+	        	createSN(idN);
+	     //   	populateSN(currentNarudzbenica,idN);
+	        	
+	    	}
 		
-	        	console.log("ko zna sta je ovo" + response)
+		},
+		
+	);
+
+};
+
+function createSN(id){
+	
+	var kolRobe = $('#kolRobe').val();
+	var x = document.getElementById("select2");
+    var roba = x.options[x.selectedIndex].value;
+	console.log(id);
+	
+	
+	  var formData ={
+			  	'naziv' : roba,
+				'kolicina' : $('#kolRobe').val(),
+				'jedinicaMere' : 'kg' ,
+				'idNarudzbenice' : id ,
+				'obrisano' : false
+	    }
+
+	  console.log(formData)
+	  $.ajax({
+			type: 'POST',
+	        url: 'https://localhost:8081/api/narudzbenice/stavkeNarudzbenice/addStavkaNarudzbenice',
+	        headers:{Authorization:"Bearer " + token},
+	        contentType: "application/json",
+	        data: JSON.stringify(formData),
+
+
+			dataType: 'json',
+	        success: function (response) {
+	        	console.log("jeeeeeeeee" + response.idStavkeNarudzbenice)
+	        	window.location.href = 'mojaNarudzbenica.html?id='+id;
+	        //	populateStavkeNarudzbenice();
+	        //	window.location.href = '/Videos/user.html?id=' + loggedInUser.id;
+	        	
 	    	}
 		
 		},
@@ -162,5 +225,38 @@ function potvrdiN(){
 };
 
 
- 
+
+
+/*function populateSN(id, narudzbenica){
 	
+	
+	  var formData ={
+			  	'naziv' : roba,
+				'kolicina' : $('#kolRobe').val(),
+				'jedinicaMere' : 'kg' ,
+				'id_narudzbenice' : id ,
+				'obrisano' : false
+	    }
+	  console.log(formData)
+	  $.ajax({
+			type: 'POST',
+	        url: 'https://localhost:8081/api/narudzbenice/stavkeNarudzbenice/addStavkaNarudzbenice',
+	        headers:{Authorization:"Bearer " + token},
+	        contentType: "application/json",
+	        data: JSON.stringify(formData),
+
+
+			dataType: 'json',
+	        success: function (response) {
+	        	console.log("jeeeeeeeee" + response.idStavkeNarudzbenice)
+	    //    	populateStavkeNarudzbenice();
+	        	
+	        	
+	    	}
+		
+		},
+		
+	);
+
+};
+	*/
