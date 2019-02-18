@@ -68,7 +68,7 @@ public class StavkaCenovnikaController {
     	List<StavkaCenovnika> ss=scsi.getAll();
         List<StavkaCenovnikaDTO> scDTo=new ArrayList<>();
         for (StavkaCenovnika s:ss) {
-        	if(s.getCenovnik().getId() == c.getId()) {
+        	if(s.getCenovnik().getId() == c.getId() && s.isObrisano() == false) {
         		scDTo.add(new StavkaCenovnikaDTO(s));
         	}
         }

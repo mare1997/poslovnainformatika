@@ -115,6 +115,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 "/**/*.html",
                 "/**/*.css",
                 "/**/*.js",
+                "/**/*.jpg",
+                "/**/*.png",
                 "/api/poslovnagodina/**"
                 
             );
