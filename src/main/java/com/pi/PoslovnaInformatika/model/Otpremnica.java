@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="Otpremnica")
-public class Otpremnica implements Serializable,Comparable<Otpremnica>{
+public class Otpremnica implements Serializable{
 
 	
 	private static final long serialVersionUID = -3516694711224808432L;
@@ -232,9 +232,5 @@ public class Otpremnica implements Serializable,Comparable<Otpremnica>{
 	}
 
 
-	@Override
-	public int compareTo(Otpremnica o) {
-		
-		return getDatumOtpremnice().compareTo(o.getDatumOtpremnice());
-	}
+
 }
