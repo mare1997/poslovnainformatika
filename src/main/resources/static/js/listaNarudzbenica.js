@@ -8,7 +8,7 @@ function loadListaNarudzbenica(){
 	 console.log("load lista narudzbenica")
 	 $.ajax({
 			method:'GET',
-			url: "https://localhost:8081/api/narudzbenice/all",
+			url: "https://localhost:8081/api/narudzbenice/all?page=0&size=10",
 			 headers:{Authorization:"Bearer " + token},
 			dataType: 'json',
 			cashe: false,

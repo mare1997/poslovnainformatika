@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -11,6 +12,7 @@
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 	<script src="js/f.js" type="text/javascript"></script>
 	<script src="js/createNarudzbenica.js" type="text/javascript"></script>
+<!-- 	<script src="js/mojaNarudzbenica.js" type="text/javascript"></script> -->
 	<title>Kreiranje narudzbenice</title>
 </head>
 
@@ -53,7 +55,7 @@
 
 <!-- Kreiranje narudzbenice -->
 
-	<table id="tableCreate" class="table">
+<!-- 	<table id="tableCreate" class="table">
 
 		<thead>
 			<th> Nova narudzbenica: </th>
@@ -64,7 +66,7 @@
 		<br/><label id="nazivRobe"></label></td>
 			
 			
-	<!-- 			<td>Izabri grupu robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select id="pickRobu" style="width: 150px"><option>Hleb</option><option>Pivo</option><option>Cekic</option></select>
+				<td>Izabri grupu robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select id="pickRobu" style="width: 150px"><option>Hleb</option><option>Pivo</option><option>Cekic</option></select>
 				<td>Roba: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select id="pickRobu" style="width: 150px"><option>Hleb</option><option>Pivo</option><option>Cekic</option></select>
 				</td>
 			<td>Kolicina robe:&nbsp; <input id='kolRobe' type="text"
@@ -80,7 +82,7 @@
 					id="kolRobe" name="kolRobe" style="width: 50px">
 				</td>
 				 
-			</tr>-->
+			</tr>
 			<tr>
 				<td>Placena &nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox"
 					name="placena" value="placena">
@@ -99,7 +101,75 @@
 		
 			</tr>
 			</tfoot>
+	</table> -->
+	
+		<table id="tableCreate" class="table">
+
+		<thead>
+			<th>Pregled narudzbenice: <label style="float:right;" id="username">User:</label> </th>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Broj narudzbenice:&nbsp; <label id="brNarudz"></label>
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Datum izrade:
+					<label class="text-muted" id="datumIzrade" name="datumIzradeNarudzbenice"
+					style="width: 150px"></label>
+				
+				Datum isporuke:<input  type="date" id="datumIsporuke" name="datumIzradeNarudzbenice"
+					style="width: 135px; margin-left: 242px">
+				</td>
+				
+
+			</tr>
+			<tr>
+			<td>Dodaj robu <button onClick="loadGrupaRobe()"data-toggle="modal" data-target="#dodajRobu"><span class="glyphicon glyphicon-plus"></span></button>
+		
+		
+			<br/>
+			<br/>
+			Izabrana roba i kolicina: 
+	<label id="nazivRobe"></label></td>
+			
+			</tr>
+			<tr>
+			<td>
+						
+			Dodaj kupca: <select id="select3" style="width: 150px;margin-top:2px;"><option selected hidden>Kupac</option></select>
+			</td>
+			</tr>
+	<!-- 			<td>Izabri grupu robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select id="pickRobu" style="width: 150px"><option>Hleb</option><option>Pivo</option><option>Cekic</option></select>
+				<td>Roba: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select id="pickRobu" style="width: 150px"><option>Hleb</option><option>Pivo</option><option>Cekic</option></select>
+				</td>
+			<td>Kolicina robe:&nbsp; <input id='kolRobe' type="text"
+					id="kolRobe" name="kolRobe" style="width: 50px">
+				</td>
+
+			</tr>
+			<tr>
+				<td>Izabri grupu robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select id="pickRobu" style="width: 150px"><option>Hleb</option><option>Pivo</option><option>Cekic</option></select>
+				<td>Roba: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select id="pickRobu" style="width: 150px"><option>Hleb</option><option>Pivo</option><option>Cekic</option></select>
+				</td>
+			<td>Kolicina robe:&nbsp; <input id='kolRobe' type="text"
+					id="kolRobe" name="kolRobe" style="width: 50px">
+				</td>
+				 -->
+			
+			<tr>
+				<td>Da li ste zavrsili kreiranje narudzbenice? &nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" name="checkBoxActive"/>
+				</td>
+				<td></td>
+			</tr>
+			
+			
+		</tbody>
+		
 	</table>
+
+	
 	<!--   Modal dodate narudzbenice 
 
 	<div id="createdNarudz" class="modal fade" role="dialog">
@@ -164,15 +234,6 @@
 	
 	
 </body>
-<script>
-/* var select = document.getElementById("select");
-arr =["html", "css", "sandrakralj"];
-for(var i =0; i< arr.length; i++){
-	 var option = document.createElement("OPTION");
-	 txt = document.createTextNode(arr[i]);
-	 option.appendChild(txt);
-	 select.insertBefore(option, select.lastChild);
-	 } */
-</script>
+
 
 </html>

@@ -51,7 +51,7 @@ public class NarudzbenicaController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("totalPages", Integer.toString(narudzbenicePage.getTotalPages()));
 		
-		Collections.sort(narudzbenicePage.getContent());
+	//	Collections.sort(narudzbenicePage.getContent());
 		return new ResponseEntity<>(toNarudzbenicaDTO.convert(narudzbenicePage.getContent()),headers, HttpStatus.OK);
 	}
 	

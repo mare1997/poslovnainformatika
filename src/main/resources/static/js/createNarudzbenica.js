@@ -1,30 +1,143 @@
 var token= localStorage.getItem("token");
 var idRobe = 0;
 var idN = 0;
+var currentNarudzbenica = null;
+var stavka = null;
+var currentUserId = null;
+var currentUsrName = null;
+
 $(document).ready(function(){
 	
-	var currentNarudzbenica = null ;
+	createNarudzbenica();
+	 currentUserId = localStorage.getItem("id");
+	 currentUserUsrName = localStorage.getItem("username");
 
-//	generateSerial() 
+	
+	$('input[name="checkBoxActive"]').click(function() {
+	    if($(this).is(':checked')){
+	        alert('checked');
+	        createFaktura();
+	        
+	        
+	    }
+	});
+	
+	function createFaktura(){
+		console.log("Kreiranje fakture")
+		var date = currentDate();
+		  var formData ={
+		    		'brojFakture' : null,
+		    		'datumFakture' : date,
+		    		'datumValute' : '2019-02-02' ,
+		    		'osnovica' : 800,
+		    		'ukupanPDV' : 500,
+		    		'iznosZaPlacanje' : 900,
+		    		'statusFakture' : "je",
+		    		'narudzbeniceRel' : idN,
+		    		'otpremnicaRel' : 1,
+		    		'kupac' : idN,
+		    		'user' : '1',
+		    		'obrisano' : false,
+		    		'preduzece' : 1
+		    		 
+		    }
+		    console.log("Faktura formData" + formData)
+		   
+			$.ajax({
+				type: 'POST',
+		        url: 'https://localhost:8081/api/fakture/addFaktura',
+		        headers:{Authorization:"Bearer " + token},
+		        contentType: "application/json",
+		        data: JSON.stringify(formData),
+
+
+				dataType: 'json',
+		        success: function (response) {
+		        	console.log(response);
+		        	idFakture = response.idFakture;
+		        	console.log(idFakture);
+		        	loadFakture(idFakture);
+		        	
+		        	
+		        	
+		        },
+				error: function (jqXHR, textStatus, errorThrown) {  
+					alert(textStatus);
+				}
+		    });
+		}
+
+	function loadFakture(id) {
+		console.log("loadFakture")
+		var tempUrl = "https://localhost:8081/api/fakture/"+id;
+		$.ajax({
+			url: tempUrl,
+			headers:{Authorization:"Bearer " + token},
+			type:'get',
+			dataType: 'json',
+			cashe: false,
+			success: function(response){
+				console.log("Id fakture je" + response.idFakture);
+				id = response.idFakture;
+				createStavkeFakture(id);
+				$('#brFakture').html(id);
+				var date = currentDate();
+				$('#datumFakture').html(date);
+			//	window.location.href = 'invoice.html?id='+id;
+				}
+	          
+			},
+			
+		);
+		
+	}
+	
+	function createStavkeFakture(id){
+		console.log("createStavkeFakture")
+		  var formData ={
+				  	'kolicina' : stavka.kolicina,
+					'jedinicnaCena' : stavka.jedinicnaCena,
+					'rabat' : 8000 ,
+					'osnovicaZaPDV' : 85 ,
+					'procenatPDV' : 2,
+					'iznosPDV' : 560,
+					'iznosStavke' : 9562,
+					'idFakture' : id,
+					'robaUslugaId' : stavka.robaUslugaId,
+					'jedinicaMere' : stavka.jedinicaMere,
+					'obrisano' : false
+		    }
+		
+
+		  console.log(formData)
+		  $.ajax({
+				type: 'POST',
+		        url: 'https://localhost:8081/api/fakture/stavkeFakture/addStavkaFakture',
+		        headers:{Authorization:"Bearer " + token},
+		        contentType: "application/json",
+		        data: JSON.stringify(formData),
+
+
+				dataType: 'json',
+		        success: function (response) {
+		        	console.log("dodao stavku fakture sa id " +response.idStavkeFakture )
+		        	console.log("stavke fakture su" + response + "stavka je " + stavka );
+		       // 	loadStavkeFakture(id, stavka);
+		        
+		        	
+		    	}
+			
+			},
+			
+		);
+
+	};
+	
+	
 });
 
 
-function createNarudzbenica(){
-	
-   
-	console.log("OTvorio se modal za pregled Narudzbenice")
-	var date = currentDate();
-	console.log(date);
-	document.getElementById("addDatumIzrade").innerHTML = date;
-	
-	var date1 = document.getElementById('datumIsporuke').value;
-	console.log("date1 je "+ date1)
-	
-	document.getElementById("addDatumIsporuke").innerHTML = date1;
-	
-	
-    };
-   
+
    
     function prikazRobe(){
     	var tempUrl = "https://localhost:8081/api/roba/getAllRobadeliteNoName/" ;
@@ -67,15 +180,16 @@ function createNarudzbenica(){
 	};
 
 function potvrdiN(){
-		$('#dodajRobu').modal('toggle');
+	/*	$('#dodajRobu').modal('toggle');
 		var kolRobe = $('#kolRobe').val();
 		var x = document.getElementById("select2");
 	    var y = x.options[x.selectedIndex].value;
 		var node = document.createElement("LABEL");
 		var textnode = document.createTextNode(y+ "("+ kolRobe + ")" + ", ");
 		node.appendChild(textnode);
-		document.getElementById("nazivRobe").appendChild(node);
-		
+		document.getElementById("nazivRobe").appendChild(node);*/
+	console.log("ID narudzbenice je" + currentNarudzbenica.idNarudzbenice)
+	createStavkeNarudzbenice(currentNarudzbenica.idNarudzbenice);
 }
     
 	
@@ -104,16 +218,11 @@ function potvrdiN(){
 					 }
 					
 			
-				 }
-				
-				
-				
-			},
-		
-			
-			
-		);
-	};
+			},error: function (jqXHR, textStatus, errorThrown) {
+				alert("read error!!!");
+	  }
+	});
+	}
  function clearSelect1(){
 	 var select = $('#select1');
 	 select.empty();
@@ -124,21 +233,12 @@ function potvrdiN(){
  }			
  
  
- function generateSerial() {
-
-	      var randomNumber;
-
-	        randomNumber = Math.floor(Math.random() * 100);
-	        
-	    
-	    document.getElementById('brNarudz').innerHTML = randomNumber;
-	    
-	}
+ 
  
 
 
  function createNarudzbenica(){
-	 console.log("ko znasta je ovo")
+	 console.log("Kreiranje narudzbenice")
 	 	var kolRobe = $('#kolRobe').val();
 		var x = document.getElementById("select2");
 	    var roba = x.options[x.selectedIndex].value;
@@ -147,7 +247,7 @@ function potvrdiN(){
 	    		'brojNarudzbenice' : '1',
 	    		'datumIzrade' : '2019-01-02',
 	    		'datumIsporuke' : '2019-02-02' ,
-	    		'aktivna' : false,
+	    		'aktivna' : true,
 	    		'obrisano' : false,
 	    		'faktura_rel' : null,
 	    		'kupac' : 1,
@@ -170,10 +270,17 @@ function potvrdiN(){
 	        	idN = response.idNarudzbenice;
 	        	var narudzbenica = response;
 	        	currentNarudzbenica = narudzbenica;
+	        	$('#brNarudz').html(idN);
+				var date = currentDate();
+				$('#datumIzrade').html(date);
+				$('#username').html(currentUserUsrName);
 	        	
-	        	console.log("narddd" +currentNarudzbenica)
+	        	
+	        	
+	        	
+	        	console.log("Kreirana narudzbenica id" +currentNarudzbenica.idNarudzbenice)
 	        	console.log(response.idNarudzbenice);
-	        	createSN(idN);
+	      //  	createSN(idN);
 	     //   	populateSN(currentNarudzbenica,idN);
 	        	
 	    	}
@@ -184,12 +291,11 @@ function potvrdiN(){
 
 };
 
-function createSN(id){
-	
+function createStavkeNarudzbenice(id){
+	console.log("Kreiranje stavke narudzbenice" + id)
 	var kolRobe = $('#kolRobe').val();
 	var x = document.getElementById("select2");
     var roba = x.options[x.selectedIndex].value;
-	console.log(id);
 	
 	
 	  var formData ={
@@ -197,6 +303,7 @@ function createSN(id){
 				'kolicina' : $('#kolRobe').val(),
 				'jedinicaMere' : 'kg' ,
 				'idNarudzbenice' : id ,
+				'robaUslugaId': 1,
 				'obrisano' : false
 	    }
 
@@ -211,8 +318,11 @@ function createSN(id){
 
 			dataType: 'json',
 	        success: function (response) {
-	        	console.log("jeeeeeeeee" + response.idStavkeNarudzbenice)
-	        	window.location.href = 'mojaNarudzbenica.html?id='+id;
+	        	console.log("Id stavke narudzbenice" + response.idStavkeNarudzbenice)
+	        	$('#dodajRobu').modal('toggle');
+	        	
+	        	loadStavkeNarudzbenice(id);
+	       // 	window.location.href = 'mojaNarudzbenica.html?id='+id;
 	        //	populateStavkeNarudzbenice();
 	        //	window.location.href = '/Videos/user.html?id=' + loggedInUser.id;
 	        	
@@ -223,10 +333,44 @@ function createSN(id){
 	);
 
 };
+function loadStavkeNarudzbenice(id){
+	console.log("Ucitavanje stavke narudzbenice?")
+	var tempUrl = "https://localhost:8081/api/narudzbenice/stavkeNarudzbenice/"+id;
+	$.ajax({
+		url: tempUrl,
+		headers:{Authorization:"Bearer " + token},
+		type:'get',
+		dataType: 'json',
+		cashe: false,
+		success: function(response){
+			console.log(response)
+			clearNazivRobe();
+			for(var i=0; i<response.length; i++){
+				stavka = response[i];
+				var nazivRobe = $('#nazivRobe');
+				
+			//Ispraviti   
+				nazivRobe.append('<label>'+stavka.naziv+'('+stavka.kolicina+'</label>'+'),');
+			//	document.getElementById('nazivRobe').append.innerHTML = stavka.naziv;
+				
+				
+				}
+				
+			
+			
+		}
+    
+	},
+	
+);
+
+}
 
 
-
-
+function clearNazivRobe(){
+	var nazivRobe = $('#nazivRobe');
+	nazivRobe.empty();
+}
 /*function populateSN(id, narudzbenica){
 	
 	
@@ -260,3 +404,7 @@ function createSN(id){
 
 };
 	*/
+
+
+	
+

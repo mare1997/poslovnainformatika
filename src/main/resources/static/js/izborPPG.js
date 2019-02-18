@@ -1,4 +1,5 @@
 var token= localStorage.getItem("token");
+
 $(document).ready(function() {
 	loadPreduzece();
   loadPG();
