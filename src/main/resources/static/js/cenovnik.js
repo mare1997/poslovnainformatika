@@ -1,6 +1,15 @@
 var pId = ""
 $(document).ready(function() {
 	loadCen();
+	//addRowHandlers();
+	$(document).on("click", "#cenBody tr", function(e) {
+			//var name = this.attr("name");
+			var cenId = this.id;
+			console.log(cenId);
+			localStorage.setItem("cenId", cenId);
+			window.location.replace("ceneCenovnika.html");
+	    //alert(name);
+	});
 });
 var token= localStorage.getItem("token");
 
@@ -34,7 +43,7 @@ function loadCen(){
         cen = response[i];
 
           table.append(
-            '<tr name="'+cen.id+'"><td>'+cen.name+'</td><td>'+cen.datum_vazenja+'<td><button onclick="click()" height="15px" width="15px" value="read more" name="'+cen.id+'"></button></td></tr>'
+            '<tr id="'+cen.id+'"><td>'+cen.name+'</td><td>'+cen.datum_vazenja+'<td></td></tr>'
           )
 
       }
@@ -110,9 +119,4 @@ $.ajax({
 	});
 }
 
-function click() {
-      //var cId = x.name;
-			//console.log(cId);
-			//localStorage.setItem("cenId", cId);
-			window.location.replace("ceneCenovnika.html");
-  }
+

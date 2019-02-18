@@ -14,7 +14,7 @@ function loadRoba(){
       var table = $('#robaBody');
       for (var i=0; i<response.length; i++){
         roba = response[i];
-				console.log(roba);
+			console.log(roba);
           table.append(
             '<tr value="'+roba.id+'">'+'<td>'+roba.name+'</td><td>'+roba.grupa.name+'</td><td>'+roba.jedninica_mere+'</td><td>'+roba.cena+'</td></tr>'
           )

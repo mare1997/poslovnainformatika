@@ -1,5 +1,13 @@
 $(document).ready(function() {
 	loadPdv();
+	$(document).on("click", "#pdvBody tr", function(e) {
+		//var name = this.attr("name");
+		var pdvId = this.id;
+		console.log(pdvId);
+		localStorage.setItem("pdvId", pdvId);
+		window.location.replace("stopaPdv.html");
+    //alert(name);
+});
 });
 var token= localStorage.getItem("token");
 function loadPdv(){
@@ -15,7 +23,7 @@ function loadPdv(){
         pdv = response[i];
 
           table.append(
-            '<tr>'+'<td>'+pdv.name+'</td></tr>'
+            '<tr id="'+pdv.id+'">'+'<td>'+pdv.name+'</td></tr>'
           )
 
       }
