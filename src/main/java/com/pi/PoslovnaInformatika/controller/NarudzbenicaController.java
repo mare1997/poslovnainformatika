@@ -1,7 +1,6 @@
 package com.pi.PoslovnaInformatika.controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,9 @@ import com.pi.PoslovnaInformatika.converters.NarudzbenicaDTOtoNarudzbenica;
 import com.pi.PoslovnaInformatika.converters.NarudzbenicaToNarudzbenicaDTO;
 import com.pi.PoslovnaInformatika.dto.NarudzbenicaDTO;
 import com.pi.PoslovnaInformatika.model.Narudzbenica;
+import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
 import com.pi.PoslovnaInformatika.service.NarudzbenicaService;
+import com.pi.PoslovnaInformatika.service.PGPservice;
 
 @RestController
 @RequestMapping(value="api/narudzbenice")
@@ -36,6 +37,8 @@ public class NarudzbenicaController {
 	@Autowired
 	private NarudzbenicaService narudzbenicaService;
 	
+	@Autowired
+	private PGPservice pgpService;
 	
 	@Autowired
 	private NarudzbenicaToNarudzbenicaDTO toNarudzbenicaDTO;
@@ -43,22 +46,41 @@ public class NarudzbenicaController {
 	@Autowired
 	private NarudzbenicaDTOtoNarudzbenica toNarudzbenica;
 	
-	@RequestMapping(value="/all",method=RequestMethod.GET,params={"page","size"})
-	public ResponseEntity<List<NarudzbenicaDTO>> getNarudzbenice(@RequestParam("page") int page, @RequestParam("size") int size){
-		Page<Narudzbenica> narudzbenicePage = narudzbenicaService.findAll(PageRequest.of(page, size,Sort.by("datumIzrade").descending()));
-		if (page > narudzbenicePage.getTotalPages()) {
+	
+	@RequestMapping(value="/all",method=RequestMethod.GET,params={"page","size","posGodId","preduzeceId"})
+	public ResponseEntity<List<NarudzbenicaDTO>> getNarudzbenice(@RequestParam("page") int page, @RequestParam("size") int size,
+			@RequestParam("posGodId") int posGodId, @RequestParam("preduzeceId") int preduzeceId){
+		Page<Narudzbenica> sveNarudzbenicePage = narudzbenicaService.findAll(PageRequest.of(page, size,Sort.by("datumIzrade").descending()));
+
+		PoslovnaGodinaPreduzeca posGod = pgpService.getOne(posGodId);
+		if (page > sveNarudzbenicePage.getTotalPages()) {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("totalPages", Integer.toString(narudzbenicePage.getTotalPages()));
+		
+		List<Narudzbenica> activeNarudzbenice = new ArrayList<>();
+		List<Narudzbenica> tempNarudzbenice = sveNarudzbenicePage.getContent();
 
-		return new ResponseEntity<>(toNarudzbenicaDTO.convert(narudzbenicePage.getContent()),headers, HttpStatus.OK);
+		for (Narudzbenica narudzbenica : tempNarudzbenice){
+			if (narudzbenica.getDatumIzrade().after(posGod.getDatumPocetak()) 
+				&& narudzbenica.getDatumIzrade().before(posGod.getDatumKraj())
+				&& narudzbenica.getPreduzece().getId() == preduzeceId)
+			{
+					activeNarudzbenice.add(narudzbenica);
+			}
+		}
+		Page<Narudzbenica> activeNarudzbenicePage = new PageImpl<>(activeNarudzbenice);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("totalPages", Integer.toString(sveNarudzbenicePage.getTotalPages()));
+
+		return new ResponseEntity<>(toNarudzbenicaDTO.convert(activeNarudzbenicePage.getContent()),headers, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/active/all",method=RequestMethod.GET,params={"page","size"})
-	public ResponseEntity<List<NarudzbenicaDTO>> getActiveNarudzbenica(@RequestParam("page") int page, @RequestParam("size") int size){
+	@RequestMapping(value="/active/all",method=RequestMethod.GET,params={"page","size","posGodId","preduzeceId"})
+	public ResponseEntity<List<NarudzbenicaDTO>> getActiveNarudzbenica(@RequestParam("page") int page, @RequestParam("size") int size,
+						@RequestParam("posGodId") int posGodId, @RequestParam("preduzeceId") int preduzeceId){
 		Page<Narudzbenica> narudzbenicePage = narudzbenicaService.findAll(PageRequest.of(page, size,Sort.by("datumIzrade").descending()));
 		
+		PoslovnaGodinaPreduzeca posGod = pgpService.getOne(posGodId);
 		if (page > narudzbenicePage.getTotalPages()) {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
@@ -67,8 +89,13 @@ public class NarudzbenicaController {
 		List<Narudzbenica> tempNarudzbenice = narudzbenicePage.getContent();
 
 		for (Narudzbenica narudzbenica : tempNarudzbenice){
-			if (narudzbenica.isObrisano()==false)
+			if (narudzbenica.isObrisano()==false 
+				&& narudzbenica.getDatumIzrade().after(posGod.getDatumPocetak()) 
+				&& narudzbenica.getDatumIzrade().before(posGod.getDatumKraj())
+				&& narudzbenica.getPreduzece().getId() == preduzeceId)
+			{
 					activeNarudzbenice.add(narudzbenica);
+			}
 		}
 		Page<Narudzbenica> activeNarudzbenicePage = new PageImpl<>(activeNarudzbenice);
 		HttpHeaders headers = new HttpHeaders();

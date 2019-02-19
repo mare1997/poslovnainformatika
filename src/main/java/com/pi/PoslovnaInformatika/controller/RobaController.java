@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -107,6 +108,36 @@ public class RobaController {
         		if(gr.getId() == r.getGrupa().getId()) {
         			robaDTo.add(new RobaDTO(r));
         		}
+        	}
+        }
+        return new ResponseEntity<List<RobaDTO>>(robaDTo,HttpStatus.OK);
+    }
+	
+	@RequestMapping(value="/getAllActiveRobaByName", method = RequestMethod.GET,params={"name"})
+    public ResponseEntity<List<RobaDTO>> getActiveRobaByName(@RequestParam("name") String name){
+    	
+    	List<Roba> roba=rsi.getAll();
+        List<RobaDTO> robaDTo=new ArrayList<>();
+        for (Roba r:roba) {
+        	if(r.isObrisano() == false && r.getName().contains(name)) {
+        		
+        			robaDTo.add(new RobaDTO(r));
+        		
+        	}
+        }
+        return new ResponseEntity<List<RobaDTO>>(robaDTo,HttpStatus.OK);
+    }
+	
+	@RequestMapping(value="/getAllRobaByName", method = RequestMethod.GET,params={"name"})
+    public ResponseEntity<List<RobaDTO>> getRobaByName(@RequestParam("name") String name){
+    	
+    	List<Roba> roba=rsi.getAll();
+        List<RobaDTO> robaDTo=new ArrayList<>();
+        for (Roba r:roba) {
+        	if(r.getName().contains(name)) {
+        		
+        			robaDTo.add(new RobaDTO(r));
+        		
         	}
         }
         return new ResponseEntity<List<RobaDTO>>(robaDTo,HttpStatus.OK);

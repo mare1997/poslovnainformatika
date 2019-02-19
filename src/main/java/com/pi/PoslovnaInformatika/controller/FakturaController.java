@@ -26,7 +26,9 @@ import com.pi.PoslovnaInformatika.converters.FakturaDTOtoFaktura;
 import com.pi.PoslovnaInformatika.converters.FakturaToFakturaDTO;
 import com.pi.PoslovnaInformatika.dto.FakturaDTO;
 import com.pi.PoslovnaInformatika.model.Faktura;
+import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
 import com.pi.PoslovnaInformatika.service.FakturaService;
+import com.pi.PoslovnaInformatika.service.PGPservice;
 
 @RestController
 @RequestMapping(value="api/fakture")
@@ -36,6 +38,8 @@ public class FakturaController {
 	@Autowired
 	private FakturaService fakturaService;
 	
+	@Autowired
+	private PGPservice pgpService;
 	
 	@Autowired
 	private FakturaToFakturaDTO toFakturaDTO;
@@ -43,28 +47,54 @@ public class FakturaController {
 	@Autowired
 	private FakturaDTOtoFaktura toFaktura;
 	
-	@RequestMapping(value="/all",method=RequestMethod.GET,params={"page","size"})
-	public ResponseEntity<List<FakturaDTO>> getFakture(@RequestParam("page") int page, @RequestParam("size") int size){
-		Page<Faktura> fakturePage = fakturaService.findAll(PageRequest.of(page, size,Sort.by("datumFakture").descending()));
-		if (page > fakturePage.getTotalPages()) {
-	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	    }
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("totalPages", Integer.toString(fakturePage.getTotalPages()));
-		
-		return new ResponseEntity<>(toFakturaDTO.convert(fakturePage.getContent()),headers, HttpStatus.OK);
-	}
 	
-	@RequestMapping(value="/active/all",method=RequestMethod.GET,params={"page","size"})
-	public ResponseEntity<List<FakturaDTO>> getActiveFakture(@RequestParam("page") int page, @RequestParam("size") int size){
+	@RequestMapping(value="/all",method=RequestMethod.GET,params={"page","size","posGodId","preduzeceId"})
+	public ResponseEntity<List<FakturaDTO>> getFakture(@RequestParam("page") int page, @RequestParam("size") int size,
+			@RequestParam("posGodId") int posGodId, @RequestParam("preduzeceId") int preduzeceId){
+		
 		Page<Faktura> fakturePage = fakturaService.findAll(PageRequest.of(page, size,Sort.by("datumFakture").descending()));
+
+		PoslovnaGodinaPreduzeca posGod = pgpService.getOne(posGodId);
+		
 		if (page > fakturePage.getTotalPages()) {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 		List<Faktura> tempFakture = fakturePage.getContent(); 
 		List<Faktura> activeFakture = new ArrayList<>();
 		for (Faktura faktura : tempFakture){
-			if (faktura.isObrisano()==false)
+			if (faktura.getDatumFakture().after(posGod.getDatumPocetak()) 
+					&& faktura.getDatumFakture().before(posGod.getDatumKraj())
+					&& faktura.getPreduzece().getId() == preduzeceId)
+				
+					activeFakture.add(faktura);
+		}
+		Page<Faktura> activeFakturePage = new PageImpl<>(activeFakture);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("totalPages", Integer.toString(fakturePage.getTotalPages()));
+		
+		return new ResponseEntity<>(toFakturaDTO.convert(activeFakturePage.getContent()),headers, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/active/all",method=RequestMethod.GET,params={"page","size","posGodId","preduzeceId"})
+	public ResponseEntity<List<FakturaDTO>> getActiveFakture(@RequestParam("page") int page, @RequestParam("size") int size,
+			@RequestParam("posGodId") int posGodId, @RequestParam("preduzeceId") int preduzeceId){
+		
+		Page<Faktura> fakturePage = fakturaService.findAll(PageRequest.of(page, size,Sort.by("datumFakture").descending()));
+		
+		PoslovnaGodinaPreduzeca posGod = pgpService.getOne(posGodId);
+		
+		if (page > fakturePage.getTotalPages()) {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+		List<Faktura> tempFakture = fakturePage.getContent(); 
+		List<Faktura> activeFakture = new ArrayList<>();
+		for (Faktura faktura : tempFakture){
+			if (faktura.isObrisano()==false 
+					&& faktura.getDatumFakture().after(posGod.getDatumPocetak()) 
+					&& faktura.getDatumFakture().before(posGod.getDatumKraj())
+					&& faktura.getPreduzece().getId() == preduzeceId)
+				
 					activeFakture.add(faktura);
 		}
 		Page<Faktura> activeFakturePage = new PageImpl<>(activeFakture);
