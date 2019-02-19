@@ -57,7 +57,7 @@ function register(){
 	var prezime = $('#addLastname').val().trim();
 	var korIme = $('#addUsername').val().trim();
 	var lozinka = $('#addPass').val().trim();
-	var auth = localStorage.getItem("authority");
+	var auth = "REGULAR";
 	var preduzeceId = localStorage.getItem("pId")
 	if(ime=="" || prezime == "" ||korIme=="" || lozinka==""){
 		alert("Sva polja moraju biti popunjena");

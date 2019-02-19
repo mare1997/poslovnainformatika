@@ -9,15 +9,16 @@
 	<link rel="stylesheet" type="text/css" href="./css/mainPage.css">
 	<link rel="stylesheet" href="webjars/bootstrap/3.2.0/css/bootstrap.min.css">
 	<script src="webjars/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	<title>Lista roba</title>
+	<script src="js/logout.js"></script>
+	<title>Lista korisnika</title>
 </head>
 
 <body>
 
 <!-- Navigacija -->
 	<nav>
-		<ul id="mainUl" class="nav navbar-nav">
-			<li><a href="#">Home</a></li>
+<ul id="mainUl" class="nav navbar-nav">
+			<li><a href="mainPage.html">Home</a></li>
 
 			<li class="dropdown"><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#">Narudzbenice <span class="caret"></span>
@@ -25,9 +26,7 @@
 
 				<ul class="dropdown-menu">
 					<li><a href="listaNarudzbenica.html">Lista narudzbenica</a></li>
-					<li>
-					<li><a href="createNarudzbenica.html">Kreiranje
-							narudzbenice</a></li>
+
 
 				</ul></li>
 
@@ -37,8 +36,6 @@
 
 				<ul class="dropdown-menu">
 					<li><a href="cenovnik.html">Cenovnici</a></li>
-					<li>
-					<li><a href="createCenovnik.html">Kreiranje cenovnika</a></li>
 
 				</ul></li>
 			<li class="dropdown"><a class="dropdown-toggle"
@@ -48,8 +45,6 @@
 
 				<ul class="dropdown-menu">
 					<li><a href="listaRobe.html">Lista robe</a></li>
-					<li>
-					<li><a href="createRobu.html">Kreiranje robe</a></li>
 
 				</ul></li>
 
@@ -57,19 +52,18 @@
 				data-toggle="dropdown" href="#">Prevoznici <span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="listaPrevoznika.html">Lista prevoznika</a></li>
-					<li>
-					<li><a href="createPrevoznika.html">Kreiranje prevoznika</a></li>
 				</ul>
 			</li>
 
-			<li class="dropdown" id="user" ><a class="dropdown-toggle"
+			<li class="dropdown" id="userImg" ><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#"><img src="./img/user.png"><span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="registracija.html">Registracija</a></li>
-					<li>
-					<li><a href="editKor.html">Izmeni korisnika</a></li>
-					<li>
+					
+					
 					<li><a href="listaKorisnika.html">Lista korisnika</a></li>
+					<li>
+					<li><a href=# onClick="logout()">Logout</a></li>
+					<li>
 				</ul>
 			</li>
 
@@ -93,26 +87,20 @@
 					<li><a href="pdv.html">Pdv</a></li>
 				</ul>
 			</li>
-
-		</ul>
-	</nav>
-
+</ul>
+</nav>
 
 <!-- Toolbar dugmici -->
 
 	<div class="col-lg-5 col-md-offset-2" id="toolbarbuttons">
 		<div class="btn-group">
 			<button class="btn btn-default"> <span class="glyphicon glyphicon-search"></span></button>
-			<button class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></button>
+			<button class="btn btn-default" onClick="refresh()"><span class="glyphicon glyphicon-refresh"></span></button>
 			<button class="btn btn-default" onClick="registerModal()" data-target="#addKorisnika">
 				<span class="glyphicon glyphicon-plus"></span></button>
-			<button class="btn btn-default" onClick="openDeleteModal()"><span class="glyphicon glyphicon-minus"></span></button>
+			<button class="btn btn-default" onClick="openDeleteModal()"><span class="glyphicon glyphicon-trash"></span></button>
 			<button class="btn btn-default" onClick="userForEdit()" data-target="#editKorisnika">
-				<span class="glyphicon glyphicon-chevron-down"></span></button>
-			<button class="btn btn-default"><span class="glyphicon glyphicon-step-backward"></span></button>
-			<button class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button>
-			<button class="btn btn-default"><span class="glyphicon glyphicon-chevron-right"></span></button>
-			<button class="btn btn-default"><span class="glyphicon glyphicon-step-forward"></span></button>
+				<span class="glyphicon glyphicon-pencil"></span></button>
 		</div>
 	</div>
 

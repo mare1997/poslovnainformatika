@@ -8,7 +8,7 @@ body, html {
   background-image: url("../img/business.jpg");
 
   /* Full height */
-  height: 95%; 
+  height: 92.5%; 
 
   /* Center and scale the image nicely */
   background-position: center;
@@ -17,13 +17,16 @@ body, html {
 }
 
 nav {
-	height:5%;
+	height:7.5%;
 	width:100%;
     padding:0;
     background-color: #d3d3d3;
-    margin: auto;
     
 	}
+	
+#userImg{
+	float:right;
+}
 /* nav {
 	height:5%;
 	width:100%;
