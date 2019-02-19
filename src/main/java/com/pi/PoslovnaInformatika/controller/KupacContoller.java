@@ -1,5 +1,8 @@
 package com.pi.PoslovnaInformatika.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +49,17 @@ public class KupacContoller {
             return new ResponseEntity<KupacDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<KupacDTO>(new KupacDTO(kupac),HttpStatus.OK);
     }
-	
+	@GetMapping(value = "/all")
+	public ResponseEntity<List<KupacDTO>> get(){
+		List<Kupac> k = ksi.getAll();
+		List<KupacDTO> kdto=new ArrayList<>();
+		for(Kupac kk :  k) {
+			if(kk.isObrisano() ==false) {
+				kdto.add(new KupacDTO(kk));
+			}
+		}
+		return new ResponseEntity<List<KupacDTO>>(kdto,HttpStatus.OK);
+	}
 	@PostMapping(value = "/add")
 	public ResponseEntity<?> addKupac(@Validated @RequestBody KupacDTO kupacDTO,Errors errors){
 		if(errors.hasErrors()) {

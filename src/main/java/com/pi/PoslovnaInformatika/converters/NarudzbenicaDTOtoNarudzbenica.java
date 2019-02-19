@@ -50,9 +50,11 @@ public class NarudzbenicaDTOtoNarudzbenica implements Converter<NarudzbenicaDTO,
 		narudzbenica.setDatumIzrade(source.getDatumIzrade());
 		narudzbenica.setDatumIsporuke(source.getDatumIsporuke());
 		narudzbenica.setAktivna(source.isAktivna());
+		System.out.println("Narudzbenica je :" + narudzbenica.isAktivna());
 		if(narudzbenica.isAktivna()==true){
 			narudzbenica.setFakturaRel(null);
 		}else{
+			System.out.println("ubicu se" + source.getFakturaRel());
 			narudzbenica.setFakturaRel(fakturaService.getOne(source.getFakturaRel()));
 		}
 		narudzbenica.setUser(userService.getOne(source.getUser()));
@@ -60,14 +62,14 @@ public class NarudzbenicaDTOtoNarudzbenica implements Converter<NarudzbenicaDTO,
 		narudzbenica.setKupac(kupacService.getOne(source.getKupac()));
 		narudzbenica.setObrisano(source.isObrisano());
 		
-		List<StavkaNarudzbenice> sveStavke = new ArrayList<StavkaNarudzbenice>();
+		/*List<StavkaNarudzbenice> sveStavke = new ArrayList<StavkaNarudzbenice>();
 		sveStavke = stavkeNarudzbeniceService.findAll();
 		for(StavkaNarudzbenice stavkaNarudzbenice: sveStavke){
 			if(stavkaNarudzbenice.getNarudzbenica().getIdNarudzbenice()==narudzbenica.getIdNarudzbenice()){
 				sveStavke.add(stavkaNarudzbenice);
 			}
 		}
-		narudzbenica.setStavkeNarudzbenice(sveStavke);
+		narudzbenica.setStavkeNarudzbenice(sveStavke);*/
 		
 		return narudzbenica;
 	}

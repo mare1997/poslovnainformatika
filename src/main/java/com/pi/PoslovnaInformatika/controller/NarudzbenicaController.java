@@ -108,7 +108,7 @@ public class NarudzbenicaController {
 	
 	
 	@RequestMapping(value="/editNarudzbenica/{id}", method=RequestMethod.PUT, consumes="application/json")
-	public ResponseEntity<?> editNarudzbenica(@Validated @PathVariable Integer id, @RequestBody NarudzbenicaDTO editedNarudzbenicaDTO, Errors errors){
+	public ResponseEntity<?> editNarudzbenica(@PathVariable Integer id,@Validated  @RequestBody NarudzbenicaDTO editedNarudzbenicaDTO, Errors errors){
 		if(errors.hasErrors()) {
 			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
 		}
@@ -116,7 +116,7 @@ public class NarudzbenicaController {
 		if(narudzbenica==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
+		System.out.println("Narudzbenica je :" + editedNarudzbenicaDTO.isAktivna());
 		Narudzbenica editedNarudzbenica = toNarudzbenica.convert(editedNarudzbenicaDTO);
 		narudzbenicaService.save(editedNarudzbenica);
 		return new ResponseEntity<>(toNarudzbenicaDTO.convert(editedNarudzbenica), HttpStatus.OK);
