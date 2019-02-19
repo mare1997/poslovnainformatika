@@ -2,26 +2,36 @@ var token= localStorage.getItem("token");
 cenId=""
 $(document).ready(function() {
 	loadStavkeCen();
+	$(document).on("click", "#ceneBody tr", function(e) {
+		//var name = this.attr("name");
+		var delId = this.id;
+		var delUserRow = $("#ceneBody tr");
+		console.log(delId);
+		localStorage.setItem("deleteStavka", delId);
+    //alert(name);
+});
 });
 function loadStavkeCen(){
 
 var cenId = localStorage.getItem("cenId");
 
+ 
+
   $.ajax({
 
-    url:'https://localhost:8081/api/stavkecenovnika/all/'+cenId,
+    url:'https://localhost:8081/api/stavkacenovnika/all/'+cenId,
     headers:{Authorization:"Bearer " + token},
     type:"GET",
     dataType: 'json',
     crossDomain:true,
     success: function (response) {
+      console.log(response);
       var table = $('#ceneBody');
-      for (var i=0; i<response.length; i++){
-        cena = response[i];
-
-          table.append(
-            '<tr value="'+cena.id+'">'+'<td>'+cena.name+'</td><td>'+cena.roba+'</td></tr>'
-          )
+      for(var i=0; i<response.length; i++){
+    	  console.log("usao u for");
+    	  var cena = response[i];
+    	  console.log(cena);
+    	  table.append('<tr id="'+cena.id+'"><td>'+cena.roba+'</td><td>'+cena.cena+'</td></tr>');
 
       }
     },error: function (jqXHR, textStatus, errorThrown) {
@@ -34,15 +44,12 @@ var cenId = localStorage.getItem("cenId");
 function addStavkuCen(){
 	var cenId = localStorage.getItem("cenId");
 	var cena = $('#cenaStavnke').val().trim();
-	var kolRobe = $('#kolStavnke').val().trim();
-	if(procenat > 100 || procenat = 0 || datumV < danas){
-		alert("Sva polja moraju biti popunjena");
-		return;
-	}
+	var roba = document.getElementById('addRobuStavke');
+	var robaId= roba.options[roba.selectedIndex].value;
 
 	var cenObject;
 	$.ajax({
-		url:'https://localhost:8081/api/cenovnik//getCenovnikdeleteNo/'+cenId,
+		url:'https://localhost:8081/api/cenovnik/getCenovnikdeleteNo/'+cenId,
 		headers:{Authorization:"Bearer " + token},
 		type: 'GET',
 		dataType:'json',
@@ -62,7 +69,7 @@ function addStavkuCen(){
 	});
 
 	var data={'cena' : cena,
-						 'roba' : kolRobe,
+						 'roba' : robaId,
 						 'cenovnik' : cenObject
 					 	}
 
@@ -94,5 +101,52 @@ function addStavkuCen(){
 
 
 function stavkaModal(){
-	$('#addStavkuCenovnika').modal('toggle');
+	$('#addStavkuCenovnika').modal();
+	
+	$.ajax({
+    url:'https://localhost:8081/api/roba/getAllRobadeliteNo/all',
+    headers:{Authorization:"Bearer " + token},
+    type:"GET",
+    dataType: 'json',
+    crossDomain:true,
+    success: function (response) {
+			var select = $('#addRobuStavke');
+			for (var i=0; i<response.length; i++){
+				roba = response[i];
+				console.log(roba);
+				select.append(
+		            '<option value="'+roba.id+'">'+roba.name+'</option>'
+		          );
+    }
+  },error: function (jqXHR, textStatus, errorThrown) {
+      alert("read error!!!");
+
 }
+	});
+}
+
+
+function stavkaDeleteModal(){
+	$('#stavkaDeleteModal').modal();
+}
+
+function deleteStavka(){
+	var brisanje = localStorage.getItem("deleteStavka");
+	var token = localStorage.getItem("token");
+	$.ajax({
+        url: 'https://localhost:8081/api/stavkacenovnika/delete/'+brisanje,
+        headers:{Authorization:"Bearer " + token},
+        contentType: "application/json",
+		type: 'DELETE',
+        success: function (response) {
+        	console.log("stavka delete success: ");
+        	
+        	$('#stopaDeleteModal').modal('toggle');
+        	location.reload();
+        },
+		error: function (jqXHR, textStatus, errorThrown) {  
+			alert(textStatus);
+		}
+    });
+}
+

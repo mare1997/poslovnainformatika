@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,33 +45,31 @@ public class NarudzbenicaController {
 	
 	@RequestMapping(value="/all",method=RequestMethod.GET,params={"page","size"})
 	public ResponseEntity<List<NarudzbenicaDTO>> getNarudzbenice(@RequestParam("page") int page, @RequestParam("size") int size){
-		Page<Narudzbenica> narudzbenicePage = narudzbenicaService.findAll(PageRequest.of(page, size));
+		Page<Narudzbenica> narudzbenicePage = narudzbenicaService.findAll(PageRequest.of(page, size,Sort.by("datumIzrade").descending()));
 		if (page > narudzbenicePage.getTotalPages()) {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("totalPages", Integer.toString(narudzbenicePage.getTotalPages()));
-		
-	//	Collections.sort(narudzbenicePage.getContent());
+
 		return new ResponseEntity<>(toNarudzbenicaDTO.convert(narudzbenicePage.getContent()),headers, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/active/all",method=RequestMethod.GET,params={"page","size"})
 	public ResponseEntity<List<NarudzbenicaDTO>> getActiveNarudzbenica(@RequestParam("page") int page, @RequestParam("size") int size){
-		Page<Narudzbenica> narudzbenicePage = narudzbenicaService.findAll(PageRequest.of(page, size));
+		Page<Narudzbenica> narudzbenicePage = narudzbenicaService.findAll(PageRequest.of(page, size,Sort.by("datumIzrade").descending()));
 		
 		if (page > narudzbenicePage.getTotalPages()) {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 		
 		List<Narudzbenica> activeNarudzbenice = new ArrayList<>();
-		List<Narudzbenica> tempNarudzbenice = new ArrayList<>();
+		List<Narudzbenica> tempNarudzbenice = narudzbenicePage.getContent();
 
 		for (Narudzbenica narudzbenica : tempNarudzbenice){
 			if (narudzbenica.isObrisano()==false)
 					activeNarudzbenice.add(narudzbenica);
 		}
-		Collections.sort(activeNarudzbenice);
 		Page<Narudzbenica> activeNarudzbenicePage = new PageImpl<>(activeNarudzbenice);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("totalPages", Integer.toString(narudzbenicePage.getTotalPages()));
