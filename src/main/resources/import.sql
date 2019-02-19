@@ -36,9 +36,10 @@ INSERT INTO `poslovnainformatika`.`pdv` (`pdv_id`, `name`, `obrisano`) VALUES ('
 INSERT INTO `poslovnainformatika`.`pdv` (`pdv_id`, `name`, `obrisano`) VALUES ('2', 'pdv2', '0');
 INSERT INTO `poslovnainformatika`.`pdv` (`pdv_id`, `name`, `obrisano`) VALUES ('3', 'pdv3', '1');
 
-INSERT INTO `poslovnainformatika`.`poslovna_godina` (`poslovna_godina_id`, `godina`, `zavrsena`) VALUES ('1', '2017', '1');
-INSERT INTO `poslovnainformatika`.`poslovna_godina` (`poslovna_godina_id`, `godina`, `zavrsena`) VALUES ('2', '2018', '1');
-INSERT INTO `poslovnainformatika`.`poslovna_godina` (`poslovna_godina_id`, `godina`, `zavrsena`) VALUES ('3', '2019', '0');
+INSERT INTO `poslovnainformatika`.`poslovna_godina` (`poslovna_godina_id`, `godina`, `zavrsena`, `datum_pocetak` ,  `datum_kraj`,`preduzece_id`) VALUES ('1', '2017', '1','2017-02-01','2018-02-01','1');
+INSERT INTO `poslovnainformatika`.`poslovna_godina` (`poslovna_godina_id`, `godina`, `zavrsena`, `datum_pocetak` ,  `datum_kraj`,`preduzece_id`) VALUES ('2', '2018', '1','2018-02-01','2019-02-01','1');
+INSERT INTO `poslovnainformatika`.`poslovna_godina` (`poslovna_godina_id`, `godina`, `zavrsena`, `datum_pocetak`,`preduzece_id` ) VALUES ('3', '2019', '0','2019-02-01','1');
+INSERT INTO `poslovnainformatika`.`poslovna_godina` (`poslovna_godina_id`, `godina`, `zavrsena`, `datum_pocetak`,`preduzece_id` ) VALUES ('4', '2019', '0','2019-03-11','2');
 
 INSERT INTO `poslovnainformatika`.`prevoznik` (`prevoznik_id`, `name`, `obrisano`) VALUES ('1', 'prevoznik1', '0');
 INSERT INTO `poslovnainformatika`.`prevoznik` (`prevoznik_id`, `name`, `obrisano`) VALUES ('2', 'prevoznik2', '0');

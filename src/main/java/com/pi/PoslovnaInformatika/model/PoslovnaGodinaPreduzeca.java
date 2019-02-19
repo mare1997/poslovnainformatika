@@ -3,6 +3,7 @@ package com.pi.PoslovnaInformatika.model;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,8 +27,14 @@ public class PoslovnaGodinaPreduzeca implements Serializable{
 	@Column(name="poslovna_godina_id", unique=true, nullable=false) 
 	private Integer id;
 	
-	@Column(name="godina", unique=true, nullable=false, length = 4)
+	@Column(name="godina",  nullable=false, length = 4)
 	private String godina;
+	
+	@Column(name="datum_pocetak", nullable=false)
+	private Date datumPocetak;
+
+	@Column(name="datum_kraj", nullable=true)
+	private Date datumKraj;
 	
 	@ManyToOne
 	@JoinColumn(name = "preduzece_id", referencedColumnName = "preduzece_id", nullable = true)
@@ -41,12 +48,56 @@ public class PoslovnaGodinaPreduzeca implements Serializable{
 		
 	}
 	
-	public PoslovnaGodinaPreduzeca(Integer id, String godina, Boolean zavrsena) {
+	
+
+	public PoslovnaGodinaPreduzeca(Integer id, String godina, Date datumPocetak, Date datumKraj, Preduzece preduzece,
+			Boolean zavrsena) {
 		super();
 		this.id = id;
 		this.godina = godina;
+		this.datumPocetak = datumPocetak;
+		this.datumKraj = datumKraj;
+		this.preduzece = preduzece;
 		this.zavrsena = zavrsena;
 	}
+
+
+
+	public Date getDatumPocetak() {
+		return datumPocetak;
+	}
+
+
+
+	public void setDatumPocetak(Date datumPocetak) {
+		this.datumPocetak = datumPocetak;
+	}
+
+
+
+	public Date getDatumKraj() {
+		return datumKraj;
+	}
+
+
+
+	public void setDatumKraj(Date datumKraj) {
+		this.datumKraj = datumKraj;
+	}
+
+
+
+	public Preduzece getPreduzece() {
+		return preduzece;
+	}
+
+
+
+	public void setPreduzece(Preduzece preduzece) {
+		this.preduzece = preduzece;
+	}
+
+
 
 	public Integer getId() {
 		return id;
