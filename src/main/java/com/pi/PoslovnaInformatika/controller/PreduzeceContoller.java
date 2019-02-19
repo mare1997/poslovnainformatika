@@ -46,6 +46,7 @@ public class PreduzeceContoller {
         return new ResponseEntity<PreduzeceDTO>(new PreduzeceDTO(preduzece),HttpStatus.OK);
     }
 	
+	
 	@RequestMapping(value="/all", method = RequestMethod.GET)
     public ResponseEntity<List<PreduzeceDTO>> getAll(){
     	

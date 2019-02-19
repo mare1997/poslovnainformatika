@@ -22,8 +22,9 @@ import com.pi.PoslovnaInformatika.dto.PoslovnaGodinaDTO;
 
 
 import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
-
+import com.pi.PoslovnaInformatika.model.Preduzece;
 import com.pi.PoslovnaInformatika.service.interfaces.PGPserviceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.PreduzeceServiceInterface;
 
 @RestController
 @RequestMapping(value = "api/poslovnagodina")
@@ -33,6 +34,9 @@ public class PoslovnaGodinaController {
 	@Autowired
 	private PGPserviceInterface psi;
 	
+	@Autowired
+	private PreduzeceServiceInterface prsi;
+	
 	@GetMapping(value = "/{id}")
     public ResponseEntity<PoslovnaGodinaDTO> get(@PathVariable("id") int id){
     	
@@ -41,12 +45,13 @@ public class PoslovnaGodinaController {
             return new ResponseEntity<PoslovnaGodinaDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<PoslovnaGodinaDTO>(new PoslovnaGodinaDTO(godina),HttpStatus.OK);
     }
-	@GetMapping(value = "/all")
-	public ResponseEntity<List<PoslovnaGodinaDTO>> getAll(){
+	@GetMapping(value = "/all/{idPreduzeca}")
+	public ResponseEntity<List<PoslovnaGodinaDTO>> getAll(@PathVariable("idPreduzeca") int id){
 		
 		List<PoslovnaGodinaPreduzeca> pgp = psi.getAll();
 		List<PoslovnaGodinaDTO> pd = new ArrayList<>();
 		for(PoslovnaGodinaPreduzeca p:pgp) {
+			if(p.getPreduzece().getId() == id)
 			pd.add(new PoslovnaGodinaDTO(p));
 		}
 		
