@@ -293,7 +293,7 @@ function createSF(stavka,idF,robaUslugaId){
 
 function loadKupci(){
 	
-var url = new URL("https://localhost:8081/api/kupac/getActive/all?posGodId="+poslovnaGod+"&preduzeceId="+preduzeceId);
+var url = new URL("https://localhost:8081/api/kupac/getActive/all?idPreduzeca="+preduzeceId+"&idPG="+poslovnaGod);
 	 $.ajax({
 			method:'GET',
 			url: url,
@@ -359,59 +359,7 @@ function prikazRobe(){
 	};
 	
 	
-	
-	/* $.ajax({
-			method:'GET',
-			url: "https://localhost:8081/api/stavkacenovnika/getSCdeleteNo/"+cenaRobe,
-			headers:{Authorization:"Bearer " + token},
-			dataType: 'json',
-			cashe: false,
-			success: function(response){
-					cena = response.cena;
-					console.log("cena stavke je " + cena)
-					
-				}
-			
-		,error: function (jqXHR, textStatus, errorThrown) {
-			alert("read error!!!");
-}
-});*/
-/*
-function robaObject(){
-	var robaObject;
-	var idRobe=localStorage.getItem("idRobe")
-
-$.ajax({
-	url:'https://localhost:8081/api/roba/getRobadeliteNo/'+idRobe,
-	headers:{Authorization:"Bearer " + token},
-	type: 'GET',
-	dataType:'json',
-	async: false,
-	crossDomain: true,
-	success:function(response){
-		console.log(response);
-		robaObject = response;
-		console.log("RobaObject mi je" + robaObject)
-	},
-	error: function (jqXHR, textStatus, errorThrown) {
-		if(jqXHR.status=="403"){
-			alert("Error.");
-		}
-
-	}
-
-	});
-}*/
 function potvrdiN(){
-	/*	$('#dodajRobu').modal('toggle');
-		var kolRobe = $('#kolRobe').val();
-		var x = document.getElementById("select2");
-	    var y = x.options[x.selectedIndex].value;
-		var node = document.createElement("LABEL");
-		var textnode = document.createTextNode(y+ "("+ kolRobe + ")" + ", ");
-		node.appendChild(textnode);
-		document.getElementById("nazivRobe").appendChild(node);*/
-//	console.log("ID narudzbenice je" + currentNarudzbenica.idNarudzbenice)
 	createStavkeNarudzbenice(narNewId);
 }
     
@@ -420,11 +368,10 @@ function potvrdiN(){
 	 var divRobe = $('#divRobe');
 		divRobe.hide();
 	 console.log("load robe aaaaaaaaa")
-	
-	
+	var url = new URL("https://localhost:8081/api/gruparobe/getGRdeliteNo/all?idPreduzeca="+preduzeceId+"&idPG="+poslovnaGod);
 	 $.ajax({
 			method:'GET',
-			url: "https://localhost:8081/api/gruparobe/getGRdeliteNo/all",
+			url: url,
 			headers:{Authorization:"Bearer " + token},
 			dataType: 'json',
 			cashe: false,
