@@ -5,6 +5,7 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,9 +35,14 @@ public class GrupaRobe implements Serializable {
 	@Column(name="name", unique=false, nullable=false, length = 50)
 	private String name;
 	
+	@Column(name="datum_kreiranja", unique=false, nullable=false)
+	private Date datum_kreiranja;
+	
 	@ManyToOne
 	@JoinColumn(name = "pdv_id", referencedColumnName = "pdv_id", nullable = true)
 	private PDV pdv;
+	
+	
 	
 	@OneToMany(cascade = { ALL }, fetch = LAZY, mappedBy = "grupa")
 	private Set<Roba> robe=new HashSet<Roba>();
@@ -52,15 +58,33 @@ public class GrupaRobe implements Serializable {
 		super();
 	}
 
-	public GrupaRobe(Integer id, String name, PDV pdv, Set<Roba> robe, Preduzece preduzece,boolean obrisano) {
+	
+
+	public GrupaRobe(Integer id, String name, Date datum_kreiranja, PDV pdv, Set<Roba> robe, Preduzece preduzece,
+			boolean obrisano) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.datum_kreiranja = datum_kreiranja;
 		this.pdv = pdv;
 		this.robe = robe;
 		this.preduzece = preduzece;
 		this.obrisano = obrisano;
 	}
+
+
+
+	public Date getDatum_kreiranja() {
+		return datum_kreiranja;
+	}
+
+
+
+	public void setDatum_kreiranja(Date datum_kreiranja) {
+		this.datum_kreiranja = datum_kreiranja;
+	}
+
+
 
 	public Integer getId() {
 		return id;

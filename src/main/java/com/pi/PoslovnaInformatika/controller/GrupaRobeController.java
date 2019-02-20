@@ -21,9 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pi.PoslovnaInformatika.dto.GrupaRobeDTO;
 
 import com.pi.PoslovnaInformatika.model.GrupaRobe;
-
+import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
 import com.pi.PoslovnaInformatika.service.interfaces.GrupaRobeServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.PDVServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.PGPserviceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.PreduzeceServiceInterface;
 
 @RestController
@@ -40,43 +41,61 @@ public class GrupaRobeController {
 	@Autowired
 	private PreduzeceServiceInterface prsi;
 	
-	@GetMapping(value = "/getGRdeliteYes/{id}")
-    public ResponseEntity<GrupaRobeDTO> getGrupaRoba(@PathVariable("id") int id){
-    	
+	@Autowired
+	private PGPserviceInterface pgsi;
+	
+	@GetMapping(value = "/getGRdeliteYes/{id}/{idPreduzeca}/{idPG}")
+    public ResponseEntity<GrupaRobeDTO> getGrupaRoba(@PathVariable("id") int id,@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
+		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
     	GrupaRobe grupa=grsi.getOne(id);
-        if(grupa == null)
+    	
+        if(grupa == null || grupa.getPreduzece().getId() != idPreduzeca || grupa.getDatum_kreiranja().before(p.getDatumPocetak()) )
             return new ResponseEntity<GrupaRobeDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<GrupaRobeDTO>(new GrupaRobeDTO(grupa),HttpStatus.OK);
     }
 	
-	@RequestMapping(value="/getGRdeliteYes/all", method = RequestMethod.GET)
-    public ResponseEntity<List<GrupaRobeDTO>> getGrupa(){
-    	
+	@RequestMapping(value="/getGRdeliteYes/all/{idPreduzeca}/{idPG}", method = RequestMethod.GET)
+    public ResponseEntity<List<GrupaRobeDTO>> getGrupa(@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
+		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
     	List<GrupaRobe> grupa=grsi.getAll();
         List<GrupaRobeDTO> grupaDto=new ArrayList<>();
         for (GrupaRobe r:grupa) {
-        	grupaDto.add(new GrupaRobeDTO(r));
+        	if(r.getPreduzece().getId() == idPreduzeca && p.getDatumPocetak().before(r.getDatum_kreiranja())) {
+        		if(p.getZavrsena() == true) {
+        			if(p.getDatumKraj().after(r.getDatum_kreiranja()))
+        				grupaDto.add(new GrupaRobeDTO(r));
+        		}else {
+        			grupaDto.add(new GrupaRobeDTO(r));
+        		}
+        		
+        	}
             
         }
         return new ResponseEntity<List<GrupaRobeDTO>>(grupaDto,HttpStatus.OK);
     }
-	@GetMapping(value = "/getGRdeliteNo/{id}")
-    public ResponseEntity<GrupaRobeDTO> getGR(@PathVariable("id") int id){
-    	
+	@GetMapping(value = "/getGRdeliteNo/{id}/{idPreduzeca}/{idPG}")
+    public ResponseEntity<GrupaRobeDTO> getGR(@PathVariable("id") int id,@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
+		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
     	GrupaRobe grupa=grsi.getOne(id);
-        if(grupa == null || grupa.isObrisano() == true)
+        if(grupa == null || grupa.isObrisano() == true || grupa.getPreduzece().getId() != idPreduzeca || grupa.getDatum_kreiranja().before(p.getDatumPocetak()))
             return new ResponseEntity<GrupaRobeDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<GrupaRobeDTO>(new GrupaRobeDTO(grupa),HttpStatus.OK);
     }
 	
-	@RequestMapping(value="/getGRdeliteNo/all", method = RequestMethod.GET)
-    public ResponseEntity<List<GrupaRobeDTO>> getGR(){
-    	
+	@RequestMapping(value="/getGRdeliteNo/all/{idPreduzeca}/{idPG}", method = RequestMethod.GET)
+    public ResponseEntity<List<GrupaRobeDTO>> getGR(@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
+		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
     	List<GrupaRobe> grupa=grsi.getAll();
         List<GrupaRobeDTO> grupaDto=new ArrayList<>();
         for (GrupaRobe r:grupa) {
-        	if(r.isObrisano() == false) {
-        		grupaDto.add(new GrupaRobeDTO(r));
+        	if(r.isObrisano() == false && r.getPreduzece().getId() == idPreduzeca && p.getDatumPocetak().before(r.getDatum_kreiranja())) {
+        		if(p.getZavrsena() == true) {
+        			if(p.getDatumKraj().after(r.getDatum_kreiranja()))
+        				grupaDto.add(new GrupaRobeDTO(r));
+        		}else {
+        			grupaDto.add(new GrupaRobeDTO(r));
+        		}
+        		
         	}
         }
         return new ResponseEntity<List<GrupaRobeDTO>>(grupaDto,HttpStatus.OK);

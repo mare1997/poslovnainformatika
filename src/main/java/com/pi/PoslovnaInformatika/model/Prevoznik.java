@@ -5,6 +5,7 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,6 +33,8 @@ public class Prevoznik implements Serializable {
 	@Column(name="name", unique=false, nullable=false, length = 50)
 	private String name;
 	
+	
+	
 	@OneToMany(cascade = { ALL }, fetch = LAZY, mappedBy = "prevoznik")
 	private Set<Otpremnica> otpremnice=new HashSet<Otpremnica>();
 	
@@ -42,13 +45,22 @@ public class Prevoznik implements Serializable {
 		super();
 	}
 
-	public Prevoznik(Integer id, String name, Set<Otpremnica> otpremnice,boolean obrisano) {
+	
+
+	public Prevoznik(Integer id, String name, Set<Otpremnica> otpremnice, boolean obrisano) {
 		super();
 		this.id = id;
 		this.name = name;
+		
 		this.otpremnice = otpremnice;
 		this.obrisano = obrisano;
 	}
+
+
+
+	
+
+
 
 	public Integer getId() {
 		return id;

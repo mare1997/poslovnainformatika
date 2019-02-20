@@ -18,13 +18,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.pi.PoslovnaInformatika.dto.GrupaRobeDTO;
 import com.pi.PoslovnaInformatika.dto.KupacDTO;
 
 import com.pi.PoslovnaInformatika.model.Kupac;
-
+import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
 import com.pi.PoslovnaInformatika.service.interfaces.KupacServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.MestoServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.PGPserviceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.PreduzeceServiceInterface;
 
 @RestController
@@ -41,21 +42,59 @@ public class KupacContoller {
 	@Autowired
 	private MestoServiceInterface msi;
 	
-	@GetMapping(value = "/{id}")
-    public ResponseEntity<KupacDTO> getKupac(@PathVariable("id") int id){
-    	
+	@Autowired
+	private PGPserviceInterface pgsi;
+	
+	@GetMapping(value = "/getActive/{id}/{idPreduzeca}/{idPG}")
+    public ResponseEntity<KupacDTO> getKupac(@PathVariable("id") int id,@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
+		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
     	Kupac kupac = ksi.getOne(id);
-        if(kupac == null || kupac.isObrisano() == true)
+        if(kupac == null || kupac.isObrisano() == true || kupac.getPreduzece().getId() != idPreduzeca || kupac.getDatum_kreiranja().before(p.getDatumPocetak()))
             return new ResponseEntity<KupacDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<KupacDTO>(new KupacDTO(kupac),HttpStatus.OK);
     }
-	@GetMapping(value = "/all")
-	public ResponseEntity<List<KupacDTO>> get(){
+	@GetMapping(value = "/getActive/all/{idPreduzeca}/{idPG}")
+	public ResponseEntity<List<KupacDTO>> get(@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
+		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
 		List<Kupac> k = ksi.getAll();
 		List<KupacDTO> kdto=new ArrayList<>();
 		for(Kupac kk :  k) {
-			if(kk.isObrisano() ==false) {
-				kdto.add(new KupacDTO(kk));
+			if(kk.isObrisano() ==false && kk.getPreduzece().getId() == idPreduzeca && p.getDatumPocetak().before(kk.getDatum_kreiranja())) {
+				if(p.getZavrsena() == true) {
+        			if(p.getDatumKraj().after(kk.getDatum_kreiranja()))
+        				kdto.add(new KupacDTO(kk));
+        		}else {
+        			kdto.add(new KupacDTO(kk));
+        		}
+				
+				
+			}
+		}
+		return new ResponseEntity<List<KupacDTO>>(kdto,HttpStatus.OK);
+	}
+	@GetMapping(value = "/getInactive/{id}/{idPreduzeca}/{idPG}")
+    public ResponseEntity<KupacDTO> getKupa(@PathVariable("id") int id,@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
+		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
+    	Kupac kupac = ksi.getOne(id);
+        if(kupac == null ||  kupac.getPreduzece().getId() != idPreduzeca || kupac.getDatum_kreiranja().before(p.getDatumPocetak()))
+            return new ResponseEntity<KupacDTO>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<KupacDTO>(new KupacDTO(kupac),HttpStatus.OK);
+    }
+	@GetMapping(value = "/getInactive/all/{idPreduzeca}/{idPG}")
+	public ResponseEntity<List<KupacDTO>> getK(@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
+		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
+		List<Kupac> k = ksi.getAll();
+		List<KupacDTO> kdto=new ArrayList<>();
+		for(Kupac kk :  k) {
+			if(kk.getPreduzece().getId() == idPreduzeca && p.getDatumPocetak().before(kk.getDatum_kreiranja())) {
+				if(p.getZavrsena() == true) {
+        			if(p.getDatumKraj().after(kk.getDatum_kreiranja()))
+        				kdto.add(new KupacDTO(kk));
+        		}else {
+        			kdto.add(new KupacDTO(kk));
+        		}
+				
+				
 			}
 		}
 		return new ResponseEntity<List<KupacDTO>>(kdto,HttpStatus.OK);

@@ -15,6 +15,7 @@ public class CenovnikDTO implements Serializable {
 	private Integer id;
 	private String name;
 	private Date datum_vazenja;
+	private Date datum_kreiranja;
 	private PreduzeceDTO preduzece;
 	
 	
@@ -22,15 +23,16 @@ public class CenovnikDTO implements Serializable {
 	public CenovnikDTO() {
 		super();
 	}
-	public CenovnikDTO(Integer id,String name, Date datum_vazenja, PreduzeceDTO preduzece) {
+	public CenovnikDTO(Integer id,String name, Date datum_vazenja,Date datum_kreiranja, PreduzeceDTO preduzece) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.datum_vazenja = datum_vazenja;
+		this.datum_kreiranja  =  datum_kreiranja;
 		this.preduzece = preduzece;
 	}
 	public CenovnikDTO(Cenovnik c) {
-		this(c.getId(),c.getName(),c.getDatum_vazenja(),new PreduzeceDTO(c.getPreduzece()));
+		this(c.getId(),c.getName(),c.getDatum_vazenja(),c.getDatum_kreiranja(),new PreduzeceDTO(c.getPreduzece()));
 	}
 	
 	public Integer getId() {
@@ -57,6 +59,12 @@ public class CenovnikDTO implements Serializable {
 	}
 	public void setPreduzece(PreduzeceDTO preduzece) {
 		this.preduzece = preduzece;
+	}
+	public Date getDatum_kreiranja() {
+		return datum_kreiranja;
+	}
+	public void setDatum_kreiranja(Date datum_kreiranja) {
+		this.datum_kreiranja = datum_kreiranja;
 	}
 	
 	
