@@ -1,23 +1,26 @@
 var token= localStorage.getItem("token");
 var idRobe = 0;
+var cenaRobe= "";
 var idN = 0;
 var narNewId=0;
 var idFakture = 0;
-
+var idOtpremnice = 0;
 var currentNarudzbenica = null;
 var idKupac = 0;
 var pId = null;
 //var stavka = null;
 var currentUserId = null;
 var currentUsrName = null;
-
+var preduzeceId =localStorage.getItem("pId")
+var poslovnaGod = localStorage.getItem("pgId");
 $(document).ready(function(){
 	
 	currentUserId = localStorage.getItem("id");
 	currentUserUsrName = localStorage.getItem("username");
+	
 	createDefaultNar();
 	loadKupci();
-
+	loadPreduzece();
 	
 	
 $('#saveN').submit(function(e){
@@ -43,13 +46,9 @@ $('#saveN').submit(function(e){
 		    }
 		    console.log("Id narudz pre kreiranja fakture: " + narNewId);
 			if(active == false){
-				
 				createFaktura(narNewId);
 			}
 			console.log("Id fakture pre kreiranja narudzbenice: " + idFakture);
-			
-		
-			
 		    var formData ={
 			   		'idNarudzbenice' : narNewId,
 		    		'brojNarudzbenice' : narNewId,
@@ -59,12 +58,10 @@ $('#saveN').submit(function(e){
 		    		'obrisano' : false,
 		    		'fakturaRel' : idFakture,
 		    		'kupac' : idKupac,
-		    		'user' : currentUserId,
-		    		'preduzece' : '1'
-		    		 
+		    		'user' : currentUserId
+		    		
 		    }
-		    console.log("Data je "+ formData + "datumIzrade:" + date + "datumIsporuke" + datumIsporuke+ "id kupaaaac: "+ idKupac);
-		   
+		    console.log("Data je "+ formData.fakturaRel + "datumIzrade:" + date + "datumIsporuke" + datumIsporuke+ "id kupaaaac: "+ idKupac);
 			$.ajax({
 				type: 'PUT',
 		        url: 'https://localhost:8081/api/narudzbenice/editNarudzbenica/'+narNewId,
@@ -75,10 +72,10 @@ $('#saveN').submit(function(e){
 				processData: false,
 				 contentType: 'application/json',
 		        success: function (response) {
-		        	if(response.aktivna == false){
+		        	/*if(response.aktivna == false){
 		        		createFaktura(response.idNarudzbenice);
 		        	}
-		        	
+		        	*/
 		        	var narudzbenica = response;
 		        	currentNarudzbenica = narudzbenica;
 		        	console.log("Kreirana narudzbenica id" +currentNarudzbenica.idNarudzbenice)
@@ -128,10 +125,10 @@ function createFaktura(id){
 	        success: function (response) {
 	        	console.log(response);
 	        	idFakture = response.idFakture;
+	        	
 	        	idF = response.idFakture;
 	        	console.log(idFakture);
-	        	loadFakture(idFakture);
-	        	
+	        	createStavkeFakture(response.narudzbeniceRel,idF);
 	        	
 	        	
 	        },
@@ -142,33 +139,10 @@ function createFaktura(id){
 	 
 	}
 
-function loadFakture(id) {
-	console.log("loadFakture")
-	var tempUrl = "https://localhost:8081/api/fakture/"+id;
-	$.ajax({
-		url: tempUrl,
-		headers:{Authorization:"Bearer " + token},
-		type:'get',
-		dataType: 'json',
-		cashe: false,
-		
-		success: function(response){
-			console.log("Id fakture je" + response.idFakture);
-			id = response.idFakture;
-			createStavkeFakture(response.narudzbeniceRel,id);
-			$('#brFakture').html(id);
-			var date = currentDate();
-			$('#datumFakture').html(date);
-		//	
-			}
-          
-		},
-		
-	);
-	
-}
+
 
 function createStavkeFakture(id,idF){
+	
 	//iz id nadji objekat fakture, iz fakture nadji id narudzbenice,izlistaj stavke narudzbenice za taj id narudzbenice i onda koroz for petlju za svaku stavku nar dodaj stavku fakture
 	console.log("createStavkeFakture")
 	 $.ajax({
@@ -178,7 +152,10 @@ function createStavkeFakture(id,idF){
 	        success: function (response) {
 	        	for(var i=0; i<response.length; i++){
 	        		stavkaF = response[i];
-	        		createSF(stavkaF,idF);
+	        		robaUslugaId = stavkaF.robaUslugaId;
+	        		console.log("Kreirane stavke fakture sa id robom su" + stavkaF.robaUslugaId)
+	        		createSF(stavkaF,idF,robaUslugaId);
+	        		
 	        	}
 	        	
 	        	
@@ -192,15 +169,95 @@ function createStavkeFakture(id,idF){
 	);
 
 }
-function createSF(stavka,idF){
+function createSF(stavka,idF,robaUslugaId){
+	console.log("Dodavanje stavki faktura")
+	
+	$.ajax({
+	url:'https://localhost:8081/api/roba/getRobadeliteNo/'+robaUslugaId,
+	headers:{Authorization:"Bearer " + token},
+	type: 'GET',
+	dataType:'json',
+	async: false,
+	crossDomain: true,
+	success:function(response){
+		console.log(response);
+		robaObject = response;
+		robaObjectCena = robaObject.cena;
+		robaObjectName = robaObject.name;
+		robaObjectGrupaPDVId = robaObject.grupa.pdv.id;
+		//trenutno nema polja za unosenje rabat procenta
+		//rabatProcenat = robaObject.rabat;
+		rabatProcenat = 20;
+		console.log("RobaObjectGrupaPDVID mi je" + robaObjectGrupaPDVId)
+		console.log("RobaObject mi je" + robaObjectCena)
+		console.log("RobaObjectName mi je" + robaObjectName)
+		
+	},
+	error: function (jqXHR, textStatus, errorThrown) {
+		if(jqXHR.status=="403"){
+			alert("Error.");
+		}
+
+	}
+
+	});
+	var cena;
+	$.ajax({
+		method:'GET',
+		url: "https://localhost:8081/api/stavkacenovnika/getSCdeleteNo/"+robaObjectCena,
+		headers:{Authorization:"Bearer " + token},
+		dataType: 'json',
+		cashe: false,
+		success: function(response){
+				cena = response.cena;
+				console.log("cena stavke je " + cena)
+				
+			}
+		
+	,error: function (jqXHR, textStatus, errorThrown) {
+		alert("read error!!!");
+}
+	
+});
+	$.ajax({
+		url:'https://localhost:8081/api/stopapdv/getStopaByPdv/'+robaObjectGrupaPDVId,
+		headers:{Authorization:"Bearer " + token},
+		type: 'GET',
+		dataType:'json',
+		async: false,
+		crossDomain: true,
+		success:function(response){
+			for(var i=0; i<response.length; i++){
+				stopaPDVObject = response[i];
+				procenatStopaPDV = stopaPDVObject.procenat;
+				console.log("Procenat stopePDV je " + procenatStopaPDV);
+				
+				
+				
+			}
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			if(jqXHR.status=="403"){
+				alert("Error.");
+			}
+
+		}
+
+		});
+		var vrednost = cena * stavka.kolicina;
+		//rabatprocenat se unosi pri dodavanju stavke narudzbenice
+		var rabat = vrednost * rabatProcenat / 100;//rabatProcenat ti je globalna promenjiva
+		var osnovicaPDV =  cena - rabat;
+		var iznosPDV =  osnovicaPDV * procenatStopaPDV/100;
+		var iznosStavke = vrednost- rabat + iznosPDV;
 		var formData ={
 			  	'kolicina' : stavka.kolicina,
-				'jedinicnaCena' : stavka.jedinicnaCena,
-				'rabat' : 8000 ,
-				'osnovicaZaPDV' : 85 ,
-				'procenatPDV' : 2,
-				'iznosPDV' : 560,
-				'iznosStavke' : 9562,
+				'jedinicnaCena' : cena,
+				'rabat' : rabat ,
+				'osnovicaZaPDV' : osnovicaPDV ,
+				'procenatPDV' : procenatStopaPDV,
+				'iznosPDV' : iznosPDV,
+				'iznosStavke' : iznosStavke,
 				'idFakture' : idF,
 				'robaUslugaId' : stavka.robaUslugaId,
 				'jedinicaMere' : stavka.jedinicaMere,
@@ -208,7 +265,7 @@ function createSF(stavka,idF){
 	    }
 	
 
-	  console.log(formData)
+	  console.log("Jedinicna cena" + formData.jedinicnaCena + formData.osnovicaZaPDV)
 	  $.ajax({
 			type: 'POST',
 	        url: 'https://localhost:8081/api/fakture/stavkeFakture/addStavkaFakture',
@@ -221,7 +278,8 @@ function createSF(stavka,idF){
 	        success: function (response) {
 	        	console.log("dodao stavku fakture sa id " +response.idStavkeFakture )
 	        	console.log("stavke fakture su" + response + "stavka je " + stavka );
-	        	loadStavkeFakture(idF);
+	        	console.log("Cena robe jeee" + cenaRobe)
+	        	
 	        
 	        	
 	    	}
@@ -231,74 +289,34 @@ function createSF(stavka,idF){
 	);
 	
 }
-function loadStavkeFakture(id){
-	console.log("loadStavkeFakture" + id)
-	var tempUrl = "https://localhost:8081/api/fakture/stavkeFakture/"+id;
-	console.log("url je " + tempUrl)
-	$.ajax({
-		url: tempUrl,
-		 headers:{Authorization:"Bearer " + token},
-		type:'get',
-		dataType: 'json',
-		cashe: false,
-		success: function(response){
-			console.log("load sf" + response)
-			for(var i=0; i<response.length; i++){
-				stavka = response[i];
-				console.log("br stavki" + response.length)
-				console.log("stavka" + stavka)
-				var table = $('#tableBody');
-				table.append('<tr><td>'+stavka.kolicina+'</td><td>'+stavka.cena+'</td>'+
-						'<td>'+stavka.rabat+'</td><td>'+stavka.osnovicaZaPDV+'</td><td>'+stavka.procenatPDV+'</td>'+
-						'<td>'+stavka.iznosPDV+'</td><td>'+stavka.iznosStavke+'</td></tr>');
-				
-				}
-			
-				/*$('#kolicina').append(stavka.kolicina);
-				$('#cena').append(stavka.cena);
-				$('#rabat').append(stavka.rabat);
-				$('#osnPDV').append(stavka.osnovicaZaPDV);
-				$('#procPDV').append(stavka.procenatPDV);
-				$('#iznosPDV').append(stavka.iznosPDV);
-				$('#iznosStavke').append(stavka.iznosStavke);*/
 
-				
-		//	window.location.href = 'https://localhost:8081/listaNarudzbenica.html';
-		 }
-
-		
-	},
-
-);
-};
 
 function loadKupci(){
+	
+var url = new URL("https://localhost:8081/api/kupac/getActive/all?posGodId="+poslovnaGod+"&preduzeceId="+preduzeceId);
 	 $.ajax({
 			method:'GET',
-			url: "https://localhost:8081/api/kupac/all",
+			url: url,
 			headers:{Authorization:"Bearer " + token},
 			dataType: 'json',
 			cashe: false,
 			success: function(response){
-				
-					clearSelect1();
 					var select = $('#select3');
-					
 					for(var i =0; i< response.length; i++){
 					 kupac = response[i];
 					 idKupac = kupac.id;
 					 select.append(
 							 '<option value="'+idKupac+'">'+kupac.name+'</option>'
-							 )
-					
-					 }
+					)
+				}
 			},error: function (jqXHR, textStatus, errorThrown) {
 				alert(textStatus);
 	  }
 	});
+	 
 	}
    
-    function prikazRobe(){
+function prikazRobe(){
     	
     	
     	var tempUrl = "https://localhost:8081/api/roba/getAllRobadeliteNoName/" ;
@@ -318,35 +336,72 @@ function loadKupci(){
 				var divRobe = $('#divRobe');
 				divRobe.show();
 				clearSelect2();
-				console.log(response);
-				/*divKol = $('#divKol');
-				divKol.show();*/
-				var select = document.getElementById("select2");
+			
+				var select = $('#select2');
 				for(var i =0; i< response.length; i++){
 					 var option = document.createElement("OPTION");
 					 txt =  document.createTextNode(response[i].name);
 					 option.appendChild(txt);
 					 select2.insertBefore(option, select2.lastChild);
 					 idRobe = response[i].id;
-					 console.log("id robe koji mi treba je " + idRobe)
+					 cenaRobe = response[i].cena;
+				}
 					
 					 
-				}
-				
-				
-				
+					 console.log("id robe koji mi treba je " + idRobe)
+					 console.log("Cena robe koji mi treba je " + cenaRobe)
+					 
 				 }
 		
-				
 			},
-		
-			
 			
 		);
 	};
 	
 	
+	
+	/* $.ajax({
+			method:'GET',
+			url: "https://localhost:8081/api/stavkacenovnika/getSCdeleteNo/"+cenaRobe,
+			headers:{Authorization:"Bearer " + token},
+			dataType: 'json',
+			cashe: false,
+			success: function(response){
+					cena = response.cena;
+					console.log("cena stavke je " + cena)
+					
+				}
+			
+		,error: function (jqXHR, textStatus, errorThrown) {
+			alert("read error!!!");
+}
+});*/
+/*
+function robaObject(){
+	var robaObject;
+	var idRobe=localStorage.getItem("idRobe")
 
+$.ajax({
+	url:'https://localhost:8081/api/roba/getRobadeliteNo/'+idRobe,
+	headers:{Authorization:"Bearer " + token},
+	type: 'GET',
+	dataType:'json',
+	async: false,
+	crossDomain: true,
+	success:function(response){
+		console.log(response);
+		robaObject = response;
+		console.log("RobaObject mi je" + robaObject)
+	},
+	error: function (jqXHR, textStatus, errorThrown) {
+		if(jqXHR.status=="403"){
+			alert("Error.");
+		}
+
+	}
+
+	});
+}*/
 function potvrdiN(){
 	/*	$('#dodajRobu').modal('toggle');
 		var kolRobe = $('#kolRobe').val();
@@ -365,8 +420,8 @@ function potvrdiN(){
 	 var divRobe = $('#divRobe');
 		divRobe.hide();
 	 console.log("load robe aaaaaaaaa")
-	 var idRobe = 0;
-	// $('#select2').hide();
+	
+	
 	 $.ajax({
 			method:'GET',
 			url: "https://localhost:8081/api/gruparobe/getGRdeliteNo/all",
@@ -426,14 +481,10 @@ function createDefaultNar(){
         headers:{Authorization:"Bearer " + token},
         contentType: "application/json",
         data: JSON.stringify(formData),
-
-
-		dataType: 'json',
+        dataType: 'json',
         success: function (response) {
         	narNewId = response.idNarudzbenice;
-        	if(response.aktivna == false){
-        		createFaktura(response.idNarudzbenice);
-        	}
+        	
         	
         	var narudzbenica = response;
         	currentNarudzbenica = narudzbenica;
@@ -452,85 +503,16 @@ function createDefaultNar(){
 
 
 
-/* function potvrdiNarudzbenicu(){
-	 console.log("Kreiranje narudzbenice")
-	 	var kolRobe = $('#kolRobe').val();
-		var x = document.getElementById("select2");
-	    var roba = x.options[x.selectedIndex].value;
-
-	    datumIsporuke = document.getElementById("datumIsporuke").value;
-	
-		console.log("datum je: " + datumIsporuke);
-		
-		var date = currentDate();
-		
-	    var x = document.getElementById("chbxActive").checked;
-	    console.log("cekbox: " + x);
-	    var active = true;
-	    if(x==true){
-	    	active = false;
-	    }
-	    console.log("Id narudz pre kreiranja fakture: " + narNewId);
-		if(active == false){
-			createFaktura(narNewId);
-		}
-		console.log("Id fakture pre kreiranja narudzbenice: " + idFakture);
-
-		
-		
-	    var formData ={
-		   		'idNarudzbenice' : narNewId,
-	    		'brojNarudzbenice' : narNewId,
-	    		'datumIzrade' : date,
-	    		'datumIsporuke' : datumIsporuke ,
-	    		'aktivna' : active,
-	    		'obrisano' : false,
-	    		'fakturaRel' : idFakture,
-	    		'kupac' : 1,
-	    		'user' : currentUserId,
-	    		'preduzece' : '1'
-	    		 
-	    }
-	    console.log("Data je "+ formData + "datumIzrade:" + date + "datumIsporuke" + datumIsporuke);
-	   
-		$.ajax({
-			type: 'PUT',
-	        url: 'https://localhost:8081/api/narudzbenice/editNarudzbenica/'+narNewId,
-	        headers:{Authorization:"Bearer " + token},
-	        data: JSON.stringify(formData),
-	        dataType: 'json',
-			cache: false,
-			processData: false,
-			 contentType: 'application/json',
-	        success: function (response) {
-	        	if(response.aktivna == false){
-	        		createFaktura(response.idNarudzbenice);
-	        	}
-	        	
-	        	var narudzbenica = response;
-	        	currentNarudzbenica = narudzbenica;
-	        	console.log("Kreirana narudzbenica id" +currentNarudzbenica.idNarudzbenice)
-	        	console.log(response.idNarudzbenice);
-	       //	window.location.href = 'invoice.html?id='+idFakture;
-	      //  	createSN(idN);
-	     //   	populateSN(currentNarudzbenica,idN);
-	        	
-	    	}
-		
-		},
-		
-	);
-
-}*/
-
 function createStavkeNarudzbenice(id){
 	console.log("idRobe je :" + idRobe)
+	console.log("cenaRobe je: " + cenaRobe)
+	
 	console.log("Kreiranje stavke narudzbenice" + id)
 	var kolRobe = $('#kolRobe').val();
 	var x = document.getElementById("select2");
     var roba = x.options[x.selectedIndex].value;
     var jm = $('#jedinMere').find(":selected").text();
-	
+	// dodaj rabat i stavi da ti bude globalna promenjiva(treba ti za izracunavanje fakture)
 	  var formData ={
 			  	'naziv' : roba,
 				'kolicina' : $('#kolRobe').val(),
@@ -566,6 +548,7 @@ function createStavkeNarudzbenice(id){
 };
 function loadStavkeNarudzbenice(id){
 	console.log("Ucitavanje stavke narudzbenice?")
+	console.log("cenaRobe je: " + cenaRobe)
 	var tempUrl = "https://localhost:8081/api/narudzbenice/stavkeNarudzbenice/"+id;
 	$.ajax({
 		url: tempUrl,
@@ -578,12 +561,14 @@ function loadStavkeNarudzbenice(id){
 			clearNazivRobe();
 			for(var i=0; i<response.length; i++){
 				stavka = response[i];
+				console.log("id stavke" + stavka.idStavkeNarudzbenice)
+				stavkaIDN = stavka.idStavkeNarudzbenice
 				var nazivRobe = $('#nazivRobe');
-				
+				console.log("naziv robe u labeli je" + stavka.naziv)
 			//Ispraviti   
-				nazivRobe.append('<label>'+stavka.naziv+'('+stavka.kolicina+''+stavka.jedinicaMere+'</label>'+')');
+				nazivRobe.append('<label id="'+stavkaIDN+'">'+stavka.naziv+'('+stavka.kolicina+''+stavka.jedinicaMere+')<button  type="button" title="Ukloni robu" id="deleteRobaBtn" class="removeRoba btn btn-sm" onClick="deleteRoba('+stavkaIDN+')" value="'+stavkaIDN+'"></button></label>');
 			//	document.getElementById('nazivRobe').append.innerHTML = stavka.naziv;
-				nazivRobe.append('<button  type="button" title="remove" id="deleteRobaBtn" class="removeRoba btn btn-sm" onClick="deleteRoba()" value="+'+stavka.id+'"></button>')
+				nazivRobe.append('')
 				
 				}
 				
@@ -596,44 +581,260 @@ function loadStavkeNarudzbenice(id){
 );
 
 }
+function deleteRoba(id){
+	$.ajax({
+		url: "https://localhost:8081/api/narudzbenice/stavkeNarudzbenice/hardDeleteStavkaNarudzbenice/"+id,
+		headers:{Authorization:"Bearer " + token},
+		type: 'DELETE',
+		success : function(response){
+		//	alert("izbrisana robica")
+			document.getElementById(id).style.display = "none";
+			$('#deleteRobaBtn').remove();
+			
+		},
+		error: function (jqXHR, textStatus, errorThrown) {  
+			alert(jqXHR.status);
+		}
+    });
+}
 
 
 function clearNazivRobe(){
 	var nazivRobe = $('#nazivRobe');
 	nazivRobe.empty();
 }
-/*function populateSN(id, narudzbenica){
+
+
+function loadPreduzece(){
+	var preduzeceId = 0;
+	preduzeceId=localStorage.getItem("pId");
+	$.ajax({
+		url:'https://localhost:8081/api/preduzece/'+preduzeceId,
+		headers:{Authorization:"Bearer " + token},
+		type: 'GET',
+		dataType:'json',
+		async: false,
+		crossDomain: true,
+		success:function(response){
+			email = response.email;
+			name = response.name;
+			telefon = response.telefon;
+			adresa = response.adresa;
+			
+			console.log("preduzece" + email + name + telefon + adresa);
+			
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			if(jqXHR.status=="403"){
+				alert("Error.");
+			}
+
+		}
+
+		});
 	
 	
+}
+
+function loadKupac(){
+	var url = new URL("https://localhost:8081/api/kupac/getActive/all?id="+idKupac+"&posGodId="+poslovnaGod+"&preduzeceId="+preduzeceId);
+	
+	$.ajax({
+		url: url,
+		headers:{Authorization:"Bearer " + token},
+		type: 'GET',
+		dataType:'json',
+		async: false,
+		crossDomain: true,
+		success:function(response){
+			name = response.name;
+			adresa = response.adresa;
+			
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			if(jqXHR.status=="403"){
+				alert("Error.");
+			}
+
+		}
+
+		});
+	
+	
+}
+
+function createOtpremnica(idF){
+	console.log("Kreiranje otpremnice")
+	var preduzeceId = 0;
+	preduzeceId=localStorage.getItem("pId");
+	var date = currentDate();
+	
+	var tempUrl = "https://localhost:8081/api/fakture/"+idF;
+	$.ajax({
+		url: tempUrl,
+		headers:{Authorization:"Bearer " + token},
+		type:'get',
+		dataType: 'json',
+		cashe: false,
+		success: function(response){
+			console.log("Id fakture je" + response.idFakture);
+			
+			datumOtpremnice = response.datumFakture;
+			console.log("datum otpremnice je" + datumOtpremnice);
+			kupacId = response.kupac;
+			userId = response.user;
+			datumIsporuke = document.getElementById("datumIsporuke").value;
+			
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			if(jqXHR.status=="403"){
+				alert("Error.");
+			}
+
+		}
+
+		});
 	  var formData ={
-			  	'naziv' : roba,
-				'kolicina' : $('#kolRobe').val(),
-				'jedinicaMere' : 'kg' ,
-				'id_narudzbenice' : id ,
-				'obrisano' : false
+	    		
+	    		'datumOtpremnice' : "",
+	    		'primljenaRoba' : true ,
+	    		'datumIsporuke' : datumIsporuke,
+	    		'prevoznikId' : "1",
+	    		'kupacId' : 1,
+	    		'user' : currentUserId,
+	    		'preduzeceId' : preduzeceId,
+	    		'fakturaRel' : idF,
+	    		'obrisano' : false
+	    		
+	    		 
 	    }
-	  console.log(formData)
-	  $.ajax({
+	    console.log("Otpremnica formData" + formData.datumIsporuke)
+	   
+		$.ajax({
 			type: 'POST',
-	        url: 'https://localhost:8081/api/narudzbenice/stavkeNarudzbenice/addStavkaNarudzbenice',
+	        url: 'https://localhost:8081/api/otpremnice/addOtpremnica',
 	        headers:{Authorization:"Bearer " + token},
 	        contentType: "application/json",
 	        data: JSON.stringify(formData),
-
+	        async:false,
 
 			dataType: 'json',
 	        success: function (response) {
-	        	console.log("jeeeeeeeee" + response.idStavkeNarudzbenice)
-	    //    	populateStavkeNarudzbenice();
+	        	console.log(response);
+	        	idOtpremnice = response.idOtpremnice
+	        	loadOtpremnice(idOtpremnice);
 	        	
 	        	
-	    	}
+	        },
+			error: function (jqXHR, textStatus, errorThrown) {  
+				alert(textStatus);
+			}
+	    });
+
+}
+
+
+function loadOtpremnice(id){
+	console.log("load Otpremnice")
+	var tempUrl = "https://localhost:8081/api/otpremnice/"+id;
+	$.ajax({
+		url: tempUrl,
+		headers:{Authorization:"Bearer " + token},
+		type:'get',
+		dataType: 'json',
+		cashe: false,
 		
+		success: function(response){
+			console.log("Id otrpemnice je" + response.idOtpremnice);
+			
+		//	createStavkeOtpremnice(response.fakturaRel,id);
+			
+			}
+          
 		},
 		
 	);
-
-};
-	*/
+}
 
 
+function createStavkeOtpremnice(idFakture, idOtpremnice){
+	console.log("Create stavke Otpremnice")
+	console.log("Ucitavanje stavki fakture")
+	var tempUrl = "https://localhost:8081/api/fakture/stavkeFakture/"+idFakture;
+	console.log("url je " + tempUrl)
+	$.ajax({
+		url: tempUrl,
+		 headers:{Authorization:"Bearer " + token},
+		type:'get',
+		dataType: 'json',
+		cashe: false,
+		success: function(response){
+			console.log("load stavki otpremnice" + response)
+			for(var i=0; i<response.length; i++){
+				stavkaF = response[i];
+				cenaO = stavkaF.jedinicnaCena;
+				kolicinaO = stavkaF.kolicina;
+				jedinicaMereO = stavkaF.jedinicaMere;
+				robaUslugaIdO = stavkaF.robaUslugaId;
+				console.log("rbuO" + robaUslugaIdO)
+				
+				
+				}
+			console.log("Dodavanje robe")
+			$.ajax({
+				url:'https://localhost:8081/api/roba/getRobadeliteNo/'+robaUslugaIdO,
+				headers:{Authorization:"Bearer " + token},
+				type: 'GET',
+				dataType:'json',
+				async: false,
+				crossDomain: true,
+				success:function(response){
+					console.log(response);
+					robaObjectName = response.name;
+					
+				},
+
+				});
+			var formData ={
+		    		'naziv' : robaObjectName,
+		    		'cena' : cenaO,
+		    		'isporucenaKolicina' : kolicinaO ,
+		    		'napomena' : "",
+		    		'idOtpremnice' : idOtpremnice,
+		    		'jedinicaMere' : jedinicaMereO,
+		    		'robaUslugaId' : robaUslugaIdO,
+		    		'obrisano' : false
+		    }
+			
+			$.ajax({
+				type: 'POST',
+		        url: 'https://localhost:8081/api/otpremnice/stavkeOtpremnice/addStavkaOtpremnice',
+		        headers:{Authorization:"Bearer " + token},
+		        contentType: "application/json",
+		        data: JSON.stringify(formData),
+
+
+				dataType: 'json',
+		        success: function (response) {
+		        console.log(response);
+		        	
+		    	}
+			
+			},
+			
+		);
+		 }
+	},
+
+);
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+}
