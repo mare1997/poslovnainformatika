@@ -38,6 +38,9 @@ public class Cenovnik implements Serializable {
 	@Column(name="datum_vazenja", unique=false, nullable=false)
 	private Date datum_vazenja;
 	
+	@Column(name="datum_kreiranja", unique=false, nullable=false)
+	private Date datum_kreiranja;
+	
 	@ManyToOne
 	@JoinColumn(name = "preduzece_id", referencedColumnName = "preduzece_id", nullable = true)
 	private Preduzece preduzece;
@@ -55,11 +58,12 @@ public class Cenovnik implements Serializable {
 
 
 
-	public Cenovnik(Integer id,String name, Date datum_vazenja, Preduzece preduzece, Set<StavkaCenovnika> cene,boolean obrisano) {
+	public Cenovnik(Integer id,String name, Date datum_vazenja,Date datum_kreiranja, Preduzece preduzece, Set<StavkaCenovnika> cene,boolean obrisano) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.datum_vazenja = datum_vazenja;
+		this.datum_kreiranja = datum_kreiranja;
 		this.preduzece = preduzece;
 		this.cene = cene;
 		this.obrisano=obrisano;
@@ -135,6 +139,18 @@ public class Cenovnik implements Serializable {
 
 	public void setObrisano(boolean obrisano) {
 		this.obrisano = obrisano;
+	}
+
+
+
+	public Date getDatum_kreiranja() {
+		return datum_kreiranja;
+	}
+
+
+
+	public void setDatum_kreiranja(Date datum_kreiranja) {
+		this.datum_kreiranja = datum_kreiranja;
 	}
 	
 	

@@ -26,7 +26,9 @@ import com.pi.PoslovnaInformatika.converters.OtpremnicaDTOtoOtpremnica;
 import com.pi.PoslovnaInformatika.converters.OtpremnicaToOtpremnicaDTO;
 import com.pi.PoslovnaInformatika.dto.OtpremnicaDTO;
 import com.pi.PoslovnaInformatika.model.Otpremnica;
+import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
 import com.pi.PoslovnaInformatika.service.OtpremnicaService;
+import com.pi.PoslovnaInformatika.service.PGPservice;
 
 @RestController
 @RequestMapping(value="api/otpremnice")
@@ -36,6 +38,8 @@ public class OtpremnicaController {
 	@Autowired
 	private OtpremnicaService otpremnicaService;
 	
+	@Autowired
+	private PGPservice pgpService;
 	
 	@Autowired
 	private OtpremnicaToOtpremnicaDTO toOtpremnicaDTO;
@@ -43,29 +47,51 @@ public class OtpremnicaController {
 	@Autowired
 	private OtpremnicaDTOtoOtpremnica toOtpremnica;
 	
-	@RequestMapping(value="/all",method=RequestMethod.GET,params={"page","size"})
-	public ResponseEntity<List<OtpremnicaDTO>> getOtpremnice(@RequestParam("page") int page, @RequestParam("size") int size){
+	@RequestMapping(value="/all",method=RequestMethod.GET,params={"page","size","posGodId","preduzeceId"})
+	public ResponseEntity<List<OtpremnicaDTO>> getOtpremnice(@RequestParam("page") int page, @RequestParam("size") int size,
+			@RequestParam("posGodId") int posGodId, @RequestParam("preduzeceId") int preduzeceId){
 		Page<Otpremnica> otpremnicePage = otpremnicaService.findAll(PageRequest.of(page, size,Sort.by("datumOtpremnice").descending()));
-		if (page > otpremnicePage.getTotalPages()) {
-	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	    }
-		
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("totalPages", Integer.toString(otpremnicePage.getTotalPages()));
-		return new ResponseEntity<>(toOtpremnicaDTO.convert(otpremnicePage.getContent()),headers, HttpStatus.OK);
-	}
-	
-	@RequestMapping(value="/active/all",method=RequestMethod.GET,params={"page","size"})
-	public ResponseEntity<List<OtpremnicaDTO>> getActiveFakture(@RequestParam("page") int page, @RequestParam("size") int size){
-		Page<Otpremnica> otpremnicePage = otpremnicaService.findAll(PageRequest.of(page, size,Sort.by("datumOtpremnice").descending()));
-		
+
+		PoslovnaGodinaPreduzeca posGod = pgpService.getOne(posGodId);
 		if (page > otpremnicePage.getTotalPages()) {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 		List<Otpremnica> tempOtpremnice = otpremnicePage.getContent();
 		List<Otpremnica> activeOtpremnice = new ArrayList<>();
 		for (Otpremnica otpremnica : tempOtpremnice){
-			if (otpremnica.isObrisano()==false)
+			if (otpremnica.isObrisano()==false 
+					&& otpremnica.getDatumOtpremnice().after(posGod.getDatumPocetak()) 
+					&& otpremnica.getDatumOtpremnice().before(posGod.getDatumKraj())
+					&& otpremnica.getPreduzece().getId() == preduzeceId)
+				
+					activeOtpremnice.add(otpremnica);
+		}
+		
+		Page<Otpremnica> activeOtpremnicePage = new PageImpl<>(activeOtpremnice);
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("totalPages", Integer.toString(otpremnicePage.getTotalPages()));
+		return new ResponseEntity<>(toOtpremnicaDTO.convert(activeOtpremnicePage.getContent()),headers, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/active/all",method=RequestMethod.GET,params={"page","size","posGodId","preduzeceId"})
+	public ResponseEntity<List<OtpremnicaDTO>> getActiveFakture(@RequestParam("page") int page, @RequestParam("size") int size,
+			@RequestParam("posGodId") int posGodId, @RequestParam("preduzeceId") int preduzeceId){
+		
+		Page<Otpremnica> otpremnicePage = otpremnicaService.findAll(PageRequest.of(page, size,Sort.by("datumOtpremnice").descending()));
+		
+		PoslovnaGodinaPreduzeca posGod = pgpService.getOne(posGodId);
+		if (page > otpremnicePage.getTotalPages()) {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+		List<Otpremnica> tempOtpremnice = otpremnicePage.getContent();
+		List<Otpremnica> activeOtpremnice = new ArrayList<>();
+		for (Otpremnica otpremnica : tempOtpremnice){
+			if (otpremnica.isObrisano()==false 
+					&& otpremnica.getDatumOtpremnice().after(posGod.getDatumPocetak()) 
+					&& otpremnica.getDatumOtpremnice().before(posGod.getDatumKraj())
+					&& otpremnica.getPreduzece().getId() == preduzeceId)
+				
 					activeOtpremnice.add(otpremnica);
 		}
 		

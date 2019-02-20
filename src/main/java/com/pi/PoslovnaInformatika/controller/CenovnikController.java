@@ -19,10 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pi.PoslovnaInformatika.dto.CenovnikDTO;
-
+import com.pi.PoslovnaInformatika.dto.GrupaRobeDTO;
 import com.pi.PoslovnaInformatika.model.Cenovnik;
-
+import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
 import com.pi.PoslovnaInformatika.service.interfaces.CenovnikServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.PGPserviceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.PreduzeceServiceInterface;
 
 @RestController
@@ -36,44 +37,62 @@ public class CenovnikController {
 	@Autowired
 	private PreduzeceServiceInterface psi;
 	
-	@GetMapping(value = "/getCenovnikdeleteYes/{id}")
-    public ResponseEntity<CenovnikDTO> getC(@PathVariable("id") int id){
-    	
+	@Autowired
+	private PGPserviceInterface pgsi;
+	
+	@GetMapping(value = "/getCenovnikdeleteYes/{id}/{idPreduzeca}/{idPG}")
+    public ResponseEntity<CenovnikDTO> getC(@PathVariable("id") int id,@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
+    	PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
     	Cenovnik c = csi.getOne(id);
-        if(c == null)
+        if(c == null || c.getPreduzece().getId() != idPreduzeca || c.getDatum_kreiranja().before(p.getDatumPocetak()))
             return new ResponseEntity<CenovnikDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<CenovnikDTO>(new CenovnikDTO(c),HttpStatus.OK);
     }
 	
-	@RequestMapping(value="/getCenovnikdeleteYes/all", method = RequestMethod.GET)
-    public ResponseEntity<List<CenovnikDTO>> getCenoviks(){
-    	
+	@RequestMapping(value="/getCenovnikdeleteYes/all/{idPreduzeca}/{idPG}", method = RequestMethod.GET)
+    public ResponseEntity<List<CenovnikDTO>> getCenoviks(@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
+		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
     	List<Cenovnik> c=csi.getAll();
         List<CenovnikDTO> cDTo=new ArrayList<>();
         for (Cenovnik cc:c) {
-        	cDTo.add(new CenovnikDTO(cc));
+        	if(cc.getPreduzece().getId() == idPreduzeca && p.getDatumPocetak().before(cc.getDatum_kreiranja())) {
+        		if(p.getZavrsena() == true) {
+        			if(p.getDatumKraj().after(cc.getDatum_kreiranja()))
+        				cDTo.add(new CenovnikDTO(cc));
+        		}else {
+        			cDTo.add(new CenovnikDTO(cc));
+        		}
+        		
+        	}
         	
         }
         return new ResponseEntity<List<CenovnikDTO>>(cDTo,HttpStatus.OK);
     }
-	@GetMapping(value = "/getCenovnikdeleteNo/{id}")
-    public ResponseEntity<CenovnikDTO> getCc(@PathVariable("id") int id){
-    	
+	@GetMapping(value = "/getCenovnikdeleteNo/{id}/{idPreduzeca}/{idPG}")
+    public ResponseEntity<CenovnikDTO> getCc(@PathVariable("id") int id,@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
+		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
     	Cenovnik c = csi.getOne(id);
-        if(c == null || c.isObrisano() == true)
+        if(c == null || c.isObrisano() == true  || c.getPreduzece().getId() != idPreduzeca || c.getDatum_kreiranja().before(p.getDatumPocetak()))
             return new ResponseEntity<CenovnikDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<CenovnikDTO>(new CenovnikDTO(c),HttpStatus.OK);
     }
 	
-	@RequestMapping(value="/getCenovnikdeleteNo/all", method = RequestMethod.GET)
-    public ResponseEntity<List<CenovnikDTO>> getCenoviksc(){
-    	
+	@RequestMapping(value="/getCenovnikdeleteNo/all/{idPreduzeca}/{idPG}", method = RequestMethod.GET)
+    public ResponseEntity<List<CenovnikDTO>> getCenoviksc(@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
+		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
     	List<Cenovnik> c=csi.getAll();
         List<CenovnikDTO> cDTo=new ArrayList<>();
         for (Cenovnik cc:c) {
-        	if(cc.isObrisano() == false) {
-        		cDTo.add(new CenovnikDTO(cc));
+        	if(cc.isObrisano() == false && cc.getPreduzece().getId() == idPreduzeca && p.getDatumPocetak().before(cc.getDatum_kreiranja())) {
+        		if(p.getZavrsena() == true) {
+        			if(p.getDatumKraj().after(cc.getDatum_kreiranja()))
+        				cDTo.add(new CenovnikDTO(cc));
+        		}else {
+        			cDTo.add(new CenovnikDTO(cc));
+        		}
+        		
         	}
+        	
         }
         return new ResponseEntity<List<CenovnikDTO>>(cDTo,HttpStatus.OK);
     }
@@ -105,3 +124,4 @@ public class CenovnikController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }
+

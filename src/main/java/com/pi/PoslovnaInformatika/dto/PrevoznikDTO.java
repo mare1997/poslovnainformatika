@@ -1,6 +1,7 @@
 package com.pi.PoslovnaInformatika.dto;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import com.pi.PoslovnaInformatika.model.Prevoznik;
 
@@ -13,6 +14,7 @@ public class PrevoznikDTO implements Serializable{
 
 	private Integer id;
 	private String name;
+	
 	private boolean obrisano;
 	
 	public PrevoznikDTO() {
@@ -23,6 +25,7 @@ public class PrevoznikDTO implements Serializable{
 		super();
 		this.id = id;
 		this.name = name;
+		
 		this.obrisano = obrisano;
 	}
 
@@ -53,6 +56,9 @@ public class PrevoznikDTO implements Serializable{
 	public void setObrisano(boolean obrisano) {
 		this.obrisano = obrisano;
 	}
+
+	
+	
 	
 	
 	

@@ -5,6 +5,7 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,6 +38,9 @@ public class Kupac implements Serializable {
 	@Column(name="name", unique=false, nullable=false, length = 50)
 	private String name;
 	
+	@Column(name="datum_kreiranja", unique=false, nullable=false)
+	private Date datum_kreiranja;
+	
 	@Column(name="adresa", unique=false, nullable=false, length = 50)
 	private String adresa;
 	
@@ -67,20 +71,38 @@ public class Kupac implements Serializable {
 		super();
 	}
 
-	public Kupac(Integer id, String name, String adresa, long pib_jmbg, Mesto mesto, Preduzece preduzece,
-			Set<Otpremnica> otpremnice,List<Faktura> fakture,List<Narudzbenica> narudzbenice,boolean obrisano) {
+	
+
+	public Kupac(Integer id, String name, Date datum_kreiranja, String adresa, long pib_jmbg, Mesto mesto,
+			Preduzece preduzece, Set<Otpremnica> otpremnice, List<Narudzbenica> narudzbenice, List<Faktura> fakture,
+			boolean obrisano) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.datum_kreiranja = datum_kreiranja;
 		this.adresa = adresa;
 		this.pib_jmbg = pib_jmbg;
 		this.mesto = mesto;
 		this.preduzece = preduzece;
 		this.otpremnice = otpremnice;
-		this.fakture=fakture;
-		this.narudzbenice=narudzbenice;
-		this.obrisano=obrisano;
+		this.narudzbenice = narudzbenice;
+		this.fakture = fakture;
+		this.obrisano = obrisano;
 	}
+
+
+
+	public Date getDatum_kreiranja() {
+		return datum_kreiranja;
+	}
+
+
+
+	public void setDatum_kreiranja(Date datum_kreiranja) {
+		this.datum_kreiranja = datum_kreiranja;
+	}
+
+
 
 	public Integer getId() {
 		return id;
