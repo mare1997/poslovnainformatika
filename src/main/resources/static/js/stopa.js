@@ -62,12 +62,38 @@ var pdvId = localStorage.getItem("pdvId");
 });
 }
 
+function currentDate(){
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+
+	var yyyy = today.getFullYear();
+	if(dd<10){
+	    dd='0'+dd;
+	}
+	if(mm<10){
+	    mm='0'+mm;
+	}
+	var today = yyyy+"-"+mm+"-"+dd;
+
+	return today;
+}
+
 
 function addStopu(){
+	var danas = currentDate();
 	var pdvId = localStorage.getItem("pdvId");
 	var procenat = $('#addProcenat').val().trim();
 	//var danas = currentDate();
 	var datumV = document.getElementById('addDatumVazenjaStope').value;
+	if(datumV < danas){
+		alert("datum vazenja ne moze biti manji od danasnjeg");
+		return;
+}
+	if(procenat > 100 || procenat== 0 || procenat == "" || procenat == null){
+		alert("Procenat mora biti najmanje 1 a najvise 100");
+		return;
+	}
 
 	var pdvObject;
 	$.ajax({

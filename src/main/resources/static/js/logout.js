@@ -12,9 +12,11 @@ $(document).ready(function() {
 	}
 	if(role == "ADMIN"){
 		//alert("im admin");
+		//$('#zaUsera').hide();
 	}
 	if(role=="REGULAR"){
-		//alert("im user");
+		//$('#zaUsera').show();
+		//$('#mainUl').hide();
 	}
 	
 });
@@ -29,3 +31,34 @@ function logout(){
 }
 
 
+/*<ul id="zaUsera">
+<li><a href="mainPage.html">Home</a></li>
+
+				<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Narudzbenice <span class="caret"></span>
+			</a>
+
+				<ul class="dropdown-menu">
+					<li><a href="listaNarudzbenica.html">Lista zavrsenih narudzbenica</a></li>
+					<li><a href="listaActiveNarudzbenica.html">Lista aktivnih narudzbenica</a></li>
+					<li><a href="createNarudzbenica.html">Kreiraj narudzbenicu</a></li>
+
+
+				</ul></li>
+					<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Fakture <span class="caret"></span>
+			</a>
+
+				<ul class="dropdown-menu">
+					<li><a href="listaFaktura.html">Lista faktura</a></li>
+
+				</ul></li>
+				<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Otpremnice<span class="caret"></span>
+			</a>
+
+				<ul class="dropdown-menu">
+					<li><a href="listaOtrpemnica.html">Lista otpremnica</a></li>
+
+				</ul></li>
+</ul>*/

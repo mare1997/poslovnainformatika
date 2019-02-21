@@ -90,8 +90,8 @@ function addStavkuCen(){
 
 	});
 
-	var data={'cena' : cena,
-						 'roba' : robaId,
+	var data={			 'cena' : cena,
+						 'roba' : robaId, //id robe
 						 'cenovnik' : cenObject
 					 	}
 
