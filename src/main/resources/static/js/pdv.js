@@ -10,15 +10,37 @@ $(document).ready(function() {
 });
 	
 	$(document).on("click", "#pdvBody tr", function(e) {
-		//var name = this.attr("name");
-		var delPdvId = this.id;
-		console.log(delPdvId);
-		localStorage.setItem("delId", delPdvId);
-    //alert(name);
+		delId = this.id;
+		var delUserRow = $("#pdvBody tr");
+		console.log(delId);
+		localStorage.setItem("deletePdv", delId);
+		var asd = $('#'+delId+'');
+		console.log(asd);
+		asd.addClass("bg-danger");
+		$.ajax({
+		    url:'https://localhost:8081/api/pdv/getPDVdeleteNo/all',
+		    headers:{Authorization:"Bearer " + token},
+		    type:"GET",
+		    dataType: 'json',
+		    crossDomain:true,
+		    success: function (response) {
+		      var table = $('#pdvBody');
+		      for (var i=0; i<response.length; i++){
+		    	  pdv = response[i];
+		    	  if(pdv.id != delId){
+		    		  $('#'+pdv.id+'').removeClass("bg-danger"); 
+		    	  }
+		    	 
+		      }
+		    },error: function (jqXHR, textStatus, errorThrown) {
+					alert("read error!!!");
+		  }
+		});
 });
 });
 var token= localStorage.getItem("token");
 function loadPdv(){
+	
   $.ajax({
     url:'https://localhost:8081/api/pdv/getPDVdeleteNo/all',
     headers:{Authorization:"Bearer " + token},
@@ -26,7 +48,8 @@ function loadPdv(){
     dataType: 'json',
     crossDomain:true,
     success: function (response) {
-      var table = $('#pdvBody');
+    	var table = $('#pdvBody');
+    	
       for (var i=0; i<response.length; i++){
         pdv = response[i];
 
@@ -68,7 +91,7 @@ $.ajax({
 			success: function (response) {
 				alert("Dodavanje uspesno.")
 				$('#addPdv').modal('toggle');
-				location.reload();
+				refresh();
 			},
 	error: function (jqXHR, textStatus, errorThrown) {
 		if(jqXHR.status=="403"){
@@ -91,7 +114,7 @@ function deletePdv(){
         	console.log("pdv delete success: ");
         	
         	$('#deletePdvModal').modal('toggle');
-        	location.reload();
+        	refresh();
         },
 		error: function (jqXHR, textStatus, errorThrown) {  
 			alert(textStatus);
@@ -101,4 +124,10 @@ function deletePdv(){
 
 function openDeleteModal(){
 	$('#deletePdvModal').modal();
+}
+function refresh(){
+	var table = $('#pdvBody tr');
+    console.log(table);
+    table.remove();
+	loadPdv();
 }

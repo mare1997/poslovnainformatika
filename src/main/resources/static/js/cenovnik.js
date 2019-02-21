@@ -12,12 +12,34 @@ $(document).ready(function() {
 	});
 	
 	$(document).on("click", "#cenBody tr", function(e) {
-		//var name = this.attr("name");
-		var delId = this.id;
-		var delUserRow = $("#usersBody tr");
+		var pgId = localStorage.getItem("pgId",pgId);
+		var pId = localStorage.getItem("pId",pId);
+		delId = this.id;
+		var delUserRow = $("#cenBody tr");
 		console.log(delId);
-		localStorage.setItem("deleteCenovnik", delId);
-    //alert(name);
+		localStorage.setItem("deleteId", delId);
+		var asd = $('#'+delId+'');
+		console.log(asd);
+		asd.addClass("bg-danger");
+		$.ajax({
+		    url:'https://localhost:8081/api/cenovnik/getCenovnikdeleteNo/all/'+pId+'/'+pgId,
+		    headers:{Authorization:"Bearer " + token},
+		    type:"GET",
+		    dataType: 'json',
+		    crossDomain:true,
+		    success: function (response) {
+		      var table = $('#cenBody');
+		      for (var i=0; i<response.length; i++){
+		    	  cen = response[i];
+		    	  if(cen.id != delId){
+		    		  $('#'+cen.id+'').removeClass("bg-danger"); 
+		    	  }
+		    	 
+		      }
+		    },error: function (jqXHR, textStatus, errorThrown) {
+					alert("read error!!!");
+		  }
+		});
 });
 });
 var token= localStorage.getItem("token");
@@ -40,8 +62,10 @@ function currentDate(){
 }
 
 function loadCen(){
+	var pgId = localStorage.getItem("pgId",pgId);
+	var pId = localStorage.getItem("pId",pId);
   $.ajax({
-    url:'https://localhost:8081/api/cenovnik/getCenovnikdeleteNo/all',
+    url:'https://localhost:8081/api/cenovnik/getCenovnikdeleteNo/all/'+pId+'/'+pgId,
     headers:{Authorization:"Bearer " + token},
     type:"GET",
     dataType: 'json',
@@ -98,7 +122,7 @@ error: function (jqXHR, textStatus, errorThrown) {
 });
 
 
-var data={'name' : ime,
+var data={			 'name' : ime,
 					 'datum_vazenja' : datumV,
 					 'preduzece' : preduzeceObject
 				 	}
@@ -117,7 +141,7 @@ $.ajax({
 			success: function (response) {
 				alert("Dodavanje uspesno.")
 				$('#addCenovnik').modal('toggle');
-				location.reload();
+				refresh();
 			},
 	error: function (jqXHR, textStatus, errorThrown) {
 		if(jqXHR.status=="403"){
@@ -145,7 +169,7 @@ function deleteCenovnik(){
         	console.log("cenovnik delete success: ");
         	
         	$('#cenovnikDeleteModal').modal('toggle');
-        	location.reload();
+        	refresh();
         },
 		error: function (jqXHR, textStatus, errorThrown) {  
 			alert(textStatus);
@@ -153,4 +177,9 @@ function deleteCenovnik(){
     });
 }
 
-
+function refresh(){
+	var table = $('#cenBody tr');
+    console.log(table);
+    table.remove();
+	loadCen();
+}

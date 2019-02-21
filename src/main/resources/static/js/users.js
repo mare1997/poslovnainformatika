@@ -1,16 +1,42 @@
 var token= localStorage.getItem("token");
 var auth = "";
 var currentUserId = "";
+var delId;
 $(document).ready(function() {
 	loadUsers();
 	$(document).on("click", "#usersBody tr", function(e) {
 		//var name = this.attr("name");
-		var delId = this.id;
+		delId = this.id;
 		var delUserRow = $("#usersBody tr");
 		console.log(delId);
 		localStorage.setItem("deleteId", delId);
+		var asd = $('#'+delId+'');
+		console.log(asd);
+		asd.addClass("bg-danger");
+		$.ajax({
+		    url:'https://localhost:8081/api/users',
+		    headers:{Authorization:"Bearer " + token},
+		    type:"GET",
+		    dataType: 'json',
+		    crossDomain:true,
+		    success: function (response) {
+		      var table = $('#usersBody');
+		      for (var i=0; i<response.length; i++){
+		    	  user = response[i];
+		    	  if(user.id != delId){
+		    		  $('#'+user.id+'').removeClass("bg-danger"); 
+		    	  }
+		    	 
+		      }
+		    },error: function (jqXHR, textStatus, errorThrown) {
+					alert("read error!!!");
+		  }
+		});
+		
     //alert(name);
 });
+
+	
 });
 function loginStatus(){
 	currentUserId = localStorage.getItem("id");
@@ -109,6 +135,7 @@ $.ajax({
         	console.log("usao u success")
         	alert("Registracija uspesna.");
         	$('#addKorisnika').modal('toggle');
+        	refresh();
         },
 		error: function (jqXHR, textStatus, errorThrown) {
 			if(jqXHR.status=="403"){
@@ -136,10 +163,17 @@ function deleteUser(){
         	console.log("user delete success: ");
         	
         	$('#deleteUserModal').modal('toggle');
-        	location.reload();
+        	refresh();
         },
 		error: function (jqXHR, textStatus, errorThrown) {  
 			alert(textStatus);
 		}
     });
+}
+
+function refresh(){
+	var table = $('#usersBody tr');
+    console.log(table);
+    table.remove();
+	loadUsers();
 }

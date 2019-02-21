@@ -1,19 +1,42 @@
 $(document).ready(function() {
 	loadRoba();
 	$(document).on("click", "#robaBody tr", function(e) {
-		//var name = this.attr("name");
-		var delId = this.id;
+		delId = this.id;
+		var idGrupe = localStorage.getItem("grupaId");
 		var delUserRow = $("#robaBody tr");
 		console.log(delId);
 		localStorage.setItem("deleteRoba", delId);
-    //alert(name);
-});
+		var asd = $('#'+delId+'');
+		console.log(asd);
+		asd.addClass("bg-danger");
+		$.ajax({
+		    url:'https://localhost:8081/api/roba/getAllRobadeliteNo/'+idGrupe,
+		    headers:{Authorization:"Bearer " + token},
+		    type:"GET",
+		    dataType: 'json',
+		    crossDomain:true,
+		    success: function (response) {
+		      var table = $('#robaBody');
+		      for (var i=0; i<response.length; i++){
+		    	  r = response[i];
+		    	  if(r.id != delId){
+		    		  $('#'+r.id+'').removeClass("bg-danger"); 
+		    	  }
+		    	 
+		      }
+		    },error: function (jqXHR, textStatus, errorThrown) {
+					alert("read error!!!");
+		  }
+		});
+	
+	});	
 });
 var token= localStorage.getItem("token");
+var idGrupe = localStorage.getItem("grupaId");
 var pId="";
 function loadRoba(){
   $.ajax({
-    url:'https://localhost:8081/api/roba/getAllRobadeliteNo/all',
+    url:'https://localhost:8081/api/roba/getAllRobadeliteNo/'+idGrupe,
     headers:{Authorization:"Bearer " + token},
     type:"GET",
     dataType: 'json',
@@ -114,6 +137,7 @@ $.ajax({
         	console.log("usao u success")
         	alert("Dodavanje uspesno.");
         	$('#addRoba').modal('toggle');
+        	refresh();
         },
 		error: function (jqXHR, textStatus, errorThrown) {
 			if(jqXHR.status=="403"){
@@ -141,10 +165,49 @@ function deleteRoba(){
         	console.log("stopa delete success: ");
         	
         	$('#robaDeleteModal').modal('toggle');
-        	location.reload();
+        	refresh();
         },
 		error: function (jqXHR, textStatus, errorThrown) {  
 			alert(textStatus);
 		}
     });
+}
+
+function refresh(){
+	var table = $('#robaBody tr');
+    console.log(table);
+    table.remove();
+	loadRoba();
+}
+
+// /getAllActiveRobaByName
+function searchRoba(){
+	var idGrupe = localStorage.getItem("grupaId");
+	var searchPoljeValue = document.getElementById("searchRoba").value;
+	console.log(searchPoljeValue);
+	var table = $('#robaBody tr');
+    console.log(table);
+    table.remove();
+    $.ajax({
+        url:'https://localhost:8081/api/roba/getAllActiveRobaByName/'+idGrupe+'/?name='+searchPoljeValue,
+        headers:{Authorization:"Bearer " + token},
+        type:"GET",
+        dataType: 'json',
+        crossDomain:true,
+        success: function (response) {
+          var table = $('#robaBody');
+          for (var i=0; i<response.length; i++){
+            roba = response[i];
+    			console.log(roba);
+              table.append(
+                '<tr id="'+roba.id+'" value="'+roba.id+'">'+'<td>'+roba.name+'</td><td>'+roba.grupa.name+'</td><td>'+roba.jedninica_mere+'</td><td>'+roba.cena+'</td></tr>'
+              )
+
+          }
+        },error: function (jqXHR, textStatus, errorThrown) {
+    			alert("read error!!!");
+      }
+    });
+	
+	
 }

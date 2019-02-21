@@ -4,15 +4,17 @@ $(document).ready(function() {
 	var role = localStorage.getItem("authority");
 	console.log(token);
 	if(token == null){
+		window.stop();
+		document.body.innerHTML = '';
 		window.location.replace("login.html");
-		alert("You are not logged in, please log in!");
+		//alert("You are not logged in, please log in!");
 		
 	}
 	if(role == "ADMIN"){
-		alert("im admin");
+		//alert("im admin");
 	}
 	if(role=="REGULAR"){
-		alert("im user");
+		//alert("im user");
 	}
 	
 });
@@ -27,6 +29,3 @@ function logout(){
 }
 
 
-function refresh(){
-	location.reload();
-}
