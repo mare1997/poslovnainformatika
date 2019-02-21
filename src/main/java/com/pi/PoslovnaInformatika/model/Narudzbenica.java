@@ -193,6 +193,14 @@ public class Narudzbenica implements Serializable{
 		this.obrisano = obrisano;
 	}
 
+	@Override
+	public String toString() {
+		return "Narudzbenica [idNarudzbenice=" + idNarudzbenice + ", brojNarudzbenice=" + brojNarudzbenice
+				+ ", datumIzrade=" + datumIzrade + ", datumIsporuke=" + datumIsporuke + ", aktivna=" + aktivna
+				+ ", stavkeNarudzbenice=" + stavkeNarudzbenice + ", preduzece=" + preduzece + ", fakturaRel="
+				+ fakturaRel + ", kupac=" + kupac + ", obrisano=" + obrisano + ", user=" + user + "]";
+	}
+	
 
 	
 }

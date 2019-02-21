@@ -62,8 +62,9 @@ public class FakturaController {
 		List<Faktura> tempFakture = fakturePage.getContent(); 
 		List<Faktura> activeFakture = new ArrayList<>();
 		for (Faktura faktura : tempFakture){
-			if (faktura.getDatumFakture().after(posGod.getDatumPocetak()) 
-					&& faktura.getDatumFakture().before(posGod.getDatumKraj())
+			if (faktura.isObrisano() == false &&
+					faktura.getDatumFakture().after(posGod.getDatumPocetak()) 
+				//	&& faktura.getDatumFakture().before(posGod.getDatumKraj())
 					&& faktura.getPreduzece().getId() == preduzeceId)
 				
 					activeFakture.add(faktura);
@@ -143,7 +144,7 @@ public class FakturaController {
 		if(faktura==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
+		editedFakturaDTO.setIdFakture(id);
 		Faktura editedFaktura = toFaktura.convert(editedFakturaDTO);
 		fakturaService.save(editedFaktura);
 		return new ResponseEntity<>(toFakturaDTO.convert(editedFaktura), HttpStatus.OK);

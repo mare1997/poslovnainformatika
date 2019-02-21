@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -153,6 +154,21 @@ public class RobaController {
 		roba.setName(robaDTO.getName());
 		roba.setJedninica_mere(robaDTO.getJedninica_mere());
 		roba.setGrupa(grsi.getOne(robaDTO.getGrupa().getId()));
+		//roba.setCene(scsi.getOne(robaDTO.getCena()));
+		
+		
+		rsi.save(roba);
+		
+		return new ResponseEntity<RobaDTO>(new RobaDTO(roba),HttpStatus.CREATED);
+	}
+	@PutMapping(value = "/edit/{id}")
+	public ResponseEntity<?> edit(@PathVariable("id") int id,@Validated @RequestBody RobaDTO robaDTO,Errors errors){
+		if(errors.hasErrors()) {
+			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
+		}
+		Roba roba = rsi.getOne(id);
+		
+		
 		roba.setCene(scsi.getOne(robaDTO.getCena()));
 		
 		

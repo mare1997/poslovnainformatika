@@ -48,7 +48,9 @@ public class StavkaNarudzbeniceController {
 	public ResponseEntity<List<StavkaNarudzbeniceDTO>> getStavkeNarudzbeniceByNarudzbenicaId(@PathVariable Integer idNarudzbenice){
 		List<StavkaNarudzbenice> sveStavke = stavkaNarudzbeniceService.findAll();
 		List<StavkaNarudzbenice> pronadjeneStavke = new ArrayList<StavkaNarudzbenice>();
+		
 		for(StavkaNarudzbenice stavka: sveStavke){
+		System.out.println("STAVKA NARUDZBENICE"+stavka.getNarudzbenica().toString());
 			if(stavka.getNarudzbenica().getIdNarudzbenice()==idNarudzbenice){
 				pronadjeneStavke.add(stavka);
 			}

@@ -192,6 +192,7 @@ public class NarudzbenicaController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		System.out.println("Narudzbenica je :" + editedNarudzbenicaDTO.isAktivna());
+		editedNarudzbenicaDTO.setIdNarudzbenice(id);
 		Narudzbenica editedNarudzbenica = toNarudzbenica.convert(editedNarudzbenicaDTO);
 		narudzbenicaService.save(editedNarudzbenica);
 		return new ResponseEntity<>(toNarudzbenicaDTO.convert(editedNarudzbenica), HttpStatus.OK);

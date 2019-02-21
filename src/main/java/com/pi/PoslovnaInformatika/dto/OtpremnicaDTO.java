@@ -147,6 +147,15 @@ public class OtpremnicaDTO {
 	public void setFakturaRel(int fakturaRel) {
 		this.fakturaRel = fakturaRel;
 	}
+
+
+	@Override
+	public String toString() {
+		return "OtpremnicaDTO [idOtpremnice=" + idOtpremnice + ", brojOtpremnice=" + brojOtpremnice
+				+ ", datumOtpremnice=" + datumOtpremnice + ", primljenaRoba=" + primljenaRoba + ", datumIsporuke="
+				+ datumIsporuke + ", prevoznikId=" + prevoznikId + ", kupacId=" + kupacId + ", user=" + user
+				+ ", preduzeceId=" + preduzeceId + ", fakturaRel=" + fakturaRel + ", obrisano=" + obrisano + "]";
+	}
 	
 	
 }

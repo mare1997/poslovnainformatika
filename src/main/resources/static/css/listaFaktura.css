@@ -1,0 +1,53 @@
+#tableId {
+	margin-left: 205px;
+	height: 200px;
+	width: 70%;
+}
+
+tbody tr:hover {
+	background-color: #d3d3d3;
+}
+
+thead, tbody, tr, td, th {
+	display: block;
+}
+
+tr:after {
+	content: ' ';
+	display: block;
+	visibility: hidden;
+	clear: both;
+}
+
+thead th {
+	height: 55px;
+	text-align: center;
+}
+
+tbody {
+	height: 120px;
+	overflow-y: auto;
+	text-align: center;
+}
+
+tbody td, thead th {
+	width: 13%;
+	float: left;
+}
+
+#toolbarbuttons {
+	margin-left: 220px;
+	width: 70%;
+}
+
+#prikazNarudzbenice {
+	margin-left: 300px;
+	width: 30%;
+	float: left;
+}
+
+#buttonsFaktura {
+	float: right;
+	margin-right: 300px;
+}
+ 

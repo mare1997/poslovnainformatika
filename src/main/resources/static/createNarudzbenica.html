@@ -66,7 +66,7 @@
 			</a>
 
 				<ul class="dropdown-menu">
-					<li><a href="listaOtrpemnica.html">Lista otpremnica</a></li>
+					<li><a href="listaOtpremnica.html">Lista otpremnica</a></li>
 
 				</ul></li>
 			<li class="dropdown"><a class="dropdown-toggle"
@@ -154,17 +154,37 @@
 		
 			<br/>
 			<br/>
-			Izabrana roba i kolicina: 
-	<label id="nazivRobe"></label></td>
+			Izabrana roba i kolicina:<br/> 
+	<label id="nazivRobe"></label><br/></td>
 			
 			</tr>
 			<tr>
 			<td>
 						
-			Dodaj kupca: <select id="select3" style="width: 150px;margin-top:2px;" required="required"><option selected hidden>Kupac</option></select>
+			Dodaj kupca: <select id="select3" style="width: 150px;margin-top:2px;" required="required"></select>
+			<input type="button" id="dodajKupca" value="+"/>
 			</td>
 			</tr>
-
+			<tr>
+			<td>
+			Rabt:&nbsp;&nbsp;&nbsp;&nbsp;<input  type="text" id="rabat" style="width: 50px;" required>
+			</td>
+			
+			</tr>
+			<tr>
+			<td>
+			Izaberi prevoznika: <select id="select4" style="width: 150px;margin-top:2px;" required="required"><option selected hidden>Prevoznik</option></select>
+			</td>
+			
+			</tr>
+			<tr>
+			
+			<td>
+			<label>Napomena:</label><br/>
+			<textarea class="form-control" id="napomena"> </textarea>
+			</td>
+			
+			</tr>
 			
 			<tr>
 				<td>Da li ste zavrsili kreiranje narudzbenice? &nbsp;&nbsp;&nbsp;&nbsp; <input id="chbxActive" type="checkbox" name="checkBoxActive"/>

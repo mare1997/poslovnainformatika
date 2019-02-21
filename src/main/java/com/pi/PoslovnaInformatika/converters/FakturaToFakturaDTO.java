@@ -23,18 +23,55 @@ public class FakturaToFakturaDTO implements Converter<Faktura, FakturaDTO> {
 		FakturaDTO fakturaDTO = new FakturaDTO();
 		
 		fakturaDTO.setIdFakture(source.getId());
-		fakturaDTO.setBrojFakture(source.getBrojFakture());
-		fakturaDTO.setDatumValute(source.getDatumValute());
-		fakturaDTO.setDatumFakture(source.getDatumFakture());
-		fakturaDTO.setOsnovica(source.getOsnovica());
-		fakturaDTO.setUkupanPDV(source.getUkupanPDV());
-		fakturaDTO.setIznosZaPlacanje(source.getIznosZaPlacanje());
-		fakturaDTO.setStatusFakture(source.getStatusFakture());
-		fakturaDTO.setNarudzbeniceRel(source.getNarudzbenicaRel().getIdNarudzbenice());
-		fakturaDTO.setOtpremnicaRel(source.getOtpremnicaRel().getIdOtpremnice());
-		fakturaDTO.setKupac(source.getKupac().getId());
-		fakturaDTO.setUser(source.getUser().getId());
-		fakturaDTO.setPreduzece(source.getPreduzece().getId());
+		if(source.getBrojFakture()!=null) {
+			fakturaDTO.setBrojFakture(source.getBrojFakture());
+				
+		}
+		if(source.getDatumValute()!=null) {
+			fakturaDTO.setDatumValute(source.getDatumValute());
+				
+		}
+		if(source.getDatumFakture()!=null) {
+			fakturaDTO.setDatumFakture(source.getDatumFakture());
+				
+		}
+		if(source.getOsnovica()!=null) {
+			fakturaDTO.setOsnovica(source.getOsnovica());
+				
+		}
+		if(source.getUkupanPDV()!=null) {
+			fakturaDTO.setUkupanPDV(source.getUkupanPDV());
+				
+		}
+		if(source.getIznosZaPlacanje()!=null) {
+			fakturaDTO.setIznosZaPlacanje(source.getIznosZaPlacanje());
+				
+		}
+		if(source.getStatusFakture()!=null) {
+			fakturaDTO.setStatusFakture(source.getStatusFakture());
+				
+		}
+		if(source.getNarudzbenicaRel()!=null) {
+			fakturaDTO.setNarudzbeniceRel(source.getNarudzbenicaRel().getIdNarudzbenice());
+				
+		}
+		if(source.getOtpremnicaRel() != null) {
+			fakturaDTO.setOtpremnicaRel(source.getOtpremnicaRel().getIdOtpremnice());
+		}
+		
+		if(source.getKupac()!=null) {
+			fakturaDTO.setKupac(source.getKupac().getId());
+				
+		}
+		if(source.getUser()!=null) {
+			fakturaDTO.setUser(source.getUser().getId());
+				
+		}
+		if(source.getPreduzece()!=null) {
+			fakturaDTO.setPreduzece(source.getPreduzece().getId());
+				
+		}
+		
 		fakturaDTO.setObrisano(source.isObrisano());
 		
 		return fakturaDTO;
