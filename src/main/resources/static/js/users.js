@@ -1,16 +1,42 @@
 var token= localStorage.getItem("token");
 var auth = "";
 var currentUserId = "";
+var delId;
 $(document).ready(function() {
 	loadUsers();
 	$(document).on("click", "#usersBody tr", function(e) {
 		//var name = this.attr("name");
-		var delId = this.id;
+		delId = this.id;
 		var delUserRow = $("#usersBody tr");
 		console.log(delId);
 		localStorage.setItem("deleteId", delId);
+		var asd = $('#'+delId+'');
+		console.log(asd);
+		asd.addClass("bg-danger");
+		$.ajax({
+		    url:'https://localhost:8081/api/users',
+		    headers:{Authorization:"Bearer " + token},
+		    type:"GET",
+		    dataType: 'json',
+		    crossDomain:true,
+		    success: function (response) {
+		      var table = $('#usersBody');
+		      for (var i=0; i<response.length; i++){
+		    	  user = response[i];
+		    	  if(user.id != delId){
+		    		  $('#'+user.id+'').removeClass("bg-danger"); 
+		    	  }
+		    	 
+		      }
+		    },error: function (jqXHR, textStatus, errorThrown) {
+					alert("read error!!!");
+		  }
+		});
+		
     //alert(name);
 });
+
+	
 });
 function loginStatus(){
 	currentUserId = localStorage.getItem("id");

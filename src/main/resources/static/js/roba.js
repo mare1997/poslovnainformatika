@@ -10,10 +10,11 @@ $(document).ready(function() {
 });
 });
 var token= localStorage.getItem("token");
+var idGrupe = localStorage.getItem("grupaId");
 var pId="";
 function loadRoba(){
   $.ajax({
-    url:'https://localhost:8081/api/roba/getAllRobadeliteNo/all',
+    url:'https://localhost:8081/api/roba/getAllRobadeliteNo/'+idGrupe,
     headers:{Authorization:"Bearer " + token},
     type:"GET",
     dataType: 'json',

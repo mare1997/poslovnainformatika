@@ -4,8 +4,10 @@ $(document).ready(function() {
 	var role = localStorage.getItem("authority");
 	console.log(token);
 	if(token == null){
+		window.stop();
+		document.body.innerHTML = '';
 		window.location.replace("login.html");
-		alert("You are not logged in, please log in!");
+		//alert("You are not logged in, please log in!");
 		
 	}
 	if(role == "ADMIN"){
@@ -27,6 +29,3 @@ function logout(){
 }
 
 
-function refresh(){
-	location.reload();
-}

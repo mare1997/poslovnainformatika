@@ -1,19 +1,59 @@
 $(document).ready(function() {
 	loadGrupu();
-	$(document).on("click", "#grupaBody tr", function(e) {
+	
+	
+	$(document).on("dblclick", "#grupaBody tr", function(e) {
 		//var name = this.attr("name");
-		var delId = this.id;
-		var delUserRow = $("#grupaBody tr");
-		console.log(delId);
-		localStorage.setItem("deleteGrupa", delId);
+		var grupaId = this.id;
+		console.log(grupaId);
+		localStorage.setItem("grupaId", grupaId);
+		window.location.replace("listaRobe.html");
     //alert(name);
 });
+	
+	
+	$(document).on("click", "#grupaBody tr", function(e) {
+		var pgId = localStorage.getItem("pgId",pgId);
+		var pId = localStorage.getItem("pId",pId);
+		delId = this.id;
+		var delUserRow = $("#grupaBody tr");
+		console.log(delId);
+		localStorage.setItem("deleteId", delId);
+		var asd = $('#'+delId+'');
+		console.log(asd);
+		asd.addClass("bg-danger");
+		$.ajax({
+		    url:'https://localhost:8081/apigetGRdeliteNo/all/'+pId+'/'+pgId,
+		    headers:{Authorization:"Bearer " + token},
+		    type:"GET",
+		    dataType: 'json',
+		    crossDomain:true,
+		    success: function (response) {
+		      var table = $('#grupaBody');
+		      for (var i=0; i<response.length; i++){
+		    	  roba = response[i];
+		    	  if(roba.id != delId){
+		    		  $('#'+roba.id+'').removeClass("bg-danger"); 
+		    	  }
+		    	 
+		      }
+		    },error: function (jqXHR, textStatus, errorThrown) {
+					alert("read error!!!");
+		  }
+		});
+	
+	});	
 });
+
+
+
 preduzeceId=""
 var token= localStorage.getItem("token");
 function loadGrupu(){
+	var pgId = localStorage.getItem("pgId",pgId);
+	var pId = localStorage.getItem("pId",pId);
   $.ajax({
-    url:'https://localhost:8081/api/gruparobe/getGRdeliteNo/all',
+    url:'https://localhost:8081/api/gruparobe/getGRdeliteNo/'+pId+'/'+pgId,
     headers:{Authorization:"Bearer " + token},
     type:"GET",
     dataType: 'json',
