@@ -443,12 +443,39 @@ function createDefaultNar(){
         	$('#datumIzrade').html(date);
         	$('#username').html(currentUserUsrName);
         	
-    		}
+        	var formData = {
+        			'brojNarudzbenice' : narNewId,
+        			'datumIzrade' : date,
+            		'aktivna' : true,
+            		'obrisano' : false,
+            		'user' : currentUserId,
+            		'preduzece' : preduzeceId
+        	}
+        	$.ajax({
+				type: 'PUT',
+		        url: 'https://localhost:8081/api/narudzbenice/editNarudzbenica/'+narNewId,
+		        headers:{Authorization:"Bearer " + token},
+		        data: JSON.stringify(formData),
+		        dataType: 'json',
+				cache: false,
+				processData: false,
+				 contentType: 'application/json',
+		        success: function (response) {
+		        	console.log("brojNarudzbenice uspesno")
+		        },
+				
+				
+			});
+        },
+			
+		});
+
+        	
+    		
 	
-		},
-	
-	);
 }
+	
+	
 
 
 
