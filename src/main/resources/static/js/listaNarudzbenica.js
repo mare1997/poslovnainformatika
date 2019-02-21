@@ -20,12 +20,14 @@ $(document).ready(function() {
 });
 });
 
+var preduzeceId =localStorage.getItem("pId")
+var poslovnaGod = localStorage.getItem("pgId");
 function loadListaNarudzbenica(){
 	 console.log("load lista narudzbenica")
-	 
+	 var url = new URL("https://localhost:8081/api/narudzbenice/all/finished?page=0&size=10&posGodId="+poslovnaGod+"&preduzeceId="+preduzeceId);
 	 $.ajax({
 			method:'GET',
-			url: "https://localhost:8081/api/narudzbenice/all?page=0&size=10",
+			url: url,
 			 headers:{Authorization:"Bearer " + token},
 			dataType: 'json',
 			cashe: false,

@@ -61,7 +61,7 @@ public class OtpremnicaController {
 		for (Otpremnica otpremnica : tempOtpremnice){
 			if (otpremnica.isObrisano()==false 
 					&& otpremnica.getDatumOtpremnice().after(posGod.getDatumPocetak()) 
-					&& otpremnica.getDatumOtpremnice().before(posGod.getDatumKraj())
+			//		&& otpremnica.getDatumOtpremnice().before(posGod.getDatumKraj())
 					&& otpremnica.getPreduzece().getId() == preduzeceId)
 				
 					activeOtpremnice.add(otpremnica);

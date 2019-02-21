@@ -62,8 +62,9 @@ public class FakturaController {
 		List<Faktura> tempFakture = fakturePage.getContent(); 
 		List<Faktura> activeFakture = new ArrayList<>();
 		for (Faktura faktura : tempFakture){
-			if (faktura.getDatumFakture().after(posGod.getDatumPocetak()) 
-					&& faktura.getDatumFakture().before(posGod.getDatumKraj())
+			if (faktura.isObrisano() == false &&
+					faktura.getDatumFakture().after(posGod.getDatumPocetak()) 
+				//	&& faktura.getDatumFakture().before(posGod.getDatumKraj())
 					&& faktura.getPreduzece().getId() == preduzeceId)
 				
 					activeFakture.add(faktura);

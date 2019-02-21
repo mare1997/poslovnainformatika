@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script src="js/jquery-2.1.4.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="./css/listaNarudzbenica.css">
+	<link rel="stylesheet" type="text/css" href="./css/listaOtpremnica.css">
 	<link rel="stylesheet" type="text/css" href="./css/mainPage.css">
 	
 	<link rel="stylesheet" href="webjars/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -45,7 +45,7 @@
 			</a>
 
 				<ul class="dropdown-menu">
-					<li><a href="listaOtrpemnica.html">Lista otpremnica</a></li>
+					<li><a href="#">Lista otpremnica</a></li>
 
 				</ul></li>
 			<li class="dropdown"><a class="dropdown-toggle"
@@ -108,31 +108,17 @@
 </ul>
 </nav>
 	
-	
-<!-- Toolbar dugmici -->
-
-	<div class="col-lg-5 col-md-offset-2" id="toolbarbuttons">
-		<div class="btn-group">
-			<button class="btn btn-default"> <span class="glyphicon glyphicon-search"></span></button>
-			<button class="btn btn-default" onClick="refresh()"><span class="glyphicon glyphicon-refresh"></span></button>
-			<button class="btn btn-default" onClick="registerModal()" data-target="#addKorisnika">
-				<span class="glyphicon glyphicon-plus"></span></button>
-			<button class="btn btn-default" onClick="openDeleteModal()"><span class="glyphicon glyphicon-trash"></span></button>
-			<button class="btn btn-default" onClick="userForEdit()" data-target="#editKorisnika">
-				<span class="glyphicon glyphicon-pencil"></span></button>
-		</div>
-	</div>
-
 <!-- Lista narudzbenica -->
 
 	<table id="tableId" class="table">
 		<thead id="headTable">
 			<tr>
-				<th>Br. fakture</th>
-				<th>Datum fakture</th>
-				<th>Iznos za placanje</th>
-				<th>Status fakture</th>
+				<th>Broj otpremnice</th>
+				<th>Datum otpremnice</th>
+				<th>Datum isporuke</th>
+				<th>Primljena roba</th>
 				<th>Kupac</th>
+				<th>Prevoznik</th>
 			</tr>
 		</thead>
 		 <tbody class="otpremnicaBody" id="bodyTable">

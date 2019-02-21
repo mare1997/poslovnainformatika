@@ -11,7 +11,7 @@ var pId = null;
 //var stavka = null;
 var currentUserId = null;
 var currentUsrName = null;
-var preduzeceId =localStorage.getItem("pId")
+var preduzeceId =localStorage.getItem("pId");
 var poslovnaGod = localStorage.getItem("pgId");
 $(document).ready(function(){
 	
@@ -50,6 +50,7 @@ $('#saveN').submit(function(e){
 			}
 			console.log("Id fakture pre kreiranja narudzbenice: " + idFakture);
 		    var formData ={
+		    		
 			   		'idNarudzbenice' : narNewId,
 		    		'brojNarudzbenice' : narNewId,
 		    		'datumIzrade' : date,
@@ -58,7 +59,8 @@ $('#saveN').submit(function(e){
 		    		'obrisano' : false,
 		    		'fakturaRel' : idFakture,
 		    		'kupac' : idKupac,
-		    		'user' : currentUserId
+		    		'user' : currentUserId,
+		    		'preduzece' : preduzeceId
 		    		
 		    }
 		    console.log("Data je "+ formData.fakturaRel + "datumIzrade:" + date + "datumIsporuke" + datumIsporuke+ "id kupaaaac: "+ idKupac);

@@ -62,10 +62,52 @@ public class NarudzbenicaController {
 
 		for (Narudzbenica narudzbenica : tempNarudzbenice){
 			if (narudzbenica.getDatumIzrade().after(posGod.getDatumPocetak()) 
-				&& narudzbenica.getDatumIzrade().before(posGod.getDatumKraj())
-				&& narudzbenica.getPreduzece().getId() == preduzeceId)
-			{
+				&& narudzbenica.getPreduzece().getId() == preduzeceId
+				&& narudzbenica.isAktivna() == false)
+			{	
+				if(posGod.getZavrsena() == true) {
+					if(narudzbenica.getDatumIzrade().before(posGod.getDatumKraj())) {
+						activeNarudzbenice.add(narudzbenica);
+					}
+				}else {
 					activeNarudzbenice.add(narudzbenica);
+				}
+					
+			}
+		}
+		Page<Narudzbenica> activeNarudzbenicePage = new PageImpl<>(activeNarudzbenice);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("totalPages", Integer.toString(sveNarudzbenicePage.getTotalPages()));
+
+		return new ResponseEntity<>(toNarudzbenicaDTO.convert(activeNarudzbenicePage.getContent()),headers, HttpStatus.OK);
+	}
+	@RequestMapping(value="/all/finished",method=RequestMethod.GET,params={"page","size","posGodId","preduzeceId"})
+	public ResponseEntity<List<NarudzbenicaDTO>> getNarudzbenicee(@RequestParam("page") int page, @RequestParam("size") int size,
+			@RequestParam("posGodId") int posGodId, @RequestParam("preduzeceId") int preduzeceId){
+		Page<Narudzbenica> sveNarudzbenicePage = narudzbenicaService.findAll(PageRequest.of(page, size,Sort.by("datumIzrade").descending()));
+
+		PoslovnaGodinaPreduzeca posGod = pgpService.getOne(posGodId);
+		if (page > sveNarudzbenicePage.getTotalPages()) {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+		
+		List<Narudzbenica> activeNarudzbenice = new ArrayList<>();
+		List<Narudzbenica> tempNarudzbenice = sveNarudzbenicePage.getContent();
+
+		for (Narudzbenica narudzbenica : tempNarudzbenice){
+			if (narudzbenica.isObrisano()==false
+				&&	narudzbenica.getDatumIzrade().after(posGod.getDatumPocetak()) 
+				&& narudzbenica.getPreduzece().getId() == preduzeceId
+				&& narudzbenica.isAktivna() == false)
+			{	
+				if(posGod.getZavrsena() == true) {
+					if(narudzbenica.getDatumIzrade().before(posGod.getDatumKraj())) {
+						activeNarudzbenice.add(narudzbenica);
+					}
+				}else {
+					activeNarudzbenice.add(narudzbenica);
+				}
+					
 			}
 		}
 		Page<Narudzbenica> activeNarudzbenicePage = new PageImpl<>(activeNarudzbenice);
@@ -89,13 +131,20 @@ public class NarudzbenicaController {
 		List<Narudzbenica> tempNarudzbenice = narudzbenicePage.getContent();
 
 		for (Narudzbenica narudzbenica : tempNarudzbenice){
-			if (narudzbenica.isObrisano()==false 
-				&& narudzbenica.getDatumIzrade().after(posGod.getDatumPocetak()) 
-				&& narudzbenica.getDatumIzrade().before(posGod.getDatumKraj())
-				&& narudzbenica.getPreduzece().getId() == preduzeceId)
-			{
-					activeNarudzbenice.add(narudzbenica);
-			}
+			if (narudzbenica.isObrisano()==false
+					&&	narudzbenica.getDatumIzrade().after(posGod.getDatumPocetak()) 
+					&& narudzbenica.getPreduzece().getId() == preduzeceId
+					&& narudzbenica.isAktivna() == true)
+				{	
+					if(posGod.getZavrsena() == true) {
+						if(narudzbenica.getDatumIzrade().before(posGod.getDatumKraj())) {
+							activeNarudzbenice.add(narudzbenica);
+						}
+					}else {
+						activeNarudzbenice.add(narudzbenica);
+					}
+						
+				}
 		}
 		Page<Narudzbenica> activeNarudzbenicePage = new PageImpl<>(activeNarudzbenice);
 		HttpHeaders headers = new HttpHeaders();
