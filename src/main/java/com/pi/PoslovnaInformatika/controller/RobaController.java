@@ -113,13 +113,13 @@ public class RobaController {
         return new ResponseEntity<List<RobaDTO>>(robaDTo,HttpStatus.OK);
     }
 	
-	@RequestMapping(value="/getAllActiveRobaByName", method = RequestMethod.GET,params={"name"})
-    public ResponseEntity<List<RobaDTO>> getActiveRobaByName(@RequestParam("name") String name){
+	@RequestMapping(value="/getAllActiveRobaByName/{grupaRobeId}/", method = RequestMethod.GET,params={"name"})
+    public ResponseEntity<List<RobaDTO>> getActiveRobaByName(@PathVariable("grupaRobeId") int grupaRobeId, @RequestParam("name") String name){
     	
     	List<Roba> roba=rsi.getAll();
         List<RobaDTO> robaDTo=new ArrayList<>();
         for (Roba r:roba) {
-        	if(r.isObrisano() == false && r.getName().contains(name)) {
+        	if(r.isObrisano() == false && r.getName().contains(name) && r.getGrupa().getId()==grupaRobeId) {
         		
         			robaDTo.add(new RobaDTO(r));
         		
@@ -128,13 +128,13 @@ public class RobaController {
         return new ResponseEntity<List<RobaDTO>>(robaDTo,HttpStatus.OK);
     }
 	
-	@RequestMapping(value="/getAllRobaByName", method = RequestMethod.GET,params={"name"})
-    public ResponseEntity<List<RobaDTO>> getRobaByName(@RequestParam("name") String name){
+	@RequestMapping(value="/getAllRobaByName/{grupaRobeId}/", method = RequestMethod.GET,params={"name"})
+    public ResponseEntity<List<RobaDTO>> getRobaByName(@PathVariable("grupaRobeId") int grupaRobeId,@RequestParam("name") String name){
     	
     	List<Roba> roba=rsi.getAll();
         List<RobaDTO> robaDTo=new ArrayList<>();
         for (Roba r:roba) {
-        	if(r.getName().contains(name)) {
+        	if(r.getName().contains(name) && r.getGrupa().getId() == grupaRobeId) {
         		
         			robaDTo.add(new RobaDTO(r));
         		
