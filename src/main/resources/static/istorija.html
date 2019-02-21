@@ -1,26 +1,23 @@
 <html>
-
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script src="js/jquery-2.1.4.min.js"></script>
-	<script src="js/mesto.js"></script>
-	<link rel="stylesheet" type="text/css" href="./css/mesto.css">
+	<script src="js/istorija.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/istorija.css">
 	<link rel="stylesheet" type="text/css" href="./css/mainPage.css">
 	<script src="js/logout.js"></script>
 	<link rel="stylesheet" href="webjars/bootstrap/3.2.0/css/bootstrap.min.css">
 	<script src="webjars/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	<title>Mesta</title>
+	<title>Istorija</title>
 </head>
-
 <body>
-
 <!-- Navigacija -->
 	<nav>
 <ul id="mainUl" class="nav navbar-nav">
 			<li><a href="mainPage.html">Home</a></li>
 
-			<li class="dropdown"><a class="dropdown-toggle"
+				<li class="dropdown"><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#">Narudzbenice <span class="caret"></span>
 			</a>
 
@@ -105,90 +102,33 @@
 					<li><a href="pdv.html">Pdv</a></li>
 				</ul>
 			</li>
+			
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Istorija <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="istorija.html?izbor=faktura">Fakture</a></li>
+					<li><a href="istorija.html?izbor=narudzbenica">Narudzbenice</a></li>
+					<li><a href="istorija.html?izbor=otpremnica">Otpremnice</a></li>
+					<li><a href="istorija.html?izbor=grupa">Grupe robe</a></li>
+					<li><a href="istorija.html?izbor=kupac">Kupci</a></li>
+					
+				</ul>
+			</li>
 </ul>
 </nav>
-<!-- Toolbar dugmici -->
 
-	<div class="col-lg-5 col-md-offset-2" id="toolbarbuttons">
-		<div class="btn-group">
-			<button class="btn btn-default"> <span class="glyphicon glyphicon-search"></span></button>
-			<button class="btn btn-default" onClick="refresh()"><span class="glyphicon glyphicon-refresh"></span></button>
-			<button class="btn btn-default" onClick="mestoModal()" data-target="#addMesto">
-				<span class="glyphicon glyphicon-plus"></span></button>
-			<button class="btn btn-default" onClick="mestoDeleteModal()"><span class="glyphicon glyphicon-trash"></span></button>
-		</div>
-	</div>
-
-<!-- Lista cen -->
-
-	<table id="cenovnikTable" class="table">
-		<thead>
-			<tr>
-				<th>Grad</th>
-				<th>Postanski broj</th>
-			</tr>
+<!-- Lista istorija -->
+	
+	<table id="tableId" class="table">
+		<thead id = "istorijaHead" >
+			
 		</thead>
-		<tbody id="mestoBody">
+		<tbody id="istorijaBody">
 
 
 		</tbody>
 	</table>
 
-<!-- Modal dodavanja robe -->
-
-	<div id="addMesto" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-sm">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Dodaj mesto</h4>
-				</div>
-				<div class="modal-body">
-					<div class="form-group">
-						<label class="control-label">Grad:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addGrad" style="width: 150px"></label>
-						<label class="control-label">Postanski broj:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="number" id="addPB" style="width: 150px"></label>
-					</div>
-					<div class="modal-footer">
-						<button onClick="addMesto()" name="createR" class="btn btn-success">Create</button>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	
-	<div id="mestoDeleteModal" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-sm">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Brisanje mesta</h4>
-				</div>
-				<div class="modal-body">
-					<div class="form-group">
-						<label class="control-label">Da li ste sigurni da zelite da izbrisete izabrano mesto?</label>
-					</div>
-					<div class="modal-footer">
-						<button onClick="deleteMesto()" name="delMesto" class="btn btn-success">Remove</button>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
-
-
 </body>
-
-
-
 
 </html>

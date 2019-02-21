@@ -54,6 +54,7 @@ public class PrevoznikContoller {
     }
 	
 	
+	
 	@PostMapping(value = "/add")
 	public ResponseEntity<?> addPrevoznik(@Validated @RequestBody PrevoznikDTO prevoznikDTO,Errors errors){
 		if(errors.hasErrors()) {
