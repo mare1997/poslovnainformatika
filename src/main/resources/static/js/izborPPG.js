@@ -100,6 +100,7 @@ function proceed(){
 	var pId= selectP.options[selectP.selectedIndex].value;
 	console.log("id pg: " + pgId + "id pred: " + pId);
 	localStorage.setItem("pgId",pgId);
+	localStorage.setItem("pId",pId);
 	window.location.replace("mainPage.html");
 }
 
