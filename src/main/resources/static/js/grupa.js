@@ -23,7 +23,7 @@ $(document).ready(function() {
 		console.log(asd);
 		asd.addClass("bg-danger");
 		$.ajax({
-		    url:'https://localhost:8081/apigetGRdeliteNo/all/'+pId+'/'+pgId,
+		    url:'https://localhost:8081/api/gruparobe/getGRdeliteNo/all/'+pId+'/'+pgId,
 		    headers:{Authorization:"Bearer " + token},
 		    type:"GET",
 		    dataType: 'json',
@@ -53,7 +53,7 @@ function loadGrupu(){
 	var pgId = localStorage.getItem("pgId",pgId);
 	var pId = localStorage.getItem("pId",pId);
   $.ajax({
-    url:'https://localhost:8081/api/gruparobe/getGRdeliteNo/'+pId+'/'+pgId,
+    url:'https://localhost:8081/api/gruparobe/getGRdeliteNo/all/'+pId+'/'+pgId,
     headers:{Authorization:"Bearer " + token},
     type:"GET",
     dataType: 'json',
