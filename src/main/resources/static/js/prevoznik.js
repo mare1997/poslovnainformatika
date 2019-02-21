@@ -1,14 +1,37 @@
 $(document).ready(function() {
 	loadPrevoznik();
+    //gore brisi
 	$(document).on("click", "#prevoznikBody tr", function(e) {
-		//var name = this.attr("name");
-		var delId = this.id;
+		delId = this.id;
 		var delUserRow = $("#prevoznikBody tr");
 		console.log(delId);
 		localStorage.setItem("deletePrevoznik", delId);
-    //alert(name);
+		var asd = $('#'+delId+'');
+		console.log(asd);
+		asd.addClass("bg-danger");
+		$.ajax({
+		    url:'https://localhost:8081/api/prevoznik/all',
+		    headers:{Authorization:"Bearer " + token},
+		    type:"GET",
+		    dataType: 'json',
+		    crossDomain:true,
+		    success: function (response) {
+		      var table = $('#prevoznikBody');
+		      for (var i=0; i<response.length; i++){
+		    	  p = response[i];
+		    	  if(p.id != delId){
+		    		  $('#'+p.id+'').removeClass("bg-danger"); 
+		    	  }
+		    	 
+		      }
+		    },error: function (jqXHR, textStatus, errorThrown) {
+					alert("read error!!!");
+		  }
+		});
+	
+	});	
 });
-});
+
 var token= localStorage.getItem("token");
 function loadPrevoznik(){
   $.ajax({
@@ -55,7 +78,7 @@ $.ajax({
 			success: function (response) {
 				alert("Dodavanje uspesno.")
 				$('#addPrevoznika').modal('toggle');
-				location.reload();
+				refresh();
 			},
 	error: function (jqXHR, textStatus, errorThrown) {
 		if(jqXHR.status=="403"){
@@ -101,7 +124,7 @@ function deletePrevoznik(){
         	console.log("prevoznik delete success: ");
         	
         	$('#prevoznikDeleteModal').modal('toggle');
-        	location.reload();
+        	refresh();
         },
 		error: function (jqXHR, textStatus, errorThrown) {  
 			alert(textStatus);
@@ -109,3 +132,9 @@ function deletePrevoznik(){
     });
 }
 
+function refresh(){
+	var table = $('#prevoznikBody tr');
+    console.log(table);
+    table.remove();
+	loadPrevoznik();
+}

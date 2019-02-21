@@ -11,10 +11,10 @@ $(document).ready(function() {
 		
 	}
 	if(role == "ADMIN"){
-		alert("im admin");
+		//alert("im admin");
 	}
 	if(role=="REGULAR"){
-		alert("im user");
+		//alert("im user");
 	}
 	
 });

@@ -3,13 +3,35 @@ cenId=""
 $(document).ready(function() {
 	loadStavkeCen();
 	$(document).on("click", "#ceneBody tr", function(e) {
-		//var name = this.attr("name");
-		var delId = this.id;
+		delId = this.id;
+		var cenId = localStorage.getItem("cenId");
 		var delUserRow = $("#ceneBody tr");
 		console.log(delId);
-		localStorage.setItem("deleteStavka", delId);
-    //alert(name);
-});
+		localStorage.setItem("deleteStavku", delId);
+		var asd = $('#'+delId+'');
+		console.log(asd);
+		asd.addClass("bg-danger");
+		$.ajax({
+		    url:'https://localhost:8081/api/stavkacenovnika/all/'+cenId,
+		    headers:{Authorization:"Bearer " + token},
+		    type:"GET",
+		    dataType: 'json',
+		    crossDomain:true,
+		    success: function (response) {
+		      var table = $('#ceneBody');
+		      for (var i=0; i<response.length; i++){
+		    	  sc = response[i];
+		    	  if(sc.id != delId){
+		    		  $('#'+sc.id+'').removeClass("bg-danger"); 
+		    	  }
+		    	 
+		      }
+		    },error: function (jqXHR, textStatus, errorThrown) {
+					alert("read error!!!");
+		  }
+		});
+	
+	});	
 });
 function loadStavkeCen(){
 
@@ -87,7 +109,7 @@ function addStavkuCen(){
 				success: function (response) {
 					alert("Dodavanje uspesno.")
 					$('#addStavkuCenovnika').modal('toggle');
-					location.reload();
+					refresh();
 				},
 		error: function (jqXHR, textStatus, errorThrown) {
 			if(jqXHR.status=="403"){
@@ -142,7 +164,7 @@ function deleteStavka(){
         	console.log("stavka delete success: ");
         	
         	$('#stopaDeleteModal').modal('toggle');
-        	location.reload();
+        	refresh();
         },
 		error: function (jqXHR, textStatus, errorThrown) {  
 			alert(textStatus);
@@ -150,3 +172,9 @@ function deleteStavka(){
     });
 }
 
+function refresh(){
+	var table = $('#ceneBody tr');
+    console.log(table);
+    table.remove();
+	loadStavkeCen();
+}

@@ -135,6 +135,7 @@ $.ajax({
         	console.log("usao u success")
         	alert("Registracija uspesna.");
         	$('#addKorisnika').modal('toggle');
+        	refresh();
         },
 		error: function (jqXHR, textStatus, errorThrown) {
 			if(jqXHR.status=="403"){
@@ -162,10 +163,17 @@ function deleteUser(){
         	console.log("user delete success: ");
         	
         	$('#deleteUserModal').modal('toggle');
-        	location.reload();
+        	refresh();
         },
 		error: function (jqXHR, textStatus, errorThrown) {  
 			alert(textStatus);
 		}
     });
+}
+
+function refresh(){
+	var table = $('#usersBody tr');
+    console.log(table);
+    table.remove();
+	loadUsers();
 }

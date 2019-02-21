@@ -3,13 +3,35 @@ pdvId=""
 $(document).ready(function() {
 	loadStope();
 	$(document).on("click", "#stopeBody tr", function(e) {
-		//var name = this.attr("name");
-		var delId = this.id;
+		delId = this.id;
+		var pdvId = localStorage.getItem("pdvId");
 		var delUserRow = $("#stopeBody tr");
 		console.log(delId);
-		localStorage.setItem("deleteStopa", delId);
-    //alert(name);
-});
+		localStorage.setItem("deleteStopu", delId);
+		var asd = $('#'+delId+'');
+		console.log(asd);
+		asd.addClass("bg-danger");
+		$.ajax({
+		    url:'https://localhost:8081/api/stopapdv/getStopaByPdv/'+pdvId,
+		    headers:{Authorization:"Bearer " + token},
+		    type:"GET",
+		    dataType: 'json',
+		    crossDomain:true,
+		    success: function (response) {
+		      var table = $('#stopeBody');
+		      for (var i=0; i<response.length; i++){
+		    	  sp = response[i];
+		    	  if(sp.id != delId){
+		    		  $('#'+sp.id+'').removeClass("bg-danger"); 
+		    	  }
+		    	 
+		      }
+		    },error: function (jqXHR, textStatus, errorThrown) {
+					alert("read error!!!");
+		  }
+		});
+	
+	});	
 });
 function loadStope(){
 
@@ -87,7 +109,7 @@ function addStopu(){
 				success: function (response) {
 					alert("Dodavanje uspesno.")
 					$('#addStopuPdv').modal('toggle');
-					location.reload();
+					refresh();
 				},
 		error: function (jqXHR, textStatus, errorThrown) {
 			if(jqXHR.status=="403"){
@@ -120,10 +142,18 @@ function deleteStopa(){
         	console.log("stopa delete success: ");
         	
         	$('#stopaDeleteModal').modal('toggle');
-        	location.reload();
+        	refresh();
         },
 		error: function (jqXHR, textStatus, errorThrown) {  
 			alert(textStatus);
 		}
     });
+}
+
+
+function refresh(){
+	var table = $('#stopeBody tr');
+    console.log(table);
+    table.remove();
+	loadStope();
 }

@@ -1,12 +1,36 @@
 $(document).ready(function() {
 	loadMesto();
-	$(document).on("click", "#mestoBody tr", function(e) {
-		//var name = this.attr("name");
-		var delId = this.id;
-		var delUserRow = $("#mestoBody tr");
-		console.log(delId);
-		localStorage.setItem("deleteMesto", delId);
-    //alert(name);
+
+    //gore brisi
+		$(document).on("click", "#mestoBody tr", function(e) {
+			delId = this.id;
+			var delUserRow = $("#mestoBody tr");
+			console.log(delId);
+			localStorage.setItem("deleteMesto", delId);
+			var asd = $('#'+delId+'');
+			console.log(asd);
+			asd.addClass("bg-danger");
+			$.ajax({
+			    url:'https://localhost:8081/api/mesto/all',
+			    headers:{Authorization:"Bearer " + token},
+			    type:"GET",
+			    dataType: 'json',
+			    crossDomain:true,
+			    success: function (response) {
+			      var table = $('#mestoBody');
+			      for (var i=0; i<response.length; i++){
+			    	  m = response[i];
+			    	  if(m.id != delId){
+			    		  $('#'+m.id+'').removeClass("bg-danger"); 
+			    	  }
+			    	 
+			      }
+			    },error: function (jqXHR, textStatus, errorThrown) {
+						alert("read error!!!");
+			  }
+			});
+		
+	
 });
 });
 var token= localStorage.getItem("token");
@@ -61,7 +85,7 @@ $.ajax({
 			success: function (response) {
 				alert("Dodavanje uspesno.")
 				$('#addMesto').modal('toggle');
-				location.reload();
+				refresh();
 			},
 	error: function (jqXHR, textStatus, errorThrown) {
 		if(jqXHR.status=="403"){
@@ -89,7 +113,7 @@ function deleteMesto(){
         	console.log("mesto delete success: ");
         	
         	$('#mestoDeleteModal').modal('toggle');
-        	location.reload();
+        	refresh();
         },
 		error: function (jqXHR, textStatus, errorThrown) {  
 			alert(textStatus);
@@ -97,3 +121,9 @@ function deleteMesto(){
     });
 }
 
+function refresh(){
+	var table = $('#mestoBody tr');
+    console.log(table);
+    table.remove();
+	loadMesto();
+}

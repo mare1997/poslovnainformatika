@@ -170,6 +170,7 @@ $.ajax({
         	console.log("usao u success")
         	alert("Dodavanje uspesno.");
         	$('#addKorisnika').modal('toggle');
+        	refresh();
         },
 		error: function (jqXHR, textStatus, errorThrown) {
 			if(jqXHR.status=="403"){
@@ -197,11 +198,18 @@ function deleteGrupa(){
         	console.log("grupa delete success: ");
         	
         	$('#grupaDeleteModal').modal('toggle');
-        	location.reload();
+        	refresh();
         },
 		error: function (jqXHR, textStatus, errorThrown) {  
 			alert(textStatus);
 		}
     });
+}
+
+function refresh(){
+	var table = $('#grupaBody tr');
+    console.log(table);
+    table.remove();
+    loadGrupu();
 }
 
