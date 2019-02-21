@@ -11,7 +11,7 @@ var pId = null;
 //var stavka = null;
 var currentUserId = null;
 var currentUsrName = null;
-var preduzeceId =localStorage.getItem("pId")
+var preduzeceId =localStorage.getItem("pId");
 var poslovnaGod = localStorage.getItem("pgId");
 $(document).ready(function(){
 	
