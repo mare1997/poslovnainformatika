@@ -293,7 +293,7 @@ function createSF(stavka,idF,robaUslugaId){
 
 function loadKupci(){
 	
-var url = new URL("https://localhost:8081/api/kupac/getActive/all?idPreduzeca="+preduzeceId+"&idPG="+poslovnaGod);
+var url = new URL("https://localhost:8081/api/kupac/getActive/all/"+preduzeceId+"/"+poslovnaGod);
 	 $.ajax({
 			method:'GET',
 			url: url,
@@ -368,7 +368,7 @@ function potvrdiN(){
 	 var divRobe = $('#divRobe');
 		divRobe.hide();
 	 console.log("load robe aaaaaaaaa")
-	var url = new URL("https://localhost:8081/api/gruparobe/getGRdeliteNo/all?idPreduzeca="+preduzeceId+"&idPG="+poslovnaGod);
+	var url = new URL("https://localhost:8081/api/gruparobe/getGRdeliteNo/all/"+preduzeceId+"/"+poslovnaGod);
 	 $.ajax({
 			method:'GET',
 			url: url,
