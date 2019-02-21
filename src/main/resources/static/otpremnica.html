@@ -7,6 +7,8 @@
             <link rel="stylesheet" type="text/css" href="./css/mainPage.css">
             <script src="./bootstrap/js/bootstrap.min.js"></script>
             <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+            <script src="js/f.js" type="text/javascript"></script>
+            <script src="js/otpremnica.js" type="text/javascript"></script>
             <title>Otpremnica</title>
     
     
@@ -107,7 +109,7 @@
 </ul>
 </nav>
             
-            <!-- Faktura -->
+            <!-- Otpremnica -->
             
     <div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
@@ -119,10 +121,11 @@
                                 <img src="img/Otpremnica.jpg" style="width:100%; max-width:300px;">
                             </td>
                            <td>
-                                Preduzece: <label>preduzece 1</label> <br/>
-                                Poslovna godina: <label>2019.</label><br>
-                                Prevoznik: <label>prevoznik 1</label><br>
-                                Vozac: <label>Mile Milic</label><br>
+                                Preduzece: <label id="preduzeceName"></label> <br/>
+                                Adresa preduzeca: <label id="preduzeceAdresa"></label> <br/>
+                                Email preduzeca: <label id="preduzeceEmail"></label><br>
+                                Telefon preduzeca: <label id="preduzeceTelefon"></label><br>
+                                Prevoznik: <label>Mile Milic</label><br>
                             </td>
                             
                         </tr>
@@ -135,17 +138,16 @@
                     <table>
                         <tr>
                             <td>
-                                Broj otpremnice #<label>8</label><br/>
-                                Datum otpremnice: <label>01-11-2018</label> <br/>
-                                Datum isporuke <label>13-11-2018</label><br>
+                                Broj otpremnice #<label id="brOtrpemnice"></label><br/>
+                                Datum otpremnice: <label id="datumOtrpemnice"></label><br/>
+                                Datum isporuke:	<label id="datumIsporuke"></label><br>
                               
                             </td>
                             
                             <td style="text-align:right">
-                               	Kupac: <label>Sandra Stojanovic</label><br/>
-                               	jmbg:  <label>1234567891236</label><br/>
-                                Adresa: <label> Strahinjica Bana 15</label><br/>
-                                Mesto: <label>31000 Uzice</label><br/>
+                               	Kupac: <label id="imeKupca"></label><br/>
+                               	jmbg:  <label id="jmbg"></label><br/>
+                                Adresa: <label id="adresa"> Strahinjica Bana 15</label><br/>
                                 
                             </td>
                         </tr>
@@ -200,62 +202,35 @@
             </tr>
             
             <tr class="heading">
+              <td colspan="8">
+                   <table>
+                      
                 <td>
                     Naziv proizvoda
                 </td>
-                <td></td>
                 <td>
                  Cena
                 </td>
-                <td></td>
                 <td style="text-align:center;">Isporucena kolicina</td>
-                <td></td><td></td>
                 <td> napomena</td>
-               
+               </table>
+               </td>
+            </tr>
+             <tbody id="tableBody">
+             
+            <tr class="item" style="text-align:center">
+            <td colspan="8">
+            
+                   <table></table>
+               </td>
             </tr>
             
-            <tr class="item">
-                <td>
-                   Kruske
-                </td>
-                <td></td>
-                <td>560.00</td>
-                <td></td>
-                  <td style="text-align:center">15</td>
-                <td></td>
-                <td></td>
-                <td>blablabla</td>
-               
-            </tr>
+         
             
-            <tr class="item">
-                <td>
-                   Jabuke
-                </td>
-                <td></td>
-                <td>560.00</td>
-                <td></td>
-                  <td style="text-align:center">15</td>
-                <td></td>
-                <td></td>
-                <td>blablabla</td>
-                
-            </tr>
-            
-            <tr class="item last">
-                <td>
-                   Banane
-                </td>
-                <td></td>
-                <td>560.00</td>
-                <td></td>
-                  <td style="text-align:center">15</td>
-                <td></td>
-                <td></td>
-                <td>blablabla</td>
-               
-            </tr>
-            
+           
+            </tbody>
+           
+             
            
              
             <tr class="total">

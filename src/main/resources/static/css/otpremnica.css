@@ -10,6 +10,9 @@
         font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
         color: #555;
     }
+ #headOtp {
+ width: 800px;
+ }
     
     .invoice-box table {
         width: 100%;

@@ -157,21 +157,21 @@ function loadListaNarudzbenica(){
 
 	
 	
-	/*function deleteNarudzbenica(idDel){
-		
+function deleteNar(){
+	var idDel = localStorage.getItem("selectedId");
 		$.ajax({
-			url: 'https://localhost:8081/api/narudzbenice/hardDeleteNarudzbenica/'+idDel,
+			url: 'https://localhost:8081/api/narudzbenice/softDeleteNarudzbenica/'+idDel,
 			headers:{Authorization:"Bearer " + token},
 			type: 'delete',
 			success : function(response){
-				alert("izbrisana naruzbenica")
-				var divSN = $('#selektovanaNarudzbenica');
-				divSN.hide();
-			//	loadListaActiveNarudzbenica();
+				alert("izbrisana naruzbenica" + idDel)
+				/*var divSN = $('#selektovanaNarudzbenica');
+				divSN.hide();*/
+				loadListaNarudzbenica();
 				
 			},
 			error: function (jqXHR, textStatus, errorThrown) {  
 				alert(jqXHR.status);
 			}
 	    });
-	}*/
+	}

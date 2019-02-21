@@ -115,10 +115,10 @@
 		<div class="btn-group">
 			<button class="btn btn-default"> <span class="glyphicon glyphicon-search"></span></button>
 			<button class="btn btn-default" onClick="refresh()"><span class="glyphicon glyphicon-refresh"></span></button>
-			<button class="btn btn-default" onClick="registerModal()" data-target="#addKorisnika">
+			<button class="btn btn-default" data-toggle="modal" data-target="#addNarudzbenica">
 				<span class="glyphicon glyphicon-plus"></span></button>
-			<button class="btn btn-default" onClick="openDeleteModal()"><span class="glyphicon glyphicon-trash"></span></button>
-			<button class="btn btn-default" onClick="userForEdit()" data-target="#editKorisnika">
+			<button class="btn btn-default" onClick="deleteNar()"><span class="glyphicon glyphicon-trash"></span></button>
+			<button class="btn btn-default" data-toggle="modal" data-target="#editNarudzbenica">
 				<span class="glyphicon glyphicon-pencil"></span></button>
 		</div>
 	</div>
@@ -190,21 +190,21 @@
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
-						<label class="control-label">Broj narudzbenice: <input type="text" id="addBrojNarudzbenice" style="width: 50px"></label>
-						<label class="control-label" id="addDatumIzrade">Datum izrade:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="date" style="width: 150px">
-						</label> <label class="control-label" id="addDatumIsporuke">Datum isporuke: <input type="date" style="width: 150px">
-						</label> <label type="text">Placena &nbsp;&nbsp;&nbsp; <input type="checkbox" name="placena" value="placena"></label>
+						<label class="control-label">Datum izrade:</label> <label id="addDatumIzrNar" style="width: 50px"></label>
+						<label class="control-label" id="addDatumIspNar">Datum isporuke:<input  type="date" id="datumIsporuke" style="width: 135px;" required>
+						</label> <label class="control-label" id="addRoba">Dodaj robu <input type="button" onClick="loadGrupaRobe()"data-toggle="modal" data-target="#dodajRobu" value="+"  required/>
+						</label><br/> <label type="text">Izabrana roba i kolicina:</label> <label id="nazivRobe"></label><br/>
+					<label type="text">Dodaj kupca: </label><select id="select3" style="width: 150px;margin-top:2px;" required="required"><option selected hidden>Kupac</option></select>
+					<label type="text">Da li ste zavrsili kreiranje narudzbenice? &nbsp;&nbsp;<input id="chbxActive" type="checkbox" name="checkBoxActive"/></label>
 					</div>
 					<div class="modal-footer">
-						<button onClick="editN()" name="editN"
-							class="btn btn-success">Save</button>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						<button onClick="createN()" name="createN" class="btn btn-success">Potvrdi</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Ponisti</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 
 <!--Prikaz selektovane narudzbenice  -->
 	<div id="selektovanaNarudzbenica">
