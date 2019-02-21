@@ -105,6 +105,14 @@ public class NarudzbenicaDTO {
 		this.kupac = kupac;
 	}
 
+	@Override
+	public String toString() {
+		return "NarudzbenicaDTO [idNarudzbenice=" + idNarudzbenice + ", brojNarudzbenice=" + brojNarudzbenice
+				+ ", datumIzrade=" + datumIzrade + ", datumIsporuke=" + datumIsporuke + ", aktivna=" + aktivna
+				+ ", fakturaRel=" + fakturaRel + ", user=" + user + ", preduzece=" + preduzece + ", obrisano="
+				+ obrisano + ", kupac=" + kupac + "]";
+	}
+	
 	
 	
 }

@@ -125,7 +125,8 @@ public class OtpremnicaController {
 		if(errors.hasErrors()) {
 			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
 		}
-		
+		System.out.println(otpremnicaDTO.toString());
+		System.out.println(toOtpremnica.convert(otpremnicaDTO).toString());
 		Otpremnica novaOtpremnica = otpremnicaService.save(toOtpremnica.convert(otpremnicaDTO));
 		return new ResponseEntity<>(toOtpremnicaDTO.convert(novaOtpremnica), HttpStatus.OK);
 	}
@@ -141,7 +142,7 @@ public class OtpremnicaController {
 		if(otpremnica==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
+		editedOtpremnicaDTO.setIdOtpremnice(id);
 		Otpremnica editedOtpremnica = toOtpremnica.convert(editedOtpremnicaDTO);
 		otpremnicaService.save(editedOtpremnica);
 		return new ResponseEntity<>(toOtpremnicaDTO.convert(editedOtpremnica), HttpStatus.OK);

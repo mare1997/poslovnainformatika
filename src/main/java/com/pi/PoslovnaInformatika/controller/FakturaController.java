@@ -144,7 +144,7 @@ public class FakturaController {
 		if(faktura==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
+		editedFakturaDTO.setIdFakture(id);
 		Faktura editedFaktura = toFaktura.convert(editedFakturaDTO);
 		fakturaService.save(editedFaktura);
 		return new ResponseEntity<>(toFakturaDTO.convert(editedFaktura), HttpStatus.OK);

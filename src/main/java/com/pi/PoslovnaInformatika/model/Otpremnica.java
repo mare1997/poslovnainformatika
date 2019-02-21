@@ -232,5 +232,15 @@ public class Otpremnica implements Serializable{
 	}
 
 
+	@Override
+	public String toString() {
+		return "Otpremnica [idOtpremnice=" + idOtpremnice + ", brojOtpremnice=" + brojOtpremnice + ", datumOtpremnice="
+				+ datumOtpremnice + ", primljenaRoba=" + primljenaRoba + ", datumIsporuke=" + datumIsporuke
+				+ ", stavkeOtpremnice=" + stavkeOtpremnice + ", prevoznik=" + prevoznik + ", kupac=" + kupac
+				+ ", preduzece=" + preduzece + ", fakturaRel=" + fakturaRel + ", obrisano=" + obrisano + ", user="
+				+ user + "]";
+	}
+	
+
 
 }

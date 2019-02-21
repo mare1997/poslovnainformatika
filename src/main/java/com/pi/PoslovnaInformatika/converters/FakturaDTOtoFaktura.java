@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.pi.PoslovnaInformatika.dto.FakturaDTO;
 import com.pi.PoslovnaInformatika.model.Faktura;
 import com.pi.PoslovnaInformatika.model.StavkaFakture;
+import com.pi.PoslovnaInformatika.service.interfaces.FakturaServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.KupacServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.NarudzbenicaServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.OtpremnicaServiceInterface;
@@ -41,6 +42,8 @@ public class FakturaDTOtoFaktura implements Converter<FakturaDTO, Faktura>{
 	
 	@Autowired
 	private PreduzeceServiceInterface preduzeceService;
+	@Autowired
+	private FakturaServiceInterface FakturaService;
 	
 	@Override
 	public Faktura convert(FakturaDTO source){
@@ -48,32 +51,74 @@ public class FakturaDTOtoFaktura implements Converter<FakturaDTO, Faktura>{
 		if(source == null) {
 			return null;
 		}
+		Faktura faktura=new Faktura();
 		
-		Faktura faktura = new Faktura();
 		
-		faktura.setId(source.getIdFakture());
-		faktura.setBrojFakture(source.getBrojFakture());
-		faktura.setDatumFakture(source.getDatumFakture());
-		faktura.setDatumValute(source.getDatumValute());
-		faktura.setOsnovica(source.getOsnovica());
-		faktura.setUkupanPDV(source.getUkupanPDV());
-		faktura.setIznosZaPlacanje(source.getIznosZaPlacanje());
-		faktura.setStatusFakture(source.getStatusFakture());
-		faktura.setNarudzbenicaRel(narudzbenicaService.getOne(source.getNarudzbeniceRel()));
-		faktura.setOtpremnicaRel(otpremnicaService.getOne(source.getOtpremnicaRel()));
-		faktura.setUser(userService.getOne(source.getUser()));
-		faktura.setObrisano(source.isObrisano());
-		faktura.setPreduzece(preduzeceService.getOne(source.getPreduzece()));
+		/*
+		if(FakturaService.getOne(source.getIdFakture()) != null) {
+			 faktura = FakturaService.getOne(source.getIdFakture());
+		}else {
+			 faktura = new Faktura();
+		}*/
+		System.out.println(faktura.toString());
 		
-		faktura.setKupac(kupacService.getOne(source.getKupac()));
-		/*List<StavkaFakture> sveStavke = new ArrayList<StavkaFakture>();
-		sveStavke = stavkeFaktureService.findAll();
-		for(StavkaFakture stavkaFakture: sveStavke){
-			if(stavkaFakture.getFaktura().getId()==faktura.getId()){
-				sveStavke.add(stavkaFakture);
-			}
+		if(source.getIdFakture() != 0) {
+			faktura = FakturaService.getOne(source.getIdFakture());
 		}
-		faktura.setStavkeFakture(sveStavke);*/
+		System.out.println(source.getBrojFakture());
+		if(source.getBrojFakture()!=null ){
+		faktura.setBrojFakture(source.getBrojFakture());
+				
+		}
+		if(source.getDatumFakture()!=null){
+			faktura.setDatumFakture(source.getDatumFakture());
+				
+		}
+		if(source.getDatumValute()!=null){
+			faktura.setDatumValute(source.getDatumValute());
+				
+		}
+		System.out.println(source.getOsnovica());
+		if(source.getOsnovica()!=null ){
+			faktura.setOsnovica(source.getOsnovica());
+
+		}
+		if(source.getUkupanPDV()!=null){
+			faktura.setUkupanPDV(source.getUkupanPDV());
+				
+		}
+		if(source.getIznosZaPlacanje()!=null){
+			faktura.setIznosZaPlacanje(source.getIznosZaPlacanje());
+				
+		}
+		if(source.getStatusFakture()!=null){
+			faktura.setStatusFakture(source.getStatusFakture());
+				
+		}
+		if(source.getNarudzbeniceRel()!=0){
+			faktura.setNarudzbenicaRel(narudzbenicaService.getOne(source.getNarudzbeniceRel()));
+				
+		}
+		if(source.getOtpremnicaRel() != 0) {
+			faktura.setOtpremnicaRel(otpremnicaService.getOne(source.getOtpremnicaRel()));
+		}
+		
+		if(source.getUser()!=0){
+			faktura.setUser(userService.getOne(source.getUser()));
+				
+		}
+		faktura.setObrisano(source.isObrisano());
+		if(source.getPreduzece()!=0){
+			faktura.setPreduzece(preduzeceService.getOne(source.getPreduzece()));
+				
+		}
+		
+		if(source.getKupac()!=0){
+			faktura.setKupac(kupacService.getOne(source.getKupac()));
+			
+		}
+		
+		
 		
 		return faktura;
 	}

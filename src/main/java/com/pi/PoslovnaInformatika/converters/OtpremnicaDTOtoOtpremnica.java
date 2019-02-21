@@ -8,10 +8,12 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import com.pi.PoslovnaInformatika.dto.OtpremnicaDTO;
+import com.pi.PoslovnaInformatika.model.Narudzbenica;
 import com.pi.PoslovnaInformatika.model.Otpremnica;
 import com.pi.PoslovnaInformatika.model.StavkaOtpremnice;
 import com.pi.PoslovnaInformatika.service.interfaces.FakturaServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.KupacServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.OtpremnicaServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.PreduzeceServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.PrevoznikServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.StavkeOtpremniceServiceInterface;
@@ -25,6 +27,8 @@ public class OtpremnicaDTOtoOtpremnica implements Converter<OtpremnicaDTO, Otpre
 	@Autowired
 	private StavkeOtpremniceServiceInterface stavkeOtpremniceService;
 	
+	@Autowired
+	private OtpremnicaServiceInterface otpremnicaService;
 	@Autowired
 	private PrevoznikServiceInterface prevoznikService;
 	@Autowired
@@ -43,32 +47,56 @@ public class OtpremnicaDTOtoOtpremnica implements Converter<OtpremnicaDTO, Otpre
 			return null;
 		}
 		
+		
 		Otpremnica otpremnica = new Otpremnica();
 		
-		otpremnica.setIdOtpremnice(source.getIdOtpremnice());
-		otpremnica.setBrojOtpremnice(source.getBrojOtpremnice());
-		otpremnica.setDatumOtpremnice(source.getDatumOtpremnice());
-		otpremnica.setDatumIsporuke(source.getDatumIsporuke());
-		otpremnica.setPrimljenaRoba(source.isPrimljenaRoba());
+		if(source.getIdOtpremnice() != 0) {
+			otpremnica= otpremnicaService.getOne(source.getIdOtpremnice());
+		}
 		
-		otpremnica.setPrevoznik(prevoznikService.getOne(source.getPrevoznikId()));
-		otpremnica.setKupac(kupacService.getOne(source.getKupacId()));
-		otpremnica.setUser(userService.getOne(source.getUser()));
-		otpremnica.setPreduzece(preduzeceService.getOne(source.getPreduzeceId()));
-		
-		otpremnica.setFakturaRel(fakturaService.getOne(source.getFakturaRel()));
+		/*if(source.getFakturaRel()!=0) {
+			otpremnica=otpremnicaService.getOne(source.getFakturaRel());
+		}*/
+		if(source.getBrojOtpremnice()!=null){
+			otpremnica.setBrojOtpremnice(source.getBrojOtpremnice());
+				
+		}
+		if(source.getDatumOtpremnice() != null){
+			otpremnica.setDatumOtpremnice(source.getDatumOtpremnice());
+				
+		}
+		if(source.getDatumIsporuke()!=null){
+			otpremnica.setDatumIsporuke(source.getDatumIsporuke());
+				
+		}
+		if(source.isPrimljenaRoba()){
+			otpremnica.setPrimljenaRoba(source.isPrimljenaRoba());
+				
+		}
+		if(source.getPrevoznikId()!=0){
+			otpremnica.setPrevoznik(prevoznikService.getOne(source.getPrevoznikId()));
+			
+		}
+		if(source.getKupacId()!=0){
+			otpremnica.setKupac(kupacService.getOne(source.getKupacId()));
+				
+		}
+		if(source.getUser()!=0){
+			otpremnica.setUser(userService.getOne(source.getUser()));
+				
+		}
+		if(source.getPreduzeceId()!=0){
+			otpremnica.setPreduzece(preduzeceService.getOne(source.getPreduzeceId()));
+				
+		}
+		if(source.getFakturaRel()!=0){
+			otpremnica.setFakturaRel(fakturaService.getOne(source.getFakturaRel()));
+				
+		}
 		otpremnica.setObrisano(source.isObrisano());
 		
 		
-		/*List<StavkaOtpremnice> sveStavke = new ArrayList<StavkaOtpremnice>();
-		sveStavke = stavkeOtpremniceService.findAll();
-		for(StavkaOtpremnice stavkaOtpremnice: sveStavke){
-			if(stavkaOtpremnice.getOtpremnica().getIdOtpremnice()==otpremnica.getIdOtpremnice()){
-				sveStavke.add(stavkaOtpremnice);
-			}
 		
-		
-		otpremnica.setStavkeOtpremnice(sveStavke);*/
 		
 		return otpremnica;
 	}
