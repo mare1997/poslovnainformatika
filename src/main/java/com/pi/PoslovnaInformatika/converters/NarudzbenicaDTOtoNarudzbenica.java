@@ -8,10 +8,12 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import com.pi.PoslovnaInformatika.dto.NarudzbenicaDTO;
+import com.pi.PoslovnaInformatika.model.Faktura;
 import com.pi.PoslovnaInformatika.model.Narudzbenica;
 import com.pi.PoslovnaInformatika.model.StavkaNarudzbenice;
 import com.pi.PoslovnaInformatika.service.interfaces.FakturaServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.KupacServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.NarudzbenicaServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.PreduzeceServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.StavkaNarudzbeniceServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.UserServiceInterface;
@@ -26,6 +28,9 @@ public class NarudzbenicaDTOtoNarudzbenica implements Converter<NarudzbenicaDTO,
 	
 	@Autowired
 	private FakturaServiceInterface fakturaService;
+	
+	@Autowired
+	private NarudzbenicaServiceInterface narudzbenicaService;
 	
 	@Autowired
 	private UserServiceInterface userService;
@@ -43,35 +48,55 @@ public class NarudzbenicaDTOtoNarudzbenica implements Converter<NarudzbenicaDTO,
 			return null;
 		}
 		
-		Narudzbenica narudzbenica = new Narudzbenica();
-		
-		narudzbenica.setIdNarudzbenice(source.getIdNarudzbenice());
-		narudzbenica.setBrojNarudzbenice(source.getBrojNarudzbenice());
-		narudzbenica.setDatumIzrade(source.getDatumIzrade());
-		narudzbenica.setDatumIsporuke(source.getDatumIsporuke());
-		narudzbenica.setAktivna(source.isAktivna());
-		System.out.println("Narudzbenica je :" + narudzbenica.isAktivna());
-		if(narudzbenica.isAktivna()==true){
-			narudzbenica.setFakturaRel(null);
-		}else{
-			System.out.println("ubicu se" + source.getFakturaRel());
-			narudzbenica.setFakturaRel(fakturaService.getOne(source.getFakturaRel()));
-		}
-		narudzbenica.setUser(userService.getOne(source.getUser()));
-		narudzbenica.setPreduzece(preduzeceService.getOne(source.getPreduzece()));
-		narudzbenica.setKupac(kupacService.getOne(source.getKupac()));
-		narudzbenica.setObrisano(source.isObrisano());
-		
-		/*List<StavkaNarudzbenice> sveStavke = new ArrayList<StavkaNarudzbenice>();
-		sveStavke = stavkeNarudzbeniceService.findAll();
-		for(StavkaNarudzbenice stavkaNarudzbenice: sveStavke){
-			if(stavkaNarudzbenice.getNarudzbenica().getIdNarudzbenice()==narudzbenica.getIdNarudzbenice()){
-				sveStavke.add(stavkaNarudzbenice);
+			Narudzbenica narudzbenica = new Narudzbenica();
+			/*System.out.println(source.getIdNarudzbenice());
+			System.out.println(narudzbenicaService.getOne(source.getIdNarudzbenice()));*/
+			
+			if(source.getIdNarudzbenice() != 0) {
+				narudzbenica = narudzbenicaService.getOne(source.getIdNarudzbenice());
 			}
-		}
-		narudzbenica.setStavkeNarudzbenice(sveStavke);*/
+			
+			narudzbenica.setAktivna(source.isAktivna());
+			
+			/*if(narudzbenica.isAktivna()==true){
+				narudzbenica.setFakturaRel(null);
+			}else{
+				narudzbenica.setFakturaRel(fakturaService.getOne(source.getFakturaRel()));
+			}*/
+			if(source.getBrojNarudzbenice()!=null){
+				narudzbenica.setBrojNarudzbenice(source.getBrojNarudzbenice());
+			}
+			
+			if(source.getDatumIzrade()!=null){
+				narudzbenica.setDatumIzrade(source.getDatumIzrade());
+			}
 		
-		return narudzbenica;
+			if(source.getDatumIsporuke()!=null){
+				narudzbenica.setDatumIsporuke(source.getDatumIsporuke());
+			}
+			
+			if(source.getFakturaRel()!=0){
+				narudzbenica.setFakturaRel(fakturaService.getOne(source.getFakturaRel()));
+			}
+			if(source.getUser()!=0){
+				narudzbenica.setUser(userService.getOne(source.getUser()));
+					
+			}
+			if(source.getPreduzece()!=0){
+				narudzbenica.setPreduzece(preduzeceService.getOne(source.getPreduzece()));
+					
+			}
+			if(source.getKupac()!=0){
+				narudzbenica.setKupac(kupacService.getOne(source.getKupac()));
+			}
+			
+			narudzbenica.setObrisano(source.isObrisano());
+			return narudzbenica;
+			
+		
+		
+		
+		
 	}
 	
 	public List<Narudzbenica> convert(List<NarudzbenicaDTO> source){

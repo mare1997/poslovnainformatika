@@ -71,8 +71,8 @@ function loadStavkeFakture(id){
 				getNameRobe(stavka.robaUslugaId);
 				var table = $('#tableBody');
 				//dodaj jos stavki u tabelu
-				table.append('<tr><td>'+name+'</td><td>'+stavka.kolicina+'</td><td>'+stavka.jedinicnaCena+'</td>'+
-						'<td>'+stavka.rabat+'</td><td>'+stavka.osnovicaZaPDV+'</td><td>'+stopa+'</td>'+
+				table.append('<tr><td>'+name+'</td><td>'+stavka.jedinicaMere+'</td> <td>'+stavka.kolicina+'</td><td>'+stavka.jedinicnaCena+'</td>'+
+						'<td>'+(stavka.kolicina * stavka.jedinicnaCena)+'</td><td>'+((rabat*100)/(stavka.kolicina * stavka.jedinicnaCena))+'</td><td>'+stavka.rabat+'</td><td>'+stavka.osnovicaZaPDV+'</td><td>'+stopa+'</td>'+
 						'<td>'+stavka.iznosPDV+'</td><td>'+stavka.iznosStavke+'</td></tr>');
 				
 				}
@@ -113,6 +113,7 @@ function getProcenatStopaPDV(id){
 		type:'get',
 		dataType: 'json',
 		cashe: false,
+		async: false,
 		success: function(response){
 			console.log("stopa je: "+ response.procenat)
 			stopa = response.procenat;

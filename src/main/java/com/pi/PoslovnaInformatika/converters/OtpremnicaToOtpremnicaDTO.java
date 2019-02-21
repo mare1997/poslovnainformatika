@@ -23,15 +23,39 @@ public class OtpremnicaToOtpremnicaDTO implements Converter<Otpremnica, Otpremni
 		OtpremnicaDTO otpremnicaDTO = new OtpremnicaDTO();
 		
 		otpremnicaDTO.setIdOtpremnice(source.getIdOtpremnice());
-		otpremnicaDTO.setBrojOtpremnice(source.getBrojOtpremnice());
-		otpremnicaDTO.setDatumOtpremnice(source.getDatumOtpremnice());
-		otpremnicaDTO.setDatumIsporuke(source.getDatumIsporuke());
+		if(source.getBrojOtpremnice()!=null) {
+			otpremnicaDTO.setBrojOtpremnice(source.getBrojOtpremnice());
+				
+		}
+		if(source.getDatumOtpremnice()!=null) {
+			otpremnicaDTO.setDatumOtpremnice(source.getDatumOtpremnice());
+				
+		}
+		if(source.getDatumIsporuke()!=null) {
+			otpremnicaDTO.setDatumIsporuke(source.getDatumIsporuke());
+				
+		}
 		otpremnicaDTO.setPrimljenaRoba(source.isPrimljenaRoba());
-		otpremnicaDTO.setPrevoznikId(source.getPrevoznik().getId());
-		otpremnicaDTO.setKupacId(source.getKupac().getId());
-		otpremnicaDTO.setUser(source.getUser().getId());
-		otpremnicaDTO.setPreduzeceId(source.getPreduzece().getId());
-		otpremnicaDTO.setFakturaRel(source.getFakturaRel().getId());
+		if(source.getPrevoznik()!=null) {
+			otpremnicaDTO.setPrevoznikId(source.getPrevoznik().getId());
+				
+		}
+		if(source.getKupac()!=null) {
+			otpremnicaDTO.setKupacId(source.getKupac().getId());
+				
+		}
+		if(source.getUser()!=null) {
+			otpremnicaDTO.setUser(source.getUser().getId());
+				
+		}
+		if(source.getPreduzece()!=null) {
+			otpremnicaDTO.setPreduzeceId(source.getPreduzece().getId());
+				
+		}
+		if(source.getFakturaRel()!=null) {
+			otpremnicaDTO.setFakturaRel(source.getFakturaRel().getId());
+				
+		}
 		otpremnicaDTO.setObrisano(source.isObrisano());
 		return otpremnicaDTO;
 	}
