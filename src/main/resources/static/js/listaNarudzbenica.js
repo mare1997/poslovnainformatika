@@ -161,8 +161,15 @@ function loadListaNarudzbenica(){
 		
 	}
 
+function prikazFakture(){
+		$.ajax({
+			url: 'https://localhost:8081/api/fakture/generateReport/'+2,
+			headers:{Authorization:"Bearer " + token}
+		},
+		);
+	}	
 	
-	
+
 function deleteNar(){
 	var idDel = localStorage.getItem("selectedId");
 		$.ajax({

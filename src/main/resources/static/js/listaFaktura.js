@@ -1,6 +1,9 @@
 var token= localStorage.getItem("token");
 $(document).ready(function() {
 	loadListaFaktura();
+	$('#pageNum').val("stranica broj: "+1);
+	var broj = $('#bodyTable').length;
+	console.log(broj);
 
 	$(document).on("dblclick", ".fakturaBody tr", function(e) {
 		var selectedId = this.id;
@@ -24,9 +27,35 @@ var poslovnaGod = localStorage.getItem("pgId");
 var brojNarudzbenice;
 var brojOtpremnice;
 var imeKupca;
+var stranica = 0;
+
+function goBack(){
+	if (stranica != 0){
+		stranica = stranica - 1;
+		var stranicaZaIspit = stranica +1;
+		$('#bodyTable tr').remove();
+		$('#pageNum').val("stranica broj: "+stranicaZaIspit);
+		loadListaFaktura();
+	}
+	if (stranica == 0){
+		console.log("nema vise nazad")
+	}
+}
+
+function goForward(){
+
+		stranica = stranica+1;
+		var stranicaZaIspit = stranica +1;
+		$('#bodyTable tr').remove();
+		$('#pageNum').val("stranica broj: "+stranicaZaIspit);
+		loadListaFaktura();
+}
+
+
 function loadListaFaktura(){
 	 console.log("load lista faktura")
-	 var url = new URL("https://localhost:8081/api/fakture/all?page=0&size=10&posGodId="+poslovnaGod+"&preduzeceId="+preduzeceId);
+	 var url = new URL("https://localhost:8081/api/fakture/all/?page="+stranica+"&size=11&posGodId="+poslovnaGod+"&preduzeceId="+preduzeceId);
+	 console.log(url);
 	 $.ajax({
 			method:'GET',
 			url: url,

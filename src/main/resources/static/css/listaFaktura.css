@@ -1,6 +1,5 @@
 #tableId {
 	margin-left: 205px;
-	height: 200px;
 	width: 70%;
 }
 
@@ -8,10 +7,14 @@ tbody tr:hover {
 	background-color: #d3d3d3;
 }
 
+#toolbarbuttons {
+	margin-left: 220px;
+	width: 70%;
+}
+
 thead, tbody, tr, td, th {
 	display: block;
 }
-
 tr:after {
 	content: ' ';
 	display: block;
@@ -25,7 +28,7 @@ thead th {
 }
 
 tbody {
-	height: 120px;
+	height: 630px;
 	overflow-y: auto;
 	text-align: center;
 }
