@@ -119,10 +119,12 @@ public class StavkaNarudzbeniceController {
 	}
 	
 	@RequestMapping(value="/hardDeleteStavkaNarudzbenice/{id}", method=RequestMethod.DELETE)
-	public ResponseEntity<StavkaNarudzbeniceDTO> hardDeleteStavkaNarudzbeniceById(@PathVariable Integer id){
+	public ResponseEntity<?> hardDeleteStavkaNarudzbeniceById(@PathVariable Integer id){
+		System.out.println("zastoooooooo???????????????? "+id);
 		StavkaNarudzbenice stavkaNarudzbenice = stavkaNarudzbeniceService.getOne(id);
+		System.out.println("zastoooooooo???????????????? "+stavkaNarudzbenice);
 		if(stavkaNarudzbenice==null){
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<String>("Napusi mi se kuraca!!!!!!",HttpStatus.NOT_FOUND);
 		}
 		stavkaNarudzbeniceService.delete(id);
 		return new ResponseEntity<StavkaNarudzbeniceDTO>(toStavkaNarudzbeniceDTO.convert(stavkaNarudzbenice), HttpStatus.OK);

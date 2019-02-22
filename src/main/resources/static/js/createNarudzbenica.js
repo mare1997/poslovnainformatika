@@ -115,7 +115,7 @@ function ispisPodatakaKodUpdate(id){
 			$('#brNarudz').html(id);
 			$('#username').html(currentUserUsrName);
 			deleteSAN(response.idNarudzbenice);
-			
+			narNewId = response.idNarudzbenice;
 			
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
@@ -140,13 +140,13 @@ function deleteSAN(id){
 			console.log("usaodgaga "+response )
 			
 			for(var i = 0 ; i<response.length;i++){
+				console.log("usaodgaga "+response[i].idStavkeNarudzbenice )
 				$.ajax({
-					url: 'https://localhost:8081/api/narudzbenice/softDeleteStavkaNarudzbenice/'+response[i].idStavkeNarudzbenice,
+					url: 'https://localhost:8081/api/narudzbenice/stavkeNarudzbenice/hardDeleteStavkaNarudzbenice/'+response[i].idStavkeNarudzbenice,
 					headers:{Authorization:"Bearer " + token},
-					type: 'put',
+					type: 'delete',
 					success : function(response){
-						console.log("usao u delete bre " + response[i].idStavkeNarudzbenice)
-						console.log("obrisana stavka nar za update: "+response[i].idStavkeNarudzbenice)
+						console.log("obrisaooo")
 						
 					},
 					error: function (jqXHR, textStatus, errorThrown) {  
