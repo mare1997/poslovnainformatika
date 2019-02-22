@@ -24,12 +24,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pi.PoslovnaInformatika.converters.NarudzbenicaDTOtoNarudzbenica;
 import com.pi.PoslovnaInformatika.converters.NarudzbenicaToNarudzbenicaDTO;
 import com.pi.PoslovnaInformatika.dto.NarudzbenicaDTO;
+import com.pi.PoslovnaInformatika.model.Faktura;
 import com.pi.PoslovnaInformatika.model.Narudzbenica;
+import com.pi.PoslovnaInformatika.model.Otpremnica;
 import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
 import com.pi.PoslovnaInformatika.model.StavkaNarudzbenice;
 import com.pi.PoslovnaInformatika.repository.StavkeNarudzbeniceRepository;
 import com.pi.PoslovnaInformatika.service.NarudzbenicaService;
 import com.pi.PoslovnaInformatika.service.PGPservice;
+import com.pi.PoslovnaInformatika.service.interfaces.FakturaServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.OtpremnicaServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.StavkaNarudzbeniceServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.StavkeCenovnikaServiceInterface;
 
@@ -52,6 +56,12 @@ public class NarudzbenicaController {
 	
 	@Autowired
 	private StavkaNarudzbeniceServiceInterface snsi;
+	
+	@Autowired
+	private FakturaServiceInterface fsi;
+	
+	@Autowired
+	private OtpremnicaServiceInterface osi;
 	
 	
 	@RequestMapping(value="/all",method=RequestMethod.GET,params={"page","size","posGodId","preduzeceId"})
@@ -228,8 +238,14 @@ public class NarudzbenicaController {
 		if(narudzbenica==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+		Faktura f= fsi.getOne(narudzbenica.getFakturaRel().getId());
+		Otpremnica o = osi.getOne(f.getOtpremnicaRel().getIdOtpremnice());
 		narudzbenica.setObrisano(true);
+		f.setObrisano(true);
+		o.setObrisano(true);
 		narudzbenicaService.save(narudzbenica);
+		fsi.save(f);
+		osi.save(o);
 		return new ResponseEntity<NarudzbenicaDTO>(toNarudzbenicaDTO.convert(narudzbenica), HttpStatus.OK);
 	}
 	

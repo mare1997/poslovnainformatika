@@ -8,7 +8,7 @@ $(document).ready(function(){
 	loadOtpremnice(idO);
 	loadStavkeOtpremnice(idO);
 	loadPreduzece();
-	loadPrevoznik();
+	
 //	populateFaktura();
 //	loadStavkeFakture(idF,cena,name);
 });

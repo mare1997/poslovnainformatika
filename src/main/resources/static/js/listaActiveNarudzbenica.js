@@ -180,7 +180,8 @@ function loadListaActiveNarudzbenica(){
 					alert("izbrisana naruzbenica" + idDel)
 					/*var divSN = $('#selektovanaNarudzbenica');
 					divSN.hide();*/
-					loadListaActiveNarudzbenica();
+					//loadListaActiveNarudzbenica();
+					loaction.reload();
 					
 				},
 				error: function (jqXHR, textStatus, errorThrown) {  

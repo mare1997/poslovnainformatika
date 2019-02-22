@@ -130,6 +130,7 @@ public class StavkaNarudzbeniceController {
 	
 	@RequestMapping(value="/softDeleteStavkaNarudzbenice/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<StavkaNarudzbeniceDTO> softDeleteStavkaNarudzbeniceById(@PathVariable Integer id){
+		System.out.println("Brisanjesss: "+ id);
 		StavkaNarudzbenice stavkaNarudzbenice = stavkaNarudzbeniceService.getOne(id);
 		if(stavkaNarudzbenice==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
