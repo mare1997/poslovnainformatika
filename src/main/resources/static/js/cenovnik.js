@@ -95,8 +95,12 @@ function addCenovnik(){
 	var danas = currentDate();
 	var datumV = document.getElementById('addDatumVazenja').value;
 	var preduzeceId=localStorage.getItem("pId")
-	if(ime=="" || datumV < danas){
+	if(datumV < danas){
 		alert("Sva polja moraju biti popunjena");
+		return;
+}	
+	if(datumV < danas){
+		alert("Datum ne sme biti manji od danasnjeg");
 		return;
 }
 

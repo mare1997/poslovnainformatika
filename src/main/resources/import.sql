@@ -16,7 +16,11 @@ INSERT INTO `poslovnainformatika`.`grupa_robe` (`grupa_robe_id`, `name`, `obrisa
 
 
 INSERT INTO `poslovnainformatika`.`kupac` (`kupac_id`, `adresa`, `name`, `obrisano`, `pib_jmbg`, `mesto_id`, `preduzece_id`,`datum_kreiranja`) VALUES ('1', 'adresa1', 'ime1', '0', '1234567890123', '1', '1', '2019-03-01');
+<<<<<<< HEAD
 INSERT INTO `poslovnainformatika`.`kupac` (`kupac_id`, `adresa`, `name`, `obrisano`, `pib_jmbg`, `mesto_id`, `preduzece_id`,`datum_kreiranja`) VALUES ('4', 'adresa1', 'Sakica', '0', '1234563214598', '1', '1', '2019-03-01');
+=======
+INSERT INTO `poslovnainformatika`.`kupac` (`kupac_id`, `adresa`, `name`, `obrisano`, `pib_jmbg`, `mesto_id`, `preduzece_id`,`datum_kreiranja`) VALUES ('4', 'adresa1', 'Sandra', '0', '1234567890123', '1', '1', '2019-03-01');
+>>>>>>> 7b371b3b9d0cd8e6d8f9f83dcc97e4b969ecf3eb
 INSERT INTO `poslovnainformatika`.`kupac` (`kupac_id`, `adresa`, `name`, `obrisano`, `pib_jmbg`, `mesto_id`, `preduzece_id`,`datum_kreiranja`) VALUES ('2', 'adresa2', 'ime2', '0', '0987654321321', '2', '2', '2019-04-01');
 INSERT INTO `poslovnainformatika`.`kupac` (`kupac_id`, `adresa`, `name`, `obrisano`, `pib_jmbg`, `mesto_id`, `preduzece_id`,`datum_kreiranja`) VALUES ('3', 'adresa3', 'ime3', '1', '1231231231231', '2', '1', '2019-05-01');
 

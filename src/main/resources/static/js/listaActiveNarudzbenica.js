@@ -1,4 +1,5 @@
 var token= localStorage.getItem("token");
+var s;
 $(document).ready(function() {
 	loadListaActiveNarudzbenica();
 	var divSN = $('#selektovanaNarudzbenica');
@@ -6,7 +7,7 @@ $(document).ready(function() {
 	$(document).on("click", ".bodyListaA tr", function(e) {
 		//var name = this.attr("name");
 		var selectedId = this.id;
-		
+		s = this.id;
 		console.log(selectedId);
 		
 		divSN.show();
@@ -23,7 +24,17 @@ var preduzeceId =localStorage.getItem("pId")
 var poslovnaGod = localStorage.getItem("pgId");
 var imeKupca;
 console.log(preduzeceId + poslovnaGod);
-
+function editN(){
+	if(s == undefined){
+		alert('Morate oznaciti narudzbenicu za update!!!')
+		return;
+	}
+	
+	window.location.replace('createNarudzbenica.html?name=update&n='+s)
+}
+function createN(){
+	window.location.replace('createNarudzbenica.html?name=create')
+}
 function loadListaActiveNarudzbenica(){
 	 console.log("load lista active narudzbenica")
 	 var url = new URL("https://localhost:8081/api/narudzbenice/active/all?page=0&size=10&posGodId="+poslovnaGod+"&preduzeceId="+preduzeceId);
@@ -162,9 +173,9 @@ function loadListaActiveNarudzbenica(){
 	function deleteNar(){
 		var idDel = localStorage.getItem("selectedId");
 			$.ajax({
-				url: 'https://localhost:8081/api/narudzbenice/hardDeleteNarudzbenica/'+idDel,
+				url: 'https://localhost:8081/api/narudzbenice/softDeleteNarudzbenica/'+idDel,
 				headers:{Authorization:"Bearer " + token},
-				type: 'delete',
+				type: 'put',
 				success : function(response){
 					alert("izbrisana naruzbenica" + idDel)
 					/*var divSN = $('#selektovanaNarudzbenica');

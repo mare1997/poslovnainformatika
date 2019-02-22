@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="./css/listaRoba.css">
 	<link rel="stylesheet" type="text/css" href="./css/mainPage.css">
 	<script src="js/logout.js"></script>
+	<script src="js/regular.js"></script>
 	<link rel="stylesheet" href="webjars/bootstrap/3.2.0/css/bootstrap.min.css">
 	<script src="webjars/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<title>Lista robe</title>
@@ -154,13 +155,14 @@
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
-						<label class="control-label">Naziv robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addNazivRobe" style="width: 150px"></label>
-						<label class="control-label" >Cena: <input type="number" id="addcenna" style="width: 150px"></label>
-						<label class="control-label" >Jedinica mere: <input type="text" id="addJedinicaMere" style="width: 150px"></label>
-						<label class="control-label" id="grupaRobeadd">Grupa robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select id="pickGrupaRobe"style="width: 150px"></select>
+						<label class="control-label" id="nazivAddLabel">Naziv robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addNazivRobe" style="width: 150px"></label>
+						<label class="control-label" id="meraAddLabel">Jedinica mere: <input type="text" id="addJedinicaMere" style="width: 150px"></label>
+						<label class="control-label" id="grupaAddLabel">Grupa robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select id="pickGrupaRobe"style="width: 150px"></select></label>
+						<label class="control-label" id="dodajCenuStavke">Cena: <input id="inputCenaStavke" type="text" style="width: 150px"></label>
 					</div>
 					<div class="modal-footer">
-						<button onClick="addRoba()" name="createR" class="btn btn-success">Create</button>
+						<button id="dodajStavkuCenovnikaM" onClick="addSCen()" name="createR" class="btn btn-success">Create</button>
+						<button id="dodajRobuM" onClick="addRoba()" name="createR" class="btn btn-success">Create</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 					</div>
 				</div>

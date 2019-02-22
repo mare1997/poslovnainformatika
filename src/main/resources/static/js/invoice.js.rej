@@ -1,0 +1,10 @@
+diff a/src/main/resources/static/js/invoice.js b/src/main/resources/static/js/invoice.js	(rejected hunks)
+@@ -36,7 +36,7 @@
+ 			id = response.idFakture;
+ 			
+ 			$('#brFakture').html(id);
+-		//	var date = currentDate();
++			var date = currentDate();
+ 			$('#datumFakture').html(date);
+ 
+ 			}

@@ -174,7 +174,15 @@ function loadPreduzece(){
 	
 	
 }
+<<<<<<< HEAD
 function loadPrevoznik(prevoznikId){
+=======
+
+/*function loadStavkeFakture(id){
+	console.log("loadStavkeFakture" + id)
+	var tempUrl = "https://localhost:8081/api/fakture/stavkeFakture/"+id;
+	console.log("url je " + tempUrl)
+>>>>>>> 7b371b3b9d0cd8e6d8f9f83dcc97e4b969ecf3eb
 	$.ajax({
 		url:'https://localhost:8081/api/prevoznik/'+prevoznikId,
 		headers:{Authorization:"Bearer " + token},

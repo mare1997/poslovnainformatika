@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pi.PoslovnaInformatika.dto.StavkaCenovnikaDTO;
 import com.pi.PoslovnaInformatika.model.Cenovnik;
-
+import com.pi.PoslovnaInformatika.model.Roba;
 import com.pi.PoslovnaInformatika.model.StavkaCenovnika;
 import com.pi.PoslovnaInformatika.service.interfaces.CenovnikServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.RobaServiceInterface;
@@ -57,7 +57,14 @@ public class StavkaCenovnikaController {
             return new ResponseEntity<StavkaCenovnikaDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<StavkaCenovnikaDTO>(new StavkaCenovnikaDTO(s),HttpStatus.OK);
     }
-	
+	@GetMapping(value = "/getCenaByRoba/{id}")
+    public ResponseEntity<StavkaCenovnikaDTO> get(@PathVariable("id") int id){
+    	Roba r= rsi.getOne(id);
+    	StavkaCenovnika s = scsi.getOne(r.getCene().getId());
+        if(s == null || s.isObrisano() == true)
+            return new ResponseEntity<StavkaCenovnikaDTO>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<StavkaCenovnikaDTO>(new StavkaCenovnikaDTO(s),HttpStatus.OK);
+    }
 	
 	@RequestMapping(value="/all/{idcenovnika}", method = RequestMethod.GET)
     public ResponseEntity<List<StavkaCenovnikaDTO>> getSCs(@PathVariable("idcenovnika") int id){

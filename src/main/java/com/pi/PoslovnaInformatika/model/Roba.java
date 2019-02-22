@@ -47,7 +47,7 @@ public class Roba implements Serializable {
 	private GrupaRobe grupa;
 	
 	@OneToOne()
-	@JoinColumn(name="cena_id")
+	@JoinColumn(name="cena_id",nullable=true)
 	private StavkaCenovnika cena;
 	
 	@OneToMany(mappedBy="roba_usluga_id", cascade=CascadeType.ALL,fetch=FetchType.EAGER)

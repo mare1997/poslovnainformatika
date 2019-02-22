@@ -26,8 +26,12 @@ import com.pi.PoslovnaInformatika.converters.NarudzbenicaToNarudzbenicaDTO;
 import com.pi.PoslovnaInformatika.dto.NarudzbenicaDTO;
 import com.pi.PoslovnaInformatika.model.Narudzbenica;
 import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
+import com.pi.PoslovnaInformatika.model.StavkaNarudzbenice;
+import com.pi.PoslovnaInformatika.repository.StavkeNarudzbeniceRepository;
 import com.pi.PoslovnaInformatika.service.NarudzbenicaService;
 import com.pi.PoslovnaInformatika.service.PGPservice;
+import com.pi.PoslovnaInformatika.service.interfaces.StavkaNarudzbeniceServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.StavkeCenovnikaServiceInterface;
 
 @RestController
 @RequestMapping(value="api/narudzbenice")
@@ -45,6 +49,9 @@ public class NarudzbenicaController {
 	
 	@Autowired
 	private NarudzbenicaDTOtoNarudzbenica toNarudzbenica;
+	
+	@Autowired
+	private StavkaNarudzbeniceServiceInterface snsi;
 	
 	
 	@RequestMapping(value="/all",method=RequestMethod.GET,params={"page","size","posGodId","preduzeceId"})
@@ -165,7 +172,7 @@ public class NarudzbenicaController {
 	@RequestMapping(value="/active/{id}", method=RequestMethod.GET)
 	public ResponseEntity<NarudzbenicaDTO> getActiveNarudzbenicaById(@PathVariable Integer id){
 		Narudzbenica narudzbenica = narudzbenicaService.getOne(id);
-		if(narudzbenica==null || narudzbenica.isObrisano()== true){
+		if(narudzbenica==null || narudzbenica.isObrisano()== true || narudzbenica.isAktivna() == false){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(toNarudzbenicaDTO.convert(narudzbenica), HttpStatus.OK);
@@ -204,6 +211,12 @@ public class NarudzbenicaController {
 		Narudzbenica narudzbenica = narudzbenicaService.getOne(id);
 		if(narudzbenica==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		List<StavkaNarudzbenice> s = snsi.findAll();
+		for(StavkaNarudzbenice ss:s) {
+			if(ss.getNarudzbenica().getIdNarudzbenice() == id) {
+				snsi.delete(ss.getIdStavkeNarudzbenice());
+			}
 		}
 		narudzbenicaService.delete(id);
 		return new ResponseEntity<NarudzbenicaDTO>(toNarudzbenicaDTO.convert(narudzbenica), HttpStatus.OK);

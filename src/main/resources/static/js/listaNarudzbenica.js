@@ -1,5 +1,5 @@
 var token= localStorage.getItem("token");
-
+var s;
 $(document).ready(function() {
 	loadListaNarudzbenica();
 	var divSN = $('#selektovanaNarudzbenica');
@@ -7,7 +7,7 @@ $(document).ready(function() {
 	$(document).on("click", ".bodyLista tr", function(e) {
 		//var name = this.attr("name");
 		var selectedId = this.id;
-		
+		s = this.id;
 		console.log(selectedId);
 		
 		divSN.show();
@@ -23,6 +23,7 @@ $(document).ready(function() {
 var preduzeceId =localStorage.getItem("pId")
 var poslovnaGod = localStorage.getItem("pgId");
 var imeKupca;
+
 function loadListaNarudzbenica(){
 	 console.log("load lista narudzbenica")
 	 var url = new URL("https://localhost:8081/api/narudzbenice/all/finished?page=0&size=10&posGodId="+poslovnaGod+"&preduzeceId="+preduzeceId);
