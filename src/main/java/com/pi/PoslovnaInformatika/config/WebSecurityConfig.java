@@ -75,7 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/api/narudzbenice/stavkeNarudzbenice/**").permitAll()
                 .antMatchers("/api/fakture/stavkeFakture/**").permitAll()
                 .antMatchers("/api/otpremnice/stavkeOtpremnice/**").permitAll()
-                .antMatchers("/api/cenovnik/**").hasAuthority("ADMIN")
+                .antMatchers("/api/cenovnik/**").permitAll()
                 .antMatchers("/api/gruparobe/**").hasAuthority("ADMIN")
                 .antMatchers("/api/kupac/**").permitAll()
                 .antMatchers("/api/mesto/**").hasAuthority("ADMIN")

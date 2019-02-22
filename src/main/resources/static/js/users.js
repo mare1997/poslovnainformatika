@@ -3,6 +3,7 @@ var auth = "";
 var currentUserId = "";
 var delId;
 $(document).ready(function() {
+	regular();
 	loadUsers();
 	$(document).on("click", "#usersBody tr", function(e) {
 		//var name = this.attr("name");

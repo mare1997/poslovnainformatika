@@ -30,6 +30,16 @@ public class RobaDTO implements Serializable {
 		this.grupa = grupa;
 		this.obrisano = obrisano;
 	}
+	public RobaDTO(Integer id, String name, String jedninica_mere, GrupaRobeDTO grupa, boolean obrisano) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.jedninica_mere = jedninica_mere;
+		
+		this.grupa = grupa;
+		this.obrisano = obrisano;
+	}
+	
 	public RobaDTO(Roba r) {
 		this(r.getId(),r.getName(),r.getJedninica_mere(),r.getCene().getId(),new GrupaRobeDTO(r.getGrupa()),r.isObrisano());
 	}

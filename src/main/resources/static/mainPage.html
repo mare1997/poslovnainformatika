@@ -13,7 +13,7 @@
 </head>
 
 <body>
-	<nav>
+	<nav id="navigacijaAdmin">
 <ul id="mainUl" class="nav navbar-nav">
 			<li><a href="mainPage.html">Home</a></li>
 
@@ -107,7 +107,79 @@
 				</ul>
 			</li>
 </ul>
+
+
+
+
 </nav>
+
+
+
+<nav id="navigacijaUser">
+<ul id="mainUl" class="nav navbar-nav">
+			<li><a href="mainPage.html">Home</a></li>
+
+				<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Narudzbenice <span class="caret"></span>
+			</a>
+
+				<ul class="dropdown-menu">
+					<li><a href="listaNarudzbenica.html">Lista zavrsenih narudzbenica</a></li>
+					<li><a href="listaActiveNarudzbenica.html">Lista aktivnih narudzbenica</a></li>
+					<li><a href="createNarudzbenica.html">Kreiraj narudzbenicu</a></li>
+
+
+				</ul></li>
+					<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Fakture <span class="caret"></span>
+			</a>
+
+				<ul class="dropdown-menu">
+					<li><a href="listaFaktura.html">Lista faktura</a></li>
+
+				</ul></li>
+				<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Otpremnice<span class="caret"></span>
+			</a>
+
+				<ul class="dropdown-menu">
+					<li><a href="listaOtpremnica.html">Lista otpremnica</a></li>
+
+				</ul></li>
+				
+				<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Istorija <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="istorija.html?izbor=faktura">Fakture</a></li>
+					<li><a href="istorija.html?izbor=narudzbenica">Narudzbenice</a></li>
+					<li><a href="istorija.html?izbor=otpremnica">Otpremnice</a></li>
+					<li><a href="istorija.html?izbor=grupa">Grupe robe</a></li>
+					<li><a href="istorija.html?izbor=kupac">Kupci</a></li>
+					<li><a href="istorija.html?izbor=cenovnik">Cenovnik</a></li>
+					
+				</ul>
+			</li>
+
+
+
+			<li class="dropdown" id="userImg" ><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#"><img src="./img/user.png"><span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					
+
+					<li><a href=# onClick="logout()">Logout</a></li>
+					<li>
+				</ul>
+			</li>
+
+			
+</ul>
+
+
+
+
+</nav>
+
 
 	<div class="bg"></div>
 

@@ -65,7 +65,7 @@ function mestoModal(){
 function addMesto(){
 	var grad = $('#addGrad').val().trim();
   var postanski_broj = $('#addPB').val().trim();
-	if(grad==""){
+	if(grad=="" || postanski_broj == null || postanski_broj==0){
 		alert("Sva polja moraju biti popunjena");
 		return;
 }
