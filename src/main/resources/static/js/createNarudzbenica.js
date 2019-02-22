@@ -55,7 +55,11 @@ $('#saveN').submit(function(e){
 			if(active == false){
 				createFaktura(narNewId);
 			}
-			
+			var select3 = document.getElementById("select3");
+			console.log("select3 +++++++++++++" +select3);
+		  
+			var kupac = select3.options[select3.selectedIndex].value;
+			console.log("kupac +++++++++++++"+kupac);
 		    var formData ={
 		    		
 			   		'idNarudzbenice' : narNewId,
@@ -65,7 +69,7 @@ $('#saveN').submit(function(e){
 		    		'aktivna' : active,
 		    		'obrisano' : false,
 		    		'fakturaRel' : idF,
-		    		'kupac' : idKupac,
+		    		'kupac' : kupac,
 		    		'user' : currentUserId,
 		    		'preduzece' : preduzeceId
 		    		
@@ -85,7 +89,11 @@ $('#saveN').submit(function(e){
 		        	currentNarudzbenica = narudzbenica;
 		        	console.log("Kreirana narudzbenica id" +currentNarudzbenica.idNarudzbenice)
 		        	console.log(response.idNarudzbenice);
-		     
+		        	if(response.aktivna == true){
+		        		window.location.replace('listaActiveNarudzbenica.html');
+		        	}else{
+		        		window.location.replace('listaNarudzbenica.html');
+		        	}
 		        },
 				
 				
@@ -106,7 +114,7 @@ function ispisPodatakaKodUpdate(id){
 			$('#datumIzrade').html(response.datumIzrade);
 			$('#brNarudz').html(id);
 			$('#username').html(currentUserUsrName);
-			deleteSAN(id);
+			deleteSAN(response.idNarudzbenice);
 			
 			
 		},
@@ -130,19 +138,23 @@ function deleteSAN(id){
 		crossDomain: true,
 		success:function(response){
 			console.log("usaodgaga "+response )
-			console.log("usao u delete bre " + response.idStavkeNarudzbenice)
-			$.ajax({
-				url: 'https://localhost:8081/api/narudzbenice/softDeleteStavkaNarudzbenice/'+response.idStavkeNarudzbenice,
-				headers:{Authorization:"Bearer " + token},
-				type: 'put',
-				success : function(response){
-					console.log("obrisana stavka nar za update: "+response.idStavkeNarudzbenice)
-					
-				},
-				error: function (jqXHR, textStatus, errorThrown) {  
-					alert(jqXHR.status);
-				}
-		    });
+			
+			for(var i = 0 ; i<response.length;i++){
+				$.ajax({
+					url: 'https://localhost:8081/api/narudzbenice/softDeleteStavkaNarudzbenice/'+response[i].idStavkeNarudzbenice,
+					headers:{Authorization:"Bearer " + token},
+					type: 'put',
+					success : function(response){
+						console.log("usao u delete bre " + response[i].idStavkeNarudzbenice)
+						console.log("obrisana stavka nar za update: "+response[i].idStavkeNarudzbenice)
+						
+					},
+					error: function (jqXHR, textStatus, errorThrown) {  
+						alert(jqXHR.status);
+					}
+			    });
+			}
+			
 			
 			
 		},
@@ -228,6 +240,11 @@ function createFaktura(id){
 	var preduzeceId = 0;
 	preduzeceId=localStorage.getItem("pId");
 	var idF=0;
+	var select3 = document.getElementById("select3");
+	console.log("select3 +++++++++++++" +select3);
+  
+	var kupac = select3.options[select3.selectedIndex].value;
+	console.log("kupac +++++++++++++"+kupac);
 	date = currentDate();
 	  var formData ={
 	    		'brojFakture' : id*100,
@@ -239,7 +256,7 @@ function createFaktura(id){
 	    		//'statusFakture' : "je",
 	    		'narudzbeniceRel' : id,
 	    		'otpremnicaRel' : 0,
-	    		'kupac' : idKupac,
+	    		'kupac' : kupac,
 	    		'user' : currentUserId,
 	    		'obrisano' : false,
 	    		'preduzece' : preduzeceId
