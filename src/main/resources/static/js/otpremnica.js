@@ -8,6 +8,7 @@ $(document).ready(function(){
 	loadOtpremnice(idO);
 	loadStavkeOtpremnice(idO);
 	loadPreduzece();
+	loadPrevoznik();
 //	populateFaktura();
 //	loadStavkeFakture(idF,cena,name);
 });
@@ -32,6 +33,7 @@ function loadOtpremnice(id) {
 			$('#datumOtrpemnice').html(response.datumOtpremnice);
 			$('#datumIsporuke').html(response.datumIsporuke);
 			loadKupac(response.kupacId);
+			loadPrevoznik(response.prevoznikId);
 			console.log("kupacId optremnice je: " + response.kupacId)
 
 			}
@@ -62,10 +64,11 @@ function loadStavkeOtpremnice(id){
 				console.log("roba id: " + stavka.isporucenaKolicina)
 			//	getProcenatStopaPDV(stavka.robaUslugaId);
 				getNameRobe(stavka.robaUslugaId);
+				
 				var table = $('#tableBody');
 				//dodaj jos stavki u tabelu
-				table.append('<tr><td>'+name+'</td><td>'+stavka.cena+'</td><td>'+stavka.isporucenaKolicina+'</td>'+
-						'<td>'+stavka.napomena+'</td>');
+				table.append('<tr><td style="text-align:left;">'+name+'</td><td style="text-align:center;">'+stavka.cena+'</td><td style="text-align:center;">'+stavka.isporucenaKolicina+'</td>'+
+						'<td style="text-align:center;">'+stavka.jedinicaMere+'</td><td style="text-align:center;">'+stavka.napomena+'</td></tr>');
 				
 				}
 			
@@ -88,6 +91,7 @@ function getNameRobe(id){
 		cashe: false,
 		success: function(response){
 			name = response.name;
+			console.log("ime robe je " + name)
 	//		console.log("id za stopu: "+ response.grupa.pdv.id)
 		//	getProcenatStopaPDV(response.grupa.pdv.id);
 		}
@@ -170,96 +174,36 @@ function loadPreduzece(){
 	
 	
 }
+<<<<<<< HEAD
+function loadPrevoznik(prevoznikId){
+=======
 
 /*function loadStavkeFakture(id){
 	console.log("loadStavkeFakture" + id)
 	var tempUrl = "https://localhost:8081/api/fakture/stavkeFakture/"+id;
 	console.log("url je " + tempUrl)
+>>>>>>> 7b371b3b9d0cd8e6d8f9f83dcc97e4b969ecf3eb
 	$.ajax({
-		url: tempUrl,
-		 headers:{Authorization:"Bearer " + token},
-		type:'get',
-		dataType: 'json',
-		cashe: false,
-		success: function(response){
-			console.log("load sf" + response)
-			for(var i=0; i<response.length; i++){
-				stavka = response[i];
-				console.log("br stavki" + response.length)
-				console.log("stavka" + stavka)
-				var table = $('#tableBody');
-				table.append('<tr><td>'+stavka.kolicina+'</td><td>'+stavka.cena+'</td>'+
-						'<td>'+stavka.rabat+'</td><td>'+stavka.osnovicaZaPDV+'</td><td>'+stavka.procenatPDV+'</td>'+
-						'<td>'+stavka.iznosPDV+'</td><td>'+stavka.iznosStavke+'</td></tr>');
-				
-				}
+		url:'https://localhost:8081/api/prevoznik/'+prevoznikId,
+		headers:{Authorization:"Bearer " + token},
+		type: 'GET',
+		dataType:'json',
+		async: false,
+		crossDomain: true,
+		success:function(response){
+			$('#prevoznik').html(response.name);
 			
-				$('#kolicina').append(stavka.kolicina);
-				$('#cena').append(stavka.cena);
-				$('#rabat').append(stavka.rabat);
-				$('#osnPDV').append(stavka.osnovicaZaPDV);
-				$('#procPDV').append(stavka.procenatPDV);
-				$('#iznosPDV').append(stavka.iznosPDV);
-				$('#iznosStavke').append(stavka.iznosStavke);
-
-				
-
-		 }
-
-		
-	},
-
-);
-};*/
-/*function loadStavkeFakture(id, cena, name){
-	
-	console.log("loadStavkeFakture" + id)
-	console.log("cenaRobe je: " + cena)
-	console.log("ime robe je: " + name)
-	var tempUrl = "https://localhost:8081/api/fakture/stavkeFakture/"+id;
-	console.log("url je " + tempUrl)
-	
-	
-	$.ajax({
-		url: tempUrl,
-		 headers:{Authorization:"Bearer " + token},
-		type:'get',
-		dataType: 'json',
-		cashe: false,
-		success: function(response){
-			console.log("load sf" + response)
-			for(var i=0; i<response.length; i++){
-				stavka = response[i];
-				console.log("br stavki" + response.length)
-				console.log("stavka" + stavka.jedinicnaCena)
-				var table = $('#tableBody');
-				table.append('<tr><td>Sandra</td><td>'+stavka.kolicina+'</td><td>'+stavka.jedinicnaCena+'</td>'+
-						'<td>'+stavka.rabat+'</td><td>'+stavka.osnovicaZaPDV+'</td><td>'+stavka.procenatPDV+'</td>'+
-						'<td>'+stavka.iznosPDV+'</td><td>'+stavka.iznosStavke+'</td></tr>');
-				
-				}
 			
-				$('#kolicina').append(stavka.kolicina);
-				$('#cena').append(stavka.cena);
-				$('#rabat').append(stavka.rabat);
-				$('#osnPDV').append(stavka.osnovicaZaPDV);
-				$('#procPDV').append(stavka.procenatPDV);
-				$('#iznosPDV').append(stavka.iznosPDV);
-				$('#iznosStavke').append(stavka.iznosStavke);
+			
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			if(jqXHR.status=="403"){
+				alert("Error.");
+			}
 
-				
-		//	window.location.href = 'https://localhost:8081/listaNarudzbenica.html';
-		 }
+		}
 
-		
-	},
-
-);
-};*/
-
+		});
 	
 	
-	
-	
-
-
+}

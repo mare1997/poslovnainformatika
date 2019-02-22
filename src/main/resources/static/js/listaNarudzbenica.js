@@ -42,6 +42,7 @@ function loadListaNarudzbenica(){
 				narId = narudzbenica.idNarudzbenice;
 				imeKupca1(narudzbenica.kupac)
 				var table = $('#bodyTable');
+				
 				table.append('<tr id="'+narId+'"><td>'+narudzbenica.brojNarudzbenice+'</td><td>'+narudzbenica.datumIzrade+'</td>'+
 						'<td>'+narudzbenica.datumIsporuke+'</td><td>'+narudzbenica.preduzece+'</td><td>'+imeKupca+'</td></tr>');
 				
