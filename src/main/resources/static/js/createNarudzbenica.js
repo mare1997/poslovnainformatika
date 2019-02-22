@@ -8,7 +8,6 @@ var idOtpremnice = 0;
 var currentNarudzbenica = null;
 var idKupac = 0;
 var pId = null;
-//var stavka = null;
 var currentUserId = null;
 var currentUsrName = null;
 var preduzeceId =localStorage.getItem("pId");
@@ -18,10 +17,24 @@ var finalOsnovica = 0;
 var finalUkupanPDV = 0;
 var finalIznosZaPlacanje = 0;
 $(document).ready(function(){
-	
 	currentUserId = localStorage.getItem("id");
 	currentUserUsrName = localStorage.getItem("username");
-	createDefaultNar();
+	var name = window.location.search.slice(1).split('?')[0].split('=')[1];
+	var kk = name.split('&')[0];
+	
+	console.log("Metoda kreiranje/update: "+kk)
+	
+	if(kk == 'update'){
+		var sss = window.location.search.slice(1).split('?')[0].split('=')[2];
+		console.log("trebalo bi update: "+sss )
+		ispisPodatakaKodUpdate(sss);
+		
+	}else if(name == 'create'){
+		console.log("trebalo bi create: " )
+		createDefaultNar();
+	}
+	
+	
 	loadKupci();
 	loadPreduzece();
 	loadPervoznici(); 	
@@ -81,7 +94,67 @@ $('#saveN').submit(function(e){
 		});
 
 });
+function ispisPodatakaKodUpdate(id){
+	$.ajax({
+		url:'https://localhost:8081/api/narudzbenice/active/'+id,
+		headers:{Authorization:"Bearer " + token},
+		type: 'GET',
+		dataType:'json',
+		async: false,
+		crossDomain: true,
+		success:function(response){
+			$('#datumIzrade').html(response.datumIzrade);
+			$('#brNarudz').html(id);
+			$('#username').html(currentUserUsrName);
+			deleteSAN(id);
+			
+			
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			if(jqXHR.status=="403"){
+				alert("Error.");
+			}
 
+		}
+
+		});
+}
+function deleteSAN(id){
+	console.log("usao u de;ete")
+	$.ajax({
+		url:'https://localhost:8081/api/narudzbenice/stavkeNarudzbenice/active/'+id,
+		headers:{Authorization:"Bearer " + token},
+		type: 'GET',
+		dataType:'json',
+		async: false,
+		crossDomain: true,
+		success:function(response){
+			console.log("usaodgaga "+response )
+			console.log("usao u delete bre " + response.idStavkeNarudzbenice)
+			$.ajax({
+				url: 'https://localhost:8081/api/narudzbenice/softDeleteStavkaNarudzbenice/'+response.idStavkeNarudzbenice,
+				headers:{Authorization:"Bearer " + token},
+				type: 'put',
+				success : function(response){
+					console.log("obrisana stavka nar za update: "+response.idStavkeNarudzbenice)
+					
+				},
+				error: function (jqXHR, textStatus, errorThrown) {  
+					alert(jqXHR.status);
+				}
+		    });
+			
+			
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			if(jqXHR.status=="403"){
+				alert("Error.");
+			}
+
+		}
+
+		});
+}
 function createDefaultNar(){
 	var preduzeceId = 0;
 	preduzeceId=localStorage.getItem("pId");

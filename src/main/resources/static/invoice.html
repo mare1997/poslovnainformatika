@@ -124,7 +124,7 @@
                             <td>
                                 Faktura # <label id="brFakture"></label><br/>
                                 Kreirana: <label id="datumFakture"></label><br/>
-                                Datum isporuke: <label> February 1, 2015</label>
+                                Datum valute: <label id="dV"> </label>
                             </td>
                         </tr>
                     </table>
@@ -136,15 +136,17 @@
                     <table>
                         <tr>
                             <td>
-                                Naziv preduzeca<br>
-                                Poslovna godina: <label>2019.</label><br>
-                                Sunnyville, CA 12345
+                                Preduzece: <label id="preduzeceName"></label> <br/>
+                                Adresa preduzeca: <label id="preduzeceAdresa"></label> <br/>
+                                Email preduzeca: <label id="preduzeceEmail"></label><br>
+                                Telefon preduzeca: <label id="preduzeceTelefon"></label><br>
+                                
                             </td>
                             
                             <td>
-                                Acme Corp.<br>
-                                John Doe<br>
-                                john@example.com
+                                Kupac: <label id="imeKupca"></label><br/>
+                               	jmbg:  <label id="jmbg"></label><br/>
+                                Adresa: <label id="adresa"></label><br/>
                             </td>
                         </tr>
                     </table>
@@ -168,7 +170,7 @@
                 </td>
                 <td> Cena</td>
                 <td>Vrednost</td>
-                <td> Rabat%</td>
+                <td> Rabat</td>
                 <td> Iznos rabata</td>
                 <td>
                     Osnovica za PDV
@@ -218,7 +220,7 @@
                 <td></td>
                 <td></td>
                 <td style="text-align:left;">Osnovica:</td>
-                <td>
+                <td id="osnovica">
                    800.00
                 </td>
             </tr>
@@ -233,7 +235,7 @@
                 <td></td>
                 <td style="text-align:right;"></td>
                 <td style="text-align:left;">Ukupan PDV:</td>
-                <td>
+                <td id= "ukupanpdv">
                    80
                 </td> 	
             </tr>
@@ -248,7 +250,7 @@
                 <td></td>
                 <td></td>
                 <td style="text-align:left;">TOTAL:</td>
-                <td >
+                <td id="total">
                     $385.00
                 </td>
             </tr>

@@ -170,6 +170,7 @@ function loadPreduzece(){
 	
 	
 }
+
 /*function loadStavkeFakture(id){
 	console.log("loadStavkeFakture" + id)
 	var tempUrl = "https://localhost:8081/api/fakture/stavkeFakture/"+id;
