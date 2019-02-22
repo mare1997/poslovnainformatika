@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.pi.PoslovnaInformatika.dto.GrupaRobeDTO;
 import com.pi.PoslovnaInformatika.dto.RobaDTO;
 import com.pi.PoslovnaInformatika.model.GrupaRobe;
 import com.pi.PoslovnaInformatika.model.Roba;
@@ -154,12 +154,12 @@ public class RobaController {
 		roba.setName(robaDTO.getName());
 		roba.setJedninica_mere(robaDTO.getJedninica_mere());
 		roba.setGrupa(grsi.getOne(robaDTO.getGrupa().getId()));
-		//roba.setCene(scsi.getOne(robaDTO.getCena()));
+		roba.setCene(null);
 		
 		
 		rsi.save(roba);
 		
-		return new ResponseEntity<RobaDTO>(new RobaDTO(roba),HttpStatus.CREATED);
+		return new ResponseEntity<RobaDTO>(new RobaDTO(roba.getId(),roba.getName(),roba.getJedninica_mere(),new GrupaRobeDTO(roba.getGrupa()),roba.isObrisano()),HttpStatus.CREATED);
 	}
 	@PutMapping(value = "/edit/{id}")
 	public ResponseEntity<?> edit(@PathVariable("id") int id,@Validated @RequestBody RobaDTO robaDTO,Errors errors){

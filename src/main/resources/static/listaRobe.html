@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="./css/listaRoba.css">
 	<link rel="stylesheet" type="text/css" href="./css/mainPage.css">
 	<script src="js/logout.js"></script>
+	<script src="js/regular.js"></script>
 	<link rel="stylesheet" href="webjars/bootstrap/3.2.0/css/bootstrap.min.css">
 	<script src="webjars/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<title>Lista robe</title>
@@ -156,10 +157,8 @@
 					<div class="form-group">
 						<label class="control-label" id="nazivAddLabel">Naziv robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="addNazivRobe" style="width: 150px"></label>
 						<label class="control-label" id="meraAddLabel">Jedinica mere: <input type="text" id="addJedinicaMere" style="width: 150px"></label>
-						<label class="control-label" id="grupaAddLabel">Grupa robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select id="pickGrupaRobe"style="width: 150px"></select>
-						
-						
-						 <label class="control-label" id="dodajCenuStavke">Cena: <input input="inputCenaStavke" type="text" style="width: 150px"></label>
+						<label class="control-label" id="grupaAddLabel">Grupa robe:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select id="pickGrupaRobe"style="width: 150px"></select></label>
+						<label class="control-label" id="dodajCenuStavke">Cena: <input id="inputCenaStavke" type="text" style="width: 150px"></label>
 					</div>
 					<div class="modal-footer">
 						<button id="dodajStavkuCenovnikaM" onClick="addSCen()" name="createR" class="btn btn-success">Create</button>

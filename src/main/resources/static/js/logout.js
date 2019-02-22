@@ -12,11 +12,12 @@ $(document).ready(function() {
 	}
 	if(role == "ADMIN"){
 		//alert("im admin");
-		//$('#zaUsera').hide();
+		$('#navigacijaUser').hide();
 	}
 	if(role=="REGULAR"){
 		//$('#zaUsera').show();
-		//$('#mainUl').hide();
+		$('#navigacijaAdmin').hide();
+		$('#navigacijaUser').show();
 	}
 	
 });

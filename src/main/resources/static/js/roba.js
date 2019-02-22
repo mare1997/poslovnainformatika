@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	loadRoba();
+
 	$(document).on("click", "#robaBody tr", function(e) {
 		delId = this.id;
 		var idGrupe = localStorage.getItem("grupaId");
@@ -34,6 +35,9 @@ $(document).ready(function() {
 var token= localStorage.getItem("token");
 var idGrupe = localStorage.getItem("grupaId");
 var pId="";
+
+
+
 function loadRoba(){
 	
   $.ajax({
@@ -42,14 +46,33 @@ function loadRoba(){
     type:"GET",
     dataType: 'json',
     crossDomain:true,
+    async:false,
     success: function (response) {
       var table = $('#robaBody');
       for (var i=0; i<response.length; i++){
         roba = response[i];
-			console.log(roba);
-          table.append(
-            '<tr id="'+roba.id+'" value="'+roba.id+'">'+'<td>'+roba.name+'</td><td>'+roba.grupa.name+'</td><td>'+roba.jedninica_mere+'</td><td>'+roba.cena+'</td></tr>'
-          )
+		console.log("roba id je: "+roba.id);
+		
+		var cena;
+		$.ajax({
+		    url:'https://localhost:8081/api/stavkacenovnika/getCenaByRoba/'+roba.id,
+		    headers:{Authorization:"Bearer " + token},
+		    type:"GET",
+		    dataType: 'json',
+		    async:false,
+		    crossDomain:true,
+		    success: function (response) {
+		    	cena = response.cena;
+		    	console.log(cena);
+		    	table.append(
+		                '<tr id="'+roba.id+'" value="'+roba.id+'">'+'<td>'+roba.name+'</td><td>'+roba.grupa.name+'</td><td>'+roba.jedninica_mere+'</td><td>'+cena+'</td></tr>'
+		              )
+
+		    },error: function (jqXHR, textStatus, errorThrown) {
+					alert("log error!!!");
+		  }
+		});
+                  
 
       }
     },error: function (jqXHR, textStatus, errorThrown) {
@@ -129,11 +152,9 @@ $.ajax({
 
 
 
-	console.log(naziv+" "+mera+" "+cena+" "+grupaObject);
 	var data={
 			'name':naziv,
 			'jedninica_mere':mera,
-			'cena':0, // ovo je id stavke
 			'grupa':grupaObject
 
 	}
@@ -151,17 +172,19 @@ $.ajax({
         success: function (response) {
         	console.log("usao u success")
         	alert("Dodavanje uspesno.");
-        	$('#dodajCenuStavke').show();
-        	$('#dodajStavkuCenovnikaM').show();
-        	$('#inputCenaStavke').show();
+        	
         	
         	$('#addNazivRobe').hide();
         	$('#addJedinicaMere').hide();
         	$('#pickGrupaRobe').hide();
-        	
+        	$('#dodajRobuM').hide();
         	$('#nazivAddLabel').hide();
         	$('#grupaAddLabel').hide();
         	$('#meraAddLabel').hide();
+        	
+        	$('#dodajCenuStavke').show();
+        	$('#dodajStavkuCenovnikaM').show();
+        	$('#inputCenaStavke').show();
         	
         	idKreiranog = response.id;
        
@@ -208,14 +231,16 @@ function refresh(){
 	loadRoba();
 }
 
-
+var idKreiraneStavke;
 function addSCen(){
-	var cenId = localStorage.getItem("cenId");
-	var cena = $('#dodajCenuStavke').val().trim();
+	var cenId = localStorage.getItem("akCenovnik");
+	var cena = $('#inputCenaStavke').val().trim();
+	var pgId = localStorage.getItem("pgId",pgId);
+	var pId = localStorage.getItem("pId",pId);
 
 	var cenObject;
 	$.ajax({
-		url:'https://localhost:8081/api/cenovnik/getCenovnikdeleteNo/'+cenId,
+		url:'https://localhost:8081/api/cenovnik/getCenovnikdeleteNo/'+cenId+'/'+pId+'/'+pgId,
 		headers:{Authorization:"Bearer " + token},
 		type: 'GET',
 		dataType:'json',
@@ -233,6 +258,8 @@ function addSCen(){
 		}
 
 	});
+	console.log("id cenovnika aktivnog"+ cenId);
+	console.log
 
 	var data={			 'cena' : cena,
 						 'roba' : idKreiranog, //id robe
@@ -252,11 +279,11 @@ function addSCen(){
 		processData: false,
 				success: function (response) {
 					alert("Dodavanje uspesno.")
+					
+					idKreiraneStavke= response.id;
 					update();
 					
-					$('#addStavkuCenovnika').modal('toggle');
 					
-					refresh();
 				},
 		error: function (jqXHR, textStatus, errorThrown) {
 			if(jqXHR.status=="403"){
@@ -266,6 +293,36 @@ function addSCen(){
 		}
 		});
 
+}
+
+function update(){
+	console.log(idKreiraneStavke);
+	var data = {'cena' : idKreiraneStavke};
+	
+	$.ajax({
+		url:'https://localhost:8081/api/roba/edit/'+idKreiranog,
+		headers:{Authorization:"Bearer " + token},
+		type: 'PUT',
+		data: JSON.stringify(data),
+		dataType:'json',
+		cache: false,
+		processData: false,
+		contentType: 'application/json',
+		success:function(response){
+			console.log("update success");
+			$('#addRoba').modal('toggle');
+			
+			refresh();
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			if(jqXHR.status=="403"){
+				alert("Error.");
+			}
+
+		}
+
+	});
+	
 }
 
 // /getAllActiveRobaByName
