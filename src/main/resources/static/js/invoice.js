@@ -38,6 +38,11 @@ function loadFakture(id) {
 			id = response.idFakture;
 			
 			$('#brFakture').html(id);
+<<<<<<< HEAD
+			var date = currentDate();
+			$('#datumFakture').html(date);
+
+=======
 		//	var date = currentDate();
 			$('#datumFakture').html(response.datumFakture);
 			$('#dV').html(response.datumValute)
@@ -45,6 +50,7 @@ function loadFakture(id) {
 			$('#ukupanpdv').html(response.ukupanPDV)
 			$('#total').html(response.iznosZaPlacanje)
 			loadKupac(response.kupac);
+>>>>>>> 7b371b3b9d0cd8e6d8f9f83dcc97e4b969ecf3eb
 			}
           
 		},
