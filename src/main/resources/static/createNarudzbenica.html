@@ -144,6 +144,13 @@
 					style="width: 150px"></label>
 				<br/>
 				Datum isporuke:<input  type="date" id="datumIsporuke" style="width: 135px;" required>
+				
+				
+				
+				<br/>
+				<br/>
+				
+				Datum valute: &nbsp;&nbsp;&nbsp;<input  type="date" id="datumValute" style="width: 135px;" required>
 				</td>
 				
 
@@ -162,7 +169,7 @@
 			<td>
 						
 			Dodaj kupca: <select id="select3" style="width: 150px;margin-top:2px;" required="required"></select>
-			<input type="button" id="dodajKupca" value="+"/>
+			<input type="button"  value="+" data-toggle="modal" data-target="#dodajKupca"/>
 			</td>
 			</tr>
 			<tr>
@@ -243,7 +250,40 @@
 			</div>
 		</div>
 	</div>
+	<!-- Dodaj kupca -->
 	
+	<div id="dodajKupca" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-m" style="width: 300px">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Kreiraj kupca</h4>
+				</div>
+		
+				<div class="modal-body">
+						
+					<div class="form-group">
+						<label>Ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" id="imeKupca"/><br/>
+						<label>Adresa:&nbsp;</label><input type="text" id="adresaKupca"/><br/>
+						<label>Mesto:&nbsp;&nbsp;&nbsp;</label><input type="text" id="mestoKupca"/><br/>
+						<label>JMBG:&nbsp;&nbsp;&nbsp;</label><input type="number" id="JMBGKupca"/><br/>
+					<div class="form-group">
+					
+						
+					</div>
+					
+					<div class="modal-footer">
+						<button onClick="potvrdiN()" name="createN" class="btn btn-success">Potvrdi</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Ponisti</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	</div>
 	
 </body>
 

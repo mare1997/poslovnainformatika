@@ -21,7 +21,6 @@ $(document).ready(function(){
 	
 	currentUserId = localStorage.getItem("id");
 	currentUserUsrName = localStorage.getItem("username");
-	
 	createDefaultNar();
 	loadKupci();
 	loadPreduzece();

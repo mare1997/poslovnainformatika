@@ -1,29 +1,22 @@
 var token= localStorage.getItem("token");
-var idF = 0;
+var idO = 0;
 var name;
 var stopa;
 $(document).ready(function(){
-	idF = window.location.search.slice(1).split('?')[0].split('=')[1];
-	console.log("idF" + idF)
-	loadFakture(idF)
-	loadStavkeFakture(idF)
+	idO = window.location.search.slice(1).split('?')[0].split('=')[1];
+	console.log("idFO" + idO);
+	loadOtpremnice(idO);
+	loadStavkeOtpremnice(idO);
+	loadPreduzece();
 //	populateFaktura();
 //	loadStavkeFakture(idF,cena,name);
 });
+var preduzeceId =localStorage.getItem("pId")
+var poslovnaGod = localStorage.getItem("pgId");
 
-// popuniti fakturu 
-function populateFaktura(){
-	console.log("populate faktura")
-	$('#brFakture').html(idF);
-	var date = currentDate();
-	$('#datumFakture').html(date);
-	
-	
-}
-
-function loadFakture(id) {
-	console.log("loadFakture")
-	var tempUrl = "https://localhost:8081/api/fakture/"+id;
+function loadOtpremnice(id) {
+	console.log("loadOtpremnice")
+	var tempUrl = "https://localhost:8081/api/otpremnice/"+id;
 	$.ajax({
 		url: tempUrl,
 		headers:{Authorization:"Bearer " + token},
@@ -32,12 +25,14 @@ function loadFakture(id) {
 		cashe: false,
 		
 		success: function(response){
-			console.log("Id fakture je" + response.idFakture);
-			id = response.idFakture;
+			console.log("Id otpremnice je" + response.idOtpremnice);
 			
-			$('#brFakture').html(id);
-		//	var date = currentDate();
-			$('#datumFakture').html(date);
+			
+			$('#brOtrpemnice').html(response.idOtpremnice);
+			$('#datumOtrpemnice').html(response.datumOtpremnice);
+			$('#datumIsporuke').html(response.datumIsporuke);
+			loadKupac(response.kupacId);
+			console.log("kupacId optremnice je: " + response.kupacId)
 
 			}
           
@@ -46,14 +41,12 @@ function loadFakture(id) {
 	);
 	
 }
-function loadStavkeFakture(id){
+function loadStavkeOtpremnice(id){
 	
-	console.log("loadStavkeFakture" + id)
+	console.log("loadStavkeOtpremnice" + id)
 	
-	var tempUrl = "https://localhost:8081/api/fakture/stavkeFakture/"+id;
+	var tempUrl = "https://localhost:8081/api/otpremnice/stavkeOtpremnice/"+id;
 	console.log("url je " + tempUrl)
-	
-	
 	$.ajax({
 		url: tempUrl,
 		 headers:{Authorization:"Bearer " + token},
@@ -61,24 +54,18 @@ function loadStavkeFakture(id){
 		dataType: 'json',
 		cashe: false,
 		success: function(response){
-			console.log("load sf" + response)
 			for(var i=0; i<response.length; i++){
 				stavka = response[i];
+				console.log("response otpremnice" + stavka.napomena);
 				console.log("br stavki" + response.length)
-				console.log("stavka" + stavka.jedinicnaCena)
-				console.log("roba id: " + stavka.robaUslugaId)
-				getProcenatStopaPDV(stavka.robaUslugaId);
+				console.log("stavka" + stavka.cena)
+				console.log("roba id: " + stavka.isporucenaKolicina)
+			//	getProcenatStopaPDV(stavka.robaUslugaId);
 				getNameRobe(stavka.robaUslugaId);
 				var table = $('#tableBody');
 				//dodaj jos stavki u tabelu
-				
-				var a = stavka.rabat*100;
-				var b = stavka.kolicina * stavka.jedinicnaCena;
-				var c = a/b;
-				
-				table.append('<tr><td>'+name+'</td><td>'+stavka.jedinicaMere+'</td> <td>'+stavka.kolicina+'</td><td>'+stavka.jedinicnaCena+'</td>'+
-						'<td>'+(stavka.kolicina * stavka.jedinicnaCena)+'</td><td>'+c+'</td><td>'+stavka.rabat+'</td><td>'+stavka.osnovicaZaPDV+'</td><td>'+stopa+'</td>'+
-						'<td>'+stavka.iznosPDV+'</td><td>'+stavka.iznosStavke+'</td></tr>');
+				table.append('<tr><td>'+name+'</td><td>'+stavka.cena+'</td><td>'+stavka.isporucenaKolicina+'</td>'+
+						'<td>'+stavka.napomena+'</td>');
 				
 				}
 			
@@ -101,8 +88,8 @@ function getNameRobe(id){
 		cashe: false,
 		success: function(response){
 			name = response.name;
-			console.log("id za stopu: "+ response.grupa.pdv.id)
-			getProcenatStopaPDV(response.grupa.pdv.id);
+	//		console.log("id za stopu: "+ response.grupa.pdv.id)
+		//	getProcenatStopaPDV(response.grupa.pdv.id);
 		}
 
 		
@@ -110,7 +97,7 @@ function getNameRobe(id){
 	);
 	
 }
-function getProcenatStopaPDV(id){
+/*function getProcenatStopaPDV(id){
 	
 	$.ajax({
 		url:"https://localhost:8081/api/stopapdv/getSpdvdeleteNo/"+id ,
@@ -118,7 +105,6 @@ function getProcenatStopaPDV(id){
 		type:'get',
 		dataType: 'json',
 		cashe: false,
-		async: false,
 		success: function(response){
 			console.log("stopa je: "+ response.procenat)
 			stopa = response.procenat;
@@ -129,32 +115,31 @@ function getProcenatStopaPDV(id){
 	},
 	);
 	
-}
-function loadKupac(){
+}*/
+
+function loadKupac(id){
+	var url = new URL("https://localhost:8081/api/kupac/getActive/"+id+"/"+preduzeceId+"/"+poslovnaGod);
 	$.ajax({
-		url:'https://localhost:8081/api/kupac/'+idKupac,
-		headers:{Authorization:"Bearer " + token},
-		type: 'GET',
-		dataType:'json',
-		async: false,
-		crossDomain: true,
-		success:function(response){
-			name = response.name;
-			adresa = response.adresa;
+		method:'GET',
+		url: url,
+		 headers:{Authorization:"Bearer " + token},
+		dataType: 'json',
+		cashe: false,
+		async : false,
+		success: function(response){
+			$('#imeKupca').html(response.name);
+			$('#jmbg').html(response.pib_jmbg);
+			$('#adresa').html(response.adresa);
+			
+			 }
 			
 		},
-		error: function (jqXHR, textStatus, errorThrown) {
-			if(jqXHR.status=="403"){
-				alert("Error.");
-			}
-
-		}
-
-		});
+	
+	);
+	
 	
 	
 }
-
 function loadPreduzece(){
 	var preduzeceId = 0;
 	preduzeceId=localStorage.getItem("pId");
@@ -166,12 +151,12 @@ function loadPreduzece(){
 		async: false,
 		crossDomain: true,
 		success:function(response){
-			email = response.email;
-			name = response.name;
-			telefon = response.telefon;
-			adresa = response.adresa;
+			$('#preduzeceEmail').html(response.email);
+			$('#preduzeceName').html(response.name);
+			$('#preduzeceTelefon').html(response.telefon);
+			$('#preduzeceAdresa').html(response.adresa);
 			
-			console.log("preduzece" + email + name + telefon + adresa);
+			
 			
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
