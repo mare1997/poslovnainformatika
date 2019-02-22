@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="finalpiv6" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="posinf.xml"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#EEEFF0"/>
+		</conditionalStyle>
+	</style>
+	<style name="Table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<leftPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+			<rightPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#CACED0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#D8D8D8"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="tableDataset" uuid="f13e6d36-5148-4ecc-bbe3-3035def80980">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+	</subDataset>
+	<queryString language="SQL">
+		<![CDATA[select faktura.broj_fakture,faktura.datum_fakture,preduzece.pib,preduzece.name as pred_name,preduzece.adresa,faktura.datum_valute,stavka_fakture.id_fakture,roba.name as naziv_robe,stavka_fakture.jedinica_mere,stavka_fakture.kolicina,
+		stavka_fakture.jedinicna_cena,stavka_fakture.rabat,stavka_fakture.osnovica_za_pdv,stavka_fakture.procenat_pdv,stavka_fakture.iznos_pdv,stavka_fakture.iznos_stavke,kupac.name as racun_primio,stavka_fakture.id_stavke_fakture
+		from faktura,stavka_fakture,preduzece,kupac,roba,grupa_robe,pdv,stopa_pdv,mesto 
+		where faktura.id_fakture = 2 
+			and mesto.mesto_id = preduzece.mesto_id 
+				and pdv.pdv_id = stopa_pdv.pdv_id and 
+					grupa_robe.pdv_id = pdv.pdv_id and 
+						grupa_robe.preduzece_id = preduzece.preduzece_id 
+							and roba.grupa_robe_id = grupa_robe.grupa_robe_id 
+								and kupac.preduzece_id = preduzece.preduzece_id 
+									and faktura.id_fakture = stavka_fakture.id_fakture 
+										and faktura.preduzece = preduzece.preduzece_id  
+											group by stavka_fakture.id_stavke_fakture]]>
+	</queryString>
+	<field name="broj_fakture" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="broj_fakture"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="faktura"/>
+	</field>
+	<field name="datum_fakture" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="datum_fakture"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="faktura"/>
+	</field>
+	<field name="pib" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="pib"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="preduzece"/>
+	</field>
+	<field name="pred_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pred_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="preduzece"/>
+	</field>
+	<field name="adresa" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="adresa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="preduzece"/>
+	</field>
+	<field name="datum_valute" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="datum_valute"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="faktura"/>
+	</field>
+	<field name="id_fakture" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="id_fakture"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stavka_fakture"/>
+	</field>
+	<field name="naziv_robe" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="naziv_robe"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="roba"/>
+	</field>
+	<field name="jedinica_mere" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="jedinica_mere"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stavka_fakture"/>
+	</field>
+	<field name="kolicina" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="kolicina"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stavka_fakture"/>
+	</field>
+	<field name="jedinicna_cena" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="jedinicna_cena"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stavka_fakture"/>
+	</field>
+	<field name="rabat" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="rabat"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stavka_fakture"/>
+	</field>
+	<field name="osnovica_za_pdv" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="osnovica_za_pdv"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stavka_fakture"/>
+	</field>
+	<field name="procenat_pdv" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="procenat_pdv"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stavka_fakture"/>
+	</field>
+	<field name="iznos_pdv" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="iznos_pdv"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stavka_fakture"/>
+	</field>
+	<field name="iznos_stavke" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="iznos_stavke"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stavka_fakture"/>
+	</field>
+	<field name="racun_primio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="racun_primio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="kupac"/>
+	</field>
+	<field name="id_stavke_fakture" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="id_stavke_fakture"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stavka_fakture"/>
+	</field>
+	<group name="Gruppo1">
+		<groupExpression><![CDATA[$F{id_stavke_fakture}]]></groupExpression>
+		<groupHeader>
+			<band height="20"/>
+		</groupHeader>
+		<groupFooter>
+			<band>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="196" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="80" width="556" height="1" uuid="806ce5df-1219-4876-ae0c-ca7405b1f246">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<textField>
+				<reportElement x="10" y="115" width="120" height="15" uuid="ae235467-0438-499f-9217-e327c667fc06"/>
+				<textFieldExpression><![CDATA[$F{racun_primio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="90" width="84" height="25" uuid="139ebe8d-25b0-411e-986c-270015400874">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Racun primio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="415" y="10" width="50" height="20" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8"/>
+				<box rightPadding="4"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="465" y="10" width="84" height="20" uuid="bb10dbe1-0a4f-4722-9953-c163b63cf979"/>
+				<textFieldExpression><![CDATA[$F{datum_fakture}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="465" y="30" width="84" height="20" uuid="3836ce65-eca3-4cad-a6de-b1818def0a2b"/>
+				<textFieldExpression><![CDATA[$F{broj_fakture}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="415" y="30" width="50" height="20" uuid="0b3f9342-da78-4cfa-9fc5-2301c4749678"/>
+				<box rightPadding="4"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Br. Fakture]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="95" y="0" width="210" height="25" uuid="4a13fd22-e13b-4880-9eb6-62fe2bba3475">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="19" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pred_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="25" width="205" height="15" uuid="8cc95913-c9ff-497b-8163-475adfd90182"/>
+				<textFieldExpression><![CDATA[$F{adresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="40" width="205" height="15" uuid="131af234-4ed9-424c-852f-f74c611dafc0"/>
+				<textFieldExpression><![CDATA[$F{pib}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="9" y="0" width="87" height="25" uuid="4040988f-edbb-4e6d-9c31-b2878849701e">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Preduzece]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="25" width="85" height="15" uuid="ab8e57b6-d86f-40f3-998d-e8ea23444a86">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Adresa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="40" width="86" height="15" uuid="e9ec9f1d-6f62-4bfd-b41d-11af518aa98b">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PIB]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="55" width="86" height="15" uuid="04bc2bba-14ed-41b2-934a-b2e0396ce507">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Datum valute]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="95" y="55" width="205" height="15" uuid="f53d5e92-bd18-462c-b88c-b76fc605ef7c"/>
+				<textFieldExpression><![CDATA[$F{datum_valute}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="4" y="-50" width="50" height="20" forecolor="#000000" uuid="74b2eab3-8ee9-4dd0-9760-fadb18bc68dc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="32d1f008-46e4-4151-9dc6-86da13ff08ad"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[naziv_robe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="64" y="-50" width="50" height="20" forecolor="#000000" uuid="f13731b5-53e5-40f1-870f-a28b4e5b5c16">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f989e3cf-9ceb-4fd5-8f4b-7cd7f045001f"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[jedinica_mere]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="113" y="-50" width="50" height="20" forecolor="#000000" uuid="441a1880-8ce2-4bac-bb64-f434ded25157">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bb1e100e-63a8-48a5-98d8-70af3f1affa1"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[kolicina]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="160" y="-50" width="50" height="20" forecolor="#000000" uuid="85ac6ca0-b7ee-486f-955f-3a21fd72c0d7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="206757b8-7248-4b5f-868f-cda68eebe254"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[jedinicna_cena]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="210" y="-50" width="50" height="20" forecolor="#000000" uuid="3cfef11d-7127-4cd6-8d58-23288667e9d0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0b0bb089-72c6-454a-8171-d8f48691e2aa"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[rabat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="268" y="-50" width="50" height="20" forecolor="#000000" uuid="0f180954-c2a2-46e2-876c-bc5d22a44edd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="07d8d4ef-f9b4-4a67-a263-af12dd48d3d0"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[osnovica_za_pdv]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="320" y="-50" width="50" height="20" forecolor="#000000" uuid="7965955e-d9a5-471c-9015-1a8c2d434196">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="95734ccd-87e0-48ff-b203-e8390b12d26c"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[procenat_pdv]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="370" y="-50" width="50" height="20" forecolor="#000000" uuid="2e93dbcb-82a2-4c17-9d81-9c3dbda0d445">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2a7d6733-6486-406c-9a83-d82c9161aaf3"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[iznos_pdv]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="424" y="-50" width="50" height="20" forecolor="#000000" uuid="b2ebf509-1bb9-4202-b7f7-9e1e3b7292be">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a96364af-2eb4-46d5-899f-1da1f953d3dd"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[iznos_stavke]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="4" y="-50" width="50" height="20" uuid="2e52cfca-7a9c-4888-899f-cdebc9315f68">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="32d1f008-46e4-4151-9dc6-86da13ff08ad"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{naziv_robe}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="64" y="-50" width="50" height="20" uuid="b6add5e8-fe09-4ac9-b9eb-28a236710422">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f989e3cf-9ceb-4fd5-8f4b-7cd7f045001f"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jedinica_mere}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="113" y="-50" width="50" height="20" uuid="68e9874b-130d-44d1-b1a1-510a970e6b7f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bb1e100e-63a8-48a5-98d8-70af3f1affa1"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kolicina}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="160" y="-50" width="50" height="20" uuid="4e089da9-23b2-4340-b232-39e95f19765e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="206757b8-7248-4b5f-868f-cda68eebe254"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jedinicna_cena}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="210" y="-50" width="50" height="20" uuid="e54e9a34-1250-4e60-9eea-04c63011d01e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0b0bb089-72c6-454a-8171-d8f48691e2aa"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rabat}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="268" y="-50" width="50" height="20" uuid="3351ce9a-6de2-4487-9f77-fb91314d3a93">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="07d8d4ef-f9b4-4a67-a263-af12dd48d3d0"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{osnovica_za_pdv}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="320" y="-50" width="50" height="20" uuid="fdc88a1d-46b2-4da4-b959-c75cdce15668">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="95734ccd-87e0-48ff-b203-e8390b12d26c"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{procenat_pdv}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="370" y="-50" width="50" height="20" uuid="2a5d4d2f-d5a0-4c73-881c-7eb4754c0dba">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2a7d6733-6486-406c-9a83-d82c9161aaf3"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{iznos_pdv}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="424" y="-50" width="50" height="20" uuid="3fa0e17c-c886-4b4b-9cbc-5549bcce7c93">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a96364af-2eb4-46d5-899f-1da1f953d3dd"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{iznos_stavke}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="177"/>
+	</lastPageFooter>
+</jasperReport>

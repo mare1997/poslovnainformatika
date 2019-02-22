@@ -1,16 +1,24 @@
 package com.pi.PoslovnaInformatika.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -29,6 +37,12 @@ import com.pi.PoslovnaInformatika.model.Faktura;
 import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
 import com.pi.PoslovnaInformatika.service.FakturaService;
 import com.pi.PoslovnaInformatika.service.PGPservice;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 @RestController
 @RequestMapping(value="api/fakture")
@@ -173,4 +187,32 @@ public class FakturaController {
 		return new ResponseEntity<FakturaDTO>(toFakturaDTO.convert(faktura), HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/generateReport/{id}")
+	public ResponseEntity<InputStreamResource> generateReport(@PathVariable("id") int id) throws JRException, IOException, SQLException{
+		Connection dbConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/poslovnainformatika?useSSL=false", "root", "root");
+		
+		/*ReportGenerator gen = new ReportGenerator();
+		gen.exportToPdf();*/
+		JasperCompileManager.compileReportToFile(
+                getClass().getResource("/reports/finalpiv6.jrxml").getPath(), // the path to the jrxml file to compile
+                getClass().getResource("/reports/finalpiv6.jasper").getPath());
+		JasperPrint jp = JasperFillManager.fillReport(getClass().getResource("/reports/finalpiv6.jasper").openStream(),null, dbConnection);
+		ByteArrayInputStream bis = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jp));//ExportReportToPdf vraca byte[]
+		
+		File pdf = new File("C:\\Users\\Maki\\Desktop\\poslovnainformatikaWS\\poslovnainformatika\\reports\\report.pdf");
+
+		JasperExportManager.exportReportToPdfStream(jp, new FileOutputStream(pdf));
+		System.out.println(pdf.getAbsolutePath());
+		
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=report.pdf");
+
+		
+		return ResponseEntity
+	       		.ok()
+	       		.headers(headers)
+	       		.contentType(MediaType.APPLICATION_PDF)
+	       		.body(new InputStreamResource(bis));
+	}
 }

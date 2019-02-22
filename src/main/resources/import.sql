@@ -34,8 +34,8 @@ INSERT INTO `poslovnainformatika`.`otpremnica` (`id_otpremnice`, `broj_otpremnic
 INSERT INTO `poslovnainformatika`.`otpremnica` (`id_otpremnice`, `broj_otpremnice`, `datum_isporuke`, `datum_otpremnice`, `obrisano`, `primljena_roba`, `faktura_rel`, `kupac_id`, `preduzece_id`, `prevoznik_id`, `user_id`) VALUES ('3', '3', '2019-02-25', '2019-02-20', '0', '0', '3', '2', '2', '2', '2');
 
 INSERT INTO `poslovnainformatika`.`narudzbenica` (`id_narudzbenice`, `broj_narudzbenice`, `datum_isporuke`, `datum_izrade`, `obrisano`, `aktivna`, `faktura_rel`, `kupac_id`, `preduzece`, `user_id`) VALUES ('1', '1', '2019-02-14', '2019-02-12', '0', '1', '1', '1', '1', '1');
-INSERT INTO `poslovnainformatika`.`narudzbenica` (`id_narudzbenice`, `broj_narudzbenice`, `datum_isporuke`, `datum_izrade`, `obrisano`, `aktivna`, `faktura_rel`, `kupac_id`, `preduzece`, `user_id`) VALUES ('2', '2', '2019-02-22', '2019-02-16', '0', '1', '2', '2', '2', '2');
-INSERT INTO `poslovnainformatika`.`narudzbenica` (`id_narudzbenice`, `broj_narudzbenice`, `datum_isporuke`, `datum_izrade`, `obrisano`, `aktivna`, `faktura_rel`, `kupac_id`, `preduzece`, `user_id`) VALUES ('3', '3', '2019-03-25', '2019-03-03', '1', '1', '3', '1', '1', '2');
+INSERT INTO `poslovnainformatika`.`narudzbenica` (`id_narudzbenice`, `broj_narudzbenice`, `datum_isporuke`, `datum_izrade`, `obrisano`, `aktivna`, `faktura_rel`, `kupac_id`, `preduzece`, `user_id`) VALUES ('2', '2', '2019-02-22', '2019-02-16', '0', '0', '2', '2', '2', '2');
+INSERT INTO `poslovnainformatika`.`narudzbenica` (`id_narudzbenice`, `broj_narudzbenice`, `datum_isporuke`, `datum_izrade`, `obrisano`, `aktivna`, `faktura_rel`, `kupac_id`, `preduzece`, `user_id`) VALUES ('3', '3', '2019-03-25', '2019-03-03', '1', '0', '3', '1', '1', '2');
 
 INSERT INTO `poslovnainformatika`.`pdv` (`pdv_id`, `name`, `obrisano`) VALUES ('1', 'pdv1', '0');
 INSERT INTO `poslovnainformatika`.`pdv` (`pdv_id`, `name`, `obrisano`) VALUES ('2', 'pdv2', '0');
