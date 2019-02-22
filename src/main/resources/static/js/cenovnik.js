@@ -94,11 +94,8 @@ function addCenovnik(){
 	var ime = $('#addCenName').val().trim();
 	var danas = currentDate();
 	var datumV = document.getElementById('addDatumVazenja').value;
+	console.log(datumV);
 	var preduzeceId=localStorage.getItem("pId")
-	if(datumV < danas){
-		alert("Sva polja moraju biti popunjena");
-		return;
-}	
 	if(datumV < danas){
 		alert("Datum ne sme biti manji od danasnjeg");
 		return;
@@ -128,7 +125,8 @@ error: function (jqXHR, textStatus, errorThrown) {
 
 var data={			 'name' : ime,
 					 'datum_vazenja' : datumV,
-					 'preduzece' : preduzeceObject
+					 'preduzece' : preduzeceObject,
+					 'datum_kreiranja' : danas
 				 	}
 
 					console.log(data);

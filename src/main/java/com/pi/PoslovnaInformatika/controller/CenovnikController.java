@@ -104,6 +104,7 @@ public class CenovnikController {
 		Cenovnik c = new Cenovnik();
 		c.setName(cDTO.getName());
 		c.setDatum_vazenja(cDTO.getDatum_vazenja());
+		c.setDatum_kreiranja(cDTO.getDatum_kreiranja());
 		c.setPreduzece(psi.getOne(cDTO.getPreduzece().getId()));
 		
 		
