@@ -3,7 +3,6 @@ var auth = "";
 var currentUserId = "";
 var delId;
 $(document).ready(function() {
-	regular();
 	loadUsers();
 	$(document).on("click", "#usersBody tr", function(e) {
 		//var name = this.attr("name");
@@ -46,6 +45,113 @@ function loginStatus(){
 
 
 
+}
+
+function editModal(){
+	
+	$('#editKorisnika').modal();
+	 $('#editName').val("");
+     $('#editLastName').val("");
+     $('#editUsername').val("");
+     $('#editPass').val("");
+     $('#editPreduzece').val("");
+	var userC = localStorage.getItem("currentUserId");
+	$.ajax({
+	    url:'https://localhost:8081/api/users/' + userC,
+	    headers:{Authorization:"Bearer " + token},
+	    type:"GET",
+	    dataType: 'json',
+	    crossDomain:true,
+	    success: function (response) {
+	        user = response;
+	        console.log(user)
+	        $('#editName').val(user.firstname);
+	        $('#editLastname').val(user.lastname);
+	        $('#editUsername').val(user.username);
+	        $('#editPass').val(user.password);
+	        $('#editPreduzece').val(user.preduzece.name);
+	        
+
+
+
+
+	    },error: function (jqXHR, textStatus, errorThrown) {
+				alert("read error!!!");
+	  }
+	});
+	
+}
+function editMe(){
+	
+	
+	var preduzeceId=localStorage.getItem("pId");
+	var preduzeceObject;
+$.ajax({
+	url:'https://localhost:8081/api/preduzece/'+preduzeceId,
+	headers:{Authorization:"Bearer " + token},
+	type: 'GET',
+	dataType:'json',
+	async: false,
+	crossDomain: true,
+	success:function(response){
+		console.log(response);
+		preduzeceObject = response;
+	},
+	error: function (jqXHR, textStatus, errorThrown) {
+		if(jqXHR.status=="403"){
+			alert("Error.");
+		}
+
+	}
+
+});
+var ime1 = $('#editName').val().trim();
+var prezime1 = $('#editLastname').val().trim();
+var korIme1 = $('#editUsername').val().trim();
+var lozinka1 = $('#editPass').val().trim();
+var auth1 = localStorage.getItem("authority");
+var preduzeceId = localStorage.getItem("pId")
+if(ime1=="" || prezime1 == "" ||korIme1=="" || lozinka1==""){
+	alert("Sva polja moraju biti popunjena");
+	return;
+
+}
+
+
+var userC = localStorage.getItem("currentUserId");
+
+var data={
+		  	'autority':auth1,
+			'firstname':ime1,
+			'lastname':prezime1,
+			'username':korIme1,
+			'password':lozinka1,
+			'preduzece' : preduzeceObject
+
+	}
+console.log(data);
+$.ajax({
+    url:'https://localhost:8081/api/users/update/' + userC,
+    headers:{Authorization:"Bearer " + token},
+    type:"PUT",
+    data: JSON.stringify(data),
+    dataType: 'json',
+    contentType: 'application/json',
+    async: false,
+    crossDomain:true,
+    success: function (response) {
+        console.log("edit ok");
+        $('#editKorisnika').modal('toggle');
+        refresh();
+    },error: function (jqXHR, textStatus, errorThrown) {
+			alert("read error!!!");
+  }
+});
+
+
+
+
+	
 }
 
 function loadUsers(){

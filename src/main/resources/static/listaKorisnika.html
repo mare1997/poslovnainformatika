@@ -121,7 +121,7 @@
 			<button class="btn btn-default" onClick="registerModal()" data-target="#addKorisnika">
 				<span class="glyphicon glyphicon-plus"></span></button>
 			<button class="btn btn-default" onClick="openDeleteModal()"><span class="glyphicon glyphicon-trash"></span></button>
-			<button class="btn btn-default" onClick="userForEdit()" data-target="#editKorisnika">
+			<button class="btn btn-default" onClick="editModal()" data-target="#editKorisnika">
 				<span class="glyphicon glyphicon-pencil"></span></button>
 		</div>
 	</div>
@@ -177,19 +177,19 @@
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Korisnik</h4>
+					
+					<h4 class="modal-title">Korisnik edit</h4>
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
 						<label class="control-label">Ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="editName" style="width: 150px"></label>
 						<label class="control-label">Prezime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="editLastname" style="width: 150px"></label>
-						<label class="control-label">Korisnicko ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="editUsername" style="width: 150px"></label>
+						<label class="control-label">Korisnicko ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="editUsername" style="width: 150px" readonly></label>
 						<label class="control-label">Lozinka:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="password" id="editPass" style="width: 150px"></label>
-						<label class="control-label">preduzece:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="preduzece" style="width: 150px" readonly></label>
+						<label class="control-label">preduzece:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="editPreduzece" style="width: 150px" readonly></label>
 					</div>
 					<div class="modal-footer">
-						<button onClick="saveUserEdit" name="editUser" class="btn btn-success">Edit</button>
+						<button onClick="editMe()" name="editUser" class="btn btn-success">Edit</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 					</div>
 				</div>

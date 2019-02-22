@@ -117,7 +117,7 @@ public class UserController {
 		}
 		user.setFirstname(userDto.getFirstname());
 		user.setLastname(userDto.getLastname());
-		
+		user.setUsername(userDto.getUsername());
 		user.setPassword(passwordencoder.encode(userDto.getPassword()));
 		user.setPreduzece(psi.getOne(userDto.getPreduzece().getId()));
 		Authority a = asi.getByName(userDto.getAutority());
