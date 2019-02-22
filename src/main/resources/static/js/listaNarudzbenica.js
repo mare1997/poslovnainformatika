@@ -23,7 +23,9 @@ $(document).ready(function() {
 var preduzeceId =localStorage.getItem("pId")
 var poslovnaGod = localStorage.getItem("pgId");
 var imeKupca;
-
+function createN(){
+	window.location.replace('createNarudzbenica.html?name=create')
+}
 function loadListaNarudzbenica(){
 	 console.log("load lista narudzbenica")
 	 var url = new URL("https://localhost:8081/api/narudzbenice/all/finished?page=0&size=10&posGodId="+poslovnaGod+"&preduzeceId="+preduzeceId);

@@ -160,6 +160,10 @@ function createDefaultNar(){
 	preduzeceId=localStorage.getItem("pId");
 	date = currentDate();
 	document.getElementById("datumIsporuke").min= date ;
+
+	document.getElementById("datumValute").min= date ;
+	
+	
 	console.log("Id preduzeca je " + preduzeceId)
 	
 	var formData ={
@@ -598,9 +602,7 @@ function prikazRobe(){
 	};
 	
 	
-function potvrdiN(){
-	createStavkeNarudzbenice(narNewId);
-}
+
     
 	
  function loadGrupaRobe(){
@@ -648,7 +650,20 @@ function potvrdiN(){
 
 	
 	
-
+function potvrdiN(){
+	var x = document.getElementById("select2");
+	 var roba = x.options[x.selectedIndex].value;
+	 console.log("Robaje braegadeagdag: "+ roba);
+	 
+	 if(roba == '' ){
+		 alert("Majmune klikni ok!!!")
+		 return;
+	 }
+		createStavkeNarudzbenice(narNewId);
+		/*var pg = document.getElementById("select2");
+    	pg.options.length = 0;*/
+		
+	}
 
 
 function createStavkeNarudzbenice(id){
@@ -685,7 +700,7 @@ function createStavkeNarudzbenice(id){
 	        	$('#dodajRobu').modal('toggle');
 	        	
 	        	loadStavkeNarudzbenice(id);
-	      
+	        	
 	        	
 	    	}
 		
@@ -927,7 +942,7 @@ function createStavkeOtpremnice(idFakture, idOtpremnice){
 				console.log("rbuO" + robaUslugaIdO)
 				
 				
-				}
+				
 			console.log("Dodavanje robe")
 			$.ajax({
 				url:'https://localhost:8081/api/roba/getRobadeliteNo/'+stavkaF.robaUslugaId,
@@ -972,7 +987,9 @@ function createStavkeOtpremnice(idFakture, idOtpremnice){
 			},
 			
 		);
+			
 		 }
+	}
 	},
 
 	);
