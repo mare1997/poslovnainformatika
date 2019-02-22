@@ -36,7 +36,7 @@ function loadFakture(id) {
 			id = response.idFakture;
 			
 			$('#brFakture').html(id);
-		//	var date = currentDate();
+			var date = currentDate();
 			$('#datumFakture').html(date);
 
 			}
