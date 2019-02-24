@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="webjars/bootstrap/3.2.0/css/bootstrap.min.css">
 	<script src="webjars/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script src="js/logout.js"></script>
+	<script src="js/zakljuci.js"></script>
 <title>Home</title>
 
 </head>
@@ -105,7 +106,10 @@
 					<li><a href="istorija.html?izbor=cenovnik">Cenovnik</a></li>
 					
 				</ul>
+				
+				
 			</li>
+			<li><a href=# onClick="zakljucivanjePG()">Zakljuci Pg</a></li>
 </ul>
 
 
@@ -174,10 +178,41 @@
 
 			
 </ul>
+</nav>
+
+<nav id="navPgDone">
+<ul id="mainUl" class="nav navbar-nav">
+			<li><a href="mainPage.html">Home</a></li>
+
+		
+				
+				<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Istorija <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="istorija.html?izbor=faktura">Fakture</a></li>
+					<li><a href="istorija.html?izbor=narudzbenica">Narudzbenice</a></li>
+					<li><a href="istorija.html?izbor=otpremnica">Otpremnice</a></li>
+					<li><a href="istorija.html?izbor=grupa">Grupe robe</a></li>
+					<li><a href="istorija.html?izbor=kupac">Kupci</a></li>
+					<li><a href="istorija.html?izbor=cenovnik">Cenovnik</a></li>
+					
+				</ul>
+			</li>
 
 
 
+			<li class="dropdown" id="userImg" ><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#"><img src="./img/user.png"><span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					
 
+					<li><a href=# onClick="logout()">Logout</a></li>
+					<li>
+				</ul>
+			</li>
+
+			
+</ul>
 </nav>
 
 

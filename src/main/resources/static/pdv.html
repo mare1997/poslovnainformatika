@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="js/pdv.js"></script>
+	<script src="js/pgDone.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/pdv.css">
 	<link rel="stylesheet" type="text/css" href="./css/mainPage.css">
 	<script src="js/logout.js"></script>
@@ -17,7 +18,7 @@
 <body>
 
 <!-- Navigacija -->
-	<nav>
+	nav id="navigacijaAdmin">
 <ul id="mainUl" class="nav navbar-nav">
 			<li><a href="mainPage.html">Home</a></li>
 
@@ -28,7 +29,7 @@
 				<ul class="dropdown-menu">
 					<li><a href="listaNarudzbenica.html">Lista zavrsenih narudzbenica</a></li>
 					<li><a href="listaActiveNarudzbenica.html">Lista aktivnih narudzbenica</a></li>
-					<li><a href="createNarudzbenica.html">Kreiraj narudzbenicu</a></li>
+					
 
 
 				</ul></li>
@@ -98,7 +99,6 @@
 					<li><a href="pdv.html">Pdv</a></li>
 				</ul>
 			</li>
-			
 			<li class="dropdown"><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#">Istorija <span class="caret"></span></a>
 				<ul class="dropdown-menu">
@@ -112,7 +112,110 @@
 				</ul>
 			</li>
 </ul>
+
+
+
+
 </nav>
+
+
+
+<nav id="navigacijaUser">
+<ul id="mainUl" class="nav navbar-nav">
+			<li><a href="mainPage.html">Home</a></li>
+
+				<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Narudzbenice <span class="caret"></span>
+			</a>
+
+				<ul class="dropdown-menu">
+					<li><a href="listaNarudzbenica.html">Lista zavrsenih narudzbenica</a></li>
+					<li><a href="listaActiveNarudzbenica.html">Lista aktivnih narudzbenica</a></li>
+					<li><a href="createNarudzbenica.html">Kreiraj narudzbenicu</a></li>
+
+
+				</ul></li>
+					<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Fakture <span class="caret"></span>
+			</a>
+
+				<ul class="dropdown-menu">
+					<li><a href="listaFaktura.html">Lista faktura</a></li>
+
+				</ul></li>
+				<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Otpremnice<span class="caret"></span>
+			</a>
+
+				<ul class="dropdown-menu">
+					<li><a href="listaOtpremnica.html">Lista otpremnica</a></li>
+
+				</ul></li>
+				
+				<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Istorija <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="istorija.html?izbor=faktura">Fakture</a></li>
+					<li><a href="istorija.html?izbor=narudzbenica">Narudzbenice</a></li>
+					<li><a href="istorija.html?izbor=otpremnica">Otpremnice</a></li>
+					<li><a href="istorija.html?izbor=grupa">Grupe robe</a></li>
+					<li><a href="istorija.html?izbor=kupac">Kupci</a></li>
+					<li><a href="istorija.html?izbor=cenovnik">Cenovnik</a></li>
+					
+				</ul>
+			</li>
+
+
+
+			<li class="dropdown" id="userImg" ><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#"><img src="./img/user.png"><span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					
+
+					<li><a href=# onClick="logout()">Logout</a></li>
+					<li>
+				</ul>
+			</li>
+
+			
+</ul>
+</nav>
+
+<nav id="navPgDone">
+<ul id="mainUl" class="nav navbar-nav">
+			<li><a href="mainPage.html">Home</a></li>
+
+		
+				
+				<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Istorija <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="istorija.html?izbor=faktura">Fakture</a></li>
+					<li><a href="istorija.html?izbor=narudzbenica">Narudzbenice</a></li>
+					<li><a href="istorija.html?izbor=otpremnica">Otpremnice</a></li>
+					<li><a href="istorija.html?izbor=grupa">Grupe robe</a></li>
+					<li><a href="istorija.html?izbor=kupac">Kupci</a></li>
+					<li><a href="istorija.html?izbor=cenovnik">Cenovnik</a></li>
+					
+				</ul>
+			</li>
+
+
+
+			<li class="dropdown" id="userImg" ><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#"><img src="./img/user.png"><span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					
+
+					<li><a href=# onClick="logout()">Logout</a></li>
+					<li>
+				</ul>
+			</li>
+
+			
+</ul>
+</nav>
+
 <!-- Toolbar dugmici -->
 
 	<div class="col-lg-5 col-md-offset-2" id="toolbarbuttons">
