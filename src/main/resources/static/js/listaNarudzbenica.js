@@ -71,6 +71,8 @@ function loadListaNarudzbenica(){
 			crossDomain: true,
 			success:function(response){
 				console.log("hoces li ucis")
+				prikazRobeLabel=$('#prikazRobeLabel');
+				prikazRobeLabel.empty();
 				for(var i=0; i<response.length; i++){
 					stavkeNar = response[i];
 					console.log(stavkeNar)
@@ -83,15 +85,15 @@ function loadListaNarudzbenica(){
 					jedinicaMere = stavkeNar.jedinicaMere;
 					console.log("naziv" + naziv + "jm" + jedinicaMere + "kolicina" + kolicina);
 					
-					nazivLabel.append('<label class="text-muted">'+naziv+'</label>&nbsp;&nbsp;');
-					kolicinaLabel.append('<label class="text-muted">'+kolicina+'</label><label class="text-muted">'+jedinicaMere+'</label>');
+				//	nazivLabel.append('<label class="text-muted">'+naziv+'</label>&nbsp;&nbsp;');
+				//	kolicinaLabel.append('<label class="text-muted">'+kolicina+'</label><label class="text-muted">'+jedinicaMere+'</label>');
 				//	jMLabel.append('<label class="text-muted">'+jedinicaMere+'</label>');
 					
 			//		kolicinaLabel.append(jMLabel);
-					nazivLabel.append(kolicinaLabel);
+				//	nazivLabel.append(kolicinaLabel);
 					
 					
-					prikazRobeLabel=$('#prikazRobeLabel');
+					
 					prikazRobeLabel.append('<label>Izabrana roba i kolicina:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label class="text-muted">'+naziv+'</label>&nbsp;&nbsp;<label class="text-muted">'+kolicina+'</label><label class="text-muted">'+jedinicaMere+'</label>;</p>')
 					
 					
