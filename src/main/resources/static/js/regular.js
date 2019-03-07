@@ -4,10 +4,10 @@ $(document).ready(function() {
 	console.log(role);
 
 
-	if(role=="REGULAR"){
+	/*if(role=="REGULAR"){
 		window.stop();
 		document.body.innerHTML = '';
 		window.location.replace("mainPage.html");
-	}
+	}*/
 	
 });

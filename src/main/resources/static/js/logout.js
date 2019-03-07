@@ -2,6 +2,7 @@
 $(document).ready(function() {
 	var token = localStorage.getItem("token");
 	var role = localStorage.getItem("authority");
+	var pg = localStorage.getItem("pgId");
 	console.log(token);
 	if(token == null){
 		window.stop();
@@ -10,15 +11,50 @@ $(document).ready(function() {
 		//alert("You are not logged in, please log in!");
 		
 	}
-	if(role == "ADMIN"){
-		//alert("im admin");
-		$('#navigacijaUser').hide();
-	}
-	if(role=="REGULAR"){
-		//$('#zaUsera').show();
-		$('#navigacijaAdmin').hide();
-		$('#navigacijaUser').show();
-	}
+	
+	  var poslovnaGodina;
+	  $.ajax({
+		    url:'https://localhost:8081/api/poslovnagodina/' + pg,
+		    headers:{Authorization:"Bearer " + token},
+		    type:"GET",
+		    dataType: 'json',
+		    crossDomain:true,
+		    async:false,
+		    success: function (response) {
+		    	console.log(response);
+		    	poslovnaGodina = response;
+		    },error: function (jqXHR, textStatus, errorThrown) {
+					alert("read error!!!");
+		  }
+		});
+	  console.log(role);
+	  console.log(poslovnaGodina.zavrsena);
+	  
+	  if(role == "ADMIN" && poslovnaGodina.zavrsena == true){
+		  	$('#navigacijaAdmin').hide();
+			$('#navigacijaUser').hide();
+			$('#navPgDone').show();
+		}
+	  else if(role=="REGULAR" && poslovnaGodina.zavrsena == true){
+			$('#navigacijaAdmin').hide();
+			$('#navPgDone').show();
+			$('#navigacijaUser').hide();
+		}
+		
+	  else if(poslovnaGodina.zavrsena == false && role=="REGULAR" ){
+		  	$('#navigacijaAdmin').hide();
+			$('#navigacijaUser').show();
+			$('#navPgDone').hide();
+		  
+	  }
+	  else if(poslovnaGodina.zavrsena == false && role == "ADMIN"){
+			$('#navPgDone').hide();
+			$('#navigacijaAdmin').show();
+			$('#navigacijaUser').hide();
+		  
+	  }
+	  
+
 	
 });
 function logout(){

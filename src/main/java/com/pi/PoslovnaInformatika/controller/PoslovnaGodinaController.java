@@ -64,6 +64,7 @@ public class PoslovnaGodinaController {
 			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
 		}
 		PoslovnaGodinaPreduzeca pg = new PoslovnaGodinaPreduzeca();
+		pg.setDatumPocetak(pgDTO.getDatumPocetak());
 		pg.setGodina(pgDTO.getGodina());
 		psi.save(pg);
 		
@@ -79,7 +80,9 @@ public class PoslovnaGodinaController {
 			return new ResponseEntity<PoslovnaGodinaDTO>(HttpStatus.NOT_FOUND);
 		}
 		
+		
 		godina.setZavrsena(true);
+		godina.setDatumKraj(poslovnaGodinaDTO.getDatumKraj());
 		psi.save(godina);
 		
 		return new ResponseEntity<PoslovnaGodinaDTO>(new PoslovnaGodinaDTO(godina),HttpStatus.OK);
