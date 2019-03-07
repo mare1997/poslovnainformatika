@@ -43,14 +43,15 @@ public class PrevoznikContoller {
 	@RequestMapping(value="/all", method = RequestMethod.GET)
     public ResponseEntity<List<PrevoznikDTO>> getPRevoznike(){
     	
-    	List<Prevoznik> pr=psi.getAll();
+    	/*List<Prevoznik> pr=psi.getAll();
         List<PrevoznikDTO> prevoznikDTO=new ArrayList<>();
         for (Prevoznik p:pr) {
         	if(p.isObrisano() == false) {
         		prevoznikDTO.add(new PrevoznikDTO(p));
         	}
-        }
-        return new ResponseEntity<List<PrevoznikDTO>>(prevoznikDTO,HttpStatus.OK);
+        }*/
+		List<PrevoznikDTO> sviPrevoznici = psi.getAllDTO();
+        return new ResponseEntity<List<PrevoznikDTO>>(sviPrevoznici,HttpStatus.OK);
     }
 	
 	

@@ -11,5 +11,6 @@ public interface PrevoznikServiceInterface{
 	Prevoznik save(PrevoznikDTO Prevoznik);
 	void remove(Integer id);
 	void removeLogical(Prevoznik p);
+	List<PrevoznikDTO> getAllDTO();
 	
 }
