@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pi.PoslovnaInformatika.dto.PrevoznikDTO;
 import com.pi.PoslovnaInformatika.model.Preduzece;
 import com.pi.PoslovnaInformatika.model.Prevoznik;
 import com.pi.PoslovnaInformatika.repository.PreduzeceRepository;
@@ -30,9 +31,10 @@ public class PrevoznikService implements PrevoznikServiceInterface {
 	}
 
 	@Override
-	public Prevoznik save(Prevoznik Prevoznik) {
-		// TODO Auto-generated method stub
-		return pr.save(Prevoznik);
+	public Prevoznik save(PrevoznikDTO prevoznik) {
+		Prevoznik p = new Prevoznik();
+		p.setName(prevoznik.getName());
+		return pr.save(p);
 	}
 
 	@Override
@@ -41,6 +43,12 @@ public class PrevoznikService implements PrevoznikServiceInterface {
 		pr.deleteById(id);
 	}
 
+	@Override
+	public void removeLogical(Prevoznik p){
+		
+		p.setObrisano(true);
+		pr.save(p);
+	}
 	
 
 }

@@ -60,10 +60,10 @@ public class PrevoznikContoller {
 		if(errors.hasErrors()) {
 			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
 		}
-		Prevoznik p = new Prevoznik();
-		p.setName(prevoznikDTO.getName());
+		/*Prevoznik p = new Prevoznik();
+		p.setName(prevoznikDTO.getName());*/
 		
-		psi.save(p);
+		Prevoznik p =psi.save(prevoznikDTO);
 		
 		return new ResponseEntity<PrevoznikDTO>(new PrevoznikDTO(p),HttpStatus.CREATED);
 	}
@@ -75,8 +75,9 @@ public class PrevoznikContoller {
 		if(p == null) {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
-		p.setObrisano(true);
-		psi.save(p);
+		psi.removeLogical(p);
+		/*p.setObrisano(true);
+		psi.save(p);*/
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
