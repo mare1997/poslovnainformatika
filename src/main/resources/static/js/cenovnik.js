@@ -76,7 +76,7 @@ function loadCen(){
         cen = response[i];
 
           table.append(
-            '<tr id="'+cen.id+'"><td>'+cen.name+'</td><td>'+cen.datum_vazenja+'<td></td></tr>'
+            '<tr id="'+cen.id+'"><td>'+cen.name+'</td><td>'+cen.datum_vazenja+'</td></tr>'
           )
 
       }
