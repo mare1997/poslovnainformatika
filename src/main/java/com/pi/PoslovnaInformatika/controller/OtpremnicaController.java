@@ -27,8 +27,10 @@ import com.pi.PoslovnaInformatika.converters.OtpremnicaToOtpremnicaDTO;
 import com.pi.PoslovnaInformatika.dto.OtpremnicaDTO;
 import com.pi.PoslovnaInformatika.model.Otpremnica;
 import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
+import com.pi.PoslovnaInformatika.model.StavkaOtpremnice;
 import com.pi.PoslovnaInformatika.service.OtpremnicaService;
 import com.pi.PoslovnaInformatika.service.PGPservice;
+import com.pi.PoslovnaInformatika.service.StavkaOtpremniceService;
 
 @RestController
 @RequestMapping(value="api/otpremnice")
@@ -37,6 +39,11 @@ public class OtpremnicaController {
 
 	@Autowired
 	private OtpremnicaService otpremnicaService;
+
+
+	@Autowired
+	private StavkaOtpremniceService soService;
+	
 	
 	@Autowired
 	private PGPservice pgpService;
@@ -141,10 +148,11 @@ public class OtpremnicaController {
 		Otpremnica otpremnica = otpremnicaService.getOne(id);
 		if(otpremnica==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		}/*
 		editedOtpremnicaDTO.setIdOtpremnice(id);
 		Otpremnica editedOtpremnica = toOtpremnica.convert(editedOtpremnicaDTO);
-		otpremnicaService.save(editedOtpremnica);
+		otpremnicaService.save(editedOtpremnica);*/
+		Otpremnica editedOtpremnica = otpremnicaService.edit(editedOtpremnicaDTO,id);
 		return new ResponseEntity<>(toOtpremnicaDTO.convert(editedOtpremnica), HttpStatus.OK);
 		
 	}
@@ -155,6 +163,12 @@ public class OtpremnicaController {
 		if(otpremnica==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+		/*List<StavkaOtpremnice> lso = soService.findAll();
+		for(StavkaOtpremnice so:lso){
+			if(so.getOtpremnica().getIdOtpremnice()==id){
+				soService.delete(so.getIdStavkeOtpremnice());
+			}
+		}*/
 		otpremnicaService.delete(id);
 		return new ResponseEntity<OtpremnicaDTO>(toOtpremnicaDTO.convert(otpremnica), HttpStatus.OK);
 	}

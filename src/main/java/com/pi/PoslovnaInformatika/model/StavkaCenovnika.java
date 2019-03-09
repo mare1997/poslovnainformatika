@@ -31,8 +31,10 @@ public class StavkaCenovnika implements Serializable {
 	@Column(name="cena", unique=false, nullable=false)
 	private long cena;
 	
-	@OneToOne
-	@JoinColumn(name = "roba_id", nullable = true)
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "cena_id", referencedColumnName = "roba_id", nullable = true)
 	private Roba roba;
 	
 	@ManyToOne

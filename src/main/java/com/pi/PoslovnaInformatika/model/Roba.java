@@ -46,9 +46,8 @@ public class Roba implements Serializable {
 	@JoinColumn(name = "grupa_robe_id", referencedColumnName = "grupa_robe_id", nullable = true)
 	private GrupaRobe grupa;
 	
-	@OneToOne()
-	@JoinColumn(name="cena_id",nullable=true)
-	private StavkaCenovnika cena;
+	@OneToMany(cascade = { ALL }, fetch = LAZY, mappedBy = "roba")
+	private Set<StavkaCenovnika> cene = new HashSet<StavkaCenovnika>();
 	
 	@OneToMany(mappedBy="roba_usluga_id", cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<StavkaFakture> stavkeFakture;
@@ -59,14 +58,14 @@ public class Roba implements Serializable {
 	public Roba() {}
 	
 	
-	public Roba(Integer id, String name, String jedninica_mere, GrupaRobe grupa, StavkaCenovnika cene,
+	public Roba(Integer id, String name, String jedninica_mere, GrupaRobe grupa, Set<StavkaCenovnika> cene,
 			List<StavkaFakture> stavkeFakture,boolean obrisano) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.jedninica_mere = jedninica_mere;
 		this.grupa = grupa;
-		this.cena = cene;
+		this.cene = cene;
 		this.stavkeFakture = stavkeFakture;
 		this.obrisano = obrisano;
 	}
@@ -112,13 +111,16 @@ public class Roba implements Serializable {
 	}
 
 
-	public StavkaCenovnika getCene() {
-		return cena;
+	
+
+
+	public Set<StavkaCenovnika> getCene() {
+		return cene;
 	}
 
 
-	public void setCene(StavkaCenovnika cene) {
-		this.cena = cene;
+	public void setCene(Set<StavkaCenovnika> cene) {
+		this.cene = cene;
 	}
 
 

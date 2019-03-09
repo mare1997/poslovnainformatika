@@ -39,8 +39,7 @@ public class RobaController {
 	@Autowired
 	private GrupaRobeServiceInterface grsi;
 	
-	@Autowired
-	private StavkeCenovnikaServiceInterface scsi;
+	
 	
 	@GetMapping(value = "/getRobadeliteYes/{id}")
     public ResponseEntity<RobaDTO> getRoba(@PathVariable("id") int id){
@@ -49,18 +48,6 @@ public class RobaController {
         if(roba == null)
             return new ResponseEntity<RobaDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<RobaDTO>(new RobaDTO(roba),HttpStatus.OK);
-    }
-	
-	@RequestMapping(value="/getAllRobadeliteYes/all", method = RequestMethod.GET)
-    public ResponseEntity<List<RobaDTO>> getRobas(){
-    	
-    	List<Roba> roba=rsi.getAll();
-        List<RobaDTO> robaDTo=new ArrayList<>();
-        for (Roba r:roba) {
-            robaDTo.add(new RobaDTO(r));
-            
-        }
-        return new ResponseEntity<List<RobaDTO>>(robaDTo,HttpStatus.OK);
     }
 	@GetMapping(value = "/getRobadeliteNo/{id}")
     public ResponseEntity<RobaDTO> getR(@PathVariable("id") int id){
@@ -71,64 +58,26 @@ public class RobaController {
         return new ResponseEntity<RobaDTO>(new RobaDTO(roba),HttpStatus.OK);
     }
 	
-	@RequestMapping(value="/getAllRobadeliteNo/all", method = RequestMethod.GET)
-    public ResponseEntity<List<RobaDTO>> getR(){
-    	
-    	List<Roba> roba=rsi.getAll();
-    	
-        List<RobaDTO> robaDTo=new ArrayList<>();
-        for (Roba r:roba) {
-        	if(r.isObrisano() == false) {
-        		System.out.println(r.getName());
-        		robaDTo.add(new RobaDTO(r));
-        	}
-        }
-        return new ResponseEntity<List<RobaDTO>>(robaDTo,HttpStatus.OK);
-    }
 	@RequestMapping(value="/getAllRobadeliteNo/{idgr}", method = RequestMethod.GET)
     public ResponseEntity<List<RobaDTO>> getRr(@PathVariable("idgr") int id){
     	GrupaRobe gr = grsi.getOne(id);
-    	List<Roba> roba=rsi.getAll();
-        List<RobaDTO> robaDTo=new ArrayList<>();
-        for (Roba r:roba) {
-        	if(r.isObrisano() == false) {
-        		if(gr.getId() == r.getGrupa().getId()) {
-        			robaDTo.add(new RobaDTO(r));
-        		}
-        	}
-        }
+    	List<RobaDTO> robaDTo=rsi.getAllWithOutDeleted(gr);
         return new ResponseEntity<List<RobaDTO>>(robaDTo,HttpStatus.OK);
     }
 	@RequestMapping(value="/getAllRobadeliteNoName/{name}", method = RequestMethod.GET)
     public ResponseEntity<List<RobaDTO>> getRr(@PathVariable("name") String name){
     	GrupaRobe gr = grsi.getByName(name);
-    	List<Roba> roba=rsi.getAll();
-        List<RobaDTO> robaDTo=new ArrayList<>();
-        for (Roba r:roba) {
-        	if(r.isObrisano() == false) {
-        		if(gr.getId() == r.getGrupa().getId()) {
-        			robaDTo.add(new RobaDTO(r));
-        		}
-        	}
-        }
+    	List<RobaDTO> robaDTo=rsi.getAllWithOutDeleted(gr);
         return new ResponseEntity<List<RobaDTO>>(robaDTo,HttpStatus.OK);
     }
 	
 	@RequestMapping(value="/getAllActiveRobaByName/{grupaRobeId}/", method = RequestMethod.GET,params={"name"})
     public ResponseEntity<List<RobaDTO>> getActiveRobaByName(@PathVariable("grupaRobeId") int grupaRobeId, @RequestParam("name") String name){
-    	
-    	List<Roba> roba=rsi.getAll();
-        List<RobaDTO> robaDTo=new ArrayList<>();
-        for (Roba r:roba) {
-        	if(r.isObrisano() == false && r.getName().contains(name) && r.getGrupa().getId()==grupaRobeId) {
-        		
-        			robaDTo.add(new RobaDTO(r));
-        		
-        	}
-        }
+    	List<RobaDTO> robaDTo=rsi.getAllSearch(name, grupaRobeId);
+       
         return new ResponseEntity<List<RobaDTO>>(robaDTo,HttpStatus.OK);
     }
-	
+	/*
 	@RequestMapping(value="/getAllRobaByName/{grupaRobeId}/", method = RequestMethod.GET,params={"name"})
     public ResponseEntity<List<RobaDTO>> getRobaByName(@PathVariable("grupaRobeId") int grupaRobeId,@RequestParam("name") String name){
     	
@@ -143,39 +92,18 @@ public class RobaController {
         }
         return new ResponseEntity<List<RobaDTO>>(robaDTo,HttpStatus.OK);
     }
-	
+	*/
 	@PostMapping(value = "/add")
 	public ResponseEntity<?> addRoba(@Validated @RequestBody RobaDTO robaDTO,Errors errors){
 		if(errors.hasErrors()) {
 			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
 		}
-		Roba roba = new Roba();
+		Roba r = rsi.save(robaDTO);
 		
-		roba.setName(robaDTO.getName());
-		roba.setJedninica_mere(robaDTO.getJedninica_mere());
-		roba.setGrupa(grsi.getOne(robaDTO.getGrupa().getId()));
-		roba.setCene(null);
-		
-		
-		rsi.save(roba);
-		
-		return new ResponseEntity<RobaDTO>(new RobaDTO(roba.getId(),roba.getName(),roba.getJedninica_mere(),new GrupaRobeDTO(roba.getGrupa()),roba.isObrisano()),HttpStatus.CREATED);
+		return new ResponseEntity<RobaDTO>(new RobaDTO(r),HttpStatus.CREATED);
 	}
-	@PutMapping(value = "/edit/{id}")
-	public ResponseEntity<?> edit(@PathVariable("id") int id,@Validated @RequestBody RobaDTO robaDTO,Errors errors){
-		if(errors.hasErrors()) {
-			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
-		}
-		Roba roba = rsi.getOne(id);
-		
-		
-		roba.setCene(scsi.getOne(robaDTO.getCena()));
-		
-		
-		rsi.save(roba);
-		
-		return new ResponseEntity<RobaDTO>(new RobaDTO(roba),HttpStatus.CREATED);
-	}
+	
+	
 	
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<Void> deleteRoba(@PathVariable("id") int id){
@@ -184,8 +112,7 @@ public class RobaController {
 		if(roba == null) {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
-		roba.setObrisano(true);
-		rsi.save(roba);
+		rsi.removeL(roba);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }

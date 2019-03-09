@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.pi.PoslovnaInformatika.dto.FakturaDTO;
 import com.pi.PoslovnaInformatika.model.Faktura;
 
 public interface FakturaServiceInterface {
@@ -20,4 +21,8 @@ public interface FakturaServiceInterface {
 	public void delete(Integer id);
 	
 	public void delete(List<Integer> ids);
+
+	public Faktura edit(FakturaDTO editedFakturaDTO, Integer id);
+	
+	public void softDelete(Integer id);
 }
