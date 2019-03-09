@@ -95,26 +95,26 @@ public class FakturaDTOtoFaktura implements Converter<FakturaDTO, Faktura>{
 			faktura.setStatusFakture(source.getStatusFakture());
 				
 		}
-		if(source.getNarudzbeniceRel()!=0){
-			faktura.setNarudzbenicaRel(narudzbenicaService.getOne(source.getNarudzbeniceRel()));
+		if(source.getNarudzbeniceRel()!=null){
+			faktura.setNarudzbenicaRel(narudzbenicaService.getOne(source.getNarudzbeniceRel().getIdNarudzbenice()));
 				
 		}
-		if(source.getOtpremnicaRel() != 0) {
-			faktura.setOtpremnicaRel(otpremnicaService.getOne(source.getOtpremnicaRel()));
+		if(source.getOtpremnicaRel() != null) {
+			faktura.setOtpremnicaRel(otpremnicaService.getOne(source.getOtpremnicaRel().getIdOtpremnice()));
 		}
 		
-		if(source.getUser()!=0){
-			faktura.setUser(userService.getOne(source.getUser()));
+		if(source.getUser()!=null){
+			faktura.setUser(userService.getOne(source.getUser().getId()));
 				
 		}
 		faktura.setObrisano(source.isObrisano());
-		if(source.getPreduzece()!=0){
-			faktura.setPreduzece(preduzeceService.getOne(source.getPreduzece()));
+		if(source.getPreduzece()!=null){
+			faktura.setPreduzece(preduzeceService.getOne(source.getPreduzece().getId()));
 				
 		}
 		
-		if(source.getKupac()!=0){
-			faktura.setKupac(kupacService.getOne(source.getKupac()));
+		if(source.getKupac()!=null){
+			faktura.setKupac(kupacService.getOne(source.getKupac().getId()));
 			
 		}
 		

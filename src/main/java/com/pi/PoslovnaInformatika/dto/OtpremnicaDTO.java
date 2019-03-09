@@ -2,6 +2,12 @@ package com.pi.PoslovnaInformatika.dto;
 
 import java.sql.Date;
 
+import com.pi.PoslovnaInformatika.model.Faktura;
+import com.pi.PoslovnaInformatika.model.Kupac;
+import com.pi.PoslovnaInformatika.model.Preduzece;
+import com.pi.PoslovnaInformatika.model.Prevoznik;
+import com.pi.PoslovnaInformatika.model.User;
+
 public class OtpremnicaDTO {
 
 	private int idOtpremnice;
@@ -9,18 +15,18 @@ public class OtpremnicaDTO {
 	private Date datumOtpremnice;
 	private boolean primljenaRoba;
 	private Date datumIsporuke;
-	private int prevoznikId;
-	private int kupacId;
-	private int user;
-	private int preduzeceId;
-	private int fakturaRel;
+	private Prevoznik prevoznikId;
+	private Kupac kupacId;
+	private User user;
+	private Preduzece preduzeceId;
+	private Faktura fakturaRel;
 	private boolean obrisano;
 	
 	
 	
 	
 	public OtpremnicaDTO(int idOtpremnice, Long brojOtpremnice, Date datumOtpremnice, boolean primljenaRoba,
-			Date datumIsporuke, int prevoznikId, int kupacId, int user, int preduzeceId, int fakturaRel, boolean obrisano) {
+			Date datumIsporuke, Prevoznik prevoznikId, Kupac kupacId, User user, Preduzece preduzeceId, Faktura fakturaRel, boolean obrisano) {
 		super();
 		this.idOtpremnice = idOtpremnice;
 		this.brojOtpremnice = brojOtpremnice;
@@ -89,16 +95,6 @@ public class OtpremnicaDTO {
 	}
 
 
-	public int getPrevoznikId() {
-		return prevoznikId;
-	}
-
-
-	public void setPrevoznikId(int prevoznikId) {
-		this.prevoznikId = prevoznikId;
-	}
-
-
 	public boolean isObrisano() {
 		return obrisano;
 	}
@@ -109,42 +105,52 @@ public class OtpremnicaDTO {
 	}
 
 
-	public int getKupacId() {
+	public Prevoznik getPrevoznikId() {
+		return prevoznikId;
+	}
+
+
+	public void setPrevoznikId(Prevoznik prevoznikId) {
+		this.prevoznikId = prevoznikId;
+	}
+
+
+	public Kupac getKupacId() {
 		return kupacId;
 	}
 
 
-	public void setKupacId(int kupacId) {
+	public void setKupacId(Kupac kupacId) {
 		this.kupacId = kupacId;
 	}
 
 
-	public int getUser() {
+	public User getUser() {
 		return user;
 	}
 
 
-	public void setUser(int user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
 
-	public int getPreduzeceId() {
+	public Preduzece getPreduzeceId() {
 		return preduzeceId;
 	}
 
 
-	public void setPreduzeceId(int preduzeceId) {
+	public void setPreduzeceId(Preduzece preduzeceId) {
 		this.preduzeceId = preduzeceId;
 	}
 
 
-	public int getFakturaRel() {
+	public Faktura getFakturaRel() {
 		return fakturaRel;
 	}
 
 
-	public void setFakturaRel(int fakturaRel) {
+	public void setFakturaRel(Faktura fakturaRel) {
 		this.fakturaRel = fakturaRel;
 	}
 

@@ -7,6 +7,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import com.pi.PoslovnaInformatika.dto.NarudzbenicaDTO;
+import com.pi.PoslovnaInformatika.model.Faktura;
 import com.pi.PoslovnaInformatika.model.Narudzbenica;
 
 @Component
@@ -27,25 +28,29 @@ public class NarudzbenicaToNarudzbenicaDTO implements Converter<Narudzbenica, Na
 		narudzbenicaDTO.setDatumIsporuke(source.getDatumIsporuke());
 		narudzbenicaDTO.setAktivna(source.isAktivna());
 		System.out.println(narudzbenicaDTO.isAktivna()==true);
+		
 		if(narudzbenicaDTO.isAktivna()==true){
-			narudzbenicaDTO.setFakturaRel(0);
+			/*Faktura faktura = new Faktura();
+			faktura.setId(0);
+			narudzbenicaDTO.setFakturaRel(faktura);*/
+			narudzbenicaDTO.setFakturaRel(null);
 		}else{
 			if(source.getFakturaRel()!=null){
-				narudzbenicaDTO.setFakturaRel(source.getFakturaRel().getId());
+				narudzbenicaDTO.setFakturaRel(source.getFakturaRel());
 						
 			}
 		}
 		
 		if(source.getUser()!=null) {
-			narudzbenicaDTO.setUser(source.getUser().getId());
+			narudzbenicaDTO.setUser(source.getUser());
 				
 		}
 		if(source.getPreduzece()!=null) {
-			narudzbenicaDTO.setPreduzece(source.getPreduzece().getId());
+			narudzbenicaDTO.setPreduzece(source.getPreduzece());
 				
 		}
 		if(source.getKupac()!=null){
-			narudzbenicaDTO.setKupac(source.getKupac().getId());
+			narudzbenicaDTO.setKupac(source.getKupac());
 				
 		}
 		narudzbenicaDTO.setObrisano(source.isObrisano());

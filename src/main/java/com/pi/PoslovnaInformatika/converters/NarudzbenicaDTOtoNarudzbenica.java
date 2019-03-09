@@ -75,19 +75,19 @@ public class NarudzbenicaDTOtoNarudzbenica implements Converter<NarudzbenicaDTO,
 				narudzbenica.setDatumIsporuke(source.getDatumIsporuke());
 			}
 			
-			if(source.getFakturaRel()!=0){
-				narudzbenica.setFakturaRel(fakturaService.getOne(source.getFakturaRel()));
+			if(source.getFakturaRel()!=null){
+				narudzbenica.setFakturaRel(fakturaService.getOne(source.getFakturaRel().getId()));
 			}
-			if(source.getUser()!=0){
-				narudzbenica.setUser(userService.getOne(source.getUser()));
+			if(source.getUser()!=null){
+				narudzbenica.setUser(userService.getOne(source.getUser().getId()));
 					
 			}
-			if(source.getPreduzece()!=0){
-				narudzbenica.setPreduzece(preduzeceService.getOne(source.getPreduzece()));
+			if(source.getPreduzece()!=null){
+				narudzbenica.setPreduzece(preduzeceService.getOne(source.getPreduzece().getId()));
 					
 			}
-			if(source.getKupac()!=0){
-				narudzbenica.setKupac(kupacService.getOne(source.getKupac()));
+			if(source.getKupac()!=null){
+				narudzbenica.setKupac(kupacService.getOne(source.getKupac().getId()));
 			}
 			
 			narudzbenica.setObrisano(source.isObrisano());

@@ -2,6 +2,11 @@ package com.pi.PoslovnaInformatika.dto;
 
 import java.sql.Date;
 
+import com.pi.PoslovnaInformatika.model.Faktura;
+import com.pi.PoslovnaInformatika.model.Kupac;
+import com.pi.PoslovnaInformatika.model.Preduzece;
+import com.pi.PoslovnaInformatika.model.User;
+
 public class NarudzbenicaDTO {
 
 	
@@ -11,16 +16,16 @@ public class NarudzbenicaDTO {
 	private Date datumIzrade;
 	private Date datumIsporuke;
 	private boolean aktivna;
-	private int fakturaRel;
-	private int user;
-	private int preduzece;
+	private Faktura fakturaRel;
+	private User user;
+	private Preduzece preduzece;
 	private boolean obrisano;
-	private int kupac;
+	private Kupac kupac;
 	
 	public NarudzbenicaDTO() {}
 	
 	public NarudzbenicaDTO(int idNarudzbenice, Long brojNarudzbenice, Date datumIzrade, Date datumIsporuke,
-			boolean aktivna, int fakturaRel, int user, int preduzece,int kupac, boolean obrisano) {
+			boolean aktivna, Faktura fakturaRel, User user, Preduzece preduzece,Kupac kupac, boolean obrisano) {
 		super();
 		this.idNarudzbenice = idNarudzbenice;
 		this.brojNarudzbenice = brojNarudzbenice;
@@ -34,13 +39,7 @@ public class NarudzbenicaDTO {
 		this.kupac=kupac;
 
 	}
-	public int getUser() {
-		return user;
-	}
-
-	public void setUser(int user) {
-		this.user = user;
-	}
+	
 
 	public int getIdNarudzbenice() {
 		return idNarudzbenice;
@@ -73,13 +72,7 @@ public class NarudzbenicaDTO {
 		this.aktivna = aktivna;
 	}
 
-	public int getPreduzece() {
-		return preduzece;
-	}
-
-	public void setPreduzece(int preduzece) {
-		this.preduzece = preduzece;
-	}
+	
 
 	public boolean isObrisano() {
 		return obrisano;
@@ -89,19 +82,37 @@ public class NarudzbenicaDTO {
 		this.obrisano = obrisano;
 	}
 
-	public int getFakturaRel() {
+
+
+	public Faktura getFakturaRel() {
 		return fakturaRel;
 	}
 
-	public void setFakturaRel(int fakturaRel) {
+	public void setFakturaRel(Faktura fakturaRel) {
 		this.fakturaRel = fakturaRel;
 	}
 
-	public int getKupac() {
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Preduzece getPreduzece() {
+		return preduzece;
+	}
+
+	public void setPreduzece(Preduzece preduzece) {
+		this.preduzece = preduzece;
+	}
+
+	public Kupac getKupac() {
 		return kupac;
 	}
 
-	public void setKupac(int kupac) {
+	public void setKupac(Kupac kupac) {
 		this.kupac = kupac;
 	}
 

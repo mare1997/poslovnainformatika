@@ -2,6 +2,12 @@ package com.pi.PoslovnaInformatika.dto;
 
 import java.sql.Date;
 
+import com.pi.PoslovnaInformatika.model.Kupac;
+import com.pi.PoslovnaInformatika.model.Narudzbenica;
+import com.pi.PoslovnaInformatika.model.Otpremnica;
+import com.pi.PoslovnaInformatika.model.Preduzece;
+import com.pi.PoslovnaInformatika.model.User;
+
 public class FakturaDTO {
 
 
@@ -13,12 +19,12 @@ public class FakturaDTO {
 	private Long ukupanPDV;
 	private Long iznosZaPlacanje;
 	private String statusFakture;
-	private int narudzbeniceRel;
-	private int otpremnicaRel;
-	private int kupac;
-	private int user;
+	private Narudzbenica narudzbeniceRel;
+	private Otpremnica otpremnicaRel;
+	private Kupac kupac;
+	private User user;
 	private boolean obrisano;
-	private int preduzece;
+	private Preduzece preduzece;
 	
 	
 	public FakturaDTO () {}
@@ -26,8 +32,8 @@ public class FakturaDTO {
 	
 
 	public FakturaDTO(int idFakture, Long brojFakture, Date datumValute, Date datumFakture, Long osnovica,
-			Long ukupanPDV, Long iznosZaPlacanje, String statusFakture, int narudzbeniceRel, int otpremnicaRel,
-			int kupac,int user,boolean obrisano,int preduzece) {
+			Long ukupanPDV, Long iznosZaPlacanje, String statusFakture, Narudzbenica narudzbeniceRel, Otpremnica otpremnicaRel,
+			Kupac kupac,User user,boolean obrisano,Preduzece preduzece) {
 		super();
 		this.idFakture = idFakture;
 		this.brojFakture = brojFakture;
@@ -46,16 +52,6 @@ public class FakturaDTO {
 	}
 
 
-
-	public int getUser() {
-		return user;
-	}
-
-
-
-	public void setUser(int user) {
-		this.user = user;
-	}
 
 
 
@@ -103,19 +99,6 @@ public class FakturaDTO {
 	}
 
 
-
-	public int getPreduzece() {
-		return preduzece;
-	}
-
-
-
-	public void setPreduzece(int preduzece) {
-		this.preduzece = preduzece;
-	}
-
-
-
 	public Long getOsnovica() {
 		return osnovica;
 	}
@@ -150,39 +133,66 @@ public class FakturaDTO {
 
 
 
-	public int getNarudzbeniceRel() {
+	public Narudzbenica getNarudzbeniceRel() {
 		return narudzbeniceRel;
 	}
 
 
 
-	public void setNarudzbeniceRel(int narudzbeniceRel) {
+	public void setNarudzbeniceRel(Narudzbenica narudzbeniceRel) {
 		this.narudzbeniceRel = narudzbeniceRel;
 	}
 
 
 
-	public int getOtpremnicaRel() {
+	public Otpremnica getOtpremnicaRel() {
 		return otpremnicaRel;
 	}
 
 
 
-	public void setOtpremnicaRel(int otpremnicaRel) {
+	public void setOtpremnicaRel(Otpremnica otpremnicaRel) {
 		this.otpremnicaRel = otpremnicaRel;
 	}
 
 
 
-	public int getKupac() {
+	public Kupac getKupac() {
 		return kupac;
 	}
 
 
 
-	public void setKupac(int kupac) {
+	public void setKupac(Kupac kupac) {
 		this.kupac = kupac;
 	}
+
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+
+	public Preduzece getPreduzece() {
+		return preduzece;
+	}
+
+
+
+	public void setPreduzece(Preduzece preduzece) {
+		this.preduzece = preduzece;
+	}
+
+
+
 	
 	
 }
