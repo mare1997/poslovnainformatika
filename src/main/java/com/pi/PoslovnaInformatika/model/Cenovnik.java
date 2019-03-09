@@ -41,9 +41,14 @@ public class Cenovnik implements Serializable {
 	@Column(name="datum_kreiranja", unique=false, nullable=false)
 	private Date datum_kreiranja;
 	
+	@Column(name="Aktivan", columnDefinition="BOOLEAN DEFAULT FALSE")
+	private boolean aktivan;
+	
 	@ManyToOne
 	@JoinColumn(name = "preduzece_id", referencedColumnName = "preduzece_id", nullable = true)
 	private Preduzece preduzece;
+	
+	
 	
 	@OneToMany(cascade = { ALL }, fetch = LAZY, mappedBy = "cenovnik")
 	private Set<StavkaCenovnika> cene=new HashSet<StavkaCenovnika>();
@@ -58,7 +63,7 @@ public class Cenovnik implements Serializable {
 
 
 
-	public Cenovnik(Integer id,String name, Date datum_vazenja,Date datum_kreiranja, Preduzece preduzece, Set<StavkaCenovnika> cene,boolean obrisano) {
+	public Cenovnik(Integer id,String name, Date datum_vazenja,Date datum_kreiranja, Preduzece preduzece, Set<StavkaCenovnika> cene,boolean aktivan,boolean obrisano) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -66,6 +71,7 @@ public class Cenovnik implements Serializable {
 		this.datum_kreiranja = datum_kreiranja;
 		this.preduzece = preduzece;
 		this.cene = cene;
+		this.aktivan = aktivan;
 		this.obrisano=obrisano;
 	}
 
@@ -103,6 +109,18 @@ public class Cenovnik implements Serializable {
 
 	public void setDatum_vazenja(Date datum_vazenja) {
 		this.datum_vazenja = datum_vazenja;
+	}
+
+	
+
+	public boolean isAktivan() {
+		return aktivan;
+	}
+
+
+
+	public void setAktivan(boolean aktivan) {
+		this.aktivan = aktivan;
 	}
 
 

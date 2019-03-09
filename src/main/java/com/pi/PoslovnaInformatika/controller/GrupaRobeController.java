@@ -22,6 +22,7 @@ import com.pi.PoslovnaInformatika.dto.GrupaRobeDTO;
 
 import com.pi.PoslovnaInformatika.model.GrupaRobe;
 import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
+import com.pi.PoslovnaInformatika.model.Preduzece;
 import com.pi.PoslovnaInformatika.service.interfaces.GrupaRobeServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.PDVServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.PGPserviceInterface;
@@ -48,30 +49,9 @@ public class GrupaRobeController {
     public ResponseEntity<GrupaRobeDTO> getGrupaRoba(@PathVariable("id") int id,@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
 		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
     	GrupaRobe grupa=grsi.getOne(id);
-    	
-        if(grupa == null || grupa.getPreduzece().getId() != idPreduzeca || grupa.getDatum_kreiranja().before(p.getDatumPocetak()) )
+    	if(grupa == null || grupa.getPreduzece().getId() != idPreduzeca || grupa.getDatum_kreiranja().before(p.getDatumPocetak()) )
             return new ResponseEntity<GrupaRobeDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<GrupaRobeDTO>(new GrupaRobeDTO(grupa),HttpStatus.OK);
-    }
-	
-	@RequestMapping(value="/getGRdeliteYes/all/{idPreduzeca}/{idPG}", method = RequestMethod.GET)
-    public ResponseEntity<List<GrupaRobeDTO>> getGrupa(@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
-		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
-    	List<GrupaRobe> grupa=grsi.getAll();
-        List<GrupaRobeDTO> grupaDto=new ArrayList<>();
-        for (GrupaRobe r:grupa) {
-        	if(r.getPreduzece().getId() == idPreduzeca && p.getDatumPocetak().before(r.getDatum_kreiranja())) {
-        		if(p.getZavrsena() == true) {
-        			if(p.getDatumKraj().after(r.getDatum_kreiranja()))
-        				grupaDto.add(new GrupaRobeDTO(r));
-        		}else {
-        			grupaDto.add(new GrupaRobeDTO(r));
-        		}
-        		
-        	}
-            
-        }
-        return new ResponseEntity<List<GrupaRobeDTO>>(grupaDto,HttpStatus.OK);
     }
 	@GetMapping(value = "/getGRdeliteNo/{id}/{idPreduzeca}/{idPG}")
     public ResponseEntity<GrupaRobeDTO> getGR(@PathVariable("id") int id,@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
@@ -82,22 +62,21 @@ public class GrupaRobeController {
         return new ResponseEntity<GrupaRobeDTO>(new GrupaRobeDTO(grupa),HttpStatus.OK);
     }
 	
+	@RequestMapping(value="/getGRdeliteYes/all/{idPreduzeca}/{idPG}", method = RequestMethod.GET)
+    public ResponseEntity<List<GrupaRobeDTO>> getGrupa(@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
+		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG);
+		Preduzece pr = prsi.getOne(idPreduzeca);
+    	List<GrupaRobeDTO> grupaDto=grsi.getAllWithDeleted(p, pr);
+        
+        return new ResponseEntity<List<GrupaRobeDTO>>(grupaDto,HttpStatus.OK);
+    }
+	
+	
 	@RequestMapping(value="/getGRdeliteNo/all/{idPreduzeca}/{idPG}", method = RequestMethod.GET)
     public ResponseEntity<List<GrupaRobeDTO>> getGR(@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
 		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
-    	List<GrupaRobe> grupa=grsi.getAll();
-        List<GrupaRobeDTO> grupaDto=new ArrayList<>();
-        for (GrupaRobe r:grupa) {
-        	if(r.isObrisano() == false && r.getPreduzece().getId() == idPreduzeca && p.getDatumPocetak().before(r.getDatum_kreiranja())) {
-        		if(p.getZavrsena() == true) {
-        			if(p.getDatumKraj().after(r.getDatum_kreiranja()))
-        				grupaDto.add(new GrupaRobeDTO(r));
-        		}else {
-        			grupaDto.add(new GrupaRobeDTO(r));
-        		}
-        		
-        	}
-        }
+		Preduzece pr = prsi.getOne(idPreduzeca);
+    	List<GrupaRobeDTO> grupaDto=grsi.getAllWithOutDeleted(p, pr);
         return new ResponseEntity<List<GrupaRobeDTO>>(grupaDto,HttpStatus.OK);
     }
 	@PostMapping(value = "/add")
@@ -105,27 +84,17 @@ public class GrupaRobeController {
 		if(errors.hasErrors()) {
 			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
 		}
-		GrupaRobe grupa = new GrupaRobe();
-		
-		grupa.setName(grupaDTO.getName());
-		grupa.setPdv(psi.getOne(grupaDTO.getPdv().getId()));
-		grupa.setPreduzece(prsi.getOne(grupaDTO.getPreduzece().getId()));
-		
-		
-		grsi.save(grupa);
-		
+		GrupaRobe grupa = grsi.save(grupaDTO);
 		return new ResponseEntity<GrupaRobeDTO>(new GrupaRobeDTO(grupa),HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<Void> deleteGrupa(@PathVariable("id") int id){
-		
 		GrupaRobe grupa= grsi.getOne(id);
 		if(grupa == null) {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
-		grupa.setObrisano(true);
-		grsi.save(grupa);
+		grsi.removeL(grupa);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	

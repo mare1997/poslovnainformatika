@@ -22,6 +22,7 @@ import com.pi.PoslovnaInformatika.dto.CenovnikDTO;
 import com.pi.PoslovnaInformatika.dto.GrupaRobeDTO;
 import com.pi.PoslovnaInformatika.model.Cenovnik;
 import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
+import com.pi.PoslovnaInformatika.model.Preduzece;
 import com.pi.PoslovnaInformatika.service.interfaces.CenovnikServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.PGPserviceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.PreduzeceServiceInterface;
@@ -52,20 +53,9 @@ public class CenovnikController {
 	@RequestMapping(value="/getCenovnikdeleteYes/all/{idPreduzeca}/{idPG}", method = RequestMethod.GET)
     public ResponseEntity<List<CenovnikDTO>> getCenoviks(@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
 		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
-    	List<Cenovnik> c=csi.getAll();
-        List<CenovnikDTO> cDTo=new ArrayList<>();
-        for (Cenovnik cc:c) {
-        	if(cc.getPreduzece().getId() == idPreduzeca && p.getDatumPocetak().before(cc.getDatum_kreiranja())) {
-        		if(p.getZavrsena() == true) {
-        			if(p.getDatumKraj().after(cc.getDatum_kreiranja()))
-        				cDTo.add(new CenovnikDTO(cc));
-        		}else {
-        			cDTo.add(new CenovnikDTO(cc));
-        		}
-        		
-        	}
-        	
-        }
+    	Preduzece pr = psi.getOne(idPreduzeca);
+        List<CenovnikDTO> cDTo= csi.getAllWithDeleted(p, pr);
+        
         return new ResponseEntity<List<CenovnikDTO>>(cDTo,HttpStatus.OK);
     }
 	@GetMapping(value = "/getCenovnikdeleteNo/{id}/{idPreduzeca}/{idPG}")
@@ -80,20 +70,9 @@ public class CenovnikController {
 	@RequestMapping(value="/getCenovnikdeleteNo/all/{idPreduzeca}/{idPG}", method = RequestMethod.GET)
     public ResponseEntity<List<CenovnikDTO>> getCenoviksc(@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
 		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
-    	List<Cenovnik> c=csi.getAll();
-        List<CenovnikDTO> cDTo=new ArrayList<>();
-        for (Cenovnik cc:c) {
-        	if(cc.isObrisano() == false && cc.getPreduzece().getId() == idPreduzeca && p.getDatumPocetak().before(cc.getDatum_kreiranja())) {
-        		if(p.getZavrsena() == true) {
-        			if(p.getDatumKraj().after(cc.getDatum_kreiranja()))
-        				cDTo.add(new CenovnikDTO(cc));
-        		}else {
-        			cDTo.add(new CenovnikDTO(cc));
-        		}
-        		
-        	}
-        	
-        }
+    	Preduzece pr =psi.getOne(idPreduzeca);
+        List<CenovnikDTO> cDTo= csi.getAllWithOutDeleted(p, pr);
+        
         return new ResponseEntity<List<CenovnikDTO>>(cDTo,HttpStatus.OK);
     }
 	@PostMapping(value = "/add")
@@ -101,27 +80,17 @@ public class CenovnikController {
 		if(errors.hasErrors()) {
 			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
 		}
-		Cenovnik c = new Cenovnik();
-		c.setName(cDTO.getName());
-		c.setDatum_vazenja(cDTO.getDatum_vazenja());
-		c.setDatum_kreiranja(cDTO.getDatum_kreiranja());
-		c.setPreduzece(psi.getOne(cDTO.getPreduzece().getId()));
-		
-		
-		csi.save(c);
-		
+		Cenovnik c = csi.save(cDTO);
 		return new ResponseEntity<CenovnikDTO>(new CenovnikDTO(c),HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<Void> deleteC(@PathVariable("id") int id){
-		
 		Cenovnik c= csi.getOne(id);
 		if(c == null) {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
-		c.setObrisano(true);
-		csi.save(c);
+		csi.removeL(c);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }

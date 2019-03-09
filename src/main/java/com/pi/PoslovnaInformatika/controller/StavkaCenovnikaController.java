@@ -57,10 +57,12 @@ public class StavkaCenovnikaController {
             return new ResponseEntity<StavkaCenovnikaDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<StavkaCenovnikaDTO>(new StavkaCenovnikaDTO(s),HttpStatus.OK);
     }
-	@GetMapping(value = "/getCenaByRoba/{id}")
-    public ResponseEntity<StavkaCenovnikaDTO> get(@PathVariable("id") int id){
-    	Roba r= rsi.getOne(id);
-    	StavkaCenovnika s = scsi.getOne(r.getCene().getId());
+	//dodaj metodu gde daje cenu od Robe i Cenovnika
+	@GetMapping(value = "/getCenaByRoba/{idRobe}/{idCenovnik}")
+    public ResponseEntity<StavkaCenovnikaDTO> get(@PathVariable("idRobe") int idRobe,@PathVariable("idCenovnik") int idCenovnik){
+    	Cenovnik c =csi.getOne(idCenovnik);
+    	Roba r = rsi.getOne(idRobe);
+    	StavkaCenovnika s = scsi.getAllByCenovnikAndRoba(c, r);
         if(s == null || s.isObrisano() == true)
             return new ResponseEntity<StavkaCenovnikaDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<StavkaCenovnikaDTO>(new StavkaCenovnikaDTO(s),HttpStatus.OK);
@@ -72,28 +74,15 @@ public class StavkaCenovnikaController {
     	if(c == null || c.isObrisano() == true) {
             return new ResponseEntity<List<StavkaCenovnikaDTO>>(HttpStatus.NOT_FOUND);
     	}
-    	List<StavkaCenovnika> ss=scsi.getAll();
-        List<StavkaCenovnikaDTO> scDTo=new ArrayList<>();
-        for (StavkaCenovnika s:ss) {
-        	if(s.getCenovnik().getId() == c.getId() && s.isObrisano() == false) {
-        		scDTo.add(new StavkaCenovnikaDTO(s));
-        	}
-        }
-        return new ResponseEntity<List<StavkaCenovnikaDTO>>(scDTo,HttpStatus.OK);
+    	List<StavkaCenovnikaDTO> scDTo=scsi.getAllByCenovnik(c);
+    	return new ResponseEntity<List<StavkaCenovnikaDTO>>(scDTo,HttpStatus.OK);
     }
 	@PostMapping(value = "/add")
 	public ResponseEntity<?> addSC(@Validated @RequestBody StavkaCenovnikaDTO scDTO,Errors errors){
 		if(errors.hasErrors()) {
 			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
 		}
-		StavkaCenovnika sc = new StavkaCenovnika();
-		sc.setCena(scDTO.getCena());
-		sc.setCenovnik(csi.getOne(scDTO.getCenovnik().getId()));
-		sc.setRoba(rsi.getOne(scDTO.getRoba()));
-		
-		
-		scsi.save(sc);
-		
+		StavkaCenovnika sc = scsi.save(scDTO);
 		return new ResponseEntity<StavkaCenovnikaDTO>(new StavkaCenovnikaDTO(sc),HttpStatus.CREATED);
 	}
 	@DeleteMapping(value = "/delete/{id}")
@@ -103,8 +92,7 @@ public class StavkaCenovnikaController {
 		if(sc == null) {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
-		sc.setObrisano(true);
-		scsi.save(sc);
+		scsi.removeL(sc);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }
