@@ -35,8 +35,10 @@ import com.pi.PoslovnaInformatika.converters.FakturaToFakturaDTO;
 import com.pi.PoslovnaInformatika.dto.FakturaDTO;
 import com.pi.PoslovnaInformatika.model.Faktura;
 import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
+import com.pi.PoslovnaInformatika.model.StavkaFakture;
 import com.pi.PoslovnaInformatika.service.FakturaService;
 import com.pi.PoslovnaInformatika.service.PGPservice;
+import com.pi.PoslovnaInformatika.service.StavkaFaktureService;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -54,6 +56,9 @@ public class FakturaController {
 	
 	@Autowired
 	private PGPservice pgpService;
+	
+	@Autowired
+	private StavkaFaktureService sfService;
 	
 	@Autowired
 	private FakturaToFakturaDTO toFakturaDTO;
@@ -158,9 +163,10 @@ public class FakturaController {
 		if(faktura==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		editedFakturaDTO.setIdFakture(id);
+		/*editedFakturaDTO.setIdFakture(id);
 		Faktura editedFaktura = toFaktura.convert(editedFakturaDTO);
-		fakturaService.save(editedFaktura);
+		fakturaService.save(editedFaktura);*/
+		Faktura editedFaktura = fakturaService.edit(editedFakturaDTO,id);
 		return new ResponseEntity<>(toFakturaDTO.convert(editedFaktura), HttpStatus.OK);
 		
 	}
@@ -171,6 +177,12 @@ public class FakturaController {
 		if(faktura==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+		/*List<StavkaFakture> lsf = sfService.findAll();
+		for(StavkaFakture sf: lsf){
+			if(sf.getFaktura().getId()==id){
+				sfService.delete(sf.getIdStavkeFakture());
+			}
+		}*/
 		fakturaService.delete(id);
 		return new ResponseEntity<FakturaDTO>(toFakturaDTO.convert(faktura), HttpStatus.OK);
 	}
@@ -181,9 +193,9 @@ public class FakturaController {
 		Faktura faktura = fakturaService.getOne(id);
 		if(faktura==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		faktura.setObrisano(true);
-		fakturaService.save(faktura);
+		}/*
+		faktura.setObrisano(true);*/
+		fakturaService.softDelete(id);
 		return new ResponseEntity<FakturaDTO>(toFakturaDTO.convert(faktura), HttpStatus.OK);
 	}
 	

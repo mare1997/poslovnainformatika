@@ -208,10 +208,13 @@ public class NarudzbenicaController {
 		if(narudzbenica==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		System.out.println("Narudzbenica je :" + editedNarudzbenicaDTO.isAktivna());
+		/*
+		 * System.out.println("Narudzbenica je :" + editedNarudzbenicaDTO.isAktivna());
 		editedNarudzbenicaDTO.setIdNarudzbenice(id);
 		Narudzbenica editedNarudzbenica = toNarudzbenica.convert(editedNarudzbenicaDTO);
 		narudzbenicaService.save(editedNarudzbenica);
+		*/
+		Narudzbenica editedNarudzbenica = narudzbenicaService.edit(editedNarudzbenicaDTO,id);
 		return new ResponseEntity<>(toNarudzbenicaDTO.convert(editedNarudzbenica), HttpStatus.OK);
 		
 	}
@@ -222,12 +225,12 @@ public class NarudzbenicaController {
 		if(narudzbenica==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		List<StavkaNarudzbenice> s = snsi.findAll();
+		/*List<StavkaNarudzbenice> s = snsi.findAll();
 		for(StavkaNarudzbenice ss:s) {
 			if(ss.getNarudzbenica().getIdNarudzbenice() == id) {
 				snsi.delete(ss.getIdStavkeNarudzbenice());
 			}
-		}
+		}*/
 		narudzbenicaService.delete(id);
 		return new ResponseEntity<NarudzbenicaDTO>(toNarudzbenicaDTO.convert(narudzbenica), HttpStatus.OK);
 	}
@@ -238,14 +241,15 @@ public class NarudzbenicaController {
 		if(narudzbenica==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		Faktura f= fsi.getOne(narudzbenica.getFakturaRel().getId());
+		/*Faktura f= fsi.getOne(narudzbenica.getFakturaRel().getId());
 		Otpremnica o = osi.getOne(f.getOtpremnicaRel().getIdOtpremnice());
 		narudzbenica.setObrisano(true);
 		f.setObrisano(true);
 		o.setObrisano(true);
 		narudzbenicaService.save(narudzbenica);
 		fsi.save(f);
-		osi.save(o);
+		osi.save(o);*/
+		narudzbenicaService.softDelete(id);
 		return new ResponseEntity<NarudzbenicaDTO>(toNarudzbenicaDTO.convert(narudzbenica), HttpStatus.OK);
 	}
 	
