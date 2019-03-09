@@ -1,10 +1,12 @@
 package com.pi.PoslovnaInformatika.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pi.PoslovnaInformatika.dto.PreduzeceDTO;
 import com.pi.PoslovnaInformatika.model.Preduzece;
 import com.pi.PoslovnaInformatika.repository.PreduzeceRepository;
 import com.pi.PoslovnaInformatika.service.interfaces.PreduzeceServiceInterface;
@@ -17,6 +19,19 @@ public class PreduzeceService implements PreduzeceServiceInterface {
 	public List<Preduzece> getAll() {
 		// TODO Auto-generated method stub
 		return pr.findAll();
+	}
+	
+	@Override
+	public List<PreduzeceDTO> getAllDTO(){
+		List<Preduzece> listPreduzeca = pr.findAll();
+		List<PreduzeceDTO> listaPreduzecaDTO = new ArrayList<>();
+		for (Preduzece p:listPreduzeca) {
+        	if(p.isObrisano() == false) {
+        		listaPreduzecaDTO.add(new PreduzeceDTO(p));
+        	}
+        }
+		return listaPreduzecaDTO;
+        
 	}
 
 	@Override

@@ -23,6 +23,7 @@ import com.pi.PoslovnaInformatika.dto.KupacDTO;
 
 import com.pi.PoslovnaInformatika.model.Kupac;
 import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
+import com.pi.PoslovnaInformatika.model.Preduzece;
 import com.pi.PoslovnaInformatika.service.interfaces.KupacServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.MestoServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.PGPserviceInterface;
@@ -56,7 +57,7 @@ public class KupacContoller {
 	@GetMapping(value = "/getActive/all/{idPreduzeca}/{idPG}")
 	public ResponseEntity<List<KupacDTO>> get(@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
 		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
-		List<Kupac> k = ksi.getAll();
+		/*List<Kupac> k = ksi.getAll();
 		List<KupacDTO> kdto=new ArrayList<>();
 		for(Kupac kk :  k) {
 			if(kk.isObrisano() ==false && kk.getPreduzece().getId() == idPreduzeca && p.getDatumPocetak().before(kk.getDatum_kreiranja())) {
@@ -69,8 +70,11 @@ public class KupacContoller {
 				
 				
 			}
-		}
-		return new ResponseEntity<List<KupacDTO>>(kdto,HttpStatus.OK);
+		}*/
+		
+		Preduzece pr =psi.getOne(idPreduzeca);
+		List<KupacDTO> sviKupci = ksi.getAllActiveDTO(p, pr);
+		return new ResponseEntity<List<KupacDTO>>(sviKupci,HttpStatus.OK);
 	}
 	@GetMapping(value = "/getInactive/{id}/{idPreduzeca}/{idPG}")
     public ResponseEntity<KupacDTO> getKupa(@PathVariable("id") int id,@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
@@ -83,7 +87,7 @@ public class KupacContoller {
 	@GetMapping(value = "/getInactive/all/{idPreduzeca}/{idPG}")
 	public ResponseEntity<List<KupacDTO>> getK(@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
 		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
-		List<Kupac> k = ksi.getAll();
+		/*List<Kupac> k = ksi.getAll();
 		List<KupacDTO> kdto=new ArrayList<>();
 		for(Kupac kk :  k) {
 			if(kk.getPreduzece().getId() == idPreduzeca && p.getDatumPocetak().before(kk.getDatum_kreiranja())) {
@@ -96,8 +100,10 @@ public class KupacContoller {
 				
 				
 			}
-		}
-		return new ResponseEntity<List<KupacDTO>>(kdto,HttpStatus.OK);
+		}*/
+		Preduzece pr =psi.getOne(idPreduzeca);
+		List<KupacDTO> sviKupci = ksi.getAllInactiveDTO(p, pr);
+		return new ResponseEntity<List<KupacDTO>>(sviKupci,HttpStatus.OK);
 	}
 	@PostMapping(value = "/add")
 	public ResponseEntity<?> addKupac(@Validated @RequestBody KupacDTO kupacDTO,Errors errors){

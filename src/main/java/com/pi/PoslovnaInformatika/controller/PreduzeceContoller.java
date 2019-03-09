@@ -50,14 +50,15 @@ public class PreduzeceContoller {
 	@RequestMapping(value="/all", method = RequestMethod.GET)
     public ResponseEntity<List<PreduzeceDTO>> getAll(){
     	
-    	List<Preduzece> p=psi.getAll();
+    	/*List<Preduzece> p=psi.getAll();
         List<PreduzeceDTO> pDTo=new ArrayList<>();
         for (Preduzece  pp:p) {
         	if(pp.isObrisano() == false) {
         		pDTo.add(new PreduzeceDTO(pp));
         	}
-        }
-        return new ResponseEntity<List<PreduzeceDTO>>(pDTo,HttpStatus.OK);
+        }*/
+		List<PreduzeceDTO> svaPreduzeca = psi.getAllDTO();
+        return new ResponseEntity<List<PreduzeceDTO>>(svaPreduzeca,HttpStatus.OK);
     }
 	
 }
