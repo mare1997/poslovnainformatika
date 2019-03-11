@@ -55,18 +55,11 @@ public class StopaPDVController {
 	@GetMapping(value  = "/getStopaByPdv/{id}")
 	public ResponseEntity<List<StopaPDVDTO>> getSpdv(@PathVariable("id") int id){
 		PDV pdv = psi.getOne(id);
-		
 		if(pdv == null || pdv.isObrisano() == true) {
             return new ResponseEntity<List<StopaPDVDTO>>(HttpStatus.NOT_FOUND);
     	}
-		List<StopaPDV> s= spsi.getAll();
-		List<StopaPDVDTO> ss=new ArrayList<>();
-		for(StopaPDV st:s) {
-			if(st.isObrisano() == false && pdv.getId() == st.getPdv().getId()) {
-				ss.add(new StopaPDVDTO(st));
-			}
-		}
 		
+		List<StopaPDVDTO> ss=spsi.getSPByPDV(pdv);
 		return new ResponseEntity<List<StopaPDVDTO>>(ss,HttpStatus.OK);
 	}
 	
@@ -76,14 +69,10 @@ public class StopaPDVController {
 		if(errors.hasErrors()) {
 			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
 		}
-		StopaPDV stopa = new StopaPDV();
-		stopa.setProcenat(stopaDTO.getProcenat());
-		stopa.setDatum_vazenja(stopaDTO.getDatum_vazenja());
-		stopa.setPdv(psi.getOne(stopaDTO.getPdv().getId()));
-		spsi.save(stopa);
-		
+		StopaPDV stopa = spsi.save(stopaDTO);
 		return new ResponseEntity<StopaPDVDTO>(new StopaPDVDTO(stopa),HttpStatus.CREATED);
 	}
+	
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<Void> deleteStopa(@PathVariable("id") int id){
 		
@@ -91,8 +80,7 @@ public class StopaPDVController {
 		if(stopa == null) {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
-		stopa.setObrisano(true);
-		spsi.save(stopa);
+		spsi.removeL(stopa);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }

@@ -42,18 +42,6 @@ public class PDVContoller {
             return new ResponseEntity<PDVDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<PDVDTO>(new PDVDTO(pdv),HttpStatus.OK);
     }
-	@RequestMapping(value="/getPDVdeleteYes/all", method = RequestMethod.GET)
-    public ResponseEntity<List<PDVDTO>> getPDVs(){
-    	
-    	List<PDV> pdv=psi.getAll();
-        List<PDVDTO> pdvDto=new ArrayList<>();
-        for (PDV p:pdv) {
-            pdvDto.add(new PDVDTO(p));
-            
-        }
-        return new ResponseEntity<List<PDVDTO>>(pdvDto,HttpStatus.OK);
-    }
-	
 	@GetMapping(value = "/getPDVdeleteNo/{id}")
     public ResponseEntity<PDVDTO> get(@PathVariable("id") int id){
     	
@@ -62,16 +50,16 @@ public class PDVContoller {
             return new ResponseEntity<PDVDTO>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<PDVDTO>(new PDVDTO(pdv),HttpStatus.OK);
     }
+	@RequestMapping(value="/getPDVdeleteYes/all", method = RequestMethod.GET)
+    public ResponseEntity<List<PDVDTO>> getPDVs(){
+    	List<PDVDTO> pdvDto=psi.getAllWithDeleted();
+        return new ResponseEntity<List<PDVDTO>>(pdvDto,HttpStatus.OK);
+    }
+	
+	
 	@RequestMapping(value="/getPDVdeleteNo/all", method = RequestMethod.GET)
     public ResponseEntity<List<PDVDTO>> getPDVsc(){
-    	
-    	List<PDV> pdv=psi.getAll();
-        List<PDVDTO> pdvDto=new ArrayList<>();
-        for (PDV p:pdv) {
-        	if(p.isObrisano() == false) {
-        		pdvDto.add(new PDVDTO(p));
-        	}
-        }
+    	List<PDVDTO> pdvDto=psi.getAllWithOutDeleted();
         return new ResponseEntity<List<PDVDTO>>(pdvDto,HttpStatus.OK);
     }
 	
@@ -80,10 +68,7 @@ public class PDVContoller {
 		if(errors.hasErrors()) {
 			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
 		}
-		PDV pdv = new PDV();
-		pdv.setName(pdvDto.getName());
-		psi.save(pdv);
-		
+		PDV pdv = psi.save(pdvDto);
 		return new ResponseEntity<PDVDTO>(new PDVDTO(pdv),HttpStatus.CREATED);
 	}
 	
@@ -94,8 +79,7 @@ public class PDVContoller {
 		if(pdv == null) {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
-		pdv.setObrisano(true);
-		psi.save(pdv);
+		psi.removeL(pdv);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }
