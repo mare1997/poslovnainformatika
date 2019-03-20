@@ -9,16 +9,22 @@ import org.springframework.stereotype.Service;
 
 import com.pi.PoslovnaInformatika.converters.NarudzbenicaDTOtoNarudzbenica;
 import com.pi.PoslovnaInformatika.converters.NarudzbenicaToNarudzbenicaDTO;
+import com.pi.PoslovnaInformatika.dto.NarudzbenicaComboDTO;
 import com.pi.PoslovnaInformatika.dto.NarudzbenicaDTO;
 import com.pi.PoslovnaInformatika.model.Faktura;
 import com.pi.PoslovnaInformatika.model.Narudzbenica;
 import com.pi.PoslovnaInformatika.model.Otpremnica;
 import com.pi.PoslovnaInformatika.model.StavkaNarudzbenice;
+import com.pi.PoslovnaInformatika.repository.FakturaRepository;
 import com.pi.PoslovnaInformatika.repository.NarudzbenicaRepository;
+import com.pi.PoslovnaInformatika.repository.OtpremnicaRepository;
 import com.pi.PoslovnaInformatika.service.interfaces.FakturaServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.KupacServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.NarudzbenicaServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.OtpremnicaServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.PrevoznikServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.StavkaNarudzbeniceServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.UserServiceInterface;
 
 @Service
 public class NarudzbenicaService implements NarudzbenicaServiceInterface {
@@ -27,7 +33,22 @@ public class NarudzbenicaService implements NarudzbenicaServiceInterface {
 	NarudzbenicaRepository narudzbenicaRepository;
 	
 	@Autowired
+	FakturaRepository fakturaRepository;
+	
+	@Autowired
+	OtpremnicaRepository otpremnicaRepository;
+	
+	@Autowired
 	private NarudzbenicaToNarudzbenicaDTO toNarudzbenicaDTO;
+	
+	@Autowired
+	private UserServiceInterface usi;
+	
+	@Autowired
+	private PrevoznikServiceInterface psi;
+	
+	@Autowired
+	private KupacServiceInterface ksi;
 	
 	@Autowired
 	private NarudzbenicaDTOtoNarudzbenica toNarudzbenica;
@@ -58,11 +79,34 @@ public class NarudzbenicaService implements NarudzbenicaServiceInterface {
 		return narudzbenicaRepository.save(narudzbenica);
 	}
 
+	
 	@Override
 	public List<Narudzbenica> save(List<Narudzbenica> narudzbenice) {
 		return narudzbenicaRepository.saveAll(narudzbenice);
 	}
 
+
+	@Override
+	public Narudzbenica saveCombo(NarudzbenicaComboDTO comboDTO) {
+		Narudzbenica narudzbenica = new Narudzbenica();
+		Faktura faktura = new Faktura();
+		/*Kupac kupac = new Kupac();
+		Prevoznik prevoznik = new Prevoznik();*/
+		Otpremnica otpremnica = new Otpremnica();
+		narudzbenica.setBrojNarudzbenice(comboDTO.getBrojNarudzbenice());
+		narudzbenica.setUser(usi.getOne(comboDTO.getUserId()));
+		narudzbenica.setDatumIzrade(comboDTO.getDatumIzrade());
+		narudzbenica.setDatumIsporuke(comboDTO.getDatumIsporuke());
+		narudzbenica.setStavkeNarudzbenice(comboDTO.getStavkeNarudzbenice());
+		faktura.setDatumValute(comboDTO.getDatumValute());
+		narudzbenica.setKupac(ksi.getOne(comboDTO.getKupacId()));
+		otpremnica.setPrevoznik(psi.getOne(comboDTO.getPrevoznikId()));
+		narudzbenicaRepository.save(narudzbenica);
+		fakturaRepository.save(faktura);
+		otpremnicaRepository.save(otpremnica);
+		return narudzbenica;
+	}
+	
 	@Override
 	public void delete(Integer id) {
 		List<StavkaNarudzbenice> s = snsi.findAll();
@@ -103,6 +147,8 @@ public class NarudzbenicaService implements NarudzbenicaServiceInterface {
 		fsi.save(f);
 		osi.save(o);
 	}
+
+
 
 
 	

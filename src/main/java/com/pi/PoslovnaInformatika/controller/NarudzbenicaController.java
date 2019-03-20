@@ -23,19 +23,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pi.PoslovnaInformatika.converters.NarudzbenicaDTOtoNarudzbenica;
 import com.pi.PoslovnaInformatika.converters.NarudzbenicaToNarudzbenicaDTO;
+import com.pi.PoslovnaInformatika.dto.NarudzbenicaComboDTO;
 import com.pi.PoslovnaInformatika.dto.NarudzbenicaDTO;
-import com.pi.PoslovnaInformatika.model.Faktura;
 import com.pi.PoslovnaInformatika.model.Narudzbenica;
-import com.pi.PoslovnaInformatika.model.Otpremnica;
 import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
-import com.pi.PoslovnaInformatika.model.StavkaNarudzbenice;
-import com.pi.PoslovnaInformatika.repository.StavkeNarudzbeniceRepository;
 import com.pi.PoslovnaInformatika.service.NarudzbenicaService;
 import com.pi.PoslovnaInformatika.service.PGPservice;
 import com.pi.PoslovnaInformatika.service.interfaces.FakturaServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.OtpremnicaServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.StavkaNarudzbeniceServiceInterface;
-import com.pi.PoslovnaInformatika.service.interfaces.StavkeCenovnikaServiceInterface;
 
 @RestController
 @RequestMapping(value="api/narudzbenice")
@@ -198,6 +194,15 @@ public class NarudzbenicaController {
 		return new ResponseEntity<>(toNarudzbenicaDTO.convert(novaNarudzbenica), HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/addComboNarudzbenica", method=RequestMethod.POST, consumes="application/json")
+	public ResponseEntity<?> addComboNarudzbenica(@Validated @RequestBody NarudzbenicaComboDTO narudzbenicaComboDTO,Errors errors){
+		if(errors.hasErrors()) {
+			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
+		}
+		
+		Narudzbenica novaNarudzbenica = narudzbenicaService.saveCombo(narudzbenicaComboDTO);
+		return new ResponseEntity<>(toNarudzbenicaDTO.convert(novaNarudzbenica), HttpStatus.OK);
+	}
 	
 	@RequestMapping(value="/editNarudzbenica/{id}", method=RequestMethod.PUT, consumes="application/json")
 	public ResponseEntity<?> editNarudzbenica(@PathVariable Integer id,@Validated  @RequestBody NarudzbenicaDTO editedNarudzbenicaDTO, Errors errors){

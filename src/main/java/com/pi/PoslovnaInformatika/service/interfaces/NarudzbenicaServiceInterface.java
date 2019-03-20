@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.pi.PoslovnaInformatika.dto.NarudzbenicaComboDTO;
 import com.pi.PoslovnaInformatika.dto.NarudzbenicaDTO;
 import com.pi.PoslovnaInformatika.model.Narudzbenica;
 
@@ -25,5 +26,7 @@ public interface NarudzbenicaServiceInterface {
 	public Narudzbenica edit(NarudzbenicaDTO narudzbenica,Integer id);
 	
 	public void softDelete(Integer id);
+	
+	public Narudzbenica saveCombo(NarudzbenicaComboDTO comboDTO);
 	
 }

@@ -21,15 +21,18 @@ public class NarudzbenicaComboDTO {
 	*/
 	private int idKombo;
 	private Long brojNarudzbenice;
+	private int userId;
 	private String userIme;
 	private Date datumIzrade;
 	private Date datumIsporuke;
 	private Date datumValute;
 	private List<StavkaNarudzbenice> stavkeNarudzbenice;
+	private int kupacId;
 	private String kupacIme;
 	private String kupacAdresa;
 	private String kupacMesto;
 	private String kupacJMBG;
+	private int prevoznikId;
 	private String prevoznikIme;
 	private String napomena;
 	private boolean aktivna;
@@ -38,25 +41,97 @@ public class NarudzbenicaComboDTO {
 	
 	
 
-	public NarudzbenicaComboDTO(int idKombo, Long brojNarudzbenice,String userIme, Date datumIzrade, Date datumIsporuke,
-			Date datumValute, List<StavkaNarudzbenice> stavkeNarudzbenice, String kupacIme, String kupacAdresa,
-			String kupacMesto, String kupacJMBG, String prevoznikIme, String napomena, boolean aktivna) {
+	
+
+
+
+	public NarudzbenicaComboDTO(int idKombo, Long brojNarudzbenice, int userId, String userIme, Date datumIzrade,
+			Date datumIsporuke, Date datumValute, List<StavkaNarudzbenice> stavkeNarudzbenice, int kupacId,
+			String kupacIme, String kupacAdresa, String kupacMesto, String kupacJMBG, int prevoznikId,
+			String prevoznikIme, String napomena, boolean aktivna) {
 		super();
 		this.idKombo = idKombo;
 		this.brojNarudzbenice = brojNarudzbenice;
-		this.userIme=userIme;
+		this.userId = userId;
+		this.userIme = userIme;
 		this.datumIzrade = datumIzrade;
 		this.datumIsporuke = datumIsporuke;
 		this.datumValute = datumValute;
 		this.stavkeNarudzbenice = stavkeNarudzbenice;
+		this.kupacId = kupacId;
 		this.kupacIme = kupacIme;
 		this.kupacAdresa = kupacAdresa;
 		this.kupacMesto = kupacMesto;
 		this.kupacJMBG = kupacJMBG;
+		this.prevoznikId = prevoznikId;
 		this.prevoznikIme = prevoznikIme;
 		this.napomena = napomena;
 		this.aktivna = aktivna;
 	}
+
+
+
+
+
+
+
+	public int getUserId() {
+		return userId;
+	}
+
+
+
+
+
+
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+
+
+
+
+
+
+	public int getKupacId() {
+		return kupacId;
+	}
+
+
+
+
+
+
+
+	public void setKupacId(int kupacId) {
+		this.kupacId = kupacId;
+	}
+
+
+
+
+
+
+
+	public int getPrevoznikId() {
+		return prevoznikId;
+	}
+
+
+
+
+
+
+
+	public void setPrevoznikId(int prevoznikId) {
+		this.prevoznikId = prevoznikId;
+	}
+
+
+
+
 
 
 

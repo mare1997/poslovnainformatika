@@ -211,8 +211,10 @@ public class FakturaController {
 		JasperPrint jp = JasperFillManager.fillReport(getClass().getResource("/reports/finalpiv6.jasper").openStream(),null, dbConnection);
 		ByteArrayInputStream bis = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jp));//ExportReportToPdf vraca byte[]
 		
-		File pdf = new File("C:\\Users\\IlaGila\\git\\poslovnainformatika\\reports\\report.pdf");
-
+		System.out.println(System.getProperty("user.dir"));
+		File pdf = new File("reports/report.pdf");
+		/*File pdf = new File(System.getProperty("user.dir")+"\\reports\\report.pdf");*/
+		
 		JasperExportManager.exportReportToPdfStream(jp, new FileOutputStream(pdf));
 		System.out.println(pdf.getAbsolutePath());
 		
