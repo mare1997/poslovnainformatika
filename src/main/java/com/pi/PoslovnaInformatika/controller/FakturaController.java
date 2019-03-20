@@ -8,7 +8,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -35,7 +37,6 @@ import com.pi.PoslovnaInformatika.converters.FakturaToFakturaDTO;
 import com.pi.PoslovnaInformatika.dto.FakturaDTO;
 import com.pi.PoslovnaInformatika.model.Faktura;
 import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
-import com.pi.PoslovnaInformatika.model.StavkaFakture;
 import com.pi.PoslovnaInformatika.service.FakturaService;
 import com.pi.PoslovnaInformatika.service.PGPservice;
 import com.pi.PoslovnaInformatika.service.StavkaFaktureService;
@@ -208,7 +209,9 @@ public class FakturaController {
 		JasperCompileManager.compileReportToFile(
                 getClass().getResource("/reports/finalpiv6.jrxml").getPath(), // the path to the jrxml file to compile
                 getClass().getResource("/reports/finalpiv6.jasper").getPath());
-		JasperPrint jp = JasperFillManager.fillReport(getClass().getResource("/reports/finalpiv6.jasper").openStream(),null, dbConnection);
+		Map<String, Object> mapIdFakture = new HashMap<String, Object>();
+		mapIdFakture.put("id_fakture", id);
+		JasperPrint jp = JasperFillManager.fillReport(getClass().getResource("/reports/finalpiv6.jasper").openStream(),mapIdFakture, dbConnection);
 		ByteArrayInputStream bis = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jp));//ExportReportToPdf vraca byte[]
 		
 		System.out.println(System.getProperty("user.dir"));
