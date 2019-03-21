@@ -61,13 +61,7 @@ public class MestoController {
 		if(errors.hasErrors()) {
 			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
 		}
-		Mesto mesto = new Mesto();
-		mesto.setGrad(mestoDTO.getGrad());
-		mesto.setPostanski_broj(mestoDTO.getPostanski_broj());
-		
-		
-		
-		msi.save(mesto);
+		Mesto mesto = msi.save(mestoDTO);
 		
 		return new ResponseEntity<MestoDTO>(new MestoDTO(mesto),HttpStatus.CREATED);
 	}
@@ -76,16 +70,7 @@ public class MestoController {
 		if(errors.hasErrors()) {
 			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
 		}
-		Mesto mesto  = msi.getOne(id);
-		if(mesto == null) {
-			return new ResponseEntity<MestoDTO>(HttpStatus.NOT_FOUND);
-		}
-		
-		mesto.setGrad(mestoDTO.getGrad());
-		mesto.setPostanski_broj(mestoDTO.getPostanski_broj());
-		
-		
-		msi.save(mesto);
+		Mesto mesto = msi.edit(id, mestoDTO);
 		
 		return new ResponseEntity<MestoDTO>(new MestoDTO(mesto),HttpStatus.OK);
 	}
@@ -98,8 +83,7 @@ public class MestoController {
 		if(mesto == null) {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
-		mesto.setObrisano(true);
-		msi.save(mesto);
+		msi.removeL(mesto);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	

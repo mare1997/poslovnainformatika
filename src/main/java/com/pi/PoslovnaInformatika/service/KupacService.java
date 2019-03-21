@@ -11,6 +11,7 @@ import com.pi.PoslovnaInformatika.model.Kupac;
 import com.pi.PoslovnaInformatika.model.PoslovnaGodinaPreduzeca;
 import com.pi.PoslovnaInformatika.model.Preduzece;
 import com.pi.PoslovnaInformatika.repository.KupacRepository;
+import com.pi.PoslovnaInformatika.repository.MestoRepository;
 import com.pi.PoslovnaInformatika.repository.PreduzeceRepository;
 import com.pi.PoslovnaInformatika.service.interfaces.KupacServiceInterface;
 @Service
@@ -20,6 +21,8 @@ public class KupacService  implements KupacServiceInterface{
 	KupacRepository kp;
 	@Autowired
 	PreduzeceRepository pr;
+	@Autowired
+	MestoRepository mr;
 	
 	@Override
 	public List<Kupac> getAll() {
@@ -73,16 +76,49 @@ public class KupacService  implements KupacServiceInterface{
 		return kp.getOne(Kupac);
 	}
 
-	@Override
-	public Kupac save(Kupac Kupac) {
-		// TODO Auto-generated method stub
-		return kp.save(Kupac);
-	}
+	
 
 	@Override
 	public void remove(Integer id) {
 		// TODO Auto-generated method stub
 		kp.deleteById(id);
+	}
+
+	@Override
+	public Kupac save(KupacDTO kupacDTO) {
+		Kupac kupac = new Kupac();
+		kupac.setName(kupacDTO.getName());
+		kupac.setAdresa(kupacDTO.getAdresa());
+		kupac.setPib_jmbg(kupacDTO.getPib_jmbg());
+		kupac.setMesto(mr.getOne(kupacDTO.getMesto().getId()));
+		kupac.setPreduzece(pr.getOne(kupac.getPreduzece().getId()));
+		
+		
+		
+		kp.save(kupac);
+		return kupac;
+	}
+	
+
+	@Override
+	public Kupac edit(int id, KupacDTO kupacDTO) {
+		Kupac kupac = kp.getOne(id);
+		kupac.setName(kupacDTO.getName());
+		kupac.setAdresa(kupacDTO.getAdresa());
+		kupac.setPib_jmbg(kupacDTO.getPib_jmbg());
+		kupac.setMesto(mr.getOne(kupacDTO.getMesto().getId()));
+		kupac.setPreduzece(pr.getOne(kupac.getPreduzece().getId()));
+		
+		
+		kp.save(kupac);
+		return kupac;
+	}
+
+	@Override
+	public void removeL(Kupac kupac) {
+		kupac.setObrisano(true);
+		kp.save(kupac);
+		
 	}
 
 	

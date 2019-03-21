@@ -47,13 +47,8 @@ public class PoslovnaGodinaController {
     }
 	@GetMapping(value = "/all/{idPreduzeca}")
 	public ResponseEntity<List<PoslovnaGodinaDTO>> getAll(@PathVariable("idPreduzeca") int id){
+		List<PoslovnaGodinaDTO> pd = psi.getAllByPreduzece(id);
 		
-		List<PoslovnaGodinaPreduzeca> pgp = psi.getAll();
-		List<PoslovnaGodinaDTO> pd = new ArrayList<>();
-		for(PoslovnaGodinaPreduzeca p:pgp) {
-			if(p.getPreduzece().getId() == id)
-			pd.add(new PoslovnaGodinaDTO(p));
-		}
 		
 		return new ResponseEntity<List<PoslovnaGodinaDTO>>(pd,HttpStatus.OK);
 	}
@@ -63,10 +58,7 @@ public class PoslovnaGodinaController {
 		if(errors.hasErrors()) {
 			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
 		}
-		PoslovnaGodinaPreduzeca pg = new PoslovnaGodinaPreduzeca();
-		pg.setDatumPocetak(pgDTO.getDatumPocetak());
-		pg.setGodina(pgDTO.getGodina());
-		psi.save(pg);
+		PoslovnaGodinaPreduzeca pg = psi.save(pgDTO);
 		
 		return new ResponseEntity<PoslovnaGodinaDTO>(new PoslovnaGodinaDTO(pg),HttpStatus.CREATED);
 	}
@@ -75,15 +67,10 @@ public class PoslovnaGodinaController {
 		if(errors.hasErrors()) {
 			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
 		}
-		PoslovnaGodinaPreduzeca godina = psi.getOne(id);
+		PoslovnaGodinaPreduzeca godina = psi.zakljucana(id, poslovnaGodinaDTO);
 		if(godina == null) {
 			return new ResponseEntity<PoslovnaGodinaDTO>(HttpStatus.NOT_FOUND);
 		}
-		
-		
-		godina.setZavrsena(true);
-		godina.setDatumKraj(poslovnaGodinaDTO.getDatumKraj());
-		psi.save(godina);
 		
 		return new ResponseEntity<PoslovnaGodinaDTO>(new PoslovnaGodinaDTO(godina),HttpStatus.OK);
 	}

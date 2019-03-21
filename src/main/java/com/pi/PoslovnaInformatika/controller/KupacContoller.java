@@ -110,16 +110,7 @@ public class KupacContoller {
 		if(errors.hasErrors()) {
 			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
 		}
-		Kupac kupac = new Kupac();
-		kupac.setName(kupacDTO.getName());
-		kupac.setAdresa(kupacDTO.getAdresa());
-		kupac.setPib_jmbg(kupacDTO.getPib_jmbg());
-		kupac.setMesto(msi.getOne(kupacDTO.getMesto().getId()));
-		kupac.setPreduzece(psi.getOne(kupac.getPreduzece().getId()));
-		
-		
-		
-		ksi.save(kupac);
+		Kupac kupac = ksi.save(kupacDTO);
 		
 		return new ResponseEntity<KupacDTO>(new KupacDTO(kupac),HttpStatus.CREATED);
 	}
@@ -132,14 +123,7 @@ public class KupacContoller {
 		if(kupac == null) {
 			return new ResponseEntity<KupacDTO>(HttpStatus.NOT_FOUND);
 		}
-		kupac.setName(kupacDTO.getName());
-		kupac.setAdresa(kupacDTO.getAdresa());
-		kupac.setPib_jmbg(kupacDTO.getPib_jmbg());
-		kupac.setMesto(msi.getOne(kupacDTO.getMesto().getId()));
-		kupac.setPreduzece(psi.getOne(kupac.getPreduzece().getId()));
-		
-		
-		ksi.save(kupac);
+		kupac = ksi.edit(id, kupacDTO);
 		
 		return new ResponseEntity<KupacDTO>(new KupacDTO(kupac),HttpStatus.OK);
 	}
@@ -152,8 +136,7 @@ public class KupacContoller {
 		if(kupac == null) {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
-		kupac.setObrisano(true);
-		ksi.save(kupac);
+		ksi.removeL(kupac);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
