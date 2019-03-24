@@ -1,5 +1,6 @@
 package com.pi.PoslovnaInformatika.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,33 @@ public class StavkaOtpremniceService implements StavkeOtpremniceServiceInterface
 		// TODO Auto-generated method stub
 		return stavkeRepository.findAll();
 	}
+	
+	@Override
+	public List<StavkaOtpremnice> findByOtpremnicaId(Integer idOtpremnice) {
+		List<StavkaOtpremnice> sveStavke = this.findAll();
+		List<StavkaOtpremnice> pronadjeneStavke = new ArrayList<StavkaOtpremnice>();
+		for(StavkaOtpremnice stavka: sveStavke){
+			if(stavka.getOtpremnica().getIdOtpremnice()==idOtpremnice){
+				pronadjeneStavke.add(stavka);
+			}
+		}
+		
+		return pronadjeneStavke;
+	}
 
+	@Override
+	public List<StavkaOtpremnice> findByOtpremnicaIdAndActive(Integer idOtpremnice) {
+		List<StavkaOtpremnice> sveStavke = this.findAll();
+		List<StavkaOtpremnice> pronadjeneStavke = new ArrayList<StavkaOtpremnice>();
+		for(StavkaOtpremnice stavka: sveStavke){
+			if(stavka.getOtpremnica().getIdOtpremnice()==idOtpremnice && stavka.isObrisano()==false){
+				pronadjeneStavke.add(stavka);
+			}
+		}
+		
+		return pronadjeneStavke;
+	}
+	
 	@Override
 	public StavkaOtpremnice save(StavkaOtpremnice stavkaOtpremnice) {
 		// TODO Auto-generated method stub
@@ -36,6 +63,14 @@ public class StavkaOtpremniceService implements StavkeOtpremniceServiceInterface
 	public List<StavkaOtpremnice> save(List<StavkaOtpremnice> otpremnice) {
 		// TODO Auto-generated method stub
 		return stavkeRepository.saveAll(otpremnice);
+	}
+	
+	@Override
+	public void delete(StavkaOtpremnice stavkaOtpremnice) {
+		stavkaOtpremnice.setObrisano(true);
+		this.save(stavkaOtpremnice);
+		
+		return;
 	}
 
 	@Override

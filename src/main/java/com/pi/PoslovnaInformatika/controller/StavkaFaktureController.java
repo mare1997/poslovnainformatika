@@ -46,26 +46,14 @@ public class StavkaFaktureController {
 	
 	@RequestMapping(value="/{idFakture}", method=RequestMethod.GET)
 	public ResponseEntity<List<StavkaFaktureDTO>> getStavkeFaktureByFakturaId(@PathVariable Integer idFakture){
-		List<StavkaFakture> sveStavke = stavkaFaktureService.findAll();
-		List<StavkaFakture> pronadjeneStavke = new ArrayList<StavkaFakture>();
-		for(StavkaFakture stavka: sveStavke){
-			if(stavka.getFaktura().getId()==idFakture){
-				pronadjeneStavke.add(stavka);
-			}
-		}
+		List<StavkaFakture> pronadjeneStavke = stavkaFaktureService.findByFakturaId(idFakture);
 		
 		return new ResponseEntity<>(toStavkaFaktureDTO.convert(pronadjeneStavke), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/active/{idFakture}", method=RequestMethod.GET)
 	public ResponseEntity<List<StavkaFaktureDTO>> getActiveStavkeFaktureByFakturaId(@PathVariable Integer idFakture){
-		List<StavkaFakture> sveStavke = stavkaFaktureService.findAll();
-		List<StavkaFakture> pronadjeneStavke = new ArrayList<StavkaFakture>();
-		for(StavkaFakture stavka: sveStavke){
-			if(stavka.getFaktura().getId()==idFakture && stavka.isObrisano()==false){
-				pronadjeneStavke.add(stavka);
-			}
-		}
+		List<StavkaFakture> pronadjeneStavke = stavkaFaktureService.findByFakturaIdAndActive(idFakture);
 		
 		return new ResponseEntity<>(toStavkaFaktureDTO.convert(pronadjeneStavke), HttpStatus.OK);
 	}
@@ -131,8 +119,8 @@ public class StavkaFaktureController {
 		if(stavkaFakture==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		stavkaFakture.setObrisano(true);
-		stavkaFaktureService.save(stavkaFakture);
+		
+		stavkaFaktureService.delete(stavkaFakture);
 		return new ResponseEntity<StavkaFaktureDTO>(toStavkaFaktureDTO.convert(stavkaFakture), HttpStatus.OK);
 	}
 }
