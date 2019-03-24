@@ -1,5 +1,6 @@
 package com.pi.PoslovnaInformatika.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,33 @@ public class StavkaNarudzbeniceService implements StavkaNarudzbeniceServiceInter
 		// TODO Auto-generated method stub
 		return stavkeRepository.findAll();
 	}
+	
+	@Override
+	public List<StavkaNarudzbenice> findByNarudzbenicaId(Integer idNarudzbenice) {
+		List<StavkaNarudzbenice> sveStavke = this.findAll();
+		List<StavkaNarudzbenice> pronadjeneStavke = new ArrayList<StavkaNarudzbenice>();
+		
+		for(StavkaNarudzbenice stavka: sveStavke){
+			if(stavka.getNarudzbenica().getIdNarudzbenice()==idNarudzbenice){
+				pronadjeneStavke.add(stavka);
+			}
+		}
+		
+		return pronadjeneStavke;
+	}
+	
+	@Override
+	public List<StavkaNarudzbenice> findByNarudzbenicaIdAndActive(Integer idNarudzbenice) {
+		List<StavkaNarudzbenice> sveStavke = this.findAll();
+		List<StavkaNarudzbenice> pronadjeneStavke = new ArrayList<StavkaNarudzbenice>();
+		for(StavkaNarudzbenice stavka: sveStavke){
+			if(stavka.getNarudzbenica().getIdNarudzbenice()==idNarudzbenice && stavka.isObrisano()==false){
+				pronadjeneStavke.add(stavka);
+			}
+		}
+		
+		return pronadjeneStavke;
+	}
 
 	@Override
 	public StavkaNarudzbenice save(StavkaNarudzbenice stavkaNarudzbenice) {
@@ -36,6 +64,14 @@ public class StavkaNarudzbeniceService implements StavkaNarudzbeniceServiceInter
 	public List<StavkaNarudzbenice> save(List<StavkaNarudzbenice> stavke) {
 		// TODO Auto-generated method stub
 		return stavkeRepository.saveAll(stavke);
+	}
+	
+	@Override
+	public void delete(StavkaNarudzbenice stavkaNarudzbenice) {
+		stavkaNarudzbenice.setObrisano(true);
+		this.save(stavkaNarudzbenice);
+		
+		return;
 	}
 
 	@Override

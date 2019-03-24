@@ -46,26 +46,14 @@ public class StavkaOtpremniceController {
 	
 	@RequestMapping(value="/{idOtpremnice}", method=RequestMethod.GET)
 	public ResponseEntity<List<StavkaOtpremniceDTO>> getStavkeOtpremniceByOtpremnicaId(@PathVariable Integer idOtpremnice){
-		List<StavkaOtpremnice> sveStavke = stavkaOtpremniceService.findAll();
-		List<StavkaOtpremnice> pronadjeneStavke = new ArrayList<StavkaOtpremnice>();
-		for(StavkaOtpremnice stavka: sveStavke){
-			if(stavka.getOtpremnica().getIdOtpremnice()==idOtpremnice){
-				pronadjeneStavke.add(stavka);
-			}
-		}
+		List<StavkaOtpremnice> pronadjeneStavke = stavkaOtpremniceService.findByOtpremnicaId(idOtpremnice);
 		
 		return new ResponseEntity<>(toStavkaOtpremniceDTO.convert(pronadjeneStavke), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/active/{idOtpremnice}", method=RequestMethod.GET)
 	public ResponseEntity<List<StavkaOtpremniceDTO>> getActiveStavkeOtpremniceByOtpremnicaId(@PathVariable Integer idOtpremnice){
-		List<StavkaOtpremnice> sveStavke = stavkaOtpremniceService.findAll();
-		List<StavkaOtpremnice> pronadjeneStavke = new ArrayList<StavkaOtpremnice>();
-		for(StavkaOtpremnice stavka: sveStavke){
-			if(stavka.getOtpremnica().getIdOtpremnice()==idOtpremnice && stavka.isObrisano()==false){
-				pronadjeneStavke.add(stavka);
-			}
-		}
+		List<StavkaOtpremnice> pronadjeneStavke = stavkaOtpremniceService.findByOtpremnicaIdAndActive(idOtpremnice);
 		
 		return new ResponseEntity<>(toStavkaOtpremniceDTO.convert(pronadjeneStavke), HttpStatus.OK);
 	}
@@ -131,8 +119,7 @@ public class StavkaOtpremniceController {
 		if(stavkaOtpremnice==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		stavkaOtpremnice.setObrisano(true);
-		stavkaOtpremniceService.save(stavkaOtpremnice);
+		stavkaOtpremniceService.delete(stavkaOtpremnice);
 		return new ResponseEntity<StavkaOtpremniceDTO>(toStavkaOtpremniceDTO.convert(stavkaOtpremnice), HttpStatus.OK);
 	}
 	

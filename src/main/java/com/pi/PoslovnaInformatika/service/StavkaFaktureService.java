@@ -1,5 +1,6 @@
 package com.pi.PoslovnaInformatika.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ public class StavkaFaktureService implements StavkaFaktureServiceInterface {
 
 	@Autowired
 	StavkeFakturaRepository stavkeRepository;
+	
 	@Override
 	public StavkaFakture getOne(Integer id) {
 		// TODO Auto-generated method stub
@@ -26,6 +28,32 @@ public class StavkaFaktureService implements StavkaFaktureServiceInterface {
 		return stavkeRepository.findAll();
 	}
 
+	
+	@Override
+	public List<StavkaFakture> findByFakturaId(Integer idFakture) {
+		List<StavkaFakture> sveStavke = this.findAll();
+		List<StavkaFakture> pronadjeneStavke = new ArrayList<StavkaFakture>();
+		for(StavkaFakture stavka: sveStavke){
+			if(stavka.getFaktura().getId()==idFakture){
+				pronadjeneStavke.add(stavka);
+			}
+		}
+		
+		return pronadjeneStavke;
+	}
+	
+	public List<StavkaFakture> findByFakturaIdAndActive(Integer idFakture) {
+		List<StavkaFakture> sveStavke = this.findAll();
+		List<StavkaFakture> pronadjeneStavke = new ArrayList<StavkaFakture>();
+		for(StavkaFakture stavka: sveStavke){
+			if(stavka.getFaktura().getId()==idFakture && stavka.isObrisano()==false){
+				pronadjeneStavke.add(stavka);
+			}
+		}
+		
+		return pronadjeneStavke;
+	}
+	
 	@Override
 	public StavkaFakture save(StavkaFakture stavkaFakture) {
 		// TODO Auto-generated method stub
@@ -36,6 +64,14 @@ public class StavkaFaktureService implements StavkaFaktureServiceInterface {
 	public List<StavkaFakture> save(List<StavkaFakture> stavke) {
 		// TODO Auto-generated method stub
 		return stavkeRepository.saveAll(stavke);
+	}
+	
+	@Override
+	public void delete(StavkaFakture stavkaFakture) {
+		stavkaFakture.setObrisano(true);
+		this.save(stavkaFakture);
+		
+		return;
 	}
 
 	@Override

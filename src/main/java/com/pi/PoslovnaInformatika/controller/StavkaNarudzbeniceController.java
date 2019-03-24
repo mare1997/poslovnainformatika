@@ -46,28 +46,14 @@ public class StavkaNarudzbeniceController {
 	
 	@RequestMapping(value="/{idNarudzbenice}", method=RequestMethod.GET)
 	public ResponseEntity<List<StavkaNarudzbeniceDTO>> getStavkeNarudzbeniceByNarudzbenicaId(@PathVariable Integer idNarudzbenice){
-		List<StavkaNarudzbenice> sveStavke = stavkaNarudzbeniceService.findAll();
-		List<StavkaNarudzbenice> pronadjeneStavke = new ArrayList<StavkaNarudzbenice>();
-		
-		for(StavkaNarudzbenice stavka: sveStavke){
-		System.out.println("STAVKA NARUDZBENICE"+stavka.getNarudzbenica().toString());
-			if(stavka.getNarudzbenica().getIdNarudzbenice()==idNarudzbenice){
-				pronadjeneStavke.add(stavka);
-			}
-		}
+		List<StavkaNarudzbenice> pronadjeneStavke = stavkaNarudzbeniceService.findByNarudzbenicaId(idNarudzbenice);
 		
 		return new ResponseEntity<>(toStavkaNarudzbeniceDTO.convert(pronadjeneStavke), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/active/{idNarudzbenice}", method=RequestMethod.GET)
 	public ResponseEntity<List<StavkaNarudzbeniceDTO>> getActiveStavkeNarudzbeniceByNarudzbenicaId(@PathVariable Integer idNarudzbenice){
-		List<StavkaNarudzbenice> sveStavke = stavkaNarudzbeniceService.findAll();
-		List<StavkaNarudzbenice> pronadjeneStavke = new ArrayList<StavkaNarudzbenice>();
-		for(StavkaNarudzbenice stavka: sveStavke){
-			if(stavka.getNarudzbenica().getIdNarudzbenice()==idNarudzbenice && stavka.isObrisano()==false){
-				pronadjeneStavke.add(stavka);
-			}
-		}
+		List<StavkaNarudzbenice> pronadjeneStavke = stavkaNarudzbeniceService.findByNarudzbenicaIdAndActive(idNarudzbenice);
 		
 		return new ResponseEntity<>(toStavkaNarudzbeniceDTO.convert(pronadjeneStavke), HttpStatus.OK);
 	}
@@ -120,11 +106,9 @@ public class StavkaNarudzbeniceController {
 	
 	@RequestMapping(value="/hardDeleteStavkaNarudzbenice/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<?> hardDeleteStavkaNarudzbeniceById(@PathVariable Integer id){
-		System.out.println("zastoooooooo???????????????? "+id);
 		StavkaNarudzbenice stavkaNarudzbenice = stavkaNarudzbeniceService.getOne(id);
-		System.out.println("zastoooooooo???????????????? "+stavkaNarudzbenice);
 		if(stavkaNarudzbenice==null){
-			return new ResponseEntity<String>("Napusi mi se kuraca!!!!!!",HttpStatus.NOT_FOUND);
+			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
 		}
 		stavkaNarudzbeniceService.delete(id);
 		return new ResponseEntity<StavkaNarudzbeniceDTO>(toStavkaNarudzbeniceDTO.convert(stavkaNarudzbenice), HttpStatus.OK);
@@ -137,8 +121,8 @@ public class StavkaNarudzbeniceController {
 		if(stavkaNarudzbenice==null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		stavkaNarudzbenice.setObrisano(true);
-		stavkaNarudzbeniceService.save(stavkaNarudzbenice);
+		stavkaNarudzbeniceService.delete(stavkaNarudzbenice);
+	
 		return new ResponseEntity<StavkaNarudzbeniceDTO>(toStavkaNarudzbeniceDTO.convert(stavkaNarudzbenice), HttpStatus.OK);
 	}
 	
