@@ -7,10 +7,7 @@ tbody tr:hover {
 	background-color: #d3d3d3;
 }
 
-#toolbarbuttons {
-	margin-left: 220px;
-	width: 70%;
-}
+
 
 thead, tbody, tr, td, th {
 	display: block;
@@ -28,7 +25,7 @@ thead th {
 }
 
 tbody {
-	height: 630px;
+	height: 530px;
 	overflow-y: auto;
 	text-align: center;
 }
@@ -39,7 +36,7 @@ tbody td, thead th {
 }
 
 #toolbarbuttons {
-	margin-left: 220px;
+	margin-left: 35%;
 	width: 70%;
 }
 
@@ -53,4 +50,16 @@ tbody td, thead th {
 	float: right;
 	margin-right: 300px;
 }
- 
+
+#pageNum{
+	text-align: center;
+	font-size: 25px;
+	border: none;
+	border-color: transparent;
+
+}
+
+button {
+	border:0;
+    background:transparent;
+}

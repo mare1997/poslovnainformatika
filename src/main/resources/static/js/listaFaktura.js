@@ -1,7 +1,7 @@
 var token= localStorage.getItem("token");
 $(document).ready(function() {
 	loadListaFaktura();
-	$('#pageNum').val("stranica broj: "+1);
+	$('#pageNum').val("PAGE: "+1);
 	var broj = $('#bodyTable').length;
 	console.log(broj);
 
@@ -34,7 +34,7 @@ function goBack(){
 		stranica = stranica - 1;
 		var stranicaZaIspit = stranica +1;
 		$('#bodyTable tr').remove();
-		$('#pageNum').val("stranica broj: "+stranicaZaIspit);
+		$('#pageNum').val("PAGE: "+stranicaZaIspit);
 		loadListaFaktura();
 	}
 	if (stranica == 0){
@@ -47,14 +47,14 @@ function goForward(){
 		stranica = stranica+1;
 		var stranicaZaIspit = stranica +1;
 		$('#bodyTable tr').remove();
-		$('#pageNum').val("stranica broj: "+stranicaZaIspit);
+		$('#pageNum').val("PAGE: "+stranicaZaIspit);
 		loadListaFaktura();
 }
 
 
 function loadListaFaktura(){
 	 console.log("load lista faktura")
-	 var url = new URL("https://localhost:8081/api/fakture/all/?page="+stranica+"&size=11&posGodId="+poslovnaGod+"&preduzeceId="+preduzeceId);
+	 var url = new URL("https://localhost:8081/api/fakture/all/?page="+stranica+"&size=9&posGodId="+poslovnaGod+"&preduzeceId="+preduzeceId);
 	 console.log(url);
 	 $.ajax({
 			method:'GET',

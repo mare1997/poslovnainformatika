@@ -108,14 +108,7 @@
 </ul>
 </nav>
 
-<div class="col-lg-5 col-md-offset-2" id="toolbarbuttons">
-		<div class="btn-group">
 
-			<button class="btn btn-default" onClick="goBack()"><span class="glyphicon glyphicon-backward"></span></button>
-			<button class="btn btn-default" onClick="goForward()" data-target="#editKorisnika"><span class="glyphicon glyphicon-forward"></span></button>
-			<input type="text" id="pageNum" readonly>
-		</div>
-	</div>
 	
 	
 
@@ -138,7 +131,17 @@
 			
 			
 		</tbody>
-	</table> 
+	</table>
+	
+	<div id="toolbarbuttons">
+		<div class="btn-group">
+
+			<button  onClick="goBack()"><img src="../img/l.png"></button>
+			<input type="text" id="pageNum" readonly>
+			<button  onClick="goForward()" data-target="#editKorisnika"><img src="../img/r.png"></button>
+			
+		</div>
+	</div> 
 	</body>
 	</html>
 	

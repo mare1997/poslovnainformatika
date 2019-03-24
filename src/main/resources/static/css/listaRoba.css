@@ -45,3 +45,31 @@ tbody td, thead th {
 	width: 30%;
 	float: left;
 }
+
+
+#searching {
+	width:30%;
+	margin-left: 220px;
+}
+#searchRoba {
+  width: 50px;
+  box-sizing: border-box;
+  border: 4px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  padding: 12px 20px 12px 40px;
+  margin-top:5px;
+	
+}
+
+#searchButton {
+  border: 4px solid #ccc;
+  border-radius: 4px;
+  background-repeat: no-repeat;
+  background-color: white;
+  margin-bottom:2.5px;
+	
+}
+
+

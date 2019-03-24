@@ -220,15 +220,19 @@
 
 	<div class="col-lg-5 col-md-offset-2" id="toolbarbuttons">
 		<div class="btn-group">
-			<button class="btn btn-default" onClick="searchRoba()"> <span class="glyphicon glyphicon-search"></span></button>
-			<input type="text" id="searchRoba" style="width: 150px">
+			
 			<button class="btn btn-default" onClick="refresh()"><span class="glyphicon glyphicon-refresh"></span></button>
 			<button class="btn btn-default" onClick="fillGrupaRobe()"data-target="#addRoba">
 				<span class="glyphicon glyphicon-plus"></span></button>
 			<button class="btn btn-default" onClick="robaDeleteModal()"><span class="glyphicon glyphicon-trash"></span></button>
+			
 		</div>
 	</div>
-
+	
+	<div id="searching">
+	<input type="text" id="searchRoba" style="width: 150px" placeholder = "Search...">
+	<button id="searchButton" class="btn btn-default" onClick="searchRoba()"> <img src="../img/searchicon.png"> </button>
+	</div>
 <!-- Lista robe -->
 
 	<table id="tableId" class="table">
