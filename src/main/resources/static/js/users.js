@@ -219,7 +219,7 @@ $.ajax({
 
 });
 
-	console.log(ime+" "+prezime+" "+korIme+" "+lozinka+" " + preduzece + " " + auth);
+
 	var data={
 		  'autority':auth,
 			'firstname':ime,

@@ -3,12 +3,12 @@ var token= localStorage.getItem("token");
 $(document).ready(function() {
 	var auth = localStorage.getItem("authority");
 	console.log(auth);
-	var cenL = $("#cenLabel");
-	cenL.hide();
-	var akSelect = $("#akCenovnik");
-	akSelect.hide();
-	var ok = $("#okButton1");
-	ok.hide();
+//	var cenL = $("#cenLabel");
+//	cenL.hide();
+//	var akSelect = $("#akCenovnik");
+//	akSelect.hide();
+//	var ok = $("#okButton1");
+//	ok.hide();
 	loadPreduzece();
 	loadPG1();
 	//loadAkCen1();
@@ -97,7 +97,7 @@ function loadPG1(){
 });
 }
 
-function loadAkCen(){
+/*function loadAkCen(){
 	var posG =localStorage.getItem("pgId");
 	var prId =localStorage.getItem("pId");
 	  $.ajax({
@@ -122,7 +122,7 @@ function loadAkCen(){
 	});
 }
 
-
+*/
 
 
 
@@ -138,20 +138,21 @@ function proceed(){
 	console.log("id pg: " + pgId + "id pred: " + pId);
 	localStorage.setItem("pgId",pgId);
 	localStorage.setItem("pId",pId);
-	tb = $("#okButton");
-	tb.hide();
-	var cenL = $("#cenLabel");
-	cenL.show();
-	var akSelect = $("#akCenovnik");
-	akSelect.show();
-	var ok = $("#okButton1");
-	ok.show();
-	loadAkCen();
+	//tb = $("#okButton");
+	//tb.hide();
+	//var cenL = $("#cenLabel");
+	//cenL.show();
+	//var akSelect = $("#akCenovnik");
+	//akSelect.show();
+	//var ok = $("#okButton1");
+	//ok.show();
+	//loadAkCen();
 	//localStorage.setItem("akCen",ac);
 	//window.location.replace("mainPage.html");
+	window.location.replace("mainPage.html");
 }
 
-function proceed1(){
+/*function proceed1(){
 	var selectAC = document.getElementById("akCenovnik");
 	var ac= selectAC.options[selectAC.selectedIndex].value;
 	localStorage.setItem("akCenovnik",ac);
@@ -159,4 +160,4 @@ function proceed1(){
 	window.location.replace("mainPage.html");
 	
 }
-
+*/
