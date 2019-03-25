@@ -416,14 +416,14 @@ function createSF(stavka,idF,robaUslugaId){
 	success:function(response){
 		console.log(response);
 		robaObject = response;
-		robaObjectCena = robaObject.cena;
+		robaObjectId = robaObject.id;
 		robaObjectName = robaObject.name;
 		robaObjectGrupaPDVId = robaObject.grupa.pdv.id;
 		//trenutno nema polja za unosenje rabat procenta
 		//rabatProcenat = robaObject.rabat;
 		rabatProcenat = 20;
 		console.log("RobaObjectGrupaPDVID mi je" + robaObjectGrupaPDVId)
-		console.log("RobaObject mi je" + robaObjectCena)
+		console.log("RobaObject mi je" + robaObjectId)
 		console.log("RobaObjectName mi je" + robaObjectName)
 		
 	},
@@ -438,7 +438,7 @@ function createSF(stavka,idF,robaUslugaId){
 	var cena;
 	$.ajax({
 		method:'GET',
-		url: "https://localhost:8081/api/stavkacenovnika/getSCdeleteNo/"+robaObjectCena,
+		url: "https://localhost:8081/api/stavkacenovnika/getSCdeleteNo/"+robaObjectId,
 		headers:{Authorization:"Bearer " + token},
 		dataType: 'json',
 		cashe: false,
