@@ -94,7 +94,26 @@ public class CenovnikService implements CenovnikServiceInterface {
 		c.setDatum_kreiranja(cDTO.getDatum_kreiranja());
 		c.setPreduzece(pr.getOne(cDTO.getPreduzece().getId()));
 		c.setAktivan(cDTO.isAktivan());
+		List<Cenovnik> cen = cr.findAll();
+		for(Cenovnik ce:cen) {
+			if(ce.getId() != c.getId() ) {
+				ce.setAktivan(false);
+			}
+		}
+		
 		return c;
+	}
+
+	@Override
+	public Cenovnik getAktivan(int p) {
+		Preduzece pp = pr.getOne(p);
+		List<Cenovnik> c = cr.findAll();
+		for(Cenovnik ce:c) {
+			if(ce.isAktivan() && ce.getPreduzece() == pp ) {
+				return ce;
+			}
+		}
+		return null;
 	}
 
 	

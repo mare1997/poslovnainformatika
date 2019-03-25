@@ -14,6 +14,7 @@ public interface CenovnikServiceInterface{
 	List<CenovnikDTO> getAllWithDeleted(PoslovnaGodinaPreduzeca p,Preduzece pr);
 	List<CenovnikDTO> getAllWithOutDeleted(PoslovnaGodinaPreduzeca p,Preduzece pr);
 	Cenovnik getOne(Integer cenovnikid);
+	Cenovnik getAktivan(int p);
 	Cenovnik save(CenovnikDTO cDTO);
 	void remove(Integer id);
 	void removeL(Cenovnik c);

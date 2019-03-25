@@ -7,11 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pi.PoslovnaInformatika.dto.RobaDTO;
+import com.pi.PoslovnaInformatika.dto.StavkaCenovnikaDTO;
+import com.pi.PoslovnaInformatika.model.Cenovnik;
 import com.pi.PoslovnaInformatika.model.GrupaRobe;
+import com.pi.PoslovnaInformatika.model.Preduzece;
 import com.pi.PoslovnaInformatika.model.Roba;
+import com.pi.PoslovnaInformatika.model.StavkaCenovnika;
 import com.pi.PoslovnaInformatika.repository.GrupaRobeRepository;
 import com.pi.PoslovnaInformatika.repository.RobaRepository;
+import com.pi.PoslovnaInformatika.service.interfaces.CenovnikServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.RobaServiceInterface;
+import com.pi.PoslovnaInformatika.service.interfaces.StavkeCenovnikaServiceInterface;
 @Service
 public class RobaService implements RobaServiceInterface {
 
@@ -20,6 +26,12 @@ public class RobaService implements RobaServiceInterface {
 	
 	@Autowired
 	GrupaRobeRepository grr;
+	
+	@Autowired
+	StavkeCenovnikaServiceInterface scsi;
+	
+	@Autowired
+	CenovnikServiceInterface csi;
 	
 	@Override
 	public List<Roba> getAll() {
@@ -39,7 +51,11 @@ public class RobaService implements RobaServiceInterface {
 		roba.setName(robaDTO.getName());
 		roba.setJedninica_mere(robaDTO.getJedninica_mere());
 		roba.setGrupa(grr.getOne(robaDTO.getGrupa().getId()));
-		roba.setCene(null);
+		//treba da se doda da se dodaju cene ,pozovi servis nekako dobaci dto sc
+		//promeni  stavke cenovnila dto
+		Cenovnik cen =csi.getAktivan(robaDTO.getGrupa().getPreduzece().getId());
+		StavkaCenovnika sc = scsi.saveR(robaDTO.getCena(), cen,roba);
+		
 		rr.save(roba);
 		return roba;
 	}

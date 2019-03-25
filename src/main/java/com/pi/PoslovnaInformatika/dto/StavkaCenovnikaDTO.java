@@ -27,10 +27,17 @@ public class StavkaCenovnikaDTO implements Serializable {
 		this.cenovnik = cenovnik;
 		this.obrisano = obrisano;
 	}
-	public StavkaCenovnikaDTO(StavkaCenovnika s) {
+	public StavkaCenovnikaDTO( long cena, RobaDTO roba, CenovnikDTO cenovnik,boolean obrisano) {
+		super();
 		
+		this.cena = cena;
+		this.roba = roba;
+		this.cenovnik = cenovnik;
+		this.obrisano = obrisano;
+	}
+	public StavkaCenovnikaDTO(StavkaCenovnika s) {
 		this(s.getId(),s.getCena(),new RobaDTO(s.getRoba()), new CenovnikDTO(s.getCenovnik()),s.isObrisano());
-		System.out.println(s);
+		
 	}
 	public Integer getId() {
 		return id;

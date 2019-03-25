@@ -47,7 +47,7 @@ public class StavkeCenovnikaService implements StavkeCenovnikaServiceInterface {
 		StavkaCenovnika sc = new StavkaCenovnika();
 		sc.setCena(scDTO.getCena());
 		sc.setCenovnik(cr.getOne(scDTO.getCenovnik().getId()));
-		return null;
+		return sc;
 	}
 
 	@Override
@@ -79,6 +79,15 @@ public class StavkeCenovnikaService implements StavkeCenovnikaServiceInterface {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public StavkaCenovnika saveR(long cena,Cenovnik cenovnik,Roba roba) {
+		StavkaCenovnika sc = new StavkaCenovnika();
+		sc.setCena(cena);
+		sc.setCenovnik(cenovnik);
+		sc.setRoba(roba);
+		return sc;
 	}
 
 }

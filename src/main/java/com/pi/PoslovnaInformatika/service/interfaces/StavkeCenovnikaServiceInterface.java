@@ -13,6 +13,7 @@ public interface StavkeCenovnikaServiceInterface {
 	StavkaCenovnika getAllByCenovnikAndRoba(Cenovnik c,Roba r);
 	StavkaCenovnika getOne(Integer StavkaCenovnika);
 	StavkaCenovnika save(StavkaCenovnikaDTO scDTO);
+	StavkaCenovnika saveR(long cena,Cenovnik cenovnik,Roba roba);
 	void remove(Integer id);
 	void removeL(StavkaCenovnika sc);
 }

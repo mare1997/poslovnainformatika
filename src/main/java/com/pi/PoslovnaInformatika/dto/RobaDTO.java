@@ -14,7 +14,7 @@ public class RobaDTO implements Serializable {
 	private Integer id;
 	private String name;
 	private String jedninica_mere;
-	
+	private long cena;
 	private GrupaRobeDTO grupa;
 	private boolean obrisano;
 	
@@ -36,6 +36,15 @@ public class RobaDTO implements Serializable {
 		this.name = name;
 		this.jedninica_mere = jedninica_mere;
 		
+		this.grupa = grupa;
+		this.obrisano = obrisano;
+	}
+	public RobaDTO(Integer id, String name, String jedninica_mere, GrupaRobeDTO grupa, boolean obrisano, long cena) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.jedninica_mere = jedninica_mere;
+		this.cena = cena;
 		this.grupa = grupa;
 		this.obrisano = obrisano;
 	}
@@ -76,6 +85,12 @@ public class RobaDTO implements Serializable {
 	}
 	public void setObrisano(boolean obrisano) {
 		this.obrisano = obrisano;
+	}
+	public long getCena() {
+		return cena;
+	}
+	public void setCena(long cena) {
+		this.cena = cena;
 	}
 	
 	

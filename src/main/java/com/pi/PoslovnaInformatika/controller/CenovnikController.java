@@ -67,6 +67,16 @@ public class CenovnikController {
         return new ResponseEntity<CenovnikDTO>(new CenovnikDTO(c),HttpStatus.OK);
     }
 	
+	@GetMapping(value = "/getActiveCenovnik/{idPreduzeca}/{idPG}")
+    public ResponseEntity<CenovnikDTO> getCc(@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
+		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 
+		
+    	Cenovnik c = csi.getAktivan(idPreduzeca);
+        if(c == null || c.isObrisano() == true  || c.getPreduzece().getId() != idPreduzeca || c.getDatum_kreiranja().before(p.getDatumPocetak()))
+            return new ResponseEntity<CenovnikDTO>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<CenovnikDTO>(new CenovnikDTO(c),HttpStatus.OK);
+    }
+	
 	@RequestMapping(value="/getCenovnikdeleteNo/all/{idPreduzeca}/{idPG}", method = RequestMethod.GET)
     public ResponseEntity<List<CenovnikDTO>> getCenoviksc(@PathVariable("idPreduzeca") int idPreduzeca,@PathVariable("idPG") int idPG){
 		PoslovnaGodinaPreduzeca p = pgsi.getOne(idPG); 

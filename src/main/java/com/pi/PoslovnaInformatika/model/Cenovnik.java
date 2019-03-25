@@ -18,6 +18,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.pi.PoslovnaInformatika.dto.CenovnikDTO;
+import com.pi.PoslovnaInformatika.dto.PreduzeceDTO;
+
 @Entity                 
 @Table(name="cenovnik") 
 public class Cenovnik implements Serializable {
@@ -60,7 +63,7 @@ public class Cenovnik implements Serializable {
 	public Cenovnik() {
 		super();
 	}
-
+	
 
 
 	public Cenovnik(Integer id,String name, Date datum_vazenja,Date datum_kreiranja, Preduzece preduzece, Set<StavkaCenovnika> cene,boolean aktivan,boolean obrisano) {
@@ -74,7 +77,7 @@ public class Cenovnik implements Serializable {
 		this.aktivan = aktivan;
 		this.obrisano=obrisano;
 	}
-
+	
 
 
 	public Integer getId() {
