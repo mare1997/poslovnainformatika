@@ -110,6 +110,12 @@ public class Mesto implements Serializable  {
 	public void setObrisano(boolean obrisano) {
 		this.obrisano = obrisano;
 	}
+
+	@Override
+	public String toString() {
+		return "Mesto [id=" + id + ", grad=" + grad + ", postanski_broj=" + postanski_broj + ", preduzeca=" + preduzeca
+				+ ", kupci=" + kupci + ", obrisano=" + obrisano + "]";
+	}
 	
 	
 }

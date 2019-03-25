@@ -87,6 +87,8 @@ public class StavkeCenovnikaService implements StavkeCenovnikaServiceInterface {
 		sc.setCena(cena);
 		sc.setCenovnik(cenovnik);
 		sc.setRoba(roba);
+		scr.save(sc);
+		System.out.println("Cena u sc :"+ sc);
 		return sc;
 	}
 

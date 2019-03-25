@@ -39,15 +39,16 @@ public class GrupaRobeService implements  GrupaRobeServiceInterface {
 
 	@Override
 	public GrupaRobe save(GrupaRobeDTO grupaDTO) {
-GrupaRobe grupa = new GrupaRobe();
+		GrupaRobe grupa = new GrupaRobe();
 		
 		grupa.setName(grupaDTO.getName());
 		grupa.setPdv(pdvr.getOne(grupaDTO.getPdv().getId()));
 		grupa.setPreduzece(pr.getOne(grupaDTO.getPreduzece().getId()));
+		grupa.setDatum_kreiranja(grupaDTO.getDatum_kreiranja());
 		
 		
 		crr.save(grupa);
-		return null;
+		return grupa;
 	}
 
 	@Override

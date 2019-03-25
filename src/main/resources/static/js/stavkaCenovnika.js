@@ -62,7 +62,7 @@ var cenId = localStorage.getItem("cenId");
 });
 }
 
-
+/**
 function addStavkuCen(){
 	var cenId = localStorage.getItem("cenId");
 	var cena = $('#cenaStavnke').val().trim();
@@ -146,7 +146,7 @@ function stavkaModal(){
 }
 	});
 }
-
+**/
 
 function stavkaDeleteModal(){
 	$('#stavkaDeleteModal').modal();

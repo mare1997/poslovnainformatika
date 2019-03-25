@@ -31,8 +31,12 @@ public class MestoService implements MestoServiceInterface{
 	@Override
 	public Mesto save(MestoDTO mestoDTO) {
 		Mesto mesto = new Mesto();
+		System.out.println("Mesto id" + mesto.getId());
 		mesto.setGrad(mestoDTO.getGrad());
 		mesto.setPostanski_broj(mestoDTO.getPostanski_broj());
+		
+		mr.save(mesto);
+		System.out.println("mesto"+mesto.toString());
 		return mesto;
 	}
 

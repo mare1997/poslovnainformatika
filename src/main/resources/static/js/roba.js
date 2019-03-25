@@ -1,5 +1,7 @@
 $(document).ready(function() {
 	loadRoba();
+	console.log(idGrupe);
+	
 
 	$(document).on("click", "#robaBody tr", function(e) {
 		delId = this.id;
@@ -37,7 +39,7 @@ var idGrupe = localStorage.getItem("grupaId");
 var pId="";
 
 
-
+var cenId = localStorage.getItem("akCenovnik");
 function loadRoba(){
 	
   $.ajax({
@@ -55,7 +57,7 @@ function loadRoba(){
 		
 		var cena;
 		$.ajax({
-		    url:'https://localhost:8081/api/stavkacenovnika/getCenaByRoba/'+roba.id,
+		    url:'https://localhost:8081/api/stavkacenovnika/getCenaByRoba/'+roba.id+'/'+cenId,
 		    headers:{Authorization:"Bearer " + token},
 		    type:"GET",
 		    dataType: 'json',
@@ -86,8 +88,7 @@ function fillGrupaRobe(){
 	var pId = localStorage.getItem("pId",pId);
 	$('#addRoba').modal();
 
-	$('#dodajCenuStavke').hide();
-	$('#dodajStavkuCenovnikaM').hide();
+	
 	var grupe = $('#pickGrupaRobe option').remove();
 	$.ajax({
     url:'https://localhost:8081/api/gruparobe/getGRdeliteNo/all/'+pId+'/'+pgId,
@@ -116,11 +117,11 @@ var idKreiranog;
 function addRoba(){
 	var naziv = $('#addNazivRobe').val().trim();
 	var mera = $('#addJedinicaMere').val().trim();
-	
+	var cena = $('#inputCenaStavke').val().trim();
 
   var grupaR = document.getElementById('pickGrupaRobe');
   var grupaId= grupaR.options[grupaR.selectedIndex].value;
-	if(naziv=="" || mera==""){
+	if(naziv=="" || mera=="" || cena==""){
 		alert("Sva polja moraju biti popunjena");
 		return;
 
@@ -131,7 +132,7 @@ function addRoba(){
 	var grupaObject;
 $.ajax({
 	
-	url:'https://localhost:8081/api/gruparobe/getGRdeliteNo/'+grupaId+'/'+pId+'/'+pgId,
+	url:'https://localhost:8081/api/gruparobe/getGRdeliteNo/'+idGrupe+'/'+pId+'/'+pgId,
 	headers:{Authorization:"Bearer " + token},
 	type: 'GET',
 	dataType:'json',
@@ -155,7 +156,8 @@ $.ajax({
 	var data={
 			'name':naziv,
 			'jedninica_mere':mera,
-			'grupa':grupaObject
+			'grupa':grupaObject,
+			'cena': cena
 
 	}
 	console.log(data);
@@ -173,20 +175,8 @@ $.ajax({
         	console.log("usao u success")
         	alert("Dodavanje uspesno.");
         	
-        	
-        	$('#addNazivRobe').hide();
-        	$('#addJedinicaMere').hide();
-        	$('#pickGrupaRobe').hide();
-        	$('#dodajRobuM').hide();
-        	$('#nazivAddLabel').hide();
-        	$('#grupaAddLabel').hide();
-        	$('#meraAddLabel').hide();
-        	
-        	$('#dodajCenuStavke').show();
-        	$('#dodajStavkuCenovnikaM').show();
-        	$('#inputCenaStavke').show();
-        	
         	idKreiranog = response.id;
+        	console.log(response.id);
        
         	
         },
@@ -231,7 +221,7 @@ function refresh(){
 	loadRoba();
 }
 
-var idKreiraneStavke;
+/** var idKreiraneStavke;
 function addSCen(){
 	var cenId = localStorage.getItem("akCenovnik");
 	var cena = $('#inputCenaStavke').val().trim();
@@ -324,7 +314,7 @@ function update(){
 	});
 	
 }
-
+**/
 // /getAllActiveRobaByName
 function searchRoba(){
 	var idGrupe = localStorage.getItem("grupaId");

@@ -1,3 +1,4 @@
+var token = localStorage.getItem("token");
 $(document).ready(function() {
 	loadGrupu();
 	
@@ -73,6 +74,28 @@ function loadGrupu(){
   }
 });
 }
+
+
+var today;
+function currentDate(){
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+
+		var yyyy = today.getFullYear();
+		if(dd<10){
+		    dd='0'+dd;
+		} 
+		if(mm<10){
+		    mm='0'+mm;
+		} 
+		var today = yyyy+"-"+mm+"-"+dd;
+		
+		return today;
+	}
+console.log(today);
+
+
 
 function grupaModal(){
 	$('#addGrupaRobeee').modal();
@@ -151,13 +174,18 @@ $.ajax({
 });
 
 	console.log(ime+" "+pdvObject+" "+preduzeceObject);
+	currentDate();
+	today = currentDate();
 	var data={
 		  'name':ime,
 			'pdv':pdvObject,
-			'preduzece':preduzeceObject
+			'preduzece':preduzeceObject,
+			'datum_kreiranja': today
 
 	}
-	console.log(data);
+	
+	
+	console.log(data.datum_kreiranja == null);
 
 	$.ajax({
 		type: 'POST',

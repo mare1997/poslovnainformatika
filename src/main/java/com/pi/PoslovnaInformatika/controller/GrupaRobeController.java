@@ -85,6 +85,7 @@ public class GrupaRobeController {
 			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
 		}
 		GrupaRobe grupa = grsi.save(grupaDTO);
+		System.out.println("Grupa: "+grupa);
 		return new ResponseEntity<GrupaRobeDTO>(new GrupaRobeDTO(grupa),HttpStatus.CREATED);
 	}
 	

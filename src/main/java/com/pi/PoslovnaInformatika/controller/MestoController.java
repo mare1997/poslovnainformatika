@@ -61,6 +61,7 @@ public class MestoController {
 		if(errors.hasErrors()) {
 			return new ResponseEntity<String>(errors.getAllErrors().toString(),HttpStatus.BAD_REQUEST);
 		}
+		
 		Mesto mesto = msi.save(mestoDTO);
 		
 		return new ResponseEntity<MestoDTO>(new MestoDTO(mesto),HttpStatus.CREATED);

@@ -54,8 +54,9 @@ public class RobaService implements RobaServiceInterface {
 		//treba da se doda da se dodaju cene ,pozovi servis nekako dobaci dto sc
 		//promeni  stavke cenovnila dto
 		Cenovnik cen =csi.getAktivan(robaDTO.getGrupa().getPreduzece().getId());
+		rr.save(roba);
 		StavkaCenovnika sc = scsi.saveR(robaDTO.getCena(), cen,roba);
-		
+		System.out.println("Cena "+ sc);
 		rr.save(roba);
 		return roba;
 	}
