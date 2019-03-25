@@ -34,7 +34,7 @@ public class StavkaCenovnika implements Serializable {
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "cena_id", referencedColumnName = "roba_id", nullable = true)
+	@JoinColumn(name = "roba_id", referencedColumnName = "roba_id", nullable = true)
 	private Roba roba;
 	
 	@ManyToOne
