@@ -62,7 +62,7 @@
 		<![CDATA[select faktura.broj_fakture,faktura.datum_fakture,preduzece.pib,preduzece.name as pred_name,preduzece.adresa,faktura.datum_valute,stavka_fakture.id_fakture,roba.name as naziv_robe,stavka_fakture.jedinica_mere,stavka_fakture.kolicina,
 		stavka_fakture.jedinicna_cena,stavka_fakture.rabat,stavka_fakture.osnovica_za_pdv,stavka_fakture.procenat_pdv,stavka_fakture.iznos_pdv,stavka_fakture.iznos_stavke,kupac.name as racun_primio,stavka_fakture.id_stavke_fakture
 		from faktura,stavka_fakture,preduzece,kupac,roba,grupa_robe,pdv,stopa_pdv,mesto 
-		where faktura.id_fakture = $p{id_fakture} 
+		where faktura.id_fakture = $P{id_fakture} 
 			and mesto.mesto_id = preduzece.mesto_id 
 				and pdv.pdv_id = stopa_pdv.pdv_id and 
 					grupa_robe.pdv_id = pdv.pdv_id and 

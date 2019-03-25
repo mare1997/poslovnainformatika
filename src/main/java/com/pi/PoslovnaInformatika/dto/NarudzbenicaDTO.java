@@ -16,16 +16,16 @@ public class NarudzbenicaDTO {
 	private Date datumIzrade;
 	private Date datumIsporuke;
 	private boolean aktivna;
-	private Faktura fakturaRel;
-	private User user;
-	private Preduzece preduzece;
+	private int fakturaRel;
+	private int user;
+	private int preduzece;
 	private boolean obrisano;
-	private Kupac kupac;
+	private int kupac;
 	
 	public NarudzbenicaDTO() {}
 	
 	public NarudzbenicaDTO(int idNarudzbenice, Long brojNarudzbenice, Date datumIzrade, Date datumIsporuke,
-			boolean aktivna, Faktura fakturaRel, User user, Preduzece preduzece,Kupac kupac, boolean obrisano) {
+			boolean aktivna, int fakturaRel, int user, int preduzece,int kupac, boolean obrisano) {
 		super();
 		this.idNarudzbenice = idNarudzbenice;
 		this.brojNarudzbenice = brojNarudzbenice;
@@ -84,35 +84,35 @@ public class NarudzbenicaDTO {
 
 
 
-	public Faktura getFakturaRel() {
+	public int getFakturaRel() {
 		return fakturaRel;
 	}
 
-	public void setFakturaRel(Faktura fakturaRel) {
+	public void setFakturaRel(int fakturaRel) {
 		this.fakturaRel = fakturaRel;
 	}
 
-	public User getUser() {
+	public int getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(int user) {
 		this.user = user;
 	}
 
-	public Preduzece getPreduzece() {
+	public int getPreduzece() {
 		return preduzece;
 	}
 
-	public void setPreduzece(Preduzece preduzece) {
+	public void setPreduzece(int preduzece) {
 		this.preduzece = preduzece;
 	}
 
-	public Kupac getKupac() {
+	public int getKupac() {
 		return kupac;
 	}
 
-	public void setKupac(Kupac kupac) {
+	public void setKupac(int kupac) {
 		this.kupac = kupac;
 	}
 

@@ -18,6 +18,7 @@ import com.pi.PoslovnaInformatika.model.StavkaNarudzbenice;
 import com.pi.PoslovnaInformatika.repository.FakturaRepository;
 import com.pi.PoslovnaInformatika.repository.NarudzbenicaRepository;
 import com.pi.PoslovnaInformatika.repository.OtpremnicaRepository;
+import com.pi.PoslovnaInformatika.repository.StavkeNarudzbeniceRepository;
 import com.pi.PoslovnaInformatika.service.interfaces.FakturaServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.KupacServiceInterface;
 import com.pi.PoslovnaInformatika.service.interfaces.NarudzbenicaServiceInterface;
@@ -104,6 +105,10 @@ public class NarudzbenicaService implements NarudzbenicaServiceInterface {
 		narudzbenicaRepository.save(narudzbenica);
 		fakturaRepository.save(faktura);
 		otpremnicaRepository.save(otpremnica);
+		/*for(StavkaNarudzbenice stavka : comboDTO.getStavkeNarudzbenice()){
+			snRepository.save(stavka);
+		}*/
+		snsi.save(comboDTO.getStavkeNarudzbenice());
 		return narudzbenica;
 	}
 	
@@ -138,14 +143,22 @@ public class NarudzbenicaService implements NarudzbenicaServiceInterface {
 	@Override
 	public void softDelete(Integer id) {
 		Narudzbenica narudzbenica = getOne(id);
-		Faktura f= fsi.getOne(narudzbenica.getFakturaRel().getId());
-		Otpremnica o = osi.getOne(f.getOtpremnicaRel().getIdOtpremnice());
+		Faktura f = new Faktura();
+		Otpremnica o = new Otpremnica();
+		if(fsi.getOne(narudzbenica.getFakturaRel().getId())!=null){
+			f.setObrisano(true);
+			fsi.save(f);
+		}
+		
+		if(osi.getOne(f.getOtpremnicaRel().getIdOtpremnice())!=null){
+			o.setObrisano(true);
+			osi.save(o);
+		}
 		narudzbenica.setObrisano(true);
-		f.setObrisano(true);
-		o.setObrisano(true);
+		
+		
 		save(narudzbenica);
-		fsi.save(f);
-		osi.save(o);
+		
 	}
 
 

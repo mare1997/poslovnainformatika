@@ -206,6 +206,7 @@ public class FakturaController {
 		
 		/*ReportGenerator gen = new ReportGenerator();
 		gen.exportToPdf();*/
+		System.out.println(System.getProperty("user.dir"));
 		JasperCompileManager.compileReportToFile(
                 getClass().getResource("/reports/finalpiv6.jrxml").getPath(), // the path to the jrxml file to compile
                 getClass().getResource("/reports/finalpiv6.jasper").getPath());

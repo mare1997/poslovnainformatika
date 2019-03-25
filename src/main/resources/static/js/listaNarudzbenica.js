@@ -19,7 +19,7 @@ $(document).ready(function() {
     
 });
 });
-
+var fakturaNarudzbenice;
 var preduzeceId =localStorage.getItem("pId")
 var poslovnaGod = localStorage.getItem("pgId");
 var imeKupca;
@@ -114,7 +114,7 @@ function loadListaNarudzbenica(){
 			success:function(response){
 				
 				kupacId = response.kupac;
-				
+				fakturaNarudzbenice = response.fakturaRel;
 				imeKupca1(kupacId)
 				console.log("jeee" +response.idNarudzbenice + "kupac id " + kupacId)
 				$('#brNar').html(response.brojNarudzbenice);
@@ -163,7 +163,7 @@ function loadListaNarudzbenica(){
 
 function prikazFakture(){
 		$.ajax({
-			url: 'https://localhost:8081/api/fakture/generateReport/'+2,
+			url: 'https://localhost:8081/api/fakture/generateReport/'+fakturaNarudzbenice,
 			headers:{Authorization:"Bearer " + token}
 		},
 		);

@@ -52,23 +52,23 @@ public class FakturaToFakturaDTO implements Converter<Faktura, FakturaDTO> {
 				
 		}
 		if(source.getNarudzbenicaRel()!=null) {
-			fakturaDTO.setNarudzbeniceRel(source.getNarudzbenicaRel());
+			fakturaDTO.setNarudzbeniceRel(source.getNarudzbenicaRel().getIdNarudzbenice());
 				
 		}
 		if(source.getOtpremnicaRel() != null) {
-			fakturaDTO.setOtpremnicaRel(source.getOtpremnicaRel());
+			fakturaDTO.setOtpremnicaRel(source.getOtpremnicaRel().getIdOtpremnice());
 		}
 		
 		if(source.getKupac()!=null) {
-			fakturaDTO.setKupac(source.getKupac());
+			fakturaDTO.setKupac(source.getKupac().getId());
 				
 		}
 		if(source.getUser()!=null) {
-			fakturaDTO.setUser(source.getUser());
+			fakturaDTO.setUser(source.getUser().getId());
 				
 		}
 		if(source.getPreduzece()!=null) {
-			fakturaDTO.setPreduzece(source.getPreduzece());
+			fakturaDTO.setPreduzece(source.getPreduzece().getId());
 				
 		}
 		

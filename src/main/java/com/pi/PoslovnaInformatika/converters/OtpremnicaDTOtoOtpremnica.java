@@ -73,24 +73,24 @@ public class OtpremnicaDTOtoOtpremnica implements Converter<OtpremnicaDTO, Otpre
 			otpremnica.setPrimljenaRoba(source.isPrimljenaRoba());
 				
 		}
-		if(source.getPrevoznikId()!=null){
-			otpremnica.setPrevoznik(prevoznikService.getOne(source.getPrevoznikId().getId()));
+		if(source.getPrevoznikId()!=0){
+			otpremnica.setPrevoznik(prevoznikService.getOne(source.getPrevoznikId()));
 			
 		}
-		if(source.getKupacId()!=null){
-			otpremnica.setKupac(kupacService.getOne(source.getKupacId().getId()));
+		if(source.getKupacId()!=0){
+			otpremnica.setKupac(kupacService.getOne(source.getKupacId()));
 				
 		}
-		if(source.getUser()!=null){
-			otpremnica.setUser(userService.getOne(source.getUser().getId()));
+		if(source.getUser()!=0){
+			otpremnica.setUser(userService.getOne(source.getUser()));
 				
 		}
-		if(source.getPreduzeceId()!=null){
-			otpremnica.setPreduzece(preduzeceService.getOne(source.getPreduzeceId().getId()));
+		if(source.getPreduzeceId()!=0){
+			otpremnica.setPreduzece(preduzeceService.getOne(source.getPreduzeceId()));
 				
 		}
-		if(source.getFakturaRel()!=null){
-			otpremnica.setFakturaRel(fakturaService.getOne(source.getFakturaRel().getId()));
+		if(source.getFakturaRel()!=0){
+			otpremnica.setFakturaRel(fakturaService.getOne(source.getFakturaRel()));
 				
 		}
 		otpremnica.setObrisano(source.isObrisano());

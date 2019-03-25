@@ -37,23 +37,23 @@ public class OtpremnicaToOtpremnicaDTO implements Converter<Otpremnica, Otpremni
 		}
 		otpremnicaDTO.setPrimljenaRoba(source.isPrimljenaRoba());
 		if(source.getPrevoznik()!=null) {
-			otpremnicaDTO.setPrevoznikId(source.getPrevoznik());
+			otpremnicaDTO.setPrevoznikId(source.getPrevoznik().getId());
 				
 		}
 		if(source.getKupac()!=null) {
-			otpremnicaDTO.setKupacId(source.getKupac());
+			otpremnicaDTO.setKupacId(source.getKupac().getId());
 				
 		}
 		if(source.getUser()!=null) {
-			otpremnicaDTO.setUser(source.getUser());
+			otpremnicaDTO.setUser(source.getUser().getId());
 				
 		}
 		if(source.getPreduzece()!=null) {
-			otpremnicaDTO.setPreduzeceId(source.getPreduzece());
+			otpremnicaDTO.setPreduzeceId(source.getPreduzece().getId());
 				
 		}
 		if(source.getFakturaRel()!=null) {
-			otpremnicaDTO.setFakturaRel(source.getFakturaRel());
+			otpremnicaDTO.setFakturaRel(source.getFakturaRel().getId());
 				
 		}
 		otpremnicaDTO.setObrisano(source.isObrisano());

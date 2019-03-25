@@ -19,12 +19,12 @@ public class FakturaDTO {
 	private Long ukupanPDV;
 	private Long iznosZaPlacanje;
 	private String statusFakture;
-	private Narudzbenica narudzbeniceRel;
-	private Otpremnica otpremnicaRel;
-	private Kupac kupac;
-	private User user;
+	private int narudzbeniceRel;
+	private int otpremnicaRel;
+	private int kupac;
+	private int user;
 	private boolean obrisano;
-	private Preduzece preduzece;
+	private int preduzece;
 	
 	
 	public FakturaDTO () {}
@@ -32,8 +32,8 @@ public class FakturaDTO {
 	
 
 	public FakturaDTO(int idFakture, Long brojFakture, Date datumValute, Date datumFakture, Long osnovica,
-			Long ukupanPDV, Long iznosZaPlacanje, String statusFakture, Narudzbenica narudzbeniceRel, Otpremnica otpremnicaRel,
-			Kupac kupac,User user,boolean obrisano,Preduzece preduzece) {
+			Long ukupanPDV, Long iznosZaPlacanje, String statusFakture, int narudzbeniceRel, int otpremnicaRel,
+			int kupac,int user,boolean obrisano,int preduzece) {
 		super();
 		this.idFakture = idFakture;
 		this.brojFakture = brojFakture;
@@ -133,63 +133,67 @@ public class FakturaDTO {
 
 
 
-	public Narudzbenica getNarudzbeniceRel() {
+	public int getNarudzbeniceRel() {
 		return narudzbeniceRel;
 	}
 
 
 
-	public void setNarudzbeniceRel(Narudzbenica narudzbeniceRel) {
+	public void setNarudzbeniceRel(int narudzbeniceRel) {
 		this.narudzbeniceRel = narudzbeniceRel;
 	}
 
 
 
-	public Otpremnica getOtpremnicaRel() {
+	public int getOtpremnicaRel() {
 		return otpremnicaRel;
 	}
 
 
 
-	public void setOtpremnicaRel(Otpremnica otpremnicaRel) {
+	public void setOtpremnicaRel(int otpremnicaRel) {
 		this.otpremnicaRel = otpremnicaRel;
 	}
 
 
 
-	public Kupac getKupac() {
+	public int getKupac() {
 		return kupac;
 	}
 
 
 
-	public void setKupac(Kupac kupac) {
+	public void setKupac(int kupac) {
 		this.kupac = kupac;
 	}
 
 
 
-	public User getUser() {
+	public int getUser() {
 		return user;
 	}
 
 
 
-	public void setUser(User user) {
+	public void setUser(int user) {
 		this.user = user;
 	}
 
 
 
-	public Preduzece getPreduzece() {
+	public int getPreduzece() {
 		return preduzece;
 	}
 
 
 
-	public void setPreduzece(Preduzece preduzece) {
+	public void setPreduzece(int preduzece) {
 		this.preduzece = preduzece;
 	}
+
+
+
+	
 
 
 

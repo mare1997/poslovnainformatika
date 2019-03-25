@@ -15,18 +15,18 @@ public class OtpremnicaDTO {
 	private Date datumOtpremnice;
 	private boolean primljenaRoba;
 	private Date datumIsporuke;
-	private Prevoznik prevoznikId;
-	private Kupac kupacId;
-	private User user;
-	private Preduzece preduzeceId;
-	private Faktura fakturaRel;
+	private int prevoznikId;
+	private int kupacId;
+	private int user;
+	private int preduzeceId;
+	private int fakturaRel;
 	private boolean obrisano;
 	
 	
 	
 	
 	public OtpremnicaDTO(int idOtpremnice, Long brojOtpremnice, Date datumOtpremnice, boolean primljenaRoba,
-			Date datumIsporuke, Prevoznik prevoznikId, Kupac kupacId, User user, Preduzece preduzeceId, Faktura fakturaRel, boolean obrisano) {
+			Date datumIsporuke, int prevoznikId,int kupacId, int user, int preduzeceId, int fakturaRel, boolean obrisano) {
 		super();
 		this.idOtpremnice = idOtpremnice;
 		this.brojOtpremnice = brojOtpremnice;
@@ -105,52 +105,55 @@ public class OtpremnicaDTO {
 	}
 
 
-	public Prevoznik getPrevoznikId() {
+	
+
+
+	public int getPrevoznikId() {
 		return prevoznikId;
 	}
 
 
-	public void setPrevoznikId(Prevoznik prevoznikId) {
+	public void setPrevoznikId(int prevoznikId) {
 		this.prevoznikId = prevoznikId;
 	}
 
 
-	public Kupac getKupacId() {
+	public int getKupacId() {
 		return kupacId;
 	}
 
 
-	public void setKupacId(Kupac kupacId) {
+	public void setKupacId(int kupacId) {
 		this.kupacId = kupacId;
 	}
 
 
-	public User getUser() {
+	public int getUser() {
 		return user;
 	}
 
 
-	public void setUser(User user) {
+	public void setUser(int user) {
 		this.user = user;
 	}
 
 
-	public Preduzece getPreduzeceId() {
+	public int getPreduzeceId() {
 		return preduzeceId;
 	}
 
 
-	public void setPreduzeceId(Preduzece preduzeceId) {
+	public void setPreduzeceId(int preduzeceId) {
 		this.preduzeceId = preduzeceId;
 	}
 
 
-	public Faktura getFakturaRel() {
+	public int getFakturaRel() {
 		return fakturaRel;
 	}
 
 
-	public void setFakturaRel(Faktura fakturaRel) {
+	public void setFakturaRel(int fakturaRel) {
 		this.fakturaRel = fakturaRel;
 	}
 
