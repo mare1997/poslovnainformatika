@@ -175,12 +175,12 @@ function deleteNar(){
 		$.ajax({
 			url: 'https://localhost:8081/api/narudzbenice/softDeleteNarudzbenica/'+idDel,
 			headers:{Authorization:"Bearer " + token},
-			type: 'delete',
+			type: 'PUT',
 			success : function(response){
 				alert("izbrisana naruzbenica" + idDel)
 				/*var divSN = $('#selektovanaNarudzbenica');
 				divSN.hide();*/
-				loadListaNarudzbenica();
+				location.reload();
 				
 			},
 			error: function (jqXHR, textStatus, errorThrown) {  

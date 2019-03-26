@@ -479,21 +479,22 @@ function createSF(stavka,idF,robaUslugaId){
 		}
 
 		});
-		var vrednost = cena * stavka.kolicina;
+	//===========================================================
+		//var vrednost = cena * stavka.kolicina;
 		//rabatprocenat se unosi pri dodavanju stavke narudzbenice
 		rabatProcenat = $('#rabat').val().trim();
-		var rabat = vrednost * rabatProcenat / 100;//rabatProcenat ti je globalna promenjiva
-		var osnovicaPDV =  cena - rabat;
-		var iznosPDV =  osnovicaPDV * procenatStopaPDV/100;
-		var iznosStavke = vrednost- rabat + iznosPDV;
+		//var rabat = vrednost * rabatProcenat / 100;//rabatProcenat ti je globalna promenjiva
+		//var osnovicaPDV =  cena - rabat;
+		//var iznosPDV =  osnovicaPDV * procenatStopaPDV/100;
+		//var iznosStavke = vrednost- rabat + iznosPDV;
 		var formData ={
 			  	'kolicina' : stavka.kolicina,
 				'jedinicnaCena' : cena,
-				'rabat' : rabat ,
-				'osnovicaZaPDV' : osnovicaPDV ,
-				'procenatPDV' : procenatStopaPDV,
-				'iznosPDV' : iznosPDV,
-				'iznosStavke' : iznosStavke,
+				'rabat' : rabatProcenat ,
+				//'osnovicaZaPDV' : osnovicaPDV ,
+				//'procenatPDV' : procenatStopaPDV,
+				//'iznosPDV' : iznosPDV,
+				//'iznosStavke' : iznosStavke,
 				'idFakture' : idF,
 				'robaUslugaId' : stavka.robaUslugaId,
 				'jedinicaMere' : stavka.jedinicaMere,
