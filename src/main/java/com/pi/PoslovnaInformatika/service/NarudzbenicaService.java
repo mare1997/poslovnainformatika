@@ -145,12 +145,13 @@ public class NarudzbenicaService implements NarudzbenicaServiceInterface {
 		Narudzbenica narudzbenica = getOne(id);
 		Faktura f = new Faktura();
 		Otpremnica o = new Otpremnica();
-		if(fsi.getOne(narudzbenica.getFakturaRel().getId())!=null){
+		if(narudzbenica.getFakturaRel()!=null){
+			
 			f.setObrisano(true);
 			fsi.save(f);
 		}
 		
-		if(osi.getOne(f.getOtpremnicaRel().getIdOtpremnice())!=null){
+		if(narudzbenica.getFakturaRel().getOtpremnicaRel()!=null){
 			o.setObrisano(true);
 			osi.save(o);
 		}

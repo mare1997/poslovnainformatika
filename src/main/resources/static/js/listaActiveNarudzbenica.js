@@ -183,7 +183,7 @@ function loadListaActiveNarudzbenica(){
 					/*var divSN = $('#selektovanaNarudzbenica');
 					divSN.hide();*/
 					//loadListaActiveNarudzbenica();
-					loaction.reload();
+					location.reload();
 					
 				},
 				error: function (jqXHR, textStatus, errorThrown) {  
