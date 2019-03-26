@@ -87,25 +87,16 @@ function fillGrupaRobe(){
 	var pgId = localStorage.getItem("pgId",pgId);
 	var pId = localStorage.getItem("pId",pId);
 	$('#addRoba').modal();
-
-	
-	var grupe = $('#pickGrupaRobe option').remove();
 	$.ajax({
-    url:'https://localhost:8081/api/gruparobe/getGRdeliteNo/all/'+pId+'/'+pgId,
+    url:'https://localhost:8081/api/gruparobe/getGRdeliteNo/'+idGrupe+'/'+pId+'/'+pgId,
     headers:{Authorization:"Bearer " + token},
     type:"GET",
     dataType: 'json',
     crossDomain:true,
     success: function (response) {
       var select = $('#pickGrupaRobe');
-      for (var i=0; i<response.length; i++){
-        grupaR = response[i];
-
-          select.append(
-            '<option value="'+grupaR.id+'">'+grupaR.name+'</option>'
-          )
-
-      }
+      select.val(response.name);
+      
     },error: function (jqXHR, textStatus, errorThrown) {
 			alert("read error!!!");
   }
@@ -119,8 +110,7 @@ function addRoba(){
 	var mera = $('#addJedinicaMere').val().trim();
 	var cena = $('#inputCenaStavke').val().trim();
 
-  var grupaR = document.getElementById('pickGrupaRobe');
-  var grupaId= grupaR.options[grupaR.selectedIndex].value;
+  var grupaId= idGrupe;
 	if(naziv=="" || mera=="" || cena==""){
 		alert("Sva polja moraju biti popunjena");
 		return;
@@ -177,6 +167,9 @@ $.ajax({
         	
         	idKreiranog = response.id;
         	console.log(response.id);
+        	
+        	$('#addRoba').modal('hide');
+        	refresh();
        
         	
         },

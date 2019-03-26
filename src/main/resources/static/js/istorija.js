@@ -1,3 +1,5 @@
+
+
 $(document).ready(function(){
 	var name = window.location.search.slice(1).split('?')[0].split('=')[1];
 	console.log(name)
@@ -109,7 +111,7 @@ function loadotpremnice(){
 	tableHeader.append('<tr><th>Br. fakture</th><th>Datum fakture</th><th>Iznos za placanje</th><th>Status fakture</th><th>Kupac</th></tr>');
 	$.ajax({
 		method:'GET',
-		url: 'https://localhost:8081/api/otpremnice/all?page=0&size=10',
+		url: 'https://localhost:8081/api/otpremnice/all?page=0&size=10&posGodId='+poslovnaGod+"&preduzeceId="+preduzeceId,
 		 headers:{Authorization:"Bearer " + token},
 		dataType: 'json',
 		cashe: false,
@@ -140,7 +142,7 @@ function loadFakture(){
 	
 	 $.ajax({
 			method:'GET',
-			url: 'https://localhost:8081/api/fakture/all?page=0&size=10',
+			url: 'https://localhost:8081/api/fakture/all?page=0&size=10&posGodId="'+poslovnaGod+'"&preduzeceId="'+preduzeceId,
 			 headers:{Authorization:"Bearer " + token},
 			dataType: 'json',
 			cashe: false,

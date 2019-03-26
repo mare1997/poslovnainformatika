@@ -78,11 +78,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/api/cenovnik/**").hasAnyAuthority("ADMIN","REGULAR")
                 .antMatchers("/api/gruparobe/**").hasAnyAuthority("ADMIN","REGULAR")
                 .antMatchers("/api/kupac/**").hasAnyAuthority("ADMIN","REGULAR")
-                .antMatchers("/api/mesto/**").permitAll()
+                .antMatchers("/api/mesto/**").hasAnyAuthority("ADMIN","REGULAR")
                 .antMatchers("/api/pdv/**").hasAuthority("ADMIN")
                 
                 .antMatchers("/api/preduzece/**").hasAnyAuthority("ADMIN","REGULAR")
-                .antMatchers("/api/prevoznik/**").hasAuthority("ADMIN")
+                .antMatchers("/api/prevoznik/**").hasAnyAuthority("ADMIN","REGULAR")
                 .antMatchers("/api/stavkacenovnika/**").hasAuthority("ADMIN")
                 .antMatchers("/api/stopapdv/**").hasAuthority("ADMIN")
                 .antMatchers("/api/users/**").hasAuthority("ADMIN")
