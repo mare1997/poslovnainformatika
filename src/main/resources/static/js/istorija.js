@@ -121,7 +121,7 @@ function loadotpremnice(){
 			otpremnica = response[i];
 			otprId = otpremnica.idOtpremnice;
 			
-			var table = $('#bodyTable');
+			var table = $('#istorijaBody');
 			table.append('<tr id="'+otprId+'"><td>'+otprId+'</td><td>'+otpremnica.datumOtpremnice+'</td><td>'+otpremnica.datumIsporuke+'</td>'+
 					'<td>'+otpremnica.primljenaRoba+'</td><td>'+otpremnica.kupacId+'</td></tr>');
 			
@@ -142,7 +142,7 @@ function loadFakture(){
 	
 	 $.ajax({
 			method:'GET',
-			url: 'https://localhost:8081/api/fakture/all?page=0&size=10&posGodId="'+poslovnaGod+'"&preduzeceId="'+preduzeceId,
+			url: 'https://localhost:8081/api/fakture/all?page=0&size=10&posGodId='+poslovnaGod+"&preduzeceId="+preduzeceId,
 			 headers:{Authorization:"Bearer " + token},
 			dataType: 'json',
 			cashe: false,
@@ -152,7 +152,7 @@ function loadFakture(){
 				faktura = response[i];
 				faktId = faktura.idFakture;
 				console.log("idFakture" + faktId)
-				var table = $('#bodyTable');
+				var table = $('#istorijaBody');
 				table.append('<tr id="'+faktId+'"><td>'+faktId+'</td><td>'+faktura.datumFakture+'</td><td>'+faktura.iznosZaPlacanje+'</td>'+
 						'<td>'+faktura.statusFakture+'</td><td>'+faktura.kupac+'</td></tr>');
 				
