@@ -53,7 +53,7 @@ var cenId = localStorage.getItem("cenId");
     	  console.log("usao u for");
     	  var cena = response[i];
     	  console.log(cena);
-    	  table.append('<tr id="'+cena.id+'"><td>'+cena.roba+'</td><td>'+cena.cena+'</td></tr>');
+    	  table.append('<tr id="'+cena.id+'"><td>'+cena.roba.name+'</td><td>'+cena.cena+'</td></tr>');
 
       }
     },error: function (jqXHR, textStatus, errorThrown) {
